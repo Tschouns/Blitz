@@ -1,0 +1,6 @@
+C:\bin\Debug\Geometry.Service.dll
+C:\bin\Debug\Geometry.Service.pdb
+E:\Projects\Visual Studio 2015\Blitz\bin\Debug\Geometry.Service.dll
+E:\Projects\Visual Studio 2015\Blitz\bin\Debug\Geometry.Service.pdb
+E:\Projects\Visual Studio 2015\Blitz\Geometry.Service\obj\Debug\Geometry.Service.dll
+E:\Projects\Visual Studio 2015\Blitz\Geometry.Service\obj\Debug\Geometry.Service.pdb
