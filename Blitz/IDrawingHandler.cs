@@ -12,7 +12,7 @@ namespace Blitz
     /// <summary>
     /// Draws stuff.
     /// </summary>
-    public interface IDrawingHelper
+    public interface IDrawingHandler
     {
         /// <summary>
         /// Draws a dot at the specified point.
