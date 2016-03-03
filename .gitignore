@@ -52,3 +52,6 @@ obj/
 
 # User options file
 .vs/Blitz/v14/.suo
+
+# Style Cop cache files
+**/StyleCop.Cache
