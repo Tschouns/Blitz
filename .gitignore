@@ -46,10 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#Build output directories
+# Build output directories
 bin/
 obj/
+
+# User options file
 .vs/Blitz/v14/.suo
-.vs/Blitz/v14/.suo
-Base/obj/Debug/Base.dll
-Base/obj/Debug/Base.pdb
