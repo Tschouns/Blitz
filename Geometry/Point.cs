@@ -12,6 +12,15 @@ namespace Geometry
     public struct Point
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Point"/> struct.
+        /// </summary>
+        public Point(double x, double y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        /// <summary>
         /// Gets or sets the X position.
         /// </summary>
         public double X { get; set; }

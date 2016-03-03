@@ -23,11 +23,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <sourcecode name="Point.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2016.03.01 20:59:56.424</styleCop>
       <settingsFile>2016.03.01 21:48:36.414</settingsFile>
-      <sourceFile>2016.03.01 21:34:46.101</sourceFile>
+      <sourceFile>2016.03.01 21:34:54.962</sourceFile>
       <parser>2016.03.01 20:59:56.424</parser>
       <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -46,11 +46,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="Point.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2016.03.01 20:59:56.424</styleCop>
       <settingsFile>2016.03.01 21:48:36.414</settingsFile>
-      <sourceFile>2016.03.01 21:34:54.962</sourceFile>
+      <sourceFile>2016.03.03 01:17:06.731</sourceFile>
       <parser>2016.03.01 20:59:56.424</parser>
       <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
