@@ -21,6 +21,6 @@ namespace Blitz
         /// <summary>
         /// Clears the canvas.
         /// </summary>
-        void Clear();
+        void ClearDrawings();
     }
 }

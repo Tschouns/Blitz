@@ -7,7 +7,6 @@
 namespace Blitz
 {
     using System.Collections.Generic;
-    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using Base.RuntimeChecks;
@@ -17,16 +16,6 @@ namespace Blitz
     /// </summary>
     public partial class ClickyDrawingControl : UserControl
     {
-        /// <summary>
-        /// Stores the actual canvas to draw on.
-        /// </summary>
-        private readonly OpenCanvas canvas;
-
-        /// <summary>
-        /// Stores the handler which draws on the canvas.
-        /// </summary>
-        private readonly IDrawingHandler drawingHandler;
-
         /// <summary>
         /// Stores all the "dots" created by the user.
         /// </summary>
@@ -38,39 +27,19 @@ namespace Blitz
         public ClickyDrawingControl()
         {
             this.InitializeComponent();
+                        
+            this.dots = new List<Geometry.Point>();
 
             // canvas
-            this.canvas = new OpenCanvas();
-
-            this.AddVisualChild(this.canvas);
-
-            this.canvas.Margin = new Thickness(0);
-            this.canvas.MouseDown += this.OpenCanvas_MouseDown;
-                        
-            // drawing handler
-            this.drawingHandler = new CanvasDrawingHandler(this.canvas);
-
-            // dots list
-            this.dots = new List<Geometry.Point>();
-        }
-
-        /// <summary>
-        /// Draws the objects, created by the user, on the canvas.
-        /// </summary>
-        private void Draw()
-        {
-            this.canvas.Clear();
-
-            foreach (var dot in this.dots)
-            {
-                this.drawingHandler.DrawDot(dot);
-            }
+            this.canvas.Background = System.Windows.Media.Brushes.CornflowerBlue;
+            this.canvas.MouseDown += this.Canvas_MouseDown;
+            this.canvas.Rendering += this.RenderigCanvas_Rendering;
         }
 
         /// <summary>
         /// Handles the <see cref="Canvas.MouseDown"/> event.
         /// </summary>
-        private void OpenCanvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
+        private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
@@ -79,7 +48,20 @@ namespace Blitz
 
             this.dots.Add(dot);
 
-            this.Draw();
+            this.canvas.InvalidateVisual();
+        }
+
+        /// <summary>
+        /// Handles the <see cref="RenderingCanvas.Rendering"/> event.
+        /// </summary>
+        private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
+        {
+            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            
+            foreach (var dot in this.dots)
+            {
+                eventArgs.DrawingHandler.DrawDot(dot);
+            }
         }
     }
 }

@@ -6,5 +6,7 @@
              xmlns:local="clr-namespace:Blitz"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid/>
+    <Grid>
+        <local:RenderingCanvas x:Name="canvas" Margin="10,10,10,10"/>
+    </Grid>
 </UserControl>

@@ -39,6 +39,8 @@ namespace Blitz
         {
             var drawing = new DrawingVisual();
 
+            this.canvas.AddDrawing(drawing);
+
             using (DrawingContext drawingContext = drawing.RenderOpen())
             {
                 var radius = 5;
@@ -50,8 +52,6 @@ namespace Blitz
                     radius,
                     radius);
             }
-
-            this.canvas.AddDrawing(drawing);
         }
 
         /// <summary>

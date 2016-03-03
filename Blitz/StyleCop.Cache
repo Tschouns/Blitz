@@ -211,7 +211,30 @@
     <timestamps>
       <styleCop>2016.03.01 20:59:56.424</styleCop>
       <settingsFile>2016.03.01 21:48:22.181</settingsFile>
-      <sourceFile>2016.03.03 00:42:31.970</sourceFile>
+      <sourceFile>2016.03.03 02:00:02.009</sourceFile>
+      <parser>2016.03.01 20:59:56.424</parser>
+      <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2016.03.01 20:59:56.424</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2016.03.01 20:59:56.424</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2016.03.01 20:59:56.424</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations />
+  </sourcecode>
+  <sourcecode name="DrawingContextDrawingHandler.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2016.03.01 20:59:56.424</styleCop>
+      <settingsFile>2016.03.01 21:48:22.181</settingsFile>
+      <sourceFile>2016.03.03 21:27:45.541</sourceFile>
       <parser>2016.03.01 20:59:56.424</parser>
       <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -234,7 +257,7 @@
     <timestamps>
       <styleCop>2016.03.01 20:59:56.424</styleCop>
       <settingsFile>2016.03.01 21:48:22.181</settingsFile>
-      <sourceFile>2016.03.03 00:40:28.395</sourceFile>
+      <sourceFile>2016.03.03 01:51:24.700</sourceFile>
       <parser>2016.03.01 20:59:56.424</parser>
       <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -257,7 +280,53 @@
     <timestamps>
       <styleCop>2016.03.01 20:59:56.424</styleCop>
       <settingsFile>2016.03.01 21:48:22.181</settingsFile>
-      <sourceFile>2016.03.03 00:43:12.617</sourceFile>
+      <sourceFile>2016.03.03 20:44:42.094</sourceFile>
+      <parser>2016.03.01 20:59:56.424</parser>
+      <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2016.03.01 20:59:56.424</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2016.03.01 20:59:56.424</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2016.03.01 20:59:56.424</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ClickyDrawingControl.xaml.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2016.03.01 20:59:56.424</styleCop>
+      <settingsFile>2016.03.01 21:48:22.181</settingsFile>
+      <sourceFile>2016.03.03 22:38:09.650</sourceFile>
+      <parser>2016.03.01 20:59:56.424</parser>
+      <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2016.03.01 20:59:56.424</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2016.03.01 20:59:56.424</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2016.03.01 20:59:56.424</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2016.03.01 20:59:56.424</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations />
+  </sourcecode>
+  <sourcecode name="RenderingCanvas.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2016.03.01 20:59:56.424</styleCop>
+      <settingsFile>2016.03.01 21:48:22.181</settingsFile>
+      <sourceFile>2016.03.03 22:38:18.560</sourceFile>
       <parser>2016.03.01 20:59:56.424</parser>
       <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -279,11 +348,11 @@
   <project key="263301633">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <sourcecode name="ClickyDrawingControl.xaml.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="RenderingEventArgs.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2016.03.01 20:59:56.424</styleCop>
       <settingsFile>2016.03.01 21:48:22.181</settingsFile>
-      <sourceFile>2016.03.03 01:25:26.336</sourceFile>
+      <sourceFile>2016.03.03 22:40:10.455</sourceFile>
       <parser>2016.03.01 20:59:56.424</parser>
       <StyleCop.CSharp.DocumentationRules>2016.03.01 20:59:56.424</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1234411365</StyleCop.CSharp.DocumentationRules.FilesHashCode>

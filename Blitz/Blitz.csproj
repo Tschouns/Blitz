@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DrawingContextDrawingHandler.cs" />
+    <Compile Include="RenderingEventArgs.cs" />
     <Page Include="ClickyDrawingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -68,6 +70,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CanvasDrawingHandler.cs" />
+    <Compile Include="RenderingCanvas.cs" />
     <Compile Include="ClickyDrawingControl.xaml.cs">
       <DependentUpon>ClickyDrawingControl.xaml</DependentUpon>
     </Compile>

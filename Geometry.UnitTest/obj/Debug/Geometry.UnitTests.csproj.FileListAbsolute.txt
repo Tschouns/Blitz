@@ -2,6 +2,6 @@ C:\bin\Debug\Geometry.UnitTest.dll
 C:\bin\Debug\Geometry.UnitTest.pdb
 E:\Projects\Visual Studio 2015\Blitz\bin\Debug\Geometry.UnitTest.dll
 E:\Projects\Visual Studio 2015\Blitz\bin\Debug\Geometry.UnitTest.pdb
+E:\Projects\Visual Studio 2015\Blitz\Geometry.UnitTest\obj\Debug\Geometry.UnitTests.csprojResolveAssemblyReference.cache
 E:\Projects\Visual Studio 2015\Blitz\Geometry.UnitTest\obj\Debug\Geometry.UnitTest.dll
 E:\Projects\Visual Studio 2015\Blitz\Geometry.UnitTest\obj\Debug\Geometry.UnitTest.pdb
-E:\Projects\Visual Studio 2015\Blitz\Geometry.UnitTest\obj\Debug\Geometry.UnitTests.csprojResolveAssemblyReference.cache

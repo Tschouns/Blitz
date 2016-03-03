@@ -4,4 +4,3 @@ E:\Projects\Visual Studio 2015\Blitz\bin\Debug\Geometry.dll
 E:\Projects\Visual Studio 2015\Blitz\bin\Debug\Geometry.pdb
 E:\Projects\Visual Studio 2015\Blitz\Geometry\obj\Debug\Geometry.dll
 E:\Projects\Visual Studio 2015\Blitz\Geometry\obj\Debug\Geometry.pdb
-E:\Projects\Visual Studio 2015\Blitz\Geometry\obj\Debug\Geometry.csprojResolveAssemblyReference.cache
