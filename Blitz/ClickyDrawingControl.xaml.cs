@@ -20,17 +20,22 @@ namespace Blitz
         /// <summary>
         /// Stores all the "dots" created by the user.
         /// </summary>
-        private readonly IList<Geometry.Point> dots;
+        private readonly IList<Point> dots;
 
         /// <summary>
         /// Stores all the lines created by the user.
         /// </summary>
-        private readonly IList<Geometry.Line> lines;
+        private readonly IList<Line> lineSegments;
+
+        /// <summary>
+        /// Stores all the intersection points between the line segments.
+        /// </summary>
+        private readonly IList<Point> lineIntersections;
 
         /// <summary>
         /// Stores the point last clicked by the user.
         /// </summary>
-        private Geometry.Point lastClickedPoint;
+        private Point? lastClickedPoint;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClickyDrawingControl"/> class.
@@ -39,9 +44,11 @@ namespace Blitz
         {
             this.InitializeComponent();
                         
-            this.dots = new List<Geometry.Point>();
-            this.lines = new List<Geometry.Line>();
-            this.lastClickedPoint = new Point(0, 0);
+            this.dots = new List<Point>();
+            this.lineSegments = new List<Line>();
+            this.lineIntersections = new List<Point>();
+
+            this.lastClickedPoint = null;
 
             // canvas
             this.canvas.Background = System.Windows.Media.Brushes.CornflowerBlue;
@@ -58,11 +65,25 @@ namespace Blitz
 
             var position = eventArgs.GetPosition(this);
 
+            // Create a new dot.
             var dot = new Point(position.X, position.Y);
             this.dots.Add(dot);
 
-            var line = new Line(this.lastClickedPoint, dot);
-            this.lines.Add(line);
+            // Create a new line segment.
+            if (this.lastClickedPoint.HasValue)
+            {
+                var lineSegment = new Line(this.lastClickedPoint.Value, dot);
+                
+                // Detect new line intersections.
+                {
+                    foreach (var existingLineSegment in this.lineSegments)
+                    {
+                        // TODO: check for intersections...
+                    }
+                }
+
+                this.lineSegments.Add(lineSegment);
+            }
 
             this.lastClickedPoint = dot;
 
@@ -76,9 +97,9 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            foreach (var line in this.lines)
+            foreach (var lineSegment in this.lineSegments)
             {
-                eventArgs.DrawingHandler.DrawLineSegment(line);
+                eventArgs.DrawingHandler.DrawLineSegment(lineSegment);
             }
 
             foreach (var dot in this.dots)
