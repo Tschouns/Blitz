@@ -16,6 +16,20 @@ namespace Geometry.Service
     public class LineIntersectionHelper : ILineIntersectionHelper
     {
         /// <summary>
+        /// See <see cref="ILineIntersectionHelper.AreLinesParallel"/>.
+        /// </summary>
+        public bool AreLinesParallel(Line lineA, Line lineB)
+        {
+            double denominator = CalculateDenominatorOfUaOrUb(
+                lineA.Point1,
+                lineA.Point2,
+                lineB.Point1,
+                lineB.Point2);
+
+            return denominator == 0;
+        }
+
+        /// <summary>
         /// See <see cref="ILineIntersectionHelper.GetLineIntersection"/>.
         /// </summary>
         public NullableResult<Point> GetLineIntersection(Line lineA, Line lineB)
@@ -40,7 +54,7 @@ namespace Geometry.Service
         /// <summary>
         /// Calculates the denominator for <c>ua</c> or <c>ub</c>, respectively. The algebra behind this is
         /// explained in the following articles:
-        /// - <see cref="http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/"/>.
+        /// - <see cref="http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/"/>
         /// - <see cref="http://devmag.org.za/2009/04/17/basic-collision-detection-in-2d-part-2/"/>
         /// </summary>
         private static double CalculateDenominatorOfUaOrUb(Point a1, Point a2, Point b1, Point b2)

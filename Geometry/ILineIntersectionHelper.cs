@@ -14,6 +14,11 @@ namespace Geometry
     public interface ILineIntersectionHelper
     {
         /// <summary>
+        /// Gets a value indicating whether the lines (or line segments) A and be are parallel.
+        /// </summary>
+        bool AreLinesParallel(Line lineA, Line lineB);
+
+        /// <summary>
         /// Gets a result containing the point where the infinite lines A and B intersect, or <c>null</c>
         /// if the lines do not intersect at all, i.e. are parallel.
         /// </summary>

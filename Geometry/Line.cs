@@ -6,6 +6,8 @@
 
 namespace Geometry
 {
+    using System;
+
     /// <summary>
     /// Represents a line on a plane, defined by two points.
     /// </summary>
@@ -16,18 +18,23 @@ namespace Geometry
         /// </summary>
         public Line(Point point1, Point point2)
         {
+            if (object.Equals(point1, point2))
+            {
+                throw new ArgumentException("The two specified points are identical; the line is not defined.");
+            }
+
             this.Point1 = point1;
             this.Point2 = point2;
         }
 
         /// <summary>
-        /// Gets or sets the first point defining the line.
+        /// Gets the first point defining the line.
         /// </summary>
-        public Point Point1 { get; set; }
+        public Point Point1 { get; }
 
         /// <summary>
-        /// Gets or sets the second point defining the line.
+        /// Gets the second point defining the line.
         /// </summary>
-        public Point Point2 { get; set; }
+        public Point Point2 { get; }
     }
 }
