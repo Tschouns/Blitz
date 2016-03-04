@@ -1,5 +1,8 @@
 === Collision detection, line interstections ===
 http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/
 
-=== WPF 2D graphics (Louis Yang) ==
+=== WPF 2D graphics (Louis Yang) ===
 https://www.youtube.com/watch?v=wTxktpA5GUM
+
+=== High performance WPF 3D chart ===
+http://www.codeproject.com/Articles/42174/High-performance-WPF-D-Chart
