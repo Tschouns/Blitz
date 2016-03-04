@@ -57,7 +57,7 @@ namespace Blitz
         /// <summary>
         /// See <see cref="IDrawingHandler.DrawLineSegment"/>.
         /// </summary>
-        public void DrawLineSegment(Point point1, Point point2)
+        public void DrawLineSegment(Line line)
         {
             throw new NotImplementedException();
         }

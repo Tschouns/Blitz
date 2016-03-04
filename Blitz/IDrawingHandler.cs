@@ -20,9 +20,9 @@ namespace Blitz
         void DrawDot(Point point);
 
         /// <summary>
-        /// Draws a line segment, from the first specified point to the second specified point.
+        /// Draws a line segment.
         /// </summary>
-        void DrawLineSegment(Point point1, Point point2);
+        void DrawLineSegment(Line line);
 
         /// <summary>
         /// Draws a path, defined by the specified set of points.

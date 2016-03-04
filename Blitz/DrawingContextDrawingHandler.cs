@@ -9,6 +9,7 @@ namespace Blitz
     using System;
     using System.Collections.Generic;
     using System.Windows.Media;
+    using Base.RuntimeChecks;
     using Geometry;
 
     /// <summary>
@@ -47,9 +48,14 @@ namespace Blitz
         /// <summary>
         /// See <see cref="DrawingContext.DrawLineSegment"/>.
         /// </summary>
-        public void DrawLineSegment(Point point1, Point point2)
+        public void DrawLineSegment(Line line)
         {
-            throw new NotImplementedException();
+            Checks.AssertNotNull(line, nameof(line));
+
+            this.drawingContext.DrawLine(
+                new Pen(Brushes.Black, 2),
+                new System.Windows.Point(line.Point1.X, line.Point1.Y),
+                new System.Windows.Point(line.Point2.X, line.Point2.Y));
         }
 
         /// <summary>

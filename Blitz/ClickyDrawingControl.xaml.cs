@@ -10,6 +10,7 @@ namespace Blitz
     using System.Windows.Controls;
     using System.Windows.Input;
     using Base.RuntimeChecks;
+    using Geometry;
 
     /// <summary>
     /// Interaction logic for <see cref="ClickyDrawingControl"/>.
@@ -22,6 +23,16 @@ namespace Blitz
         private readonly IList<Geometry.Point> dots;
 
         /// <summary>
+        /// Stores all the lines created by the user.
+        /// </summary>
+        private readonly IList<Geometry.Line> lines;
+
+        /// <summary>
+        /// Stores the point last clicked by the user.
+        /// </summary>
+        private Geometry.Point lastClickedPoint;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ClickyDrawingControl"/> class.
         /// </summary>
         public ClickyDrawingControl()
@@ -29,6 +40,8 @@ namespace Blitz
             this.InitializeComponent();
                         
             this.dots = new List<Geometry.Point>();
+            this.lines = new List<Geometry.Line>();
+            this.lastClickedPoint = new Point(0, 0);
 
             // canvas
             this.canvas.Background = System.Windows.Media.Brushes.CornflowerBlue;
@@ -44,9 +57,14 @@ namespace Blitz
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             var position = eventArgs.GetPosition(this);
-            var dot = new Geometry.Point(position.X, position.Y);
 
+            var dot = new Point(position.X, position.Y);
             this.dots.Add(dot);
+
+            var line = new Line(this.lastClickedPoint, dot);
+            this.lines.Add(line);
+
+            this.lastClickedPoint = dot;
 
             this.canvas.InvalidateVisual();
         }
@@ -57,7 +75,12 @@ namespace Blitz
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
-            
+
+            foreach (var line in this.lines)
+            {
+                eventArgs.DrawingHandler.DrawLineSegment(line);
+            }
+
             foreach (var dot in this.dots)
             {
                 eventArgs.DrawingHandler.DrawDot(dot);
