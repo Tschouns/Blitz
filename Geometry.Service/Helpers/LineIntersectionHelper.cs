@@ -30,7 +30,7 @@ namespace Geometry.Service.Helpers
         }
 
         /// <summary>
-        /// See <see cref="ILineIntersectionHelper.GetLineIntersection"/>. TODO: write unit tests!
+        /// See <see cref="ILineIntersectionHelper.GetLineIntersection"/>.
         /// </summary>
         public Point? GetLineIntersection(Line lineA, Line lineB)
         {
@@ -65,7 +65,7 @@ namespace Geometry.Service.Helpers
         }
 
         /// <summary>
-        /// See <see cref="ILineIntersectionHelper.GetLineSegmentIntersection"/>. TODO: write unit tests!
+        /// See <see cref="ILineIntersectionHelper.GetLineSegmentIntersection"/>.
         /// </summary>
         public Point? GetLineSegmentIntersection(Line lineSegmentA, Line lineSegmentB)
         {

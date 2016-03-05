@@ -6,7 +6,6 @@
 
 namespace Geometry.Helpers
 {
-    using Base.Results;
     using Elements;
 
     /// <summary>

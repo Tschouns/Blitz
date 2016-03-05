@@ -23,6 +23,7 @@ namespace Geometry.Service
         public void PerformIocContainerRegistrations()
         {
             Ioc.Container.RegisterSingleton<ILineIntersectionHelper, LineIntersectionHelper>();
+            Ioc.Container.RegisterSingleton<IPointTransformationHelper, PointTransformationHelper>();
         }
     }
 }

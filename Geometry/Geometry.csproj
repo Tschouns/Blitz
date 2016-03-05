@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\Vector2.cs" />
+    <Compile Include="Extensions\PointExtensions.cs" />
+    <Compile Include="Extensions\Vector2Extensions.cs" />
     <Compile Include="Helpers\ILineIntersectionHelper.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\Point.cs" />
+    <Compile Include="Helpers\IPointTransformationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

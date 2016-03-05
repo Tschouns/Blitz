@@ -9,6 +9,7 @@ http://www.codeproject.com/Articles/42174/High-performance-WPF-D-Chart
 
 === 2D transformations ===
 https://www.youtube.com/watch?v=HpXQaz7OMqQ
+http://www.tutorialspoint.com/computer_graphics/2d_transformation.htm
 
 === Matric algebra ===
 https://www.youtube.com/watch?v=YSA22JSUCo8
