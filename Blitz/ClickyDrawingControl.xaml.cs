@@ -93,15 +93,13 @@ namespace Blitz
                 var lineSegment = new Line(this.lastClickedPoint.Value, dot);
                 
                 // Detect new line intersections with existing line segments.
+                foreach (var existingLineSegment in this.lineSegments)
                 {
-                    foreach (var existingLineSegment in this.lineSegments)
-                    {
-                        var result = this.lineIntersectionHelper.GetLineSegmentIntersection(lineSegment, existingLineSegment);
+                    var result = this.lineIntersectionHelper.GetLineSegmentIntersection(lineSegment, existingLineSegment);
 
-                        if (result.HasValue)
-                        {
-                            this.lineIntersections.Add(result.Value);
-                        }
+                    if (result.HasValue)
+                    {
+                        this.lineIntersections.Add(result.Value);
                     }
                 }
 

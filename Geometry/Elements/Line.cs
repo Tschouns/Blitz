@@ -18,11 +18,6 @@ namespace Geometry.Elements
         /// </summary>
         public Line(Point point1, Point point2)
         {
-            if (object.Equals(point1, point2))
-            {
-                throw new ArgumentException("The two specified points are identical; the line is not defined.");
-            }
-
             this.Point1 = point1;
             this.Point2 = point2;
         }
