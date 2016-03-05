@@ -9,15 +9,21 @@ namespace Blitz
     using System.Collections.Generic;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using Base.InversionOfControl;
     using Base.RuntimeChecks;
-    using Geometry;
     using Geometry.Elements;
+    using Geometry.Helpers;
 
     /// <summary>
     /// Interaction logic for <see cref="ClickyDrawingControl"/>.
     /// </summary>
     public partial class ClickyDrawingControl : UserControl
     {
+        /// <summary>
+        /// Used to detect line intersections.
+        /// </summary>
+        private readonly ILineIntersectionHelper lineIntersectionHelper;
+
         /// <summary>
         /// Stores all the "dots" created by the user.
         /// </summary>
@@ -42,14 +48,25 @@ namespace Blitz
         /// Initializes a new instance of the <see cref="ClickyDrawingControl"/> class.
         /// </summary>
         public ClickyDrawingControl()
+            : this(Ioc.Container.Resolve<ILineIntersectionHelper>())
         {
-            this.InitializeComponent();
-                        
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClickyDrawingControl"/> class.
+        /// </summary>
+        public ClickyDrawingControl(ILineIntersectionHelper lineIntersectionHelper)
+        {
+            Checks.AssertNotNull(lineIntersectionHelper, nameof(lineIntersectionHelper));
+
+            this.lineIntersectionHelper = lineIntersectionHelper;
+
             this.dots = new List<Point>();
             this.lineSegments = new List<Line>();
             this.lineIntersections = new List<Point>();
-
             this.lastClickedPoint = null;
+
+            this.InitializeComponent();
 
             // canvas
             this.canvas.Background = System.Windows.Media.Brushes.CornflowerBlue;
@@ -75,11 +92,16 @@ namespace Blitz
             {
                 var lineSegment = new Line(this.lastClickedPoint.Value, dot);
                 
-                // Detect new line intersections.
+                // Detect new line intersections with existing line segments.
                 {
                     foreach (var existingLineSegment in this.lineSegments)
                     {
-                        // TODO: check for intersections...
+                        var result = this.lineIntersectionHelper.GetLineSegmentIntersection(lineSegment, existingLineSegment);
+
+                        if (result.HasValue)
+                        {
+                            this.lineIntersections.Add(result.Value);
+                        }
                     }
                 }
 
@@ -103,10 +125,15 @@ namespace Blitz
                 eventArgs.DrawingHandler.DrawLineSegment(lineSegment);
             }
 
-            foreach (var dot in this.dots)
+            foreach (var intersectionPoint in this.lineIntersections)
             {
-                eventArgs.DrawingHandler.DrawDot(dot);
+                eventArgs.DrawingHandler.DrawDot(intersectionPoint);
             }
+
+            ////foreach (var dot in this.dots)
+            ////{
+            ////    eventArgs.DrawingHandler.DrawDot(dot);
+            ////}
         }
     }
 }

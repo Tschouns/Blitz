@@ -6,8 +6,6 @@
 
 namespace Geometry.Service.Helpers
 {
-    using System;
-    using Base.Results;
     using Base.RuntimeChecks;
     using Elements;
     using Geometry.Helpers;
@@ -32,25 +30,87 @@ namespace Geometry.Service.Helpers
         }
 
         /// <summary>
-        /// See <see cref="ILineIntersectionHelper.GetLineIntersection"/>.
+        /// See <see cref="ILineIntersectionHelper.GetLineIntersection"/>. TODO: write unit tests!
         /// </summary>
-        public NullableResult<Point> GetLineIntersection(Line lineA, Line lineB)
+        public Point? GetLineIntersection(Line lineA, Line lineB)
         {
             Checks.AssertNotNull(lineA, nameof(lineA));
             Checks.AssertNotNull(lineB, nameof(lineB));
 
-            throw new NotImplementedException();
+            double denominator = CalculateDenominatorOfUaOrUb(
+                lineA.Point1,
+                lineA.Point2,
+                lineB.Point1,
+                lineB.Point2);
+
+            if (denominator == 0)
+            {
+                return null;
+            }
+
+            double numeratorOfUa = CalculateNumeratorOfUa(
+                lineA.Point1,
+                lineA.Point2,
+                lineB.Point1,
+                lineB.Point2);
+
+            double ua = numeratorOfUa / denominator;
+
+            // Calculate intersection point, based on line A and ua.
+            var intersectionPoint = new Point(
+                lineA.Point1.X + (ua * (lineA.Point2.X - lineA.Point1.X)),
+                lineA.Point1.Y + (ua * (lineA.Point2.Y - lineA.Point1.Y)));
+
+            return intersectionPoint;
         }
 
         /// <summary>
-        /// See <see cref="ILineIntersectionHelper.GetLineSegmentIntersection"/>.
+        /// See <see cref="ILineIntersectionHelper.GetLineSegmentIntersection"/>. TODO: write unit tests!
         /// </summary>
-        public NullableResult<Point> GetLineSegmentIntersection(Line lineSegmentA, Line lineSegmentB)
+        public Point? GetLineSegmentIntersection(Line lineSegmentA, Line lineSegmentB)
         {
             Checks.AssertNotNull(lineSegmentA, nameof(lineSegmentA));
             Checks.AssertNotNull(lineSegmentB, nameof(lineSegmentB));
 
-            throw new NotImplementedException();
+            double denominator = CalculateDenominatorOfUaOrUb(
+                lineSegmentA.Point1,
+                lineSegmentA.Point2,
+                lineSegmentB.Point1,
+                lineSegmentB.Point2);
+
+            if (denominator == 0)
+            {
+                return null;
+            }
+
+            double numeratorOfUa = CalculateNumeratorOfUa(
+                lineSegmentA.Point1,
+                lineSegmentA.Point2,
+                lineSegmentB.Point1,
+                lineSegmentB.Point2);
+
+            double ua = numeratorOfUa / denominator;
+
+            // We need ub only to check whether the intersection is between the end points of each respective segment.
+            double numeratorOfUb = CalculateNumeratorOfUb(
+                lineSegmentA.Point1,
+                lineSegmentA.Point2,
+                lineSegmentB.Point1,
+                lineSegmentB.Point2);
+
+            double ub = numeratorOfUb / denominator;
+
+            if (ua < 0 || ua > 1 || ub < 0 || ub > 1)
+            {
+                return null;
+            }
+
+            // Calculate intersection point, based on line A and ua (same as for infinity lines; ub is not needed).
+            var intersectionPoint = new Point(
+                lineSegmentA.Point1.X + (ua * (lineSegmentA.Point2.X - lineSegmentA.Point1.X)),
+                lineSegmentA.Point1.Y + (ua * (lineSegmentA.Point2.Y - lineSegmentA.Point1.Y)));
+
+            return intersectionPoint;
         }
 
         /// <summary>
@@ -64,6 +124,26 @@ namespace Geometry.Service.Helpers
             double denominator = ((b2.Y - b1.Y) * (a2.X - a1.X)) - ((b2.X - b1.X) * (a2.Y - a1.Y));
 
             return denominator;
+        }
+
+        /// <summary>
+        /// Calculates the numerator for <c>ua</c>.
+        /// </summary>
+        private static double CalculateNumeratorOfUa(Point a1, Point a2, Point b1, Point b2)
+        {
+            double numerator = ((b2.X - b1.X) * (a1.Y - b1.Y)) - ((b2.Y - b1.Y) * (a1.X - b1.X));
+
+            return numerator;
+        }
+
+        /// <summary>
+        /// Calculates the numerator for <c>ub</c>.
+        /// </summary>
+        private static double CalculateNumeratorOfUb(Point a1, Point a2, Point b1, Point b2)
+        {
+            double numerator = ((a2.X - a1.X) * (a1.Y - b1.Y)) - ((a2.Y - a1.Y) * (a1.X - b1.X));
+
+            return numerator;
         }
     }
 }

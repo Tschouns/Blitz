@@ -13,7 +13,7 @@ namespace Base.Results
     /// <typeparam name="T">
     /// The type of the result value
     /// </typeparam>
-    public class NullableResult<T>
+    public class NullableResult<T> where T : class
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NullableResult{T}"/> class. The value this instance

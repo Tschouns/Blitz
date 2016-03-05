@@ -20,15 +20,15 @@ namespace Geometry.Helpers
         bool AreLinesParallel(Line lineA, Line lineB);
 
         /// <summary>
-        /// Gets a result containing the point where the infinite lines A and B intersect, or <c>null</c>
-        /// if the lines do not intersect at all, i.e. are parallel.
+        /// Gets the point where the infinite lines A and B intersect, or <c>null</c> if the
+        /// lines do not intersect at all, i.e. are parallel.
         /// </summary>
-        NullableResult<Point> GetLineIntersection(Line lineA, Line lineB);
+        Point? GetLineIntersection(Line lineA, Line lineB);
 
         /// <summary>
-        /// Gets a result containing the point where the line segments A and B intersect, or <c>null</c>
-        /// if the line segments do not intersect.
+        /// Gets the point where the line segments A and B intersect, or <c>null</c> if the
+        /// line segments do not intersect.
         /// </summary>
-        NullableResult<Point> GetLineSegmentIntersection(Line lineSegmentA, Line lineSegmentB);
+        Point? GetLineSegmentIntersection(Line lineSegmentA, Line lineSegmentB);
     }
 }
