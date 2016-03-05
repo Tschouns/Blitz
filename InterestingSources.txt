@@ -6,3 +6,9 @@ https://www.youtube.com/watch?v=wTxktpA5GUM
 
 === High performance WPF 3D chart ===
 http://www.codeproject.com/Articles/42174/High-performance-WPF-D-Chart
+
+=== 2D transformations ===
+https://www.youtube.com/watch?v=HpXQaz7OMqQ
+
+=== Matric algebra ===
+https://www.youtube.com/watch?v=YSA22JSUCo8
