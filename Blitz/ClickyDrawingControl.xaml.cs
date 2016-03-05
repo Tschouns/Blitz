@@ -11,6 +11,7 @@ namespace Blitz
     using System.Windows.Input;
     using Base.RuntimeChecks;
     using Geometry;
+    using Geometry.Elements;
 
     /// <summary>
     /// Interaction logic for <see cref="ClickyDrawingControl"/>.

@@ -4,11 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.Service
+namespace Geometry.Service.Helpers
 {
     using System;
     using Base.Results;
     using Base.RuntimeChecks;
+    using Elements;
+    using Geometry.Helpers;
 
     /// <summary>
     /// See <see cref="ILineIntersectionHelper"/>.

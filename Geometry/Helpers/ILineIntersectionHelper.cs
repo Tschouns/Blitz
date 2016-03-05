@@ -4,9 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry
+namespace Geometry.Helpers
 {
     using Base.Results;
+    using Elements;
 
     /// <summary>
     /// Provides methods to calculate intersections between lines or line segments.

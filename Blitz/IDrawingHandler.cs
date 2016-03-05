@@ -8,7 +8,8 @@ namespace Blitz
 {
     using System.Collections.Generic;
     using Geometry;
-    
+    using Geometry.Elements;
+
     /// <summary>
     /// Draws stuff.
     /// </summary>

@@ -6,8 +6,9 @@
 
 namespace Geometry.UnitTest
 {
+    using Elements;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Service;
+    using Service.Helpers;
 
     /// <summary>
     /// Contains unit tests for <see cref="LineIntersectionHelper"/>.

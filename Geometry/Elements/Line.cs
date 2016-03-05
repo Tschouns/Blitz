@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry
+namespace Geometry.Elements
 {
     using System;
 

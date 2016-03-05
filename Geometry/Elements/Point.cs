@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry
+namespace Geometry.Elements
 {
     /// <summary>
     /// Represents a point on a plane.

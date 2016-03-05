@@ -43,12 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="InversionOfControl\IIocContainer.cs" />
     <Compile Include="InversionOfControl\Ioc.cs" />
     <Compile Include="InversionOfControl\UnityContainerWrapper.cs" />
     <Compile Include="Results\NullableResult.cs" />
     <Compile Include="RuntimeChecks\Checks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartUp\IProjectInitializationPlugin.cs" />
+    <Compile Include="StartUp\ProjectInitializationPluginAttribute.cs" />
+    <Compile Include="StartUp\StartUp.cs" />
+    <Compile Include="StartUp\StartUpException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

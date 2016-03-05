@@ -11,6 +11,7 @@ namespace Blitz
     using System.Windows.Media;
     using Base.RuntimeChecks;
     using Geometry;
+    using Geometry.Elements;
 
     /// <summary>
     /// See <see cref="IDrawingHandler"/>.
