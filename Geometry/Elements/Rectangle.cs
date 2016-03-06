@@ -14,6 +14,14 @@ namespace Geometry.Elements
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
         /// </summary>
+        public Rectangle(double width, double height)
+            : this(new Point(0, 0), width, height)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle"/> class.
+        /// </summary>
         public Rectangle(Point origin, double width, double height)
         {
             this.A = origin;
@@ -29,6 +37,14 @@ namespace Geometry.Elements
             this.D = new Point(
                 origin.X,
                 origin.Y + height);
+
+            this.Corners = new Point[4]
+                {
+                    this.A,
+                    this.B,
+                    this.C,
+                    this.D
+                };
         }
 
         /// <summary>
@@ -60,5 +76,10 @@ namespace Geometry.Elements
         /// Gets the fourth corner point going around the rectangle.
         /// </summary>
         public Point D { get; }
+
+        /// <summary>
+        /// Gets all four corner points going around rectangle.
+        /// </summary>
+        public Point[] Corners { get; }
     }
 }

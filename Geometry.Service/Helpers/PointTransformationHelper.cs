@@ -10,6 +10,7 @@ namespace Geometry.Service.Helpers
     using System.Collections.Generic;
     using System.Linq;
     using Elements;
+    using Extensions;
     using Geometry.Helpers;
 
     /// <summary>
@@ -17,6 +18,29 @@ namespace Geometry.Service.Helpers
     /// </summary>
     public class PointTransformationHelper : IPointTransformationHelper
     {
+        /// <summary>
+        /// See <see cref="IPointTransformationHelper.TranslatePoint"/>.
+        /// </summary>
+        public Point TranslatePoint(Vector2 offset, Point point)
+        {
+            return point.AddVector(offset);
+        }
+
+        /// <summary>
+        /// See <see cref="IPointTransformationHelper.TranslatePoints"/>.
+        /// </summary>
+        public Point[] TranslatePoints(Vector2 offset, Point[] points)
+        {
+            var translatedPoints = new Point[points.Length];
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                translatedPoints[i] = points[i].AddVector(offset);
+            }
+
+            return translatedPoints;
+        }
+
         /// <summary>
         /// See <see cref="IPointTransformationHelper.RotatePoint"/>
         /// </summary>
@@ -31,19 +55,19 @@ namespace Geometry.Service.Helpers
         /// <summary>
         /// See <see cref="IPointTransformationHelper.RotatePoints"/>
         /// </summary>
-        public IEnumerable<Point> RotatePoints(Point origin, double angle, Point[] points)
+        public Point[] RotatePoints(Point origin, double angle, Point[] points)
         {
             double sinAngle = Math.Sin(angle);
             double cosAngle = Math.Cos(angle);
 
-            var newPoints = new Point[points.Length];
+            var rotatedPoints = new Point[points.Length];
 
-            for (int i = 0; i < points.Count(); i++)
+            for (int i = 0; i < points.Length; i++)
             {
-                newPoints[i] = this.RotatePointInternal(origin, sinAngle, cosAngle, points[i]);
+                rotatedPoints[i] = this.RotatePointInternal(origin, sinAngle, cosAngle, points[i]);
             }
 
-            return newPoints;
+            return rotatedPoints;
         }
 
         /// <summary>
@@ -59,7 +83,7 @@ namespace Geometry.Service.Helpers
             double newPointY =
                 (sinTheta * (point.X - origin.X)) +
                 (cosTheta * (point.Y - origin.Y)) +
-                origin.X;
+                origin.Y;
 
             return new Point(newPointX, newPointY);
         }

@@ -55,9 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClickyTransformationControl.xaml.cs">
+      <DependentUpon>ClickyTransformationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DrawingContextDrawingHandler.cs" />
     <Compile Include="RenderingEventArgs.cs" />
     <Page Include="ClickyDrawingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClickyTransformationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

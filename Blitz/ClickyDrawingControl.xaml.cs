@@ -62,7 +62,7 @@ namespace Blitz
         /// </summary>
         public ClickyDrawingControl(ILineIntersectionHelper lineIntersectionHelper)
         {
-            Checks.AssertNotNull(lineIntersectionHelper, nameof(lineIntersectionHelper));
+            Checks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
 
             this.lineIntersectionHelper = lineIntersectionHelper;
 
@@ -81,7 +81,7 @@ namespace Blitz
         }
 
         /// <summary>
-        /// Handles the <see cref="Canvas.MouseDown"/> event.
+        /// Handles the <see cref="RenderingCanvas.MouseDown"/> event.
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {

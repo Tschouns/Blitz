@@ -15,6 +15,16 @@ namespace Geometry.Helpers
     public interface IPointTransformationHelper
     {
         /// <summary>
+        /// Translates the specified point by a specified offset.
+        /// </summary>
+        Point TranslatePoint(Vector2 offset, Point point);
+
+        /// <summary>
+        /// Translates the specified points by a specified offset.
+        /// </summary>
+        Point[] TranslatePoints(Vector2 offset, Point[] points);
+
+        /// <summary>
         /// Rotates the specified point, around the specified origin, by the specified angle (in radians).
         /// </summary>
         Point RotatePoint(Point origin, double angle, Point point);
@@ -22,6 +32,6 @@ namespace Geometry.Helpers
         /// <summary>
         /// Rotates all the specified points, around the specified origin, by the specified angle (in radians).
         /// </summary>
-        IEnumerable<Point> RotatePoints(Point origin, double angle, Point[] points);
+        Point[] RotatePoints(Point origin, double angle, Point[] points);
     }
 }

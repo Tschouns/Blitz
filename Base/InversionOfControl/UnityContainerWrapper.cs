@@ -34,6 +34,11 @@ namespace Base.InversionOfControl
         /// </summary>
         public TInterface Resolve<TInterface>() where TInterface : class
         {
+            if (!this.iocContainer.IsRegistered<TInterface>())
+            {
+                return null;
+            }
+
             var instance = this.iocContainer.Resolve<TInterface>();
 
             return instance;

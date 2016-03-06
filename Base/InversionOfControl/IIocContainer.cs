@@ -12,7 +12,8 @@ namespace Base.InversionOfControl
     public interface IIocContainer
     {
         /// <summary>
-        /// Registers an singleton implementation for an interface.
+        /// Registers an singleton implementation, <typeparamref name="TImplementation"/>, for
+        /// an interface, <typeparamref name="TInterface"/>.
         /// </summary>
         /// <typeparam name="TInterface">
         /// The interface type
@@ -25,7 +26,8 @@ namespace Base.InversionOfControl
             where TImplementation : TInterface;
 
         /// <summary>
-        /// Resolves the interface.
+        /// Resolves the implementation for <typeparamref name="TInterface"/> and returns the instance,
+        /// or <c>null</c> if it could not be resolved.
         /// </summary>
         TInterface Resolve<TInterface>()
             where TInterface : class;
