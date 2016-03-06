@@ -1,5 +1,10 @@
-=== Collision detection, line interstections ===
-http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/
+=== 2D Collision detection ===
+- Line interstections etc.
+  http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/
+  All kinds of interesting stuff...
+- Part 1: https://www.toptal.com/game/video-game-physics-part-i-an-introduction-to-rigid-body-dynamics
+- Part 2: https://www.toptal.com/game/video-game-physics-part-ii-collision-detection-for-solid-objects
+- Part 3: https://www.toptal.com/game/video-game-physics-part-iii-constrained-rigid-body-simulation
 
 === WPF 2D graphics (Louis Yang) ===
 https://www.youtube.com/watch?v=wTxktpA5GUM
