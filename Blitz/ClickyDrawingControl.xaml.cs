@@ -40,6 +40,11 @@ namespace Blitz
         private readonly IList<Point> lineIntersections;
 
         /// <summary>
+        /// Stores all the rectangles.
+        /// </summary>
+        private readonly IList<Rectangle> rectangles;
+
+        /// <summary>
         /// Stores the point last clicked by the user.
         /// </summary>
         private Point? lastClickedPoint;
@@ -64,6 +69,7 @@ namespace Blitz
             this.dots = new List<Point>();
             this.lineSegments = new List<Line>();
             this.lineIntersections = new List<Point>();
+            this.rectangles = new List<Rectangle>();
             this.lastClickedPoint = null;
 
             this.InitializeComponent();
@@ -87,9 +93,9 @@ namespace Blitz
             var dot = new Point(position.X, position.Y);
             this.dots.Add(dot);
 
-            // Create a new line segment.
             if (this.lastClickedPoint.HasValue)
             {
+                // Create a new line segment.
                 var lineSegment = new Line(this.lastClickedPoint.Value, dot);
                 
                 // Detect new line intersections with existing line segments.
@@ -104,6 +110,11 @@ namespace Blitz
                 }
 
                 this.lineSegments.Add(lineSegment);
+
+                // Create a new rectangle.
+                var origin = this.lastClickedPoint.Value;
+                var rectangle = new Rectangle(origin, dot.X - origin.X, dot.Y - origin.Y);
+                this.rectangles.Add(rectangle);
             }
 
             this.lastClickedPoint = dot;
@@ -118,15 +129,27 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            foreach (var lineSegment in this.lineSegments)
+            foreach (var rectangle in this.rectangles)
             {
-                eventArgs.DrawingHandler.DrawLineSegment(lineSegment);
+                eventArgs.DrawingHandler.DrawPolygon(
+                    new[]
+                    {
+                        rectangle.A,
+                        rectangle.B,
+                        rectangle.C,
+                        rectangle.D
+                    });
             }
 
-            foreach (var intersectionPoint in this.lineIntersections)
-            {
-                eventArgs.DrawingHandler.DrawDot(intersectionPoint);
-            }
+            ////foreach (var lineSegment in this.lineSegments)
+            ////{
+            ////    eventArgs.DrawingHandler.DrawLineSegment(lineSegment);
+            ////}
+
+            ////foreach (var intersectionPoint in this.lineIntersections)
+            ////{
+            ////    eventArgs.DrawingHandler.DrawDot(intersectionPoint);
+            ////}
 
             ////foreach (var dot in this.dots)
             ////{

@@ -6,8 +6,6 @@
 
 namespace Geometry.Elements
 {
-    using System;
-
     /// <summary>
     /// Represents a line on a plane, defined by two points.
     /// </summary>

@@ -6,11 +6,9 @@
 
 namespace Blitz
 {
-    using System;
     using System.Collections.Generic;
     using System.Windows.Media;
     using Base.RuntimeChecks;
-    using Geometry;
     using Geometry.Elements;
 
     /// <summary>
@@ -32,7 +30,7 @@ namespace Blitz
         }
 
         /// <summary>
-        /// See <see cref="DrawingContext.DrawDot"/>.
+        /// See <see cref="IDrawingHandler.DrawDot"/>.
         /// </summary>
         public void DrawDot(Point point)
         {
@@ -47,7 +45,7 @@ namespace Blitz
         }
 
         /// <summary>
-        /// See <see cref="DrawingContext.DrawLineSegment"/>.
+        /// See <see cref="IDrawingHandler.DrawLineSegment"/>.
         /// </summary>
         public void DrawLineSegment(Line line)
         {
@@ -60,11 +58,47 @@ namespace Blitz
         }
 
         /// <summary>
-        /// See <see cref="DrawingContext.DrawPath"/>.
+        /// See <see cref="IDrawingHandler.DrawPath"/>.
         /// </summary>
         public void DrawPath(IEnumerable<Point> points)
         {
-            throw new NotImplementedException();
+            this.DrawPathInternal(points, false);
+        }
+
+        /// <summary>
+        /// See <see cref="IDrawingHandler.DrawPolygon"/>.
+        /// </summary>
+        public void DrawPolygon(IEnumerable<Point> points)
+        {
+            this.DrawPathInternal(points, true);
+        }
+
+        /// <summary>
+        /// Internal implementation: draws a path or a closed path, i.e. a polygon.
+        /// </summary>
+        private void DrawPathInternal(IEnumerable<Point> points, bool closed)
+        {
+            Point? origin = null;
+            Point? lastPoint = null;
+
+            foreach (var point in points)
+            {
+                if (!lastPoint.HasValue)
+                {
+                    origin = point;
+                    lastPoint = point;
+                    continue;
+                }
+
+                this.DrawLineSegment(new Line(lastPoint.Value, point));
+                lastPoint = point;
+            }
+
+            // Draw closing segment.
+            if (closed && lastPoint.HasValue && !object.Equals(lastPoint.Value, origin.Value))
+            {
+                this.DrawLineSegment(new Line(lastPoint.Value, origin.Value));
+            }
         }
     }
 }

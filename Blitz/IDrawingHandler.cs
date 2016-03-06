@@ -26,8 +26,15 @@ namespace Blitz
         void DrawLineSegment(Line line);
 
         /// <summary>
-        /// Draws a path, defined by the specified set of points.
+        /// Draws a path, defined by the specified set of points. The path starts with first point
+        /// and ends with the last point.
         /// </summary>
         void DrawPath(IEnumerable<Point> points);
+
+        /// <summary>
+        /// Draws a polygon, defined by the specified set of points. The last point is connected back
+        /// to the first by a line segment.
+        /// </summary>
+        void DrawPolygon(IEnumerable<Point> points);
     }
 }
