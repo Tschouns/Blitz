@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,9 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\Particle.cs" />
+    <Compile Include="Engine\PhysicalWorld.cs" />
+    <Compile Include="Engine\PhysicsFactory.cs" />
+    <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{63cef2ea-8717-4b68-93b7-36c8cf06e1b2}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>
       <Name>Geometry</Name>
