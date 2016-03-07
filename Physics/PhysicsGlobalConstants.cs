@@ -4,24 +4,23 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Engine
+namespace Physics
 {
     using Geometry.Elements;
-    using Physics.Elements;
 
     /// <summary>
-    /// Represents the "physical world".
+    /// Provides some global constants.
     /// </summary>
-    public interface IPhysicalWorld
+    public static class PhysicsGlobalConstants
     {
         /// <summary>
-        /// Creates a particle in the "physical world".
+        /// Earth's gravity acceleration, in m/s^2.
         /// </summary>
-        IParticle CreateParticle(double mass, Point position);
+        public static readonly double EarthGravityAcceleration = 9.81;
 
         /// <summary>
-        /// Steps forward in time, by the specified number (fraction) of seconds.
+        /// The "physical world's" origin.
         /// </summary>
-        void Step(double time);
+        public static readonly Point WorldOrigin = new Point();
     }
 }

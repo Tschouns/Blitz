@@ -6,8 +6,6 @@
 
 namespace Physics.Engine
 {
-    using Physics.Elements;
-
     /// <summary>
     /// Created the "physical world" and other "physical" objects.
     /// </summary>
@@ -17,10 +15,5 @@ namespace Physics.Engine
         /// Creates a "physical world".
         /// </summary>
         IPhysicalWorld CreatePhysicalWorld();
-
-        /// <summary>
-        /// Creates a particle.
-        /// </summary>
-        IParticle CreateParticle();
     }
 }

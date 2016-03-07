@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\IPhysicalObject.cs" />
     <Compile Include="Elements\Particle.cs" />
     <Compile Include="Engine\PhysicalWorld.cs" />
     <Compile Include="Engine\PhysicsFactory.cs" />

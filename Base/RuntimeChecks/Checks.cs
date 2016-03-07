@@ -16,6 +16,17 @@ namespace Base.RuntimeChecks
     public static class Checks
     {
         /// <summary>
+        /// Asserts that the specified floating point number is positive, including 0.
+        /// </summary>
+        public static void AssertIsPositive(double argument, string argumentName)
+        {
+            if (argument < 0)
+            {
+                throw new ArgumentException($"The floating point number {argument}, specified in argument {argumentName}, is not positive.");
+            }
+        }
+
+        /// <summary>
         /// Asserts that the specified argument is not <c>null</c>, otherwise throws an <see cref="ArgumentNullException"/>.
         /// </summary>
         public static void AssertNotNull(object argument, string argumentName)

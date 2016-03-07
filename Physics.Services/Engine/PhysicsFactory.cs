@@ -6,7 +6,9 @@
 
 namespace Physics.Services.Engine
 {
-    using System;
+    using Base.RuntimeChecks;
+    using Elements;
+    using Geometry.Elements;
     using Physics.Elements;
     using Physics.Engine;
 
@@ -20,15 +22,9 @@ namespace Physics.Services.Engine
         /// </summary>
         public IPhysicalWorld CreatePhysicalWorld()
         {
-            throw new NotImplementedException();
-        }
+            var world = new PhysicalWorld();
 
-        /// <summary>
-        /// See <see cref="IPhysicsFactory.CreateParticle"/>.
-        /// </summary>
-        public IParticle CreateParticle()
-        {
-            throw new NotImplementedException();
+            return world;
         }
     }
 }

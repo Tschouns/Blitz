@@ -6,7 +6,10 @@
 
 namespace Physics.Services.Engine
 {
-    using System;
+    using System.Collections.Generic;
+    using Base.RuntimeChecks;
+    using Elements;
+    using Geometry.Elements;
     using Physics.Elements;
     using Physics.Engine;
 
@@ -16,19 +19,66 @@ namespace Physics.Services.Engine
     public class PhysicalWorld : IPhysicalWorld
     {
         /// <summary>
+        /// Holds all "physical" objects in this world.
+        /// </summary>
+        private readonly IList<IPhysicalObject> physicalObjects;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhysicalWorld"/> class.
+        /// </summary>
+        public PhysicalWorld()
+        {
+            this.physicalObjects = new List<IPhysicalObject>();
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalWorld.CreateParticle"/>.
+        /// </summary>
+        public IParticle CreateParticle(double mass, Point position)
+        {
+            Checks.AssertIsPositive(mass, nameof(mass));
+
+            var particle = new Particle(
+                10,
+                PhysicsGlobalConstants.WorldOrigin,
+                new Vector2());
+
+            this.physicalObjects.Add(particle);
+
+            return particle;
+        }
+
+        /// <summary>
         /// See <see cref="IPhysicalWorld.Step"/>.
         /// </summary>
         public void Step(double time)
         {
-            throw new NotImplementedException();
+            Checks.AssertIsPositive(time, nameof(time));
+
+            this.ApplyGravity();
+
+            foreach (var physicalObject in this.physicalObjects)
+            {
+                physicalObject.Step(time);
+            }
+
+            foreach (var physicalObject in this.physicalObjects)
+            {
+                physicalObject.ResetAppliedForce();
+            }
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalWorld.AddParticle"/>.
+        /// Applies earth's gravity to all "physical objects".
         /// </summary>
-        public void AddParticle(IParticle particle)
+        private void ApplyGravity()
         {
-            throw new NotImplementedException();
+            var gravityForce = new Vector2(0, -PhysicsGlobalConstants.EarthGravityAcceleration);
+
+            foreach (var physicalObject in this.physicalObjects)
+            {
+                physicalObject.AddForce(gravityForce);
+            }
         }
     }
 }
