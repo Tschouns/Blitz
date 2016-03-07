@@ -43,6 +43,8 @@
     <Compile Include="Elements\ElementFactory.cs" />
     <Compile Include="Elements\Particle.cs" />
     <Compile Include="Elements\PhysicalSpace.cs" />
+    <Compile Include="Helpers\CalculationHelper.cs" />
+    <Compile Include="Helpers\ICalculationHelper.cs" />
     <Compile Include="World\PhysicalWorld.cs" />
     <Compile Include="World\PhysicsFactory.cs" />
     <Compile Include="Forces\ForceFactory.cs" />

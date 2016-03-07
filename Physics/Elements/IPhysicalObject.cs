@@ -14,6 +14,11 @@ namespace Physics.Elements
     public interface IPhysicalObject
     {
         /// <summary>
+        /// Gets the mass.
+        /// </summary>
+        double Mass { get; }
+
+        /// <summary>
         /// Applies the specified force to the origin "physical object".
         /// </summary>
         void AddForce(Vector2 force);

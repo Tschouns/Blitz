@@ -8,6 +8,7 @@ namespace Physics.Services.Elements
 {
     using Base.RuntimeChecks;
     using Geometry.Elements;
+    using Helpers;
     using Physics.Elements;
 
     /// <summary>
@@ -15,6 +16,21 @@ namespace Physics.Services.Elements
     /// </summary>
     public class ElementFactory : IElementFactory
     {
+        /// <summary>
+        /// Stores the <see cref="ICalculationHelper"/>.
+        /// </summary>
+        private readonly ICalculationHelper calculationHelper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ElementFactory"/> class.
+        /// </summary>
+        public ElementFactory(ICalculationHelper calculationHelper)
+        {
+            Checks.AssertNotNull(calculationHelper, nameof(calculationHelper));
+
+            this.calculationHelper = calculationHelper;
+        }
+
         /// <summary>
         /// See <see cref="IElementFactory.CreateSpace"/>.
         /// </summary>
@@ -31,6 +47,7 @@ namespace Physics.Services.Elements
             Checks.AssertIsPositive(mass, nameof(mass));
 
             var particle = new Particle(
+                this.calculationHelper,
                 mass,
                 position,
                 new Vector2());

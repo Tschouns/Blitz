@@ -12,11 +12,6 @@ namespace Physics.Elements
     public interface IParticle : IPhysicalObject
     {
         /// <summary>
-        /// Gets the mass.
-        /// </summary>
-        double Mass { get; }
-
-        /// <summary>
         /// Gets the current state of the particle.
         /// </summary>
         ParticleState CurrentState { get; }

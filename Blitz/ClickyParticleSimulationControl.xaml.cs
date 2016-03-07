@@ -15,6 +15,7 @@ namespace Blitz
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
     using Geometry.Elements;
+    using Geometry.Extensions;
     using Physics.Elements;
     using Physics.World;
 
@@ -112,9 +113,14 @@ namespace Blitz
             var mousePosition = eventArgs.GetPosition(this.canvas);
             var particlePosition = new Point(mousePosition.X, mousePosition.Y);
 
-            var particle = this.world.CreateParticle(1, particlePosition);
+            // We'll create three particles of different mass next to each other. They will fall at the same speed.
+            var particle1 = this.world.CreateParticle(10, particlePosition);
+            var particle2 = this.world.CreateParticle(20, particlePosition.AddVector(new Vector2(20, 10)));
+            var particle3 = this.world.CreateParticle(40, particlePosition.AddVector(new Vector2(40, 20)));
 
-            this.particles.Add(particle);
+            this.particles.Add(particle1);
+            this.particles.Add(particle2);
+            this.particles.Add(particle3);
 
             this.canvas.InvalidateVisual();
         }

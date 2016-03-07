@@ -12,6 +12,7 @@ namespace Physics.Service
     using Forces;
     using Services.Elements;
     using Services.Forces;
+    using Services.Helpers;
     using Services.World;
     using World;
 
@@ -26,6 +27,7 @@ namespace Physics.Service
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            Ioc.Container.RegisterSingleton<ICalculationHelper, CalculationHelper>();
             Ioc.Container.RegisterSingleton<IElementFactory, ElementFactory>();
             Ioc.Container.RegisterSingleton<IForceFactory, ForceFactory>();
             Ioc.Container.RegisterSingleton<IPhysicsFactory, PhysicsFactory>();
