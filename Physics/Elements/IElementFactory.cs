@@ -6,19 +6,21 @@
 
 namespace Physics.Elements
 {
+    using Geometry.Elements;
+
     /// <summary>
-    /// Represents a particle in the "physical world".
+    /// Creates "elements".
     /// </summary>
-    public interface IParticle : IPhysicalObject
+    public interface IElementFactory
     {
         /// <summary>
-        /// Gets the mass.
+        /// Creates a <see cref="IPhysicalSpace"/>.
         /// </summary>
-        double Mass { get; }
+        IPhysicalSpace CreateSpace();
 
         /// <summary>
-        /// Gets the current state of the particle.
+        /// Creates a <see cref="IParticle"/> of the specified mass, at the specified position in space.
         /// </summary>
-        ParticleState CurrentState { get; }
+        IParticle CreateParticle(double mass, Point position);
     }
 }

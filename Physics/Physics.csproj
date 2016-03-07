@@ -40,13 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\IElementFactory.cs" />
+    <Compile Include="Forces\IForceFactory.cs" />
+    <Compile Include="Forces\IGlobalForce.cs" />
+    <Compile Include="Elements\IPhysicalObject.cs" />
+    <Compile Include="Elements\IPhysicalSpace.cs" />
     <Compile Include="Elements\ParticleState.cs" />
     <Compile Include="Elements\RigidBodyState.cs" />
     <Compile Include="Elements\IRigidBody.cs" />
     <Compile Include="Elements\IParticle.cs" />
     <Compile Include="Elements\IShape.cs" />
-    <Compile Include="Engine\IPhysicalWorld.cs" />
-    <Compile Include="Engine\IPhysicsFactory.cs" />
+    <Compile Include="World\IPhysicalWorld.cs" />
+    <Compile Include="World\IPhysicsFactory.cs" />
     <Compile Include="PhysicsGlobalConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

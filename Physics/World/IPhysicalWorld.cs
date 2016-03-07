@@ -4,21 +4,24 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Elements
+namespace Physics.World
 {
+    using Geometry.Elements;
+    using Physics.Elements;
+
     /// <summary>
-    /// Represents a particle in the "physical world".
+    /// Represents the "physical world".
     /// </summary>
-    public interface IParticle : IPhysicalObject
+    public interface IPhysicalWorld
     {
         /// <summary>
-        /// Gets the mass.
+        /// Creates a particle in the "physical world".
         /// </summary>
-        double Mass { get; }
+        IParticle CreateParticle(double mass, Point position);
 
         /// <summary>
-        /// Gets the current state of the particle.
+        /// Steps forward in time, by the specified number (fraction) of seconds.
         /// </summary>
-        ParticleState CurrentState { get; }
+        void Step(double time);
     }
 }

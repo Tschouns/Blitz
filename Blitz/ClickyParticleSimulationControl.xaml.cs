@@ -16,7 +16,7 @@ namespace Blitz
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Physics.Elements;
-    using Physics.Engine;
+    using Physics.World;
 
     /// <summary>
     /// Interaction logic for <see cref="ClickyParticleSimulationControl"/>.

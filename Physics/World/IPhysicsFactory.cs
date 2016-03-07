@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Engine
+namespace Physics.World
 {
     /// <summary>
     /// Created the "physical world" and other "physical" objects.

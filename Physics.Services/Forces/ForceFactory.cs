@@ -4,27 +4,24 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Services.Engine
+namespace Physics.Services.Forces
 {
     using Base.RuntimeChecks;
-    using Elements;
-    using Geometry.Elements;
-    using Physics.Elements;
-    using Physics.Engine;
+    using Physics.Forces;
 
     /// <summary>
-    /// See <see cref="IPhysicsFactory"/>.
+    /// See <see cref="IForceFactory"/>.
     /// </summary>
-    public class PhysicsFactory : IPhysicsFactory
+    public class ForceFactory : IForceFactory
     {
         /// <summary>
-        /// See <see cref="IPhysicsFactory.CreatePhysicalWorld"/>.
+        /// See <see cref="IForceFactory.CreateGravity"/>.
         /// </summary>
-        public IPhysicalWorld CreatePhysicalWorld()
+        public IGlobalForce CreateGravity(double acceleration)
         {
-            var world = new PhysicalWorld();
+            Checks.AssertIsPositive(acceleration, nameof(acceleration));
 
-            return world;
+            return new Gravity(acceleration);
         }
     }
 }

@@ -4,21 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Elements
+namespace Physics.Forces
 {
     /// <summary>
-    /// Represents a particle in the "physical world".
+    /// Creates forces.
     /// </summary>
-    public interface IParticle : IPhysicalObject
+    public interface IForceFactory
     {
         /// <summary>
-        /// Gets the mass.
+        /// Creates a <see cref="IGlobalForce"/> which simulates "gravity".
         /// </summary>
-        double Mass { get; }
-
-        /// <summary>
-        /// Gets the current state of the particle.
-        /// </summary>
-        ParticleState CurrentState { get; }
+        IGlobalForce CreateGravity(double acceleration);
     }
 }

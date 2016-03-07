@@ -4,20 +4,24 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Engine
+namespace Physics.Elements
 {
-    using Geometry.Elements;
-    using Physics.Elements;
+    using Physics.Forces;
 
     /// <summary>
-    /// Represents the "physical world".
+    /// Represents a "physical space", although 2D you know... not really a "space". But we'll call it that ;)
     /// </summary>
-    public interface IPhysicalWorld
+    public interface IPhysicalSpace
     {
         /// <summary>
-        /// Creates a particle in the "physical world".
+        /// Adds a "global force" to the "physical space".
         /// </summary>
-        IParticle CreateParticle(double mass, Point position);
+        void AddGlobalForce(IGlobalForce globalForce);
+
+        /// <summary>
+        /// Adds a particle to the "physical space".
+        /// </summary>
+        void AddParticle(IParticle particle);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

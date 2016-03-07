@@ -40,10 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Elements\IPhysicalObject.cs" />
+    <Compile Include="Elements\ElementFactory.cs" />
     <Compile Include="Elements\Particle.cs" />
-    <Compile Include="Engine\PhysicalWorld.cs" />
-    <Compile Include="Engine\PhysicsFactory.cs" />
+    <Compile Include="Elements\PhysicalSpace.cs" />
+    <Compile Include="World\PhysicalWorld.cs" />
+    <Compile Include="World\PhysicsFactory.cs" />
+    <Compile Include="Forces\ForceFactory.cs" />
+    <Compile Include="Forces\Gravity.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

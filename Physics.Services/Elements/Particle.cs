@@ -14,7 +14,7 @@ namespace Physics.Services.Elements
     /// <summary>
     /// Implementation of <see cref="IParticle"/>.
     /// </summary>
-    public class Particle : IParticle, IPhysicalObject
+    public class Particle : IParticle
     {
         /// <summary>
         /// Stores the mass of this particle.

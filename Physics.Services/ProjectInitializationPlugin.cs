@@ -8,8 +8,12 @@ namespace Physics.Service
 {
     using Base.InversionOfControl;
     using Base.StartUp;
-    using Engine;
-    using Services.Engine;
+    using Elements;
+    using Forces;
+    using Services.Elements;
+    using Services.Forces;
+    using Services.World;
+    using World;
 
     /// <summary>
     /// Initializes this project, see <see cref="IProjectInitializationPlugin"/>.
@@ -22,6 +26,8 @@ namespace Physics.Service
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            Ioc.Container.RegisterSingleton<IElementFactory, ElementFactory>();
+            Ioc.Container.RegisterSingleton<IForceFactory, ForceFactory>();
             Ioc.Container.RegisterSingleton<IPhysicsFactory, PhysicsFactory>();
         }
     }
