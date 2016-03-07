@@ -40,7 +40,7 @@ namespace Physics.Services.Engine
 
             var particle = new Particle(
                 10,
-                PhysicsGlobalConstants.WorldOrigin,
+                position,
                 new Vector2());
 
             this.physicalObjects.Add(particle);

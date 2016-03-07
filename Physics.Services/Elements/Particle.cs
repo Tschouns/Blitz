@@ -62,7 +62,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void AddForce(Vector2 force)
         {
-            this.appliedForce.AddVector(force);
+            this.appliedForce = this.appliedForce.AddVector(force);
         }
 
         /// <summary>

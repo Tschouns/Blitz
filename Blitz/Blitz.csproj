@@ -55,12 +55,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClickyParticleSimulationControl.xaml.cs">
+      <DependentUpon>ClickyParticleSimulationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ClickyTransformationControl.xaml.cs">
       <DependentUpon>ClickyTransformationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DrawingContextDrawingHandler.cs" />
     <Compile Include="RenderingEventArgs.cs" />
     <Page Include="ClickyDrawingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClickyParticleSimulationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +128,10 @@
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>
       <Name>Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Physics\Physics.csproj">
+      <Project>{6d2d2643-22b3-4d4f-b52a-1b72d4f18789}</Project>
+      <Name>Physics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
