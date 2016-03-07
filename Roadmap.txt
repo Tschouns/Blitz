@@ -1,0 +1,20 @@
+===Physics Sim===
+- Rigid body dynamics (unconstrained):
+  - polygon centroid (center of mass in uniform density bodies) calculation
+  - inertia and torque calculation, based on force applied to a specific point
+  - angular acceleration and velocity calculation
+
+- Contstrains:
+  - collision detection
+  - "world bounds"
+  - body compounds
+  - bearings
+  - friction
+  - "bounciness" / capacity to absorb mechanical force
+  - springs
+  - collision groups
+
+- "Global forces"
+  - air resistance
+  - wind
+  - buoyant force

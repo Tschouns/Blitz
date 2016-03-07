@@ -10,7 +10,7 @@ namespace Physics.Forces
 
     /// <summary>
     /// Represents a "global force" which is applied to all "physical object" within
-    /// a "space", such as gravity, wind, buoyant force,...
+    /// a "space", such as gravity, air resistance, wind, buoyant force,...
     /// </summary>
     public interface IGlobalForce
     {
