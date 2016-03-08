@@ -11,7 +11,7 @@ namespace Geometry.Service.Helpers
     using Base.RuntimeChecks;
     using Elements;
     using Geometry.Helpers;
-    
+
     /// <summary>
     /// See <see cref="IPolygonCalculationHelper"/>.
     /// </summary>
@@ -30,6 +30,76 @@ namespace Geometry.Service.Helpers
             Checks.AssertNotNull(lineIntersectionHelper, nameof(lineIntersectionHelper));
 
             this.lineIntersectionHelper = lineIntersectionHelper;
+        }
+
+        /// <summary>
+        /// See <see cref="IPolygonCalculationHelper.CalculateArea"/>.
+        /// The formulas used in the calculation are described here: <c>https://de.wikipedia.org/wiki/Geometrischer_Schwerpunkt</c>.
+        /// </summary>
+        public double CalculateArea(Polygon polygon)
+        {
+            Checks.AssertNotNull(polygon, nameof(polygon));
+
+            var numberOfCorners = polygon.Corners.Count();
+            var corners = polygon.Corners.ToList();
+
+            // We add the copy the first corner to the end, as this allows to
+            // always acces the next corner in the following fashion: [i + 1]
+            corners.Add(corners.First());
+
+            double intermediateSum = 0.0;
+            for (var i = 0; i < numberOfCorners; i++)
+            {
+                intermediateSum += 
+                    (corners[i].X * corners[i + 1].Y) -
+                    (corners[i + 1].X * corners[i].Y);
+            }
+
+            double area = intermediateSum / 2;
+
+            return area;
+        }
+
+        /// <summary>
+        /// See <see cref="IPolygonCalculationHelper.DetermineCentroid"/>.
+        /// </summary>
+        public Point DetermineCentroid(Polygon polygon)
+        {
+            Checks.AssertNotNull(polygon, nameof(polygon));
+
+            var numberOfCorners = polygon.Corners.Count();
+            var corners = polygon.Corners.ToList();
+
+            // We add the copy the first corner to the end, as this allows to
+            // always acces the next corner in the following fashion: [i + 1]
+            corners.Add(corners.First());
+            
+            double intermediateSumX = 0.0;
+            double intermediateSumY = 0.0;
+
+            for (var i = 0; i < numberOfCorners; i++)
+            {
+                double intermediateFactor =
+                    (corners[i].X * corners[i + 1].Y) -
+                    (corners[i + 1].X * corners[i].Y);
+
+                intermediateSumX +=
+                    (corners[i].X + corners[i + 1].X) *
+                    intermediateFactor;
+
+                intermediateSumX +=
+                    (corners[i].Y + corners[i + 1].Y) *
+                    intermediateFactor;
+            }
+
+            double area = this.CalculateArea(polygon);
+
+            double centroidX = intermediateSumX / (6 * area);
+            double centroidY = intermediateSumY / (6 * area);
+
+            var centroid = new Point(centroidX, centroidY);
+
+            return centroid;
         }
 
         /// <summary>
