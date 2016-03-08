@@ -6,12 +6,13 @@
 
 namespace Geometry.Service.Helpers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Base.RuntimeChecks;
     using Elements;
     using Geometry.Helpers;
-
+    
     /// <summary>
     /// See <see cref="IPolygonCalculationHelper"/>.
     /// </summary>
@@ -55,7 +56,7 @@ namespace Geometry.Service.Helpers
                     (corners[i + 1].X * corners[i].Y);
             }
 
-            double area = intermediateSum / 2;
+            double area = Math.Abs(intermediateSum / 2);
 
             return area;
         }

@@ -123,5 +123,123 @@ namespace Geometry.UnitTest
         }
 
         #endregion
+
+        #region CalculateArea
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void CalculateArea_TriangleCounterClockwise_ReturnsCorrectArea()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(1, 1),
+                new Point(7, 1),
+                new Point(3, 5)
+            };
+
+            // Act
+            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(12.0, result);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void CalculateArea_RectangleCounterClockwise_ReturnsCorrectArea()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(1, 1),
+                new Point(7, 1),
+                new Point(7, 5),
+                new Point(1, 5)
+            };
+
+            // Act
+            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(24.0, result);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void CalculateArea_ParallelogramCounterClockwise_ReturnsCorrectArea()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(1, 1),
+                new Point(7, 1),
+                new Point(12, 5),
+                new Point(6, 5)
+            };
+
+            // Act
+            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(24.0, result);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void CalculateArea_HouseShapedPentagonClockwise_ReturnsCorrectArea()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(1, 1),
+                new Point(1, 5),
+                new Point(4, 7),
+                new Point(7, 5),
+                new Point(7, 1)
+            };
+
+            // Act
+            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(30.0, result);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void CalculateArea_ConvextOctagonClockwise_ReturnsCorrectArea()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(1, 1),
+                new Point(0, 7),
+                new Point(2, 7),
+                new Point(4, 4),
+                new Point(6, 7),
+                new Point(7, 7),
+                new Point(8, 1),
+                new Point(2, 3)
+            };
+
+            // Act
+            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(29.0, result);
+        }
+
+        #endregion
     }
 }
