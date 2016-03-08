@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Helpers\LineIntersectionHelper.cs" />
     <Compile Include="Helpers\PointTransformationHelper.cs" />
+    <Compile Include="Helpers\PolygonCalculationHelper.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

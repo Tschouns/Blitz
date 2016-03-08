@@ -24,6 +24,7 @@ namespace Geometry.Service
         {
             Ioc.Container.RegisterSingleton<ILineIntersectionHelper, LineIntersectionHelper>();
             Ioc.Container.RegisterSingleton<IPointTransformationHelper, PointTransformationHelper>();
+            Ioc.Container.RegisterSingleton<IPolygonCalculationHelper, PolygonCalculationHelper>();
         }
     }
 }

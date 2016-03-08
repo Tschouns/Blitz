@@ -6,7 +6,6 @@
 
 namespace Geometry.Helpers
 {
-    using System.Collections.Generic;
     using Geometry.Elements;
 
     /// <summary>
