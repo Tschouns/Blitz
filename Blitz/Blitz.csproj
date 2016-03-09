@@ -58,6 +58,9 @@
     <Compile Include="ClickyParticleSimulationControl.xaml.cs">
       <DependentUpon>ClickyParticleSimulationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClickyPolygonControl.xaml.cs">
+      <DependentUpon>ClickyPolygonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ClickyTransformationControl.xaml.cs">
       <DependentUpon>ClickyTransformationControl.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClickyParticleSimulationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClickyPolygonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
