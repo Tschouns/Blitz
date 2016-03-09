@@ -241,5 +241,78 @@ namespace Geometry.UnitTest
         }
 
         #endregion
+
+        #region DetermineCentroid
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void DetermineCentroid_SquareCounterClockwise_ReturnsCorrectCentroid()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(0, 0),
+                new Point(4, 0),
+                new Point(4, 4),
+                new Point(0, 4),
+            };
+
+            // Act
+            var result = this.testCandidate.DetermineCentroid(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(2, result.X);
+            Assert.AreEqual(2, result.Y);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void DetermineCentroid_SquareClockwise_ReturnsCorrectCentroid()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(0, 0),
+                new Point(0, 4),
+                new Point(4, 4),
+                new Point(4, 0),
+            };
+
+            // Act
+            var result = this.testCandidate.DetermineCentroid(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(2, result.X);
+            Assert.AreEqual(2, result.Y);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void DetermineCentroid_SquareHalfInTheBeyondTheOriginCounterClockwise_ReturnsCorrectCentroid()
+        {
+            // Arrange
+            Point[] corners =
+            {
+                new Point(-5, 0),
+                new Point(1, 0),
+                new Point(1, 6),
+                new Point(-5, 6),
+            };
+
+            // Act
+            var result = this.testCandidate.DetermineCentroid(new Polygon(corners));
+
+            // Assert
+            Assert.AreEqual(-2, result.X);
+            Assert.AreEqual(3, result.Y);
+        }
+
+        #endregion
     }
 }

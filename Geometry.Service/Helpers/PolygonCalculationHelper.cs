@@ -35,28 +35,12 @@ namespace Geometry.Service.Helpers
 
         /// <summary>
         /// See <see cref="IPolygonCalculationHelper.CalculateArea"/>.
-        /// The formulas used in the calculation are described here: <c>https://de.wikipedia.org/wiki/Geometrischer_Schwerpunkt</c>.
         /// </summary>
         public double CalculateArea(Polygon polygon)
         {
             Checks.AssertNotNull(polygon, nameof(polygon));
 
-            var numberOfCorners = polygon.Corners.Count();
-            var corners = polygon.Corners.ToList();
-
-            // We add the copy the first corner to the end, as this allows to
-            // always acces the next corner in the following fashion: [i + 1]
-            corners.Add(corners.First());
-
-            double intermediateSum = 0.0;
-            for (var i = 0; i < numberOfCorners; i++)
-            {
-                intermediateSum += 
-                    (corners[i].X * corners[i + 1].Y) -
-                    (corners[i + 1].X * corners[i].Y);
-            }
-
-            double area = Math.Abs(intermediateSum / 2);
+            var area = Math.Abs(this.CalculateAreaPossibleNegative(polygon));
 
             return area;
         }
@@ -88,12 +72,14 @@ namespace Geometry.Service.Helpers
                     (corners[i].X + corners[i + 1].X) *
                     intermediateFactor;
 
-                intermediateSumX +=
+                intermediateSumY +=
                     (corners[i].Y + corners[i + 1].Y) *
                     intermediateFactor;
             }
 
-            double area = this.CalculateArea(polygon);
+            // If the corners of the polygon are arranged clockwise the area will be negative. We use this to directly
+            // correct the sign of the centroid X and Y (which would otherwise also be wrong).
+            double area = this.CalculateAreaPossibleNegative(polygon);
 
             double centroidX = intermediateSumX / (6 * area);
             double centroidY = intermediateSumY / (6 * area);
@@ -121,6 +107,36 @@ namespace Geometry.Service.Helpers
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Calculates the area. The formulas used in the calculation are described here: <c>https://de.wikipedia.org/wiki/Geometrischer_Schwerpunkt</c>.
+        /// If the corners are arranged clockwise the area will turn out negative. This internal
+        /// implementation ignores this allows for "negative areas", so the centroid calculation
+        /// can make use of that that to correct the sign of the centroid X and Y.
+        /// </summary>
+        public double CalculateAreaPossibleNegative(Polygon polygon)
+        {
+            Checks.AssertNotNull(polygon, nameof(polygon));
+
+            var numberOfCorners = polygon.Corners.Count();
+            var corners = polygon.Corners.ToList();
+
+            // We add the copy the first corner to the end, as this allows to
+            // always acces the next corner in the following fashion: [i + 1]
+            corners.Add(corners.First());
+
+            double intermediateSum = 0.0;
+            for (var i = 0; i < numberOfCorners; i++)
+            {
+                intermediateSum +=
+                    (corners[i].X * corners[i + 1].Y) -
+                    (corners[i + 1].X * corners[i].Y);
+            }
+
+            double area = intermediateSum / 2;
+
+            return area;
         }
 
         /// <summary>
