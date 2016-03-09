@@ -57,7 +57,7 @@ namespace Physics.Services.World
         /// </summary>
         public IParticle CreateParticle(double mass, Point position)
         {
-            Checks.AssertIsPositive(mass, nameof(mass));
+            Checks.AssertIsStrictPositive(mass, nameof(mass));
 
             var particle = this.elementFactory.CreateParticle(mass, position);
             this.physicalSpace.AddParticle(particle);

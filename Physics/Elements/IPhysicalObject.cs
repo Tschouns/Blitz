@@ -19,9 +19,15 @@ namespace Physics.Elements
         double Mass { get; }
 
         /// <summary>
-        /// Applies the specified force to the origin "physical object".
+        /// Applies the specified force to a "physical object", at the origin (center of mass).
         /// </summary>
         void AddForce(Vector2 force);
+
+        /// <summary>
+        /// Applies the specified force to a "physical object", at a specific point, specified
+        /// by an offset relative to the objects origin (center of mass).
+        /// </summary>
+        void AddForceAtOffset(Vector2 force, Vector2 offset);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

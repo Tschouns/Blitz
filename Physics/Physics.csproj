@@ -41,15 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\IElementFactory.cs" />
+    <Compile Include="Elements\Shape\IPolygonShape.cs" />
     <Compile Include="Forces\IForceFactory.cs" />
     <Compile Include="Forces\IGlobalForce.cs" />
     <Compile Include="Elements\IPhysicalObject.cs" />
     <Compile Include="Elements\IPhysicalSpace.cs" />
     <Compile Include="Elements\ParticleState.cs" />
-    <Compile Include="Elements\RigidBodyState.cs" />
-    <Compile Include="Elements\IRigidBody.cs" />
+    <Compile Include="Elements\BodyState.cs" />
+    <Compile Include="Elements\IBody.cs" />
     <Compile Include="Elements\IParticle.cs" />
-    <Compile Include="Elements\IShape.cs" />
+    <Compile Include="Elements\Shape\IShape.cs" />
     <Compile Include="World\IPhysicalWorld.cs" />
     <Compile Include="World\IPhysicsFactory.cs" />
     <Compile Include="PhysicsGlobalConstants.cs" />

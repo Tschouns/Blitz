@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Elements
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
@@ -21,11 +22,6 @@ namespace Physics.Services.Elements
         /// Used to calculate acceleration, velocity and position.
         /// </summary>
         private readonly ICalculationHelper helper;
-
-        /// <summary>
-        /// Stores the mass of this particle.
-        /// </summary>
-        private readonly double mass;
 
         /// <summary>
         /// Stores the currently applied force.
@@ -47,12 +43,12 @@ namespace Physics.Services.Elements
             Vector2 initialVelocity)
         {
             Checks.AssertNotNull(calculationHelper, nameof(calculationHelper));
-            Checks.AssertIsPositive(mass, nameof(mass));
+            Checks.AssertIsStrictPositive(mass, nameof(mass));
 
             this.helper = calculationHelper;
-            this.mass = mass;
+            this.Mass = mass;
             this.appliedForce = new Vector2();
-            this.state = new ParticleState()
+            this.state = new ParticleState
             {
                 Position = initialPosition,
                 Velocity = initialVelocity
@@ -60,9 +56,9 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
-        /// Gets... see <see cref="IParticle.Mass"/>.
+        /// Gets... see <see cref="IPhysicalObject.Mass"/>.
         /// </summary>
-        public double Mass => this.mass;
+        public double Mass { get; }
 
         /// <summary>
         /// Gets... see <see cref="IParticle.CurrentState"/>.
@@ -78,26 +74,22 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
+        /// See <see cref="IPhysicalObject.AddForceAtOffset"/>.
+        /// </summary>
+        public void AddForceAtOffset(Vector2 force, Vector2 offset)
+        {
+            // A particle behaves the same way, no matter what the offset is.
+            this.AddForce(force);
+        }
+
+        /// <summary>
         /// See <see cref="IPhysicalObject.AddForce"/>.
         /// </summary>
         public void Step(double time)
         {
-            var acceleration = this.helper.CalculateAcceleration(this.appliedForce, this.mass);
+            var acceleration = this.helper.CalculateAcceleration(this.appliedForce, this.Mass);
             this.state.Velocity = this.helper.CalculateVelocity(this.state.Velocity, acceleration, time);
             this.state.Position = this.helper.CalculatePosition(this.state.Position, this.state.Velocity, time);
-
-            // TODO: refactor, extract logic!!
-            ////var acceleration = new Vector2(
-            ////    this.appliedForce.X / this.mass,
-            ////    this.appliedForce.Y / this.mass);
-
-            ////this.state.Velocity = new Vector2(
-            ////    this.state.Velocity.X + (acceleration.X * time),
-            ////    this.state.Velocity.Y + (acceleration.Y * time));
-
-            ////this.state.Position = new Point(
-            ////    this.state.Position.X + (this.state.Velocity.X * time),
-            ////    this.state.Position.Y + (this.state.Velocity.Y * time));
         }
 
         /// <summary>

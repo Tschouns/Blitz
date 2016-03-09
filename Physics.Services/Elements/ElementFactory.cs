@@ -44,7 +44,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public IParticle CreateParticle(double mass, Point position)
         {
-            Checks.AssertIsPositive(mass, nameof(mass));
+            Checks.AssertIsStrictPositive(mass, nameof(mass));
 
             var particle = new Particle(
                 this.calculationHelper,

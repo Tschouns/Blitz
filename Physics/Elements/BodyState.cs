@@ -9,9 +9,9 @@ namespace Physics.Elements
     using Geometry.Elements;
 
     /// <summary>
-    /// Represents the variable state of a rigid body at a specific point in time.
+    /// Represents the variable state of a body at a specific point in time.
     /// </summary>
-    public struct RigidBodyState
+    public struct BodyState
     {
         /// <summary>
         /// Gets or sets the current position.
@@ -24,12 +24,12 @@ namespace Physics.Elements
         public Vector2 Velocity { get; set; }
 
         /// <summary>
-        /// Gets or sets the current angular orientation about the origin, in radians.
+        /// Gets or sets the current angular orientation about the origin (in radians).
         /// </summary>
         public double Orientation { get; set; }
 
         /// <summary>
-        /// Gets or sets the current angular velocity about the origin, in radians per second.
+        /// Gets or sets the current angular velocity about the origin (in radians per second).
         /// </summary>
         public double AngularVelocity { get; set; }
     }

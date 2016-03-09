@@ -4,12 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Elements
+namespace Physics.Elements.Shape
 {
     /// <summary>
-    /// What to do with this...?
-    /// Perhaps move to "Geometry"?
-    /// Perhaps add a method by which it "draws" itself against a specified API...?
+    /// Represents a shape, as a property of a "physical body".
     /// </summary>
     public interface IShape
     {
