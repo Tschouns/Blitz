@@ -45,11 +45,13 @@
     <Compile Include="Elements\Vector2.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
+    <Compile Include="GeometryGlobalConstants.cs" />
     <Compile Include="Helpers\ILineIntersectionHelper.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\Point.cs" />
     <Compile Include="Helpers\IPointTransformationHelper.cs" />
     <Compile Include="Helpers\IPolygonCalculationHelper.cs" />
+    <Compile Include="Helpers\IPolygonTransformationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

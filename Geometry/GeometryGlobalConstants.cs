@@ -4,16 +4,18 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics
+namespace Geometry
 {
+    using Geometry.Elements;
+
     /// <summary>
     /// Provides some global constants.
     /// </summary>
-    public static class PhysicsGlobalConstants
+    public static class GeometryGlobalConstants
     {
         /// <summary>
-        /// Earth's gravity acceleration, in m/s^2.
+        /// The geometric origin.
         /// </summary>
-        public static readonly double EarthGravityAcceleration = 9.81;
+        public static readonly Point Origin = new Point(0, 0);
     }
 }

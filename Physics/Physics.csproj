@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Elements\IElementFactory.cs" />
     <Compile Include="Elements\Shape\IPolygonShape.cs" />
+    <Compile Include="Elements\Shape\IShapeFactory.cs" />
     <Compile Include="Forces\IForceFactory.cs" />
     <Compile Include="Forces\IGlobalForce.cs" />
     <Compile Include="Elements\IPhysicalObject.cs" />

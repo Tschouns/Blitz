@@ -45,6 +45,7 @@
     <Compile Include="Elements\PhysicalSpace.cs" />
     <Compile Include="Elements\RigidBody.cs" />
     <Compile Include="Elements\Shape\PolygonShape.cs" />
+    <Compile Include="Elements\Shape\ShapeFactory.cs" />
     <Compile Include="Helpers\CalculationHelper.cs" />
     <Compile Include="Helpers\ICalculationHelper.cs" />
     <Compile Include="World\PhysicalWorld.cs" />

@@ -18,6 +18,13 @@ namespace Physics.Services.Elements
     public class RigidBody : IBody<IPolygonShape>
     {
         /// <summary>
+        /// Used to create the <see cref="IPolygonShape"/>, based on a <see cref="Polygon"/>.
+        /// TODO: Check whether it's really needed as a member, or whether the creation of
+        /// the shape shall be done in this class at all.
+        /// </summary>
+        private readonly IShapeFactory shapeFactory;
+
+        /// <summary>
         /// Stores the current state of this rigid body.
         /// </summary>
         private BodyState state;
@@ -26,19 +33,20 @@ namespace Physics.Services.Elements
         /// Initializes a new instance of the <see cref="RigidBody"/> class.
         /// </summary>
         public RigidBody(
+            IShapeFactory shapeFactory,
             double mass,
-            IPolygonShape shape,
+            Polygon polygon,
             Point initialPosition,
             double initialOrientation,
             Vector2 initialVelocity)
         {
+            Checks.AssertNotNull(shapeFactory, nameof(shapeFactory));
             Checks.AssertIsStrictPositive(mass, nameof(mass));
-            Checks.AssertNotNull(shape, nameof(shape));
+            Checks.AssertNotNull(polygon, nameof(polygon));
 
+            this.shapeFactory = shapeFactory;
             this.Mass = mass;
-
-            // TODO: Transform the original shape, so that centroid = origin. Where?
-            this.OriginalShape = shape;
+            this.OriginalShape = this.shapeFactory.CreateOriginalPolygonShape(polygon);
             this.state = new BodyState
             {
                 Position = initialPosition,
