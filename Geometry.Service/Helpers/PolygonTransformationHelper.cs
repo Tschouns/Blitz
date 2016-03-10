@@ -80,7 +80,7 @@ namespace Geometry.Service.Helpers
             var centroid = this.polygonCalculationHelper.DetermineCentroid(polygon);
 
             // Get the origin's offset, relative to the centroid.
-            var originOffset = GeometryGlobalConstants.Origin.GetOffsetFrom(centroid);
+            var originOffset = GeometryConstants.Origin.GetOffsetFrom(centroid);
             var centeredPolygon = this.TranslatePolygon(originOffset, polygon);
 
             return centeredPolygon;

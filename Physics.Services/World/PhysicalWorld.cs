@@ -48,7 +48,7 @@ namespace Physics.Services.World
             this.physicalSpace = this.elementFactory.CreateSpace();
 
             // Configure world, add gravity (this might get a little more flexible in the future).
-            var gravity = this.forceFactory.CreateGravity(PhysicsGlobalConstants.EarthGravityAcceleration);
+            var gravity = this.forceFactory.CreateGravity(PhysicsConstants.EarthGravityAcceleration);
             this.physicalSpace.AddGlobalForce(gravity);
         }
 

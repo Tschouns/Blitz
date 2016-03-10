@@ -19,5 +19,14 @@ namespace Physics.Elements.Shape
         /// the origin.
         /// </summary>
         IPolygonShape CreateOriginalPolygonShape(Polygon polygon);
+
+        /// <summary>
+        /// Creates a <see cref="IPolygonShape"/> based on the specified original <see cref="IPolygonShape"/>,
+        /// transformed as specified.
+        /// </summary>
+        IPolygonShape CreateTransformedPolygonShape(
+            IPolygonShape originalPolygonShape,
+            Point targetPosition,
+            double orientation);
     }
 }

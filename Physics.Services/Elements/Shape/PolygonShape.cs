@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Elements.Shape
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Physics.Elements.Shape;
@@ -18,12 +19,28 @@ namespace Physics.Services.Elements.Shape
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonShape"/> class.
         /// </summary>
-        public PolygonShape(Polygon polygon)
+        public PolygonShape(
+            double volume,
+            Point centerOfMass,
+            Polygon polygon)
         {
+            Checks.AssertIsStrictPositive(volume, nameof(volume));
             Checks.AssertNotNull(polygon, nameof(polygon));
 
+            this.Volume = volume;
+            this.CenterOfMass = centerOfMass;
             this.Polygon = polygon;
         }
+
+        /// <summary>
+        /// Gets... <see cref="IShape.Volume"/>.
+        /// </summary>
+        public double Volume { get; }
+
+        /// <summary>
+        /// Gets... <see cref="IShape.CenterOfMass"/>.
+        /// </summary>
+        public Point CenterOfMass { get; }
 
         /// <summary>
         /// Gets... <see cref="IPolygonShape.Polygon"/>.

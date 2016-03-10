@@ -23,7 +23,10 @@ namespace Physics.Elements
         double Inertia { get; }
 
         /// <summary>
-        /// Gets the original shape of the body, with its center of mass identical to the origin.
+        /// Gets the original shape of the body, with its center of mass identical
+        /// to the origin.
+        /// The original shape instance will not change over the lifecycle of
+        /// the <see cref="IBody{TShape}"/>.
         /// </summary>
         TShape OriginalShape { get; }
 
@@ -33,8 +36,10 @@ namespace Physics.Elements
         BodyState CurrentState { get; }
 
         /// <summary>
-        /// Gets the current shape of the body, transformed to its current position in space.
+        /// Gets the current shape of the body, fully transformed based on its current
+        /// position and orientation in space.
+        /// The current shape instance is created when this method is called.
         /// </summary>
-        TShape GetTransformedShape();
+        TShape GetCurrentShape();
     }
 }

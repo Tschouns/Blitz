@@ -9,9 +9,9 @@ namespace Geometry
     using Geometry.Elements;
 
     /// <summary>
-    /// Provides some global constants.
+    /// Provides some constants.
     /// </summary>
-    public static class GeometryGlobalConstants
+    public static class GeometryConstants
     {
         /// <summary>
         /// The geometric origin.

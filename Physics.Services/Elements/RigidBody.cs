@@ -9,11 +9,12 @@ namespace Physics.Services.Elements
     using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
+    using Geometry.Extensions;
     using Physics.Elements;
     using Physics.Elements.Shape;
 
     /// <summary>
-    /// Implementation of <see cref="IBody"/>. Behaves like a rigid body.
+    /// Implementation of <see cref="IBody"/>. Implements the behavior of a "rigid body".
     /// </summary>
     public class RigidBody : IBody<IPolygonShape>
     {
@@ -23,6 +24,11 @@ namespace Physics.Services.Elements
         /// the shape shall be done in this class at all.
         /// </summary>
         private readonly IShapeFactory shapeFactory;
+
+        /// <summary>
+        /// Stores the currently applied force.
+        /// </summary>
+        private Vector2 appliedForce;
 
         /// <summary>
         /// Stores the current state of this rigid body.
@@ -46,7 +52,11 @@ namespace Physics.Services.Elements
 
             this.shapeFactory = shapeFactory;
             this.Mass = mass;
+
+            // The "original shape" is created one, and won't change over the lifecycle of the class.
             this.OriginalShape = this.shapeFactory.CreateOriginalPolygonShape(polygon);
+
+            this.appliedForce = new Vector2();
             this.state = new BodyState
             {
                 Position = initialPosition,
@@ -67,7 +77,7 @@ namespace Physics.Services.Elements
         public double Inertia { get; }
 
         /// <summary>
-        /// Gets... see <see cref="IBody{TShape}.Shape"/>.
+        /// Gets... see <see cref="IBody{TShape}.OriginalShape"/>.
         /// </summary>
         public IPolygonShape OriginalShape { get; }
 
@@ -77,11 +87,16 @@ namespace Physics.Services.Elements
         public BodyState CurrentState => this.state;
 
         /// <summary>
-        /// See <see cref="IBody{TShape}.GetTransformedShape"/>.
+        /// See <see cref="IBody{TShape}.GetCurrentShape"/>.
         /// </summary>
-        public IPolygonShape GetTransformedShape()
+        public IPolygonShape GetCurrentShape()
         {
-            throw new NotImplementedException();
+            var currentShape = this.shapeFactory.CreateTransformedPolygonShape(
+                this.OriginalShape,
+                this.state.Position,
+                this.state.Orientation);
+
+            return currentShape;
         }
 
         /// <summary>
@@ -89,7 +104,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void AddForce(Vector2 force)
         {
-            throw new NotImplementedException();
+            this.appliedForce = this.appliedForce.AddVector(force);
         }
 
         /// <summary>

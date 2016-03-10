@@ -54,7 +54,7 @@
     <Compile Include="Elements\Shape\IShape.cs" />
     <Compile Include="World\IPhysicalWorld.cs" />
     <Compile Include="World\IPhysicsFactory.cs" />
-    <Compile Include="PhysicsGlobalConstants.cs" />
+    <Compile Include="PhysicsConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

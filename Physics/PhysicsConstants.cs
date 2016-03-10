@@ -7,9 +7,9 @@
 namespace Physics
 {
     /// <summary>
-    /// Provides some global constants.
+    /// Provides some constants.
     /// </summary>
-    public static class PhysicsGlobalConstants
+    public static class PhysicsConstants
     {
         /// <summary>
         /// Earth's gravity acceleration, in m/s^2.

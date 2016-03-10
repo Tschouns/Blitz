@@ -45,7 +45,7 @@
     <Compile Include="Elements\Vector2.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
-    <Compile Include="GeometryGlobalConstants.cs" />
+    <Compile Include="GeometryConstants.cs" />
     <Compile Include="Helpers\ILineIntersectionHelper.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\Point.cs" />

@@ -74,11 +74,11 @@ namespace Geometry.UnitTest
             var roundedResultCentroidY = Math.Round(resultCentroid.Y, 15);
 
             Assert.AreEqual(
-                GeometryGlobalConstants.Origin.X,
+                GeometryConstants.Origin.X,
                 roundedResultCentroidX);
 
             Assert.AreEqual(
-                GeometryGlobalConstants.Origin.Y,
+                GeometryConstants.Origin.Y,
                 roundedResultCentroidY);
         }
 
