@@ -10,6 +10,7 @@ namespace Physics.Services.Elements
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
+    using Helpers;
     using Physics.Elements;
     using Physics.Elements.Shape;
 
@@ -26,6 +27,16 @@ namespace Physics.Services.Elements
         private readonly IShapeFactory shapeFactory;
 
         /// <summary>
+        /// Used to calculate the moment of inertia.
+        /// </summary>
+        private readonly IBodyCalculationHelper bodyCalculationHelper;
+
+        /// <summary>
+        /// Used to calculate the acceleration, velocity and position.
+        /// </summary>
+        private readonly IIsaacNewtonHelper isaacNewtonHelper;
+
+        /// <summary>
         /// Stores the currently applied force.
         /// </summary>
         private Vector2 appliedForce;
@@ -40,6 +51,8 @@ namespace Physics.Services.Elements
         /// </summary>
         public RigidBody(
             IShapeFactory shapeFactory,
+            IBodyCalculationHelper bodyCalculationHelper,
+            IIsaacNewtonHelper isaacNewtonHelper,
             double mass,
             Polygon polygon,
             Point initialPosition,
@@ -47,15 +60,26 @@ namespace Physics.Services.Elements
             Vector2 initialVelocity)
         {
             Checks.AssertNotNull(shapeFactory, nameof(shapeFactory));
+            Checks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
+            Checks.AssertNotNull(isaacNewtonHelper, nameof(isaacNewtonHelper));
             Checks.AssertIsStrictPositive(mass, nameof(mass));
             Checks.AssertNotNull(polygon, nameof(polygon));
 
+            // Helpers
             this.shapeFactory = shapeFactory;
+            this.bodyCalculationHelper = bodyCalculationHelper;
+            this.isaacNewtonHelper = isaacNewtonHelper;
+
+            // Static properties
             this.Mass = mass;
 
-            // The "original shape" is created one, and won't change over the lifecycle of the class.
+            // (The "original shape" is created once, and won't change over the lifecycle of the class.)
             this.OriginalShape = this.shapeFactory.CreateOriginalPolygonShape(polygon);
+            this.Inertia = this.bodyCalculationHelper.CalculateMomentOfInertiaAboutOrigin(
+                this.OriginalShape.Polygon,
+                this.Mass);
 
+            // Dynamic properties
             this.appliedForce = new Vector2();
             this.state = new BodyState
             {

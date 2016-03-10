@@ -46,8 +46,10 @@
     <Compile Include="Elements\RigidBody.cs" />
     <Compile Include="Elements\Shape\PolygonShape.cs" />
     <Compile Include="Elements\Shape\ShapeFactory.cs" />
-    <Compile Include="Helpers\CalculationHelper.cs" />
-    <Compile Include="Helpers\ICalculationHelper.cs" />
+    <Compile Include="Helpers\BodyCalculationHelper.cs" />
+    <Compile Include="Helpers\IsaacNewtonHelper.cs" />
+    <Compile Include="Helpers\IBodyCalculationHelper.cs" />
+    <Compile Include="Helpers\IIsaacNewtonHelper.cs" />
     <Compile Include="World\PhysicalWorld.cs" />
     <Compile Include="World\PhysicsFactory.cs" />
     <Compile Include="Forces\ForceFactory.cs" />

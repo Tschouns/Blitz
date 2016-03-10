@@ -17,14 +17,14 @@ namespace Physics.Services.Elements
     public class ElementFactory : IElementFactory
     {
         /// <summary>
-        /// Stores the <see cref="ICalculationHelper"/>.
+        /// Stores the <see cref="IIsaacNewtonHelper"/>.
         /// </summary>
-        private readonly ICalculationHelper calculationHelper;
+        private readonly IIsaacNewtonHelper calculationHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementFactory"/> class.
         /// </summary>
-        public ElementFactory(ICalculationHelper calculationHelper)
+        public ElementFactory(IIsaacNewtonHelper calculationHelper)
         {
             Checks.AssertNotNull(calculationHelper, nameof(calculationHelper));
 

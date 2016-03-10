@@ -29,7 +29,7 @@ namespace Physics.Service
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
-            Ioc.Container.RegisterSingleton<ICalculationHelper, CalculationHelper>();
+            Ioc.Container.RegisterSingleton<IIsaacNewtonHelper, IsaacNewtonHelper>();
             Ioc.Container.RegisterSingleton<IElementFactory, ElementFactory>();
             Ioc.Container.RegisterSingleton<IForceFactory, ForceFactory>();
             Ioc.Container.RegisterSingleton<IPhysicsFactory, PhysicsFactory>();

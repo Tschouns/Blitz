@@ -21,7 +21,7 @@ namespace Physics.Services.Elements
         /// <summary>
         /// Used to calculate acceleration, velocity and position.
         /// </summary>
-        private readonly ICalculationHelper helper;
+        private readonly IIsaacNewtonHelper helper;
 
         /// <summary>
         /// Stores the currently applied force.
@@ -37,15 +37,15 @@ namespace Physics.Services.Elements
         /// Initializes a new instance of the <see cref="Particle"/> class.
         /// </summary>
         public Particle(
-            ICalculationHelper calculationHelper,
+            IIsaacNewtonHelper helper,
             double mass,
             Point initialPosition,
             Vector2 initialVelocity)
         {
-            Checks.AssertNotNull(calculationHelper, nameof(calculationHelper));
+            Checks.AssertNotNull(helper, nameof(helper));
             Checks.AssertIsStrictPositive(mass, nameof(mass));
 
-            this.helper = calculationHelper;
+            this.helper = helper;
             this.Mass = mass;
             this.appliedForce = new Vector2();
             this.state = new ParticleState

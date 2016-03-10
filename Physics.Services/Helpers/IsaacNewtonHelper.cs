@@ -6,16 +6,15 @@
 
 namespace Physics.Services.Helpers
 {
-    using System;
     using Geometry.Elements;
 
     /// <summary>
-    /// See <see cref="ICalculationHelper"/>.
+    /// See <see cref="IIsaacNewtonHelper"/>.
     /// </summary>
-    public class CalculationHelper : ICalculationHelper
+    public class IsaacNewtonHelper : IIsaacNewtonHelper
     {
         /// <summary>
-        /// See <see cref="ICalculationHelper.CalculateAcceleration"/>.
+        /// See <see cref="IIsaacNewtonHelper.CalculateAcceleration"/>.
         /// </summary>
         public Vector2 CalculateAcceleration(Vector2 appliedForce, double mass)
         {
@@ -25,7 +24,7 @@ namespace Physics.Services.Helpers
         }
 
         /// <summary>
-        /// See <see cref="ICalculationHelper.CalculateVelocity"/>.
+        /// See <see cref="IIsaacNewtonHelper.CalculateVelocity"/>.
         /// </summary>
         public Vector2 CalculateVelocity(Vector2 currentVelocity, Vector2 acceleration, double time)
         {
@@ -35,7 +34,7 @@ namespace Physics.Services.Helpers
         }
 
         /// <summary>
-        /// See <see cref="ICalculationHelper.CalculatePosition"/>.
+        /// See <see cref="IIsaacNewtonHelper.CalculatePosition"/>.
         /// </summary>
         public Point CalculatePosition(Point currentPosition, Vector2 velocity, double time)
         {

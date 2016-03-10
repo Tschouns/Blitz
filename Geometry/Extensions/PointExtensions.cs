@@ -42,5 +42,21 @@ namespace Geometry.Extensions
                 point.X - otherPoint.X,
                 point.Y - otherPoint.Y);
         }
+
+        /// <summary>
+        /// Gets the "cross product" <c>A x B = Ax * By - Ay * Bx</c>. It is anti-commutative.
+        /// </summary>
+        public static double Cross(this Point a, Point b)
+        {
+            return (a.X * b.Y) - (a.Y * b.X);
+        }
+
+        /// <summary>
+        /// Gets the "dot product" <c>A x B = Ax * By + Ay * Bx</c>. It is commutative.
+        /// </summary>
+        public static double Dot(this Point a, Point b)
+        {
+            return (a.X * b.Y) + (a.Y * b.X);
+        }
     }
 }

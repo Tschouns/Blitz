@@ -9,9 +9,9 @@ namespace Physics.Services.Helpers
     using Geometry.Elements;
 
     /// <summary>
-    /// Provides methods to perform different several calculations.
+    /// Provides methods to perform calculations based on Newton's laws.
     /// </summary>
-    public interface ICalculationHelper
+    public interface IIsaacNewtonHelper
     {
         /// <summary>
         /// Calculates the acceleration of a "physical object", based on the applied force and mass.
