@@ -73,7 +73,7 @@ namespace Physics.Services.Helpers
                 var a = corners[i];
                 var b = corners[i + 1];
 
-                intermediateNumerator += Math.Abs(b.Cross(a)) +
+                intermediateNumerator += Math.Abs(b.Cross(a)) *
                                          (a.Dot(a) + a.Dot(b) + b.Dot(b));
 
                 intermediateDenominator += Math.Abs(b.Cross(a));
