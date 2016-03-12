@@ -53,6 +53,7 @@ namespace Physics.Services.Helpers
 
         /// <summary>
         /// See <see cref="IIsaacNewtonHelper.CalculateMomentOfInertiaAboutOrigin"/>.
+        /// The formula this calculation is based on can be found here: <c>https://en.wikipedia.org/wiki/List_of_moments_of_inertia</c>
         /// </summary>
         public double CalculateMomentOfInertiaAboutOrigin(Polygon polygon, double mass)
         {
