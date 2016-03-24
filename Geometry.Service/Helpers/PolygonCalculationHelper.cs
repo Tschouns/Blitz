@@ -21,7 +21,7 @@ namespace Geometry.Service.Helpers
         /// <summary>
         /// Used to check for intersections between polygon segment.
         /// </summary>
-        private readonly ILineIntersectionHelper lineIntersectionHelper;
+        private readonly ILineIntersectionHelper _lineIntersectionHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonCalculationHelper"/> class.
@@ -30,7 +30,7 @@ namespace Geometry.Service.Helpers
         {
             Checks.AssertNotNull(lineIntersectionHelper, nameof(lineIntersectionHelper));
 
-            this.lineIntersectionHelper = lineIntersectionHelper;
+            this._lineIntersectionHelper = lineIntersectionHelper;
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Geometry.Service.Helpers
             Checks.AssertNotNull(segment1, nameof(segment1));
             Checks.AssertNotNull(segment2, nameof(segment2));
 
-            var intersection = this.lineIntersectionHelper.GetLineSegmentIntersection(segment1, segment2);
+            var intersection = this._lineIntersectionHelper.GetLineSegmentIntersection(segment1, segment2);
 
             if (intersection.HasValue &&
                 !intersection.Value.Equals(segment1.Point1) &&

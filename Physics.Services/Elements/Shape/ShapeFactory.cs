@@ -21,12 +21,12 @@ namespace Physics.Services.Elements.Shape
         /// <summary>
         /// Used to calculate properties of a polygon, such as the area.
         /// </summary>
-        private readonly IPolygonCalculationHelper polygonCalculationHelper;
+        private readonly IPolygonCalculationHelper _polygonCalculationHelper;
 
         /// <summary>
         /// Used to center and transform polygons.
         /// </summary>
-        private readonly IPolygonTransformationHelper polygonTransformationHelper;
+        private readonly IPolygonTransformationHelper _polygonTransformationHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShapeFactory"/> class.
@@ -38,8 +38,8 @@ namespace Physics.Services.Elements.Shape
             Checks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
             Checks.AssertNotNull(polygonCalculationHelper, nameof(polygonCalculationHelper));
 
-            this.polygonTransformationHelper = polygonTransformationHelper;
-            this.polygonCalculationHelper = polygonCalculationHelper;
+            this._polygonTransformationHelper = polygonTransformationHelper;
+            this._polygonCalculationHelper = polygonCalculationHelper;
         }
 
         /// <summary>
@@ -49,8 +49,8 @@ namespace Physics.Services.Elements.Shape
         {
             Checks.AssertNotNull(polygon, nameof(polygon));
 
-            var areaRepresentingTheVolume = this.polygonCalculationHelper.CalculateArea(polygon);
-            var originCenteredPolygon = this.polygonTransformationHelper.CenterOnOrigin(polygon);
+            var areaRepresentingTheVolume = this._polygonCalculationHelper.CalculateArea(polygon);
+            var originCenteredPolygon = this._polygonTransformationHelper.CenterOnOrigin(polygon);
 
             return new PolygonShape(
                 areaRepresentingTheVolume,
@@ -69,14 +69,14 @@ namespace Physics.Services.Elements.Shape
             Checks.AssertNotNull(originalPolygonShape, nameof(originalPolygonShape));
 
             // Rotate around the center of mass.
-            var rotatedPolygon = this.polygonTransformationHelper.RotatePolygon(
+            var rotatedPolygon = this._polygonTransformationHelper.RotatePolygon(
                 originalPolygonShape.CenterOfMass,
                 orientation,
                 originalPolygonShape.Polygon);
 
             // Translate by the offset of the target position, relative to the center of mass which is its "original position".
             var targetPositionOffset = targetPosition.GetOffsetFrom(originalPolygonShape.CenterOfMass);
-            var translatedAndRotatedPolygon = this.polygonTransformationHelper.TranslatePolygon(
+            var translatedAndRotatedPolygon = this._polygonTransformationHelper.TranslatePolygon(
                 targetPositionOffset,
                 rotatedPolygon);
 

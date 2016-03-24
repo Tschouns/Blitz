@@ -19,7 +19,7 @@ namespace Physics.Services.Forces
         /// <summary>
         /// Stores the actual force vector.
         /// </summary>
-        private readonly double gravityAcceleration;
+        private readonly double _gravityAcceleration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Gravity"/> class.
@@ -28,7 +28,7 @@ namespace Physics.Services.Forces
         {
             Checks.AssertIsPositive(acceleration, nameof(acceleration));
 
-            this.gravityAcceleration = acceleration;
+            this._gravityAcceleration = acceleration;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Physics.Services.Forces
         {
             Checks.AssertNotNull(physicalObject, nameof(physicalObject));
 
-            var force = new Vector2(0, -(this.gravityAcceleration * physicalObject.Mass));
+            var force = new Vector2(0, -(this._gravityAcceleration * physicalObject.Mass));
 
             physicalObject.AddForce(force);
         }

@@ -6,8 +6,9 @@
 
 namespace Physics.Services.Helpers
 {
+    using Base.RuntimeChecks;
     using Geometry.Elements;
-
+    
     /// <summary>
     /// See <see cref="IIsaacNewtonHelper"/>.
     /// </summary>
@@ -18,6 +19,8 @@ namespace Physics.Services.Helpers
         /// </summary>
         public Vector2 CalculateAcceleration(Vector2 appliedForce, double mass)
         {
+            Checks.AssertIsStrictPositive(mass, nameof(mass));
+
             return new Vector2(
                 appliedForce.X / mass,
                 appliedForce.Y / mass);
@@ -41,6 +44,32 @@ namespace Physics.Services.Helpers
             return new Point(
                 currentPosition.X + (velocity.X * time),
                 currentPosition.Y + (velocity.Y * time));
+        }
+
+        /// <summary>
+        /// See <see cref="IIsaacNewtonHelper.CalculateAngularAcceleration"/>.
+        /// </summary>
+        public double CalculateAngularAcceleration(double torque, double inertia)
+        {
+            Checks.AssertIsStrictPositive(inertia, nameof(inertia));
+
+            return torque / inertia;
+        }
+
+        /// <summary>
+        /// See <see cref="IIsaacNewtonHelper.CalculateAngularVelocity"/>.
+        /// </summary>
+        public double CalculateAngularVelocity(double currentAngularVelocity, double angularAcceleration, double time)
+        {
+            return currentAngularVelocity + (angularAcceleration * time);
+        }
+
+        /// <summary>
+        /// See <see cref="IIsaacNewtonHelper.CalculateOrientation"/>.
+        /// </summary>
+        public double CalculateOrientation(double currentOrientation, double angularVelocity, double time)
+        {
+            return currentOrientation + (angularVelocity * time);
         }
     }
 }

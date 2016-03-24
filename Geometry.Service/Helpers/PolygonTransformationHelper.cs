@@ -20,12 +20,12 @@ namespace Geometry.Service.Helpers
         /// <summary>
         /// Used to transform the polygon corners.
         /// </summary>
-        private readonly IPointTransformationHelper pointTransformationHelper;
+        private readonly IPointTransformationHelper _pointTransformationHelper;
 
         /// <summary>
         /// Used to calculate the centroid of a polygon.
         /// </summary>
-        private readonly IPolygonCalculationHelper polygonCalculationHelper;
+        private readonly IPolygonCalculationHelper _polygonCalculationHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonTransformationHelper"/> class.
@@ -37,8 +37,8 @@ namespace Geometry.Service.Helpers
             Checks.AssertNotNull(pointTransformationHelper, nameof(pointTransformationHelper));
             Checks.AssertNotNull(polygonCalculationHelper, nameof(polygonCalculationHelper));
 
-            this.pointTransformationHelper = pointTransformationHelper;
-            this.polygonCalculationHelper = polygonCalculationHelper;
+            this._pointTransformationHelper = pointTransformationHelper;
+            this._polygonCalculationHelper = polygonCalculationHelper;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Geometry.Service.Helpers
         {
             Checks.AssertNotNull(polygon, nameof(polygon));
 
-            var newPolygonCorners = this.pointTransformationHelper.TranslatePoints(
+            var newPolygonCorners = this._pointTransformationHelper.TranslatePoints(
                 offset,
                 polygon.Corners.ToArray());
 
@@ -62,7 +62,7 @@ namespace Geometry.Service.Helpers
         {
             Checks.AssertNotNull(polygon, nameof(polygon));
 
-            var newPolygonCorners = this.pointTransformationHelper.RotatePoints(
+            var newPolygonCorners = this._pointTransformationHelper.RotatePoints(
                 origin,
                 angle,
                 polygon.Corners.ToArray());
@@ -77,7 +77,7 @@ namespace Geometry.Service.Helpers
         {
             Checks.AssertNotNull(polygon, nameof(polygon));
 
-            var centroid = this.polygonCalculationHelper.DetermineCentroid(polygon);
+            var centroid = this._polygonCalculationHelper.DetermineCentroid(polygon);
 
             // Get the origin's offset, relative to the centroid.
             var originOffset = GeometryConstants.Origin.GetOffsetFrom(centroid);

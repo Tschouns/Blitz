@@ -19,7 +19,7 @@ namespace Physics.Services.Elements
         /// <summary>
         /// Stores the <see cref="IIsaacNewtonHelper"/>.
         /// </summary>
-        private readonly IIsaacNewtonHelper calculationHelper;
+        private readonly IIsaacNewtonHelper _calculationHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementFactory"/> class.
@@ -28,7 +28,7 @@ namespace Physics.Services.Elements
         {
             Checks.AssertNotNull(calculationHelper, nameof(calculationHelper));
 
-            this.calculationHelper = calculationHelper;
+            this._calculationHelper = calculationHelper;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Physics.Services.Elements
             Checks.AssertIsStrictPositive(mass, nameof(mass));
 
             var particle = new Particle(
-                this.calculationHelper,
+                this._calculationHelper,
                 mass,
                 position,
                 new Vector2());

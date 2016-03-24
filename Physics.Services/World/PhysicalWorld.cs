@@ -20,17 +20,17 @@ namespace Physics.Services.World
         /// <summary>
         /// Used to create different elements.
         /// </summary>
-        private readonly IElementFactory elementFactory;
+        private readonly IElementFactory _elementFactory;
 
         /// <summary>
         /// Used to create different physical forces.
         /// </summary>
-        private readonly IForceFactory forceFactory;
+        private readonly IForceFactory _forceFactory;
 
         /// <summary>
         /// Stores the "physical space" which contains all the "physical objects" of this world.
         /// </summary>
-        private readonly IPhysicalSpace physicalSpace;
+        private readonly IPhysicalSpace _physicalSpace;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalWorld"/> class.
@@ -42,14 +42,14 @@ namespace Physics.Services.World
             Checks.AssertNotNull(elementFactory, nameof(elementFactory));
             Checks.AssertNotNull(forceFactory, nameof(forceFactory));
 
-            this.elementFactory = elementFactory;
-            this.forceFactory = forceFactory;
+            this._elementFactory = elementFactory;
+            this._forceFactory = forceFactory;
 
-            this.physicalSpace = this.elementFactory.CreateSpace();
+            this._physicalSpace = this._elementFactory.CreateSpace();
 
             // Configure world, add gravity (this might get a little more flexible in the future).
-            var gravity = this.forceFactory.CreateGravity(PhysicsConstants.EarthGravityAcceleration);
-            this.physicalSpace.AddGlobalForce(gravity);
+            var gravity = this._forceFactory.CreateGravity(PhysicsConstants.EarthGravityAcceleration);
+            this._physicalSpace.AddGlobalForce(gravity);
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace Physics.Services.World
         {
             Checks.AssertIsStrictPositive(mass, nameof(mass));
 
-            var particle = this.elementFactory.CreateParticle(mass, position);
-            this.physicalSpace.AddParticle(particle);
+            var particle = this._elementFactory.CreateParticle(mass, position);
+            this._physicalSpace.AddParticle(particle);
 
             return particle;
         }
@@ -72,7 +72,7 @@ namespace Physics.Services.World
         {
             Checks.AssertIsPositive(time, nameof(time));
 
-            this.physicalSpace.Step(time);
+            this._physicalSpace.Step(time);
         }
     }
 }

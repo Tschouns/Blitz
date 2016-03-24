@@ -19,12 +19,12 @@ namespace Physics.Services.World
         /// <summary>
         /// Stores the <see cref="IElementFactory"/>.
         /// </summary>
-        private readonly IElementFactory elementFactory;
+        private readonly IElementFactory _elementFactory;
 
         /// <summary>
         /// Stores the <see cref="IForceFactory"/>.
         /// </summary>
-        private readonly IForceFactory forceFactory;
+        private readonly IForceFactory _forceFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicsFactory"/> class.
@@ -36,8 +36,8 @@ namespace Physics.Services.World
             Checks.AssertNotNull(elementFactory, nameof(elementFactory));
             Checks.AssertNotNull(forceFactory, nameof(forceFactory));
 
-            this.elementFactory = elementFactory;
-            this.forceFactory = forceFactory;
+            this._elementFactory = elementFactory;
+            this._forceFactory = forceFactory;
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Physics.Services.World
         public IPhysicalWorld CreatePhysicalWorld()
         {
             var physicalWorld = new PhysicalWorld(
-                this.elementFactory,
-                this.forceFactory);
+                this._elementFactory,
+                this._forceFactory);
 
             return physicalWorld;
         }

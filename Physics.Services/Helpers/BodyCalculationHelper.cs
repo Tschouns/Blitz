@@ -35,7 +35,7 @@ namespace Physics.Services.Helpers
         }
 
         /// <summary>
-        /// See <see cref="IIsaacNewtonHelper.CalculateMomentOfInertia"/>.
+        /// See <see cref="IBodyCalculationHelper.CalculateMomentOfInertia"/>.
         /// </summary>
         public double CalculateMomentOfInertia(Polygon polygon, Point axis, double mass)
         {
@@ -52,7 +52,7 @@ namespace Physics.Services.Helpers
         }
 
         /// <summary>
-        /// See <see cref="IIsaacNewtonHelper.CalculateMomentOfInertiaAboutOrigin"/>.
+        /// See <see cref="IBodyCalculationHelper.CalculateMomentOfInertiaAboutOrigin"/>.
         /// The formula this calculation is based on can be found here: <c>https://en.wikipedia.org/wiki/List_of_moments_of_inertia</c>
         /// </summary>
         public double CalculateMomentOfInertiaAboutOrigin(Polygon polygon, double mass)
@@ -84,6 +84,14 @@ namespace Physics.Services.Helpers
                 (mass / 6) * (intermediateNumerator / intermediateDenominator);
 
             return momentOfInertia;
+        }
+
+        /// <summary>
+        /// See <see cref="IBodyCalculationHelper.CalculateTorque"/>.
+        /// </summary>
+        public double CalculateTorque(Vector2 force, Vector2 offset)
+        {
+            return offset.Cross(force);
         }
     }
 }

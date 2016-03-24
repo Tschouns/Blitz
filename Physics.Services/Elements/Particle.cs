@@ -6,7 +6,6 @@
 
 namespace Physics.Services.Elements
 {
-    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
@@ -21,17 +20,17 @@ namespace Physics.Services.Elements
         /// <summary>
         /// Used to calculate acceleration, velocity and position.
         /// </summary>
-        private readonly IIsaacNewtonHelper helper;
+        private readonly IIsaacNewtonHelper _helper;
 
         /// <summary>
         /// Stores the currently applied force.
         /// </summary>
-        private Vector2 appliedForce;
+        private Vector2 _appliedForce;
 
         /// <summary>
         /// Stores the current state of this particle.
         /// </summary>
-        private ParticleState state;
+        private ParticleState _state;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Particle"/> class.
@@ -45,10 +44,10 @@ namespace Physics.Services.Elements
             Checks.AssertNotNull(helper, nameof(helper));
             Checks.AssertIsStrictPositive(mass, nameof(mass));
 
-            this.helper = helper;
+            this._helper = helper;
             this.Mass = mass;
-            this.appliedForce = new Vector2();
-            this.state = new ParticleState
+            this._appliedForce = new Vector2();
+            this._state = new ParticleState
             {
                 Position = initialPosition,
                 Velocity = initialVelocity
@@ -63,14 +62,14 @@ namespace Physics.Services.Elements
         /// <summary>
         /// Gets... see <see cref="IParticle.CurrentState"/>.
         /// </summary>
-        public ParticleState CurrentState => this.state;
+        public ParticleState CurrentState => this._state;
 
         /// <summary>
         /// See <see cref="IPhysicalObject.AddForce"/>.
         /// </summary>
         public void AddForce(Vector2 force)
         {
-            this.appliedForce = this.appliedForce.AddVector(force);
+            this._appliedForce = this._appliedForce.AddVector(force);
         }
 
         /// <summary>
@@ -87,9 +86,19 @@ namespace Physics.Services.Elements
         /// </summary>
         public void Step(double time)
         {
-            var acceleration = this.helper.CalculateAcceleration(this.appliedForce, this.Mass);
-            this.state.Velocity = this.helper.CalculateVelocity(this.state.Velocity, acceleration, time);
-            this.state.Position = this.helper.CalculatePosition(this.state.Position, this.state.Velocity, time);
+            var acceleration = this._helper.CalculateAcceleration(
+                this._appliedForce,
+                this.Mass);
+
+            this._state.Velocity = this._helper.CalculateVelocity(
+                this._state.Velocity,
+                acceleration,
+                time);
+
+            this._state.Position = this._helper.CalculatePosition(
+                this._state.Position,
+                this._state.Velocity,
+                time);
         }
 
         /// <summary>
@@ -97,7 +106,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void ResetAppliedForce()
         {
-            this.appliedForce = new Vector2();
+            this._appliedForce = new Vector2();
         }
     }
 }

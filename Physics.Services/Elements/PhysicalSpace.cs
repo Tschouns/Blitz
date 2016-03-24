@@ -19,20 +19,20 @@ namespace Physics.Services.Elements
         /// <summary>
         /// Holds the global forces in the space.
         /// </summary>
-        private readonly IList<IGlobalForce> globalForces;
+        private readonly IList<IGlobalForce> _globalForces;
 
         /// <summary>
         /// Holds all "physical" objects in the space.
         /// </summary>
-        private readonly IList<IPhysicalObject> physicalObjects;
+        private readonly IList<IPhysicalObject> _physicalObjects;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalSpace"/> class.
         /// </summary>
         public PhysicalSpace()
         {
-            this.globalForces = new List<IGlobalForce>();
-            this.physicalObjects = new List<IPhysicalObject>();
+            this._globalForces = new List<IGlobalForce>();
+            this._physicalObjects = new List<IPhysicalObject>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Physics.Services.Elements
         {
             Checks.AssertNotNull(globalForce, nameof(globalForce));
 
-            this.globalForces.Add(globalForce);
+            this._globalForces.Add(globalForce);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Physics.Services.Elements
         {
             Checks.AssertNotNull(particle, nameof(particle));
 
-            this.physicalObjects.Add(particle);
+            this._physicalObjects.Add(particle);
         }
 
         /// <summary>
@@ -62,9 +62,9 @@ namespace Physics.Services.Elements
         {
             Checks.AssertIsPositive(time, nameof(time));
 
-            foreach (var physicalObject in this.physicalObjects)
+            foreach (var physicalObject in this._physicalObjects)
             {
-                foreach (var globalForce in this.globalForces)
+                foreach (var globalForce in this._globalForces)
                 {
                     globalForce.ApplyToObject(physicalObject);
                 }

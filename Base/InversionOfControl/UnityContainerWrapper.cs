@@ -17,7 +17,7 @@ namespace Base.InversionOfControl
         /// <summary>
         /// Stores the actual Unity IOC container.
         /// </summary>
-        private readonly UnityContainer iocContainer = new UnityContainer();
+        private readonly UnityContainer _iocContainer = new UnityContainer();
 
         /// <summary>
         /// See <see cref="IIocContainer.RegisterSingleton{TInterface, TImplementation}"/>
@@ -26,7 +26,7 @@ namespace Base.InversionOfControl
             where TInterface : class
             where TImplementation : TInterface
         {
-            this.iocContainer.RegisterType<TInterface, TImplementation>(new PerThreadLifetimeManager());
+            this._iocContainer.RegisterType<TInterface, TImplementation>(new PerThreadLifetimeManager());
         }
 
         /// <summary>
@@ -34,12 +34,12 @@ namespace Base.InversionOfControl
         /// </summary>
         public TInterface Resolve<TInterface>() where TInterface : class
         {
-            if (!this.iocContainer.IsRegistered<TInterface>())
+            if (!this._iocContainer.IsRegistered<TInterface>())
             {
                 return null;
             }
 
-            var instance = this.iocContainer.Resolve<TInterface>();
+            var instance = this._iocContainer.Resolve<TInterface>();
 
             return instance;
         }
@@ -49,7 +49,7 @@ namespace Base.InversionOfControl
         /// </summary>
         public void Dispose()
         {
-            this.iocContainer.Dispose();
+            this._iocContainer.Dispose();
         }
     }
 }
