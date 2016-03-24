@@ -6,7 +6,6 @@
 
 namespace Physics.Services.Elements
 {
-    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
@@ -53,6 +52,17 @@ namespace Physics.Services.Elements
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RigidBody"/> class.
+        /// TODO:
+        /// * Make this class generic, i.e. unaware of the specific shape. It shall take
+        ///   the shape as an argument on construction.
+        /// * Move all shape-dependent code to the shape class/interface, such as inertia
+        ///   calculation (would take the mass as input).
+        /// * Perhaps create an internal shape interface.
+        /// * The <see cref="IBody{TShape}"/> shall only know one shape, as opposed to
+        ///   "original" and "current". The shape shall be able to "update" (transform) itself,
+        ///   taking position and orientation as input. The shape then provides the "original"
+        ///   and "current" representation of itself. This way, it can be guaranteed that the
+        ///   actual transformation is only performed once per step and body/shape. 
         /// </summary>
         public RigidBody(
             IShapeFactory shapeFactory,
@@ -140,6 +150,16 @@ namespace Physics.Services.Elements
             // ...as well as angular acceleration.
             var torque = this._bodyCalculationHelper.CalculateTorque(force, offset);
             this._appliedTorque += torque;
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalObject.AddForceAtPointInSpace"/>.
+        /// </summary>
+        public void AddForceAtPointInSpace(Vector2 force, Point pointInSpace)
+        {
+            var offset = pointInSpace.GetOffsetFrom(this._state.Position);
+
+            this.AddForceAtOffset(force, offset);
         }
 
         /// <summary>

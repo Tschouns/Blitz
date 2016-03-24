@@ -30,6 +30,11 @@ namespace Physics.Elements
         void AddForceAtOffset(Vector2 force, Vector2 offset);
 
         /// <summary>
+        /// Applies the specified force to a "physical object", at a specific point in space.
+        /// </summary>
+        void AddForceAtPointInSpace(Vector2 force, Point pointInSpace);
+
+        /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.
         /// Computes, based on applied force(s)/torque:
         /// 1) acceleration

@@ -8,6 +8,7 @@ namespace Physics.World
 {
     using Geometry.Elements;
     using Physics.Elements;
+    using Physics.Elements.Shape;
 
     /// <summary>
     /// Represents the "physical world".
@@ -15,9 +16,14 @@ namespace Physics.World
     public interface IPhysicalWorld
     {
         /// <summary>
-        /// Creates a particle in the "physical world".
+        /// Spawns a particle in the "physical world".
         /// </summary>
-        IParticle CreateParticle(double mass, Point position);
+        IParticle SpawnParticle(double mass, Point position);
+
+        /// <summary>
+        /// Spawns a rigid body in the "physical world".
+        /// </summary>
+        IBody<IPolygonShape> SpawnRigidBody(double mass, Polygon polygon, Point position);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

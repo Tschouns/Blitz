@@ -7,9 +7,10 @@
 namespace Physics.Elements
 {
     using Geometry.Elements;
+    using Physics.Elements.Shape;
 
     /// <summary>
-    /// Creates "elements".
+    /// Creates elements such as the "physical space" or "physical objects".
     /// </summary>
     public interface IElementFactory
     {
@@ -19,8 +20,15 @@ namespace Physics.Elements
         IPhysicalSpace CreateSpace();
 
         /// <summary>
-        /// Creates a <see cref="IParticle"/> of the specified mass, at the specified position in space.
+        /// Creates a <see cref="IParticle"/> of the specified mass, at the specified position
+        /// in space.
         /// </summary>
         IParticle CreateParticle(double mass, Point position);
+
+        /// <summary>
+        /// Creates a <see cref="IBody{IPolygonShape}"/> of the specified mass and shape polygon,
+        /// at the specified position in space.
+        /// </summary>
+        IBody<IPolygonShape> CreateRigidBody(double mass, Polygon polygon, Point position);
     }
 }

@@ -15,14 +15,14 @@ namespace Blitz
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
     using Geometry.Elements;
-    using Geometry.Extensions;
     using Physics.Elements;
+    using Physics.Elements.Shape;
     using Physics.World;
 
     /// <summary>
-    /// Interaction logic for <see cref="ClickyParticleSimulationControl"/>.
+    /// Interaction logic for <see cref="ClickyRigidBodyTorqueSimulationControl"/>.
     /// </summary>
-    public partial class ClickyParticleSimulationControl : UserControl
+    public partial class ClickyRigidBodyTorqueSimulationControl : UserControl
     {
         /// <summary>
         /// Used to create the world.
@@ -35,9 +35,9 @@ namespace Blitz
         private readonly DispatcherTimer _dispatcherTimer;
 
         /// <summary>
-        /// Stores all the created particles.
+        /// Stores all the created rigid bodies.
         /// </summary>
-        private readonly IList<IParticle> _particles;
+        private readonly IList<IBody<IPolygonShape>> _rigidBodies;
 
         /// <summary>
         /// Stores the "physical world".
@@ -45,24 +45,24 @@ namespace Blitz
         private IPhysicalWorld _world;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClickyParticleSimulationControl"/> class.
+        /// Initializes a new instance of the <see cref="ClickyRigidBodyTorqueSimulationControl"/> class.
         /// </summary>
-        public ClickyParticleSimulationControl()
+        public ClickyRigidBodyTorqueSimulationControl()
             : this(Ioc.Container.Resolve<IPhysicsFactory>())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClickyParticleSimulationControl"/> class.
+        /// Initializes a new instance of the <see cref="ClickyRigidBodyTorqueSimulationControl"/> class.
         /// </summary>
-        public ClickyParticleSimulationControl(IPhysicsFactory physicsFactory)
+        public ClickyRigidBodyTorqueSimulationControl(IPhysicsFactory physicsFactory)
         {
             Checks.AssertNotNullIfNotDesignMode(physicsFactory, nameof(physicsFactory), this);
 
             this._physicsFactory = physicsFactory;
 
             this._dispatcherTimer = new DispatcherTimer();
-            this._particles = new List<IParticle>();
+            this._rigidBodies = new List<IBody<IPolygonShape>>();
 
             this.InitializeComponent();
 
@@ -72,7 +72,7 @@ namespace Blitz
         /// <summary>
         /// Is called when this control is initialized. 
         /// </summary>
-        private void Grid_Initialized(object sender, System.EventArgs e)
+        private void Grid_Initialized(object sender, EventArgs eventArgs)
         {
             if (DesignerProperties.GetIsInDesignMode(this))
             {
@@ -83,7 +83,7 @@ namespace Blitz
             this._world = this._physicsFactory.CreatePhysicalWorld();
 
             // Set a colourful background.
-            this._canvas.Background = System.Windows.Media.Brushes.LightSeaGreen;
+            this._canvas.Background = System.Windows.Media.Brushes.Yellow;
             this._canvas.MouseDown += this.Canvas_MouseDown;
             this._canvas.Rendering += this.RenderigCanvas_Rendering;
 
@@ -110,17 +110,38 @@ namespace Blitz
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
+            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+
             var mousePosition = eventArgs.GetPosition(this._canvas);
-            var particlePosition = new Point(mousePosition.X, mousePosition.Y);
 
-            // We'll create three particles of different mass next to each other. They will fall at the same speed.
-            var particle1 = this._world.SpawnParticle(10, particlePosition);
-            var particle2 = this._world.SpawnParticle(20, particlePosition.AddVector(new Vector2(20, 10)));
-            var particle3 = this._world.SpawnParticle(40, particlePosition.AddVector(new Vector2(40, 20)));
+            var clickPosition = new Point(mousePosition.X, mousePosition.Y);
 
-            this._particles.Add(particle1);
-            this._particles.Add(particle2);
-            this._particles.Add(particle3);
+            // Left-click spawns a new body.
+            if (eventArgs.LeftButton == MouseButtonState.Pressed)
+            {
+                var rigidBody = this._world.SpawnRigidBody(
+                    30,
+                    new Polygon(
+                        new Point(0, 0),
+                        new Point(100, 0),
+                        new Point(130, 50),
+                        new Point(110, 100),
+                        new Point(50, 100)),
+                    clickPosition);
+
+                this._rigidBodies.Add(rigidBody);
+            }
+
+            // Right-click "pushes" all bodies to the left.
+            if (eventArgs.RightButton == MouseButtonState.Pressed)
+            {
+                foreach (var rigidBody in this._rigidBodies)
+                {
+                    // We apply force (towards left) at a point in space to induce torque...
+                    var force = new Vector2(-10, 0);
+                    rigidBody.AddForceAtPointInSpace(force, clickPosition);
+                }
+            }
 
             this._canvas.InvalidateVisual();
         }
@@ -132,9 +153,10 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            foreach (var particle in this._particles)
+            foreach (var body in this._rigidBodies)
             {
-                eventArgs.DrawingHandler.DrawDot(particle.CurrentState.Position);
+                var shape = body.GetCurrentShape();
+                eventArgs.DrawingHandler.DrawPolygon(shape.Polygon.Corners);
             }
         }
     }

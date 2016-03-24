@@ -7,7 +7,7 @@
 namespace Physics.World
 {
     /// <summary>
-    /// Created the "physical world" and other "physical" objects.
+    /// Creates the "physical world" and other "physical" objects.
     /// </summary>
     public interface IPhysicsFactory
     {

@@ -9,6 +9,7 @@ namespace Physics.Services.World
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Physics.Elements;
+    using Physics.Elements.Shape;
     using Physics.Forces;
     using Physics.World;
 
@@ -53,9 +54,9 @@ namespace Physics.Services.World
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalWorld.CreateParticle"/>.
+        /// See <see cref="IPhysicalWorld.SpawnParticle"/>.
         /// </summary>
-        public IParticle CreateParticle(double mass, Point position)
+        public IParticle SpawnParticle(double mass, Point position)
         {
             Checks.AssertIsStrictPositive(mass, nameof(mass));
 
@@ -63,6 +64,20 @@ namespace Physics.Services.World
             this._physicalSpace.AddParticle(particle);
 
             return particle;
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalWorld.SpawnRigidBody"/>.
+        /// </summary>
+        public IBody<IPolygonShape> SpawnRigidBody(double mass, Polygon polygon, Point position)
+        {
+            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            Checks.AssertNotNull(polygon, nameof(polygon));
+
+            var rigidBody = this._elementFactory.CreateRigidBody(mass, polygon, position);
+            this._physicalSpace.AddBody(rigidBody);
+
+            return rigidBody;
         }
 
         /// <summary>

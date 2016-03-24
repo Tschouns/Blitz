@@ -38,8 +38,7 @@ namespace Physics.Services.Elements
         public Particle(
             IIsaacNewtonHelper helper,
             double mass,
-            Point initialPosition,
-            Vector2 initialVelocity)
+            ParticleState initalState)
         {
             Checks.AssertNotNull(helper, nameof(helper));
             Checks.AssertIsStrictPositive(mass, nameof(mass));
@@ -47,11 +46,7 @@ namespace Physics.Services.Elements
             this._helper = helper;
             this.Mass = mass;
             this._appliedForce = new Vector2();
-            this._state = new ParticleState
-            {
-                Position = initialPosition,
-                Velocity = initialVelocity
-            };
+            this._state = initalState;
         }
 
         /// <summary>
@@ -76,6 +71,15 @@ namespace Physics.Services.Elements
         /// See <see cref="IPhysicalObject.AddForceAtOffset"/>.
         /// </summary>
         public void AddForceAtOffset(Vector2 force, Vector2 offset)
+        {
+            // A particle behaves the same way, no matter what the offset is.
+            this.AddForce(force);
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalObject.AddForceAtPointInSpace"/>.
+        /// </summary>
+        public void AddForceAtPointInSpace(Vector2 force, Point pointInSpace)
         {
             // A particle behaves the same way, no matter what the offset is.
             this.AddForce(force);
