@@ -27,22 +27,22 @@ namespace Blitz
         /// <summary>
         /// Used to create the world.
         /// </summary>
-        private readonly IPhysicsFactory physicsFactory;
+        private readonly IPhysicsFactory _physicsFactory;
 
         /// <summary>
         /// Used to get a "tick" event, and step the simulation.
         /// </summary>
-        private readonly DispatcherTimer dispatcherTimer;
+        private readonly DispatcherTimer _dispatcherTimer;
 
         /// <summary>
         /// Stores all the created particles.
         /// </summary>
-        private readonly IList<IParticle> particles;
+        private readonly IList<IParticle> _particles;
 
         /// <summary>
         /// Stores the "physical world".
         /// </summary>
-        private IPhysicalWorld world;
+        private IPhysicalWorld _world;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClickyParticleSimulationControl"/> class.
@@ -59,14 +59,14 @@ namespace Blitz
         {
             Checks.AssertNotNullIfNotDesignMode(physicsFactory, nameof(physicsFactory), this);
 
-            this.physicsFactory = physicsFactory;
+            this._physicsFactory = physicsFactory;
 
-            this.dispatcherTimer = new DispatcherTimer();
-            this.particles = new List<IParticle>();
+            this._dispatcherTimer = new DispatcherTimer();
+            this._particles = new List<IParticle>();
 
             this.InitializeComponent();
 
-            this.dispatcherTimer.Tick += this.DispatcherTimer_Tick;
+            this._dispatcherTimer.Tick += this.DispatcherTimer_Tick;
         }
 
         /// <summary>
@@ -80,18 +80,18 @@ namespace Blitz
             }
 
             // Create the world.
-            this.world = this.physicsFactory.CreatePhysicalWorld();
+            this._world = this._physicsFactory.CreatePhysicalWorld();
 
             // Set a colourful background.
-            this.canvas.Background = System.Windows.Media.Brushes.LightSeaGreen;
-            this.canvas.MouseDown += this.Canvas_MouseDown;
-            this.canvas.Rendering += this.RenderigCanvas_Rendering;
+            this._canvas.Background = System.Windows.Media.Brushes.LightSeaGreen;
+            this._canvas.MouseDown += this.Canvas_MouseDown;
+            this._canvas.Rendering += this.RenderigCanvas_Rendering;
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
 
             // Initialize timer.
-            this.dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            this.dispatcherTimer.Start();
+            this._dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            this._dispatcherTimer.Start();
         }
 
         /// <summary>
@@ -100,9 +100,9 @@ namespace Blitz
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             // We just asume we are being called again after exactly 1 second.
-            this.world.Step(1);
+            this._world.Step(1);
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -110,19 +110,19 @@ namespace Blitz
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            var mousePosition = eventArgs.GetPosition(this.canvas);
+            var mousePosition = eventArgs.GetPosition(this._canvas);
             var particlePosition = new Point(mousePosition.X, mousePosition.Y);
 
             // We'll create three particles of different mass next to each other. They will fall at the same speed.
-            var particle1 = this.world.CreateParticle(10, particlePosition);
-            var particle2 = this.world.CreateParticle(20, particlePosition.AddVector(new Vector2(20, 10)));
-            var particle3 = this.world.CreateParticle(40, particlePosition.AddVector(new Vector2(40, 20)));
+            var particle1 = this._world.CreateParticle(10, particlePosition);
+            var particle2 = this._world.CreateParticle(20, particlePosition.AddVector(new Vector2(20, 10)));
+            var particle3 = this._world.CreateParticle(40, particlePosition.AddVector(new Vector2(40, 20)));
 
-            this.particles.Add(particle1);
-            this.particles.Add(particle2);
-            this.particles.Add(particle3);
+            this._particles.Add(particle1);
+            this._particles.Add(particle2);
+            this._particles.Add(particle3);
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            foreach (var particle in this.particles)
+            foreach (var particle in this._particles)
             {
                 eventArgs.DrawingHandler.DrawDot(particle.CurrentState.Position);
             }

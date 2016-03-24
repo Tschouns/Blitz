@@ -23,32 +23,32 @@ namespace Blitz
         /// <summary>
         /// Used to translate and rotate points.
         /// </summary>
-        private readonly IPointTransformationHelper pointTransformationHelper;
+        private readonly IPointTransformationHelper _pointTransformationHelper;
 
         /// <summary>
         /// Used determine the center of mass of a rectangle.
         /// </summary>
-        private readonly ILineIntersectionHelper lineIntersectionHelper;
+        private readonly ILineIntersectionHelper _lineIntersectionHelper;
 
         /// <summary>
         /// The original rectangle, before any transformations.
         /// </summary>
-        private Rectangle rectangle;
+        private readonly Rectangle _rectangle;
 
         /// <summary>
         /// The offset by which the rectangle is translated.
         /// </summary>
-        private Vector2 rectangleOffset;
+        private Vector2 _rectangleOffset;
 
         /// <summary>
         /// The angle by which the rectangle is rotated.
         /// </summary>
-        private double rectangleOrientation;
+        private double _rectangleOrientation;
 
         /// <summary>
         /// A projected representation of the original rectangle, after the transformations.
         /// </summary>
-        private Point[] rectangleProjection = new Point[4];
+        private Point[] _rectangleProjection = new Point[4];
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClickyTransformationControl"/> class.
@@ -70,12 +70,12 @@ namespace Blitz
             Checks.AssertNotNullIfNotDesignMode(pointTransformationHelper, nameof(pointTransformationHelper), this);
             Checks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
 
-            this.pointTransformationHelper = pointTransformationHelper;
-            this.lineIntersectionHelper = lineIntersectionHelper;
+            this._pointTransformationHelper = pointTransformationHelper;
+            this._lineIntersectionHelper = lineIntersectionHelper;
 
-            this.rectangle = new Rectangle(300, 200);
-            this.rectangleOffset = new Vector2(0, 0);
-            this.rectangleOrientation = 0.0;
+            this._rectangle = new Rectangle(300, 200);
+            this._rectangleOffset = new Vector2(0, 0);
+            this._rectangleOrientation = 0.0;
 
             this.InitializeComponent();
         }
@@ -85,28 +85,28 @@ namespace Blitz
         /// </summary>
         private void TransformOriginalRectangle()
         {
-            this.rectangleProjection = new Point[]
+            this._rectangleProjection = new Point[]
                 {
-                    this.rectangle.A,
-                    this.rectangle.B,
-                    this.rectangle.C,
-                    this.rectangle.D
+                    this._rectangle.A,
+                    this._rectangle.B,
+                    this._rectangle.C,
+                    this._rectangle.D
                 };
 
             // Translate.
-            this.rectangleProjection = this.pointTransformationHelper.TranslatePoints(
-                this.rectangleOffset,
-                this.rectangleProjection);
+            this._rectangleProjection = this._pointTransformationHelper.TranslatePoints(
+                this._rectangleOffset,
+                this._rectangleProjection);
 
             // Rotate.
-            var centerOfMass = this.lineIntersectionHelper.GetLineIntersection(
-                new Line(this.rectangleProjection[0], this.rectangleProjection[2]),
-                new Line(this.rectangleProjection[1], this.rectangleProjection[3]));
+            var centerOfMass = this._lineIntersectionHelper.GetLineIntersection(
+                new Line(this._rectangleProjection[0], this._rectangleProjection[2]),
+                new Line(this._rectangleProjection[1], this._rectangleProjection[3]));
 
-            this.rectangleProjection = this.pointTransformationHelper.RotatePoints(
+            this._rectangleProjection = this._pointTransformationHelper.RotatePoints(
                 centerOfMass.Value,
-                this.rectangleOrientation,
-                this.rectangleProjection);
+                this._rectangleOrientation,
+                this._rectangleProjection);
         }
 
         /// <summary>
@@ -121,11 +121,11 @@ namespace Blitz
 
             this.TransformOriginalRectangle();
 
-            this.canvas.Background = System.Windows.Media.Brushes.Orange;
-            this.canvas.MouseDown += this.Canvas_MouseDown;
-            this.canvas.Rendering += this.RenderigCanvas_Rendering;
+            this._canvas.Background = System.Windows.Media.Brushes.Orange;
+            this._canvas.MouseDown += this.Canvas_MouseDown;
+            this._canvas.Rendering += this.RenderigCanvas_Rendering;
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -135,17 +135,17 @@ namespace Blitz
         {
             if (eventArgs.LeftButton == MouseButtonState.Pressed)
             {
-                this.rectangleOffset = this.rectangleOffset.AddVector(new Vector2(10, 10));
+                this._rectangleOffset = this._rectangleOffset.AddVector(new Vector2(10, 10));
             }
 
             if (eventArgs.RightButton == MouseButtonState.Pressed)
             {
-                this.rectangleOrientation += 0.1;
+                this._rectangleOrientation += 0.1;
             }
 
             this.TransformOriginalRectangle();
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            eventArgs.DrawingHandler.DrawPolygon(this.rectangleProjection);
+            eventArgs.DrawingHandler.DrawPolygon(this._rectangleProjection);
         }
     }
 }

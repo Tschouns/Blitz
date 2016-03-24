@@ -22,32 +22,32 @@ namespace Blitz
         /// <summary>
         /// Used to detect line intersections.
         /// </summary>
-        private readonly ILineIntersectionHelper lineIntersectionHelper;
+        private readonly ILineIntersectionHelper _lineIntersectionHelper;
 
         /// <summary>
         /// Stores all the "dots" created by the user.
         /// </summary>
-        private readonly IList<Point> dots;
+        private readonly IList<Point> _dots;
 
         /// <summary>
         /// Stores all the lines created by the user.
         /// </summary>
-        private readonly IList<Line> lineSegments;
+        private readonly IList<Line> _lineSegments;
 
         /// <summary>
         /// Stores all the intersection points between the line segments.
         /// </summary>
-        private readonly IList<Point> lineIntersections;
+        private readonly IList<Point> _lineIntersections;
 
         /// <summary>
         /// Stores all the rectangles.
         /// </summary>
-        private readonly IList<Rectangle> rectangles;
+        private readonly IList<Rectangle> _rectangles;
 
         /// <summary>
         /// Stores the point last clicked by the user.
         /// </summary>
-        private Point? lastClickedPoint;
+        private Point? _lastClickedPoint;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClickyDrawingControl"/> class.
@@ -64,20 +64,20 @@ namespace Blitz
         {
             Checks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
 
-            this.lineIntersectionHelper = lineIntersectionHelper;
+            this._lineIntersectionHelper = lineIntersectionHelper;
 
-            this.dots = new List<Point>();
-            this.lineSegments = new List<Line>();
-            this.lineIntersections = new List<Point>();
-            this.rectangles = new List<Rectangle>();
-            this.lastClickedPoint = null;
+            this._dots = new List<Point>();
+            this._lineSegments = new List<Line>();
+            this._lineIntersections = new List<Point>();
+            this._rectangles = new List<Rectangle>();
+            this._lastClickedPoint = null;
 
             this.InitializeComponent();
 
             // canvas
-            this.canvas.Background = System.Windows.Media.Brushes.CornflowerBlue;
-            this.canvas.MouseDown += this.Canvas_MouseDown;
-            this.canvas.Rendering += this.RenderigCanvas_Rendering;
+            this._canvas.Background = System.Windows.Media.Brushes.CornflowerBlue;
+            this._canvas.MouseDown += this.Canvas_MouseDown;
+            this._canvas.Rendering += this.RenderigCanvas_Rendering;
         }
 
         /// <summary>
@@ -91,35 +91,35 @@ namespace Blitz
 
             // Create a new dot.
             var dot = new Point(position.X, position.Y);
-            this.dots.Add(dot);
+            this._dots.Add(dot);
 
-            if (this.lastClickedPoint.HasValue)
+            if (this._lastClickedPoint.HasValue)
             {
                 // Create a new line segment.
-                var lineSegment = new Line(this.lastClickedPoint.Value, dot);
+                var lineSegment = new Line(this._lastClickedPoint.Value, dot);
                 
                 // Detect new line intersections with existing line segments.
-                foreach (var existingLineSegment in this.lineSegments)
+                foreach (var existingLineSegment in this._lineSegments)
                 {
-                    var result = this.lineIntersectionHelper.GetLineSegmentIntersection(lineSegment, existingLineSegment);
+                    var result = this._lineIntersectionHelper.GetLineSegmentIntersection(lineSegment, existingLineSegment);
 
                     if (result.HasValue)
                     {
-                        this.lineIntersections.Add(result.Value);
+                        this._lineIntersections.Add(result.Value);
                     }
                 }
 
-                this.lineSegments.Add(lineSegment);
+                this._lineSegments.Add(lineSegment);
 
                 // Create a new rectangle.
-                var origin = this.lastClickedPoint.Value;
+                var origin = this._lastClickedPoint.Value;
                 var rectangle = new Rectangle(origin, dot.X - origin.X, dot.Y - origin.Y);
-                this.rectangles.Add(rectangle);
+                this._rectangles.Add(rectangle);
             }
 
-            this.lastClickedPoint = dot;
+            this._lastClickedPoint = dot;
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            foreach (var rectangle in this.rectangles)
+            foreach (var rectangle in this._rectangles)
             {
                 eventArgs.DrawingHandler.DrawPolygon(
                     new[]
@@ -141,17 +141,17 @@ namespace Blitz
                     });
             }
 
-            ////foreach (var lineSegment in this.lineSegments)
+            ////foreach (var lineSegment in this._lineSegments)
             ////{
             ////    eventArgs.DrawingHandler.DrawLineSegment(lineSegment);
             ////}
 
-            ////foreach (var intersectionPoint in this.lineIntersections)
+            ////foreach (var intersectionPoint in this._lineIntersections)
             ////{
             ////    eventArgs.DrawingHandler.DrawDot(intersectionPoint);
             ////}
 
-            ////foreach (var dot in this.dots)
+            ////foreach (var dot in this._dots)
             ////{
             ////    eventArgs.DrawingHandler.DrawDot(dot);
             ////}

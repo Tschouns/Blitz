@@ -19,14 +19,14 @@ namespace Blitz
         /// <summary>
         /// Stores the <see cref="DrawingContext"/> to draw on.
         /// </summary>
-        private readonly DrawingContext drawingContext;
+        private readonly DrawingContext _drawingContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawingContextDrawingHandler"/> class.
         /// </summary>
         public DrawingContextDrawingHandler(DrawingContext drawingContext)
         {
-            this.drawingContext = drawingContext;
+            this._drawingContext = drawingContext;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Blitz
         {
             var radius = 5;
 
-            this.drawingContext.DrawEllipse(
+            this._drawingContext.DrawEllipse(
                 Brushes.Orange,
                 new Pen(Brushes.OrangeRed, 2),
                 new System.Windows.Point(point.X, point.Y),
@@ -51,7 +51,7 @@ namespace Blitz
         {
             Checks.AssertNotNull(line, nameof(line));
 
-            this.drawingContext.DrawLine(
+            this._drawingContext.DrawLine(
                 new Pen(Brushes.Black, 2),
                 new System.Windows.Point(line.Point1.X, line.Point1.Y),
                 new System.Windows.Point(line.Point2.X, line.Point2.Y));

@@ -24,12 +24,12 @@ namespace Blitz
         /// <summary>
         /// Used to determine the polygon's centroid and "non-simple property".
         /// </summary>
-        private readonly IPolygonCalculationHelper polygonCalculationHelper;
+        private readonly IPolygonCalculationHelper _polygonCalculationHelper;
         
         /// <summary>
         /// Stores all the polygon corners created by the user.
         /// </summary>
-        private readonly IList<Point> polygonCorners;
+        private readonly IList<Point> _polygonCorners;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClickyPolygonControl"/> class.
@@ -48,8 +48,8 @@ namespace Blitz
 
             this.InitializeComponent();
 
-            this.polygonCalculationHelper = polygonCalculationHelper;
-            this.polygonCorners = new List<Point>();
+            this._polygonCalculationHelper = polygonCalculationHelper;
+            this._polygonCorners = new List<Point>();
         }
 
         /// <summary>
@@ -62,11 +62,11 @@ namespace Blitz
                 return;
             }
             
-            this.canvas.Background = System.Windows.Media.Brushes.IndianRed;
-            this.canvas.MouseDown += this.Canvas_MouseDown;
-            this.canvas.Rendering += this.RenderigCanvas_Rendering;
+            this._canvas.Background = System.Windows.Media.Brushes.IndianRed;
+            this._canvas.MouseDown += this.Canvas_MouseDown;
+            this._canvas.Rendering += this.RenderigCanvas_Rendering;
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -78,23 +78,23 @@ namespace Blitz
 
             if (eventArgs.LeftButton == MouseButtonState.Pressed)
             {
-                var position = eventArgs.GetPosition(this.canvas);
+                var position = eventArgs.GetPosition(this._canvas);
                 var polygonCorner = new Point(
                     position.X,
                     position.Y);
 
-                this.polygonCorners.Add(polygonCorner);
+                this._polygonCorners.Add(polygonCorner);
             }
 
             if (eventArgs.RightButton == MouseButtonState.Pressed)
             {
-                if (this.polygonCorners.Any())
+                if (this._polygonCorners.Any())
                 {
-                    this.polygonCorners.RemoveAt(this.polygonCorners.Count - 1);
+                    this._polygonCorners.RemoveAt(this._polygonCorners.Count - 1);
                 }
             }
 
-            this.canvas.InvalidateVisual();
+            this._canvas.InvalidateVisual();
         }
 
         /// <summary>
@@ -104,9 +104,9 @@ namespace Blitz
         {
             Checks.AssertNotNull(eventArgs, nameof(eventArgs));
 
-            if (this.polygonCorners.Count < 3)
+            if (this._polygonCorners.Count < 3)
             {
-                foreach (var futurePolygonCorner in this.polygonCorners)
+                foreach (var futurePolygonCorner in this._polygonCorners)
                 {
                     eventArgs.DrawingHandler.DrawDot(futurePolygonCorner);
                 }
@@ -114,18 +114,18 @@ namespace Blitz
                 return;
             }
 
-            var polygon = new Polygon(this.polygonCorners);
-            var polygonIsNonSimple = this.polygonCalculationHelper.IsNonsimplePolygon(polygon);
+            var polygon = new Polygon(this._polygonCorners);
+            var polygonIsNonSimple = this._polygonCalculationHelper.IsNonsimplePolygon(polygon);
 
             if (polygonIsNonSimple)
             {
-                eventArgs.DrawingHandler.DrawPath(this.polygonCorners);
+                eventArgs.DrawingHandler.DrawPath(this._polygonCorners);
                 return;
             }
 
-            var centroid = this.polygonCalculationHelper.DetermineCentroid(polygon);
+            var centroid = this._polygonCalculationHelper.DetermineCentroid(polygon);
 
-            eventArgs.DrawingHandler.DrawPolygon(this.polygonCorners);
+            eventArgs.DrawingHandler.DrawPolygon(this._polygonCorners);
             eventArgs.DrawingHandler.DrawDot(centroid);
         }
     }
