@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Elements.Shape
+namespace Physics.Elements
 {
     /// <summary>
     /// Represents a shape, as a property of a "physical body".

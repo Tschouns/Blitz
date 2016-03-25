@@ -6,8 +6,6 @@
 
 namespace Physics.Elements
 {
-    using Physics.Elements.Shape;
-
     /// <summary>
     /// Represents a body in the "physical world".
     /// </summary>

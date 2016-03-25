@@ -49,7 +49,7 @@
     <Compile Include="Elements\BodyState.cs" />
     <Compile Include="Elements\IBody.cs" />
     <Compile Include="Elements\IParticle.cs" />
-    <Compile Include="Elements\Shape\IShape.cs" />
+    <Compile Include="Elements\IShape.cs" />
     <Compile Include="World\IPhysicalWorld.cs" />
     <Compile Include="World\IPhysicsFactory.cs" />
     <Compile Include="PhysicsConstants.cs" />

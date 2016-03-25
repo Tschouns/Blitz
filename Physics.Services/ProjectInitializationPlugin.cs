@@ -9,7 +9,6 @@ namespace Physics.Service
     using Base.InversionOfControl;
     using Base.StartUp;
     using Elements;
-    using Elements.Shape;
     using Forces;
     using Services.Elements;
     using Services.Elements.Shape;

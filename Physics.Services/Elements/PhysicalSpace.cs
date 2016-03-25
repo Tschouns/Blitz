@@ -10,7 +10,6 @@ namespace Physics.Services.Elements
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Physics.Elements;
-    using Physics.Elements.Shape;
     using Physics.Forces;
 
     /// <summary>

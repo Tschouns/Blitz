@@ -7,7 +7,7 @@
 namespace Physics.Services.Elements.Shape
 {
     using Geometry.Elements;
-    using Physics.Elements.Shape;
+    using Physics.Elements;
 
     /// <summary>
     /// Provides a method to update the "current" state of the shape, based

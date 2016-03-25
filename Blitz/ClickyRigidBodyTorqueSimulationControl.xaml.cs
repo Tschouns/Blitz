@@ -16,7 +16,6 @@ namespace Blitz
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Physics.Elements;
-    using Physics.Elements.Shape;
     using Physics.World;
 
     /// <summary>

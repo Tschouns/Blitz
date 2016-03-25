@@ -8,7 +8,6 @@ namespace Physics.World
 {
     using Geometry.Elements;
     using Physics.Elements;
-    using Physics.Elements.Shape;
 
     /// <summary>
     /// Represents the "physical world".

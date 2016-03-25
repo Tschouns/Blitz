@@ -11,7 +11,7 @@ namespace Physics.Services.Elements.Shape
     using Geometry.Elements;
     using Geometry.Extensions;
     using Geometry.Helpers;
-    using Physics.Elements.Shape;
+    using Physics.Elements;
     using Physics.Services.Helpers;
 
     /// <summary>
@@ -47,7 +47,7 @@ namespace Physics.Services.Elements.Shape
             this._bodyCalculationHelper = bodyCalculationHelper;
             this.Volume = volume;
             this.Original = originalPolygon;
-            this.Current = Original;
+            this.Current = this.Original;
         }
 
         /// <summary>

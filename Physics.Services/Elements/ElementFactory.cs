@@ -11,7 +11,6 @@ namespace Physics.Services.Elements
     using Geometry.Elements;
     using Helpers;
     using Physics.Elements;
-    using Physics.Elements.Shape;
     using Physics.Services.Elements.Shape;
 
     /// <summary>

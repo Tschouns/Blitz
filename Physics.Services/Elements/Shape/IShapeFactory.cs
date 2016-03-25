@@ -7,7 +7,7 @@
 namespace Physics.Services.Elements.Shape
 {
     using Geometry.Elements;
-    using Physics.Elements.Shape;
+    using Physics.Elements;
 
     /// <summary>
     /// Creates shapes.
@@ -16,7 +16,7 @@ namespace Physics.Services.Elements.Shape
     {
         /// <summary>
         /// Creates a <see cref="IRigidShape{Polygon}"/> based on the specified <see cref="Polygon"/>.
-        /// The centroid of the resulting <see cref="IShape{Polygon}"/> will be aligned with
+        /// The centroid of the resulting <see cref="IShape{TGeometricFigure}"/> will be aligned with
         /// the origin.
         /// </summary>
         IRigidShape<Polygon> CreateOriginalPolygonShape(Polygon polygon);

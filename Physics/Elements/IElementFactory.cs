@@ -7,7 +7,6 @@
 namespace Physics.Elements
 {
     using Geometry.Elements;
-    using Physics.Elements.Shape;
 
     /// <summary>
     /// Creates elements such as the "physical space" or "physical objects".

@@ -7,7 +7,6 @@
 namespace Physics.Elements
 {
     using Geometry.Elements;
-    using Physics.Elements.Shape;
     using Physics.Forces;
 
     /// <summary>
