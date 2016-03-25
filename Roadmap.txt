@@ -1,8 +1,8 @@
 ===Physics Sim===
 - Rigid body dynamics (unconstrained):
-  - polygon centroid (center of mass in uniform density bodies) calculation
-  - inertia and torque calculation, based on force applied to a specific point
-  - angular acceleration and velocity calculation
+  x polygon centroid (center of mass in uniform density bodies) calculation
+  x inertia and torque calculation, based on force applied to a specific point
+  x angular acceleration and velocity calculation
 
 - Contstrains:
   - collision detection
@@ -18,3 +18,12 @@
   - air resistance
   - wind
   - buoyant force
+
+===Display API===
+- Evalluation and implementation of a reasonable display API (some lightweight managed DX10 or openGL wrapper...)
+
+==="Engine"===
+- Reasonable game loop and game time management
+  - Update loop
+  - multiple rendering loops in seperate threads
+  - "game state" buffer
