@@ -5,9 +5,10 @@
   x angular acceleration and velocity calculation
 
 - Contstrains:
-  - collision detection
+  - basic collision detection (narrow phase)
+  - AABB broad phase optimization
   - "world bounds"
-  - body compounds
+  - rigid compounds
   - bearings
   - friction
   - "bounciness" / capacity to absorb mechanical force
@@ -27,3 +28,7 @@
   - Update loop
   - multiple rendering loops in seperate threads
   - "game state" buffer
+
+===Animation===
+- Sprite batch animation
+- Rigged character animation

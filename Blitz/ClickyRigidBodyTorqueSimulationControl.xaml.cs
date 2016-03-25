@@ -99,8 +99,9 @@ namespace Blitz
         /// </summary>
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            // We just asume we are being called again after exactly 1 second.
-            this._world.Step(1);
+            // We just asume we are being called again after exactly 1 second,
+            // but we "slow down" time by a factor of 10.
+            this._world.Step(0.1);
 
             this._canvas.InvalidateVisual();
         }
@@ -120,7 +121,7 @@ namespace Blitz
             if (eventArgs.LeftButton == MouseButtonState.Pressed)
             {
                 var rigidBody = this._world.SpawnRigidBody(
-                    30,
+                    20,
                     new Polygon(
                         new Point(0, 0),
                         new Point(100, 0),
