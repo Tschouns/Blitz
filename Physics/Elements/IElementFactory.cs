@@ -26,9 +26,9 @@ namespace Physics.Elements
         IParticle CreateParticle(double mass, Point position);
 
         /// <summary>
-        /// Creates a <see cref="IBody{IPolygonShape}"/> of the specified mass and shape polygon,
+        /// Creates a <see cref="IBody{Polygon}"/> of the specified mass and shape polygon,
         /// at the specified position in space.
         /// </summary>
-        IBody<IPolygonShape> CreateRigidBody(double mass, Polygon polygon, Point position);
+        IBody<Polygon> CreateRigidBody(double mass, Polygon polygon, Point position);
     }
 }

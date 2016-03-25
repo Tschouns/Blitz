@@ -23,7 +23,7 @@ namespace Physics.World
         /// <summary>
         /// Spawns a rigid body in the "physical world".
         /// </summary>
-        IBody<IPolygonShape> SpawnRigidBody(double mass, Polygon polygon, Point position);
+        IBody<Polygon> SpawnRigidBody(double mass, Polygon polygon, Point position);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

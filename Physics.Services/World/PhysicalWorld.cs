@@ -69,7 +69,7 @@ namespace Physics.Services.World
         /// <summary>
         /// See <see cref="IPhysicalWorld.SpawnRigidBody"/>.
         /// </summary>
-        public IBody<IPolygonShape> SpawnRigidBody(double mass, Polygon polygon, Point position)
+        public IBody<Polygon> SpawnRigidBody(double mass, Polygon polygon, Point position)
         {
             Checks.AssertIsStrictPositive(mass, nameof(mass));
             Checks.AssertNotNull(polygon, nameof(polygon));

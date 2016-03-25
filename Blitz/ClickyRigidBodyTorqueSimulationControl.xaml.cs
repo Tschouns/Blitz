@@ -37,7 +37,7 @@ namespace Blitz
         /// <summary>
         /// Stores all the created rigid bodies.
         /// </summary>
-        private readonly IList<IBody<IPolygonShape>> _rigidBodies;
+        private readonly IList<IBody<Polygon>> _rigidBodies;
 
         /// <summary>
         /// Stores the "physical world".
@@ -62,7 +62,7 @@ namespace Blitz
             this._physicsFactory = physicsFactory;
 
             this._dispatcherTimer = new DispatcherTimer();
-            this._rigidBodies = new List<IBody<IPolygonShape>>();
+            this._rigidBodies = new List<IBody<Polygon>>();
 
             this.InitializeComponent();
 
@@ -156,8 +156,8 @@ namespace Blitz
 
             foreach (var body in this._rigidBodies)
             {
-                var shape = body.GetCurrentShape();
-                eventArgs.DrawingHandler.DrawPolygon(shape.Polygon.Corners);
+                var polygon = body.Shape.Current;
+                eventArgs.DrawingHandler.DrawPolygon(polygon.Corners);
             }
         }
     }

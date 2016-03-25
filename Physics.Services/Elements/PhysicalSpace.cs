@@ -8,6 +8,7 @@ namespace Physics.Services.Elements
 {
     using System.Collections.Generic;
     using Base.RuntimeChecks;
+    using Geometry.Elements;
     using Physics.Elements;
     using Physics.Elements.Shape;
     using Physics.Forces;
@@ -59,7 +60,7 @@ namespace Physics.Services.Elements
         /// <summary>
         /// See <see cref="IPhysicalSpace.AddBody"/>.
         /// </summary>
-        public void AddBody(IBody<IPolygonShape> body)
+        public void AddBody(IBody<Polygon> body)
         {
             Checks.AssertNotNull(body, nameof(body));
 

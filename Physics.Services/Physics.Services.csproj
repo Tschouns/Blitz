@@ -44,7 +44,9 @@
     <Compile Include="Elements\Particle.cs" />
     <Compile Include="Elements\PhysicalSpace.cs" />
     <Compile Include="Elements\RigidBody.cs" />
-    <Compile Include="Elements\Shape\PolygonShape.cs" />
+    <Compile Include="Elements\Shape\IRigidShape.cs" />
+    <Compile Include="Elements\Shape\IShapeFactory.cs" />
+    <Compile Include="Elements\Shape\RigidPolygonShape.cs" />
     <Compile Include="Elements\Shape\ShapeFactory.cs" />
     <Compile Include="Helpers\BodyCalculationHelper.cs" />
     <Compile Include="Helpers\IsaacNewtonHelper.cs" />

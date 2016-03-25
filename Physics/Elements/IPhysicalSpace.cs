@@ -6,6 +6,7 @@
 
 namespace Physics.Elements
 {
+    using Geometry.Elements;
     using Physics.Elements.Shape;
     using Physics.Forces;
 
@@ -27,7 +28,7 @@ namespace Physics.Elements
         /// <summary>
         /// Adds a body to the "physical space".
         /// </summary>
-        void AddBody(IBody<IPolygonShape> body);
+        void AddBody(IBody<Polygon> body);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

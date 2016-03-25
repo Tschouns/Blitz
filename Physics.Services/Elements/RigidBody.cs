@@ -12,21 +12,18 @@ namespace Physics.Services.Elements
     using Helpers;
     using Physics.Elements;
     using Physics.Elements.Shape;
+    using Physics.Services.Elements.Shape;
 
     /// <summary>
-    /// Implementation of <see cref="IBody{IPolygonShape}"/>. Implements the behavior of a "rigid body".
+    /// Implementation of <see cref="IBody{TShapeFigure}"/>. Implements the behavior of a "rigid body".
     /// </summary>
-    public class RigidBody : IBody<IPolygonShape>
+    /// <typeparam name="TShapeFigure">
+    /// See <see cref="IBody{TShapeFigure}"/>.
+    /// </typeparam>
+    public class RigidBody<TShapeFigure> : IBody<TShapeFigure>
     {
         /// <summary>
-        /// Used to create the <see cref="IPolygonShape"/>, based on a <see cref="Polygon"/>.
-        /// TODO: Check whether it's really needed as a member, or whether the creation of
-        /// the shape shall be done in this class at all.
-        /// </summary>
-        private readonly IShapeFactory _shapeFactory;
-
-        /// <summary>
-        /// Used to calculate the moment of inertia.
+        /// Used to calculate the torque.
         /// </summary>
         private readonly IBodyCalculationHelper _bodyCalculationHelper;
 
@@ -34,6 +31,11 @@ namespace Physics.Services.Elements
         /// Used to calculate the acceleration, velocity and position.
         /// </summary>
         private readonly IIsaacNewtonHelper _isaacNewtonHelper;
+
+        /// <summary>
+        /// Stores the shape of this body.
+        /// </summary>
+        private readonly IRigidShape<TShapeFigure> _shape;
 
         /// <summary>
         /// Stores the currently applied force.
@@ -51,7 +53,7 @@ namespace Physics.Services.Elements
         private BodyState _state;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RigidBody"/> class.
+        /// Initializes a new instance of the <see cref="RigidBody{TShapeFigure}"/> class.
         /// TODO:
         /// * Make this class generic, i.e. unaware of the specific shape. It shall take
         ///   the shape as an argument on construction.
@@ -65,37 +67,33 @@ namespace Physics.Services.Elements
         ///   actual transformation is only performed once per step and body/shape. 
         /// </summary>
         public RigidBody(
-            IShapeFactory shapeFactory,
             IBodyCalculationHelper bodyCalculationHelper,
             IIsaacNewtonHelper isaacNewtonHelper,
             double mass,
-            Polygon polygon,
+            IRigidShape<TShapeFigure> shape,
             BodyState initialBodyState)
         {
-            Checks.AssertNotNull(shapeFactory, nameof(shapeFactory));
             Checks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
             Checks.AssertNotNull(isaacNewtonHelper, nameof(isaacNewtonHelper));
             Checks.AssertIsStrictPositive(mass, nameof(mass));
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            Checks.AssertNotNull(shape, nameof(shape));
 
             // Helpers
-            this._shapeFactory = shapeFactory;
             this._bodyCalculationHelper = bodyCalculationHelper;
             this._isaacNewtonHelper = isaacNewtonHelper;
 
             // Static properties
             this.Mass = mass;
-
-            // (The "original shape" is created once, and won't change over the lifecycle of the class.)
-            this.OriginalShape = this._shapeFactory.CreateOriginalPolygonShape(polygon);
-            this.Inertia = this._bodyCalculationHelper.CalculateMomentOfInertiaAboutOrigin(
-                this.OriginalShape.Polygon,
-                this.Mass);
+            this._shape = shape;
+            this.Inertia = this._shape.CalculateInertia(this.Mass);
 
             // Dynamic properties
             this._appliedForce = new Vector2();
             this._appliedTorque = 0;
             this._state = initialBodyState;
+
+            // Update the shape, based on the initial state
+            this._shape.Update(this._state.Position, this._state.Orientation);
         }
 
         /// <summary>
@@ -109,27 +107,14 @@ namespace Physics.Services.Elements
         public double Inertia { get; }
 
         /// <summary>
-        /// Gets... see <see cref="IBody{TShape}.OriginalShape"/>.
+        /// Gets... see <see cref="IBody{TShapeFigure}.Shape"/>.
         /// </summary>
-        public IPolygonShape OriginalShape { get; }
+        public IShape<TShapeFigure> Shape => this._shape;
 
         /// <summary>
         /// See <see cref="IBody{TShape}.CurrentState"/>.
         /// </summary>
         public BodyState CurrentState => this._state;
-
-        /// <summary>
-        /// See <see cref="IBody{TShape}.GetCurrentShape"/>.
-        /// </summary>
-        public IPolygonShape GetCurrentShape()
-        {
-            var currentShape = this._shapeFactory.CreateTransformedPolygonShape(
-                this.OriginalShape,
-                this._state.Position,
-                this._state.Orientation);
-
-            return currentShape;
-        }
 
         /// <summary>
         /// See <see cref="IPhysicalObject.AddForce"/>.
@@ -196,6 +181,9 @@ namespace Physics.Services.Elements
                 this._state.Orientation,
                 this._state.AngularVelocity,
                 time);
+
+            // Update the shape
+            this._shape.Update(this._state.Position, this._state.Orientation);
         }
 
         /// <summary>

@@ -6,11 +6,13 @@
 
 namespace Physics.Services.Elements
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Helpers;
     using Physics.Elements;
     using Physics.Elements.Shape;
+    using Physics.Services.Elements.Shape;
 
     /// <summary>
     /// See <see cref="IElementFactory"/>.
@@ -78,20 +80,22 @@ namespace Physics.Services.Elements
         /// <summary>
         /// See <see cref="IElementFactory.CreateRigidBody"/>.
         /// </summary>
-        public IBody<IPolygonShape> CreateRigidBody(double mass, Polygon polygon, Point position)
+        public IBody<Polygon> CreateRigidBody(double mass, Polygon polygon, Point position)
         {
             Checks.AssertIsStrictPositive(mass, nameof(mass));
 
-            var rigidBody = new RigidBody(
-                this._shapeFactory,
+            var shape = this._shapeFactory.CreateOriginalPolygonShape(polygon);
+            var initialState = new BodyState
+            {
+                Position = position
+            };
+
+            var rigidBody = new RigidBody<Polygon>(
                 this._bodyCalculationHelper,
                 this._isaacNewtonHelper,
                 mass,
-                polygon,
-                new BodyState
-                {
-                    Position = position
-                });
+                shape,
+                initialState);
 
             return rigidBody;
         }
