@@ -22,6 +22,9 @@
 
 ===Display API===
 - Evalluation and implementation of a reasonable display API (some lightweight managed DX10 or openGL wrapper...)
+  - SharpDX?
+  - SharpGL?
+  - MonoGame?
 
 ==="Engine"===
 - Reasonable game loop and game time management
