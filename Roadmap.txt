@@ -26,6 +26,10 @@
   - SharpGL?
   - MonoGame?
 
+===Camera===
+  - Projection
+  - Camera movement
+
 ==="Engine"===
 - Reasonable game loop and game time management
   - Update loop
