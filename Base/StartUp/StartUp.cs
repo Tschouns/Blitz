@@ -11,7 +11,8 @@ namespace Base.StartUp
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using Base.Extensions;
+    using Extensions;
+    using RuntimeChecks;
 
     /// <summary>
     /// Starts up the application and initializes all the projects.
@@ -43,13 +44,7 @@ namespace Base.StartUp
             IList<Type> projectInitializationPluginTypes = new List<Type>();
 
             foreach (var assembly in assemblies)
-            {
-                ////var initializationPluginTypesInCurrentAssemply = assembly.DefinedTypes
-                ////    .Where(aX => aX.IsClass)
-                ////    .Where(aX => typeof(IProjectInitializationPlugin).IsAssignableFrom(aX))
-                ////    .Where(aX => aX.GetCustomAttribute<ProjectInitializationPluginAttribute>() != null)
-                ////    .ToList();
-                
+            {               
                 var types = assembly.DefinedTypes;
                 var classes = types.Where(aX => aX.IsClass).ToList();
                 var pluginInterfaceClasses = classes.Where(aX => typeof(IProjectInitializationPlugin).IsAssignableFrom(aX)).ToList();
@@ -93,10 +88,19 @@ namespace Base.StartUp
 
             foreach (var path in pathsToLoad)
             {
-                var loadedAssembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path));
+                try
+                {
+                    var loadedAssembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path));
 
-                // Add each additionally loaded assembly to the list.
-                loadedAssemblies.Add(loadedAssembly);
+                    // Add each additionally loaded assembly to the list.
+                    loadedAssemblies.Add(loadedAssembly);
+                }
+                catch (BadImageFormatException ex)
+                {
+                    Checks.AssertNotNull(ex, nameof(ex));
+
+                    // The file apparently isn't a .NET assembly - do nothing.
+                }
             }
 
             return loadedAssemblies;

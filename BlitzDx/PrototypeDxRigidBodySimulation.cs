@@ -48,6 +48,11 @@ namespace BlitzDx
         /// <summary>
         /// Used to render stuff.
         /// </summary>
+        private DX3D11.Device _device;
+
+        /// <summary>
+        /// Used to render stuff.
+        /// </summary>
         private SwapChain _swapChain;
 
         /// <summary>
@@ -109,8 +114,11 @@ namespace BlitzDx
         /// </summary>
         public void Dispose()
         {
-            this._renderForm.Dispose();
+            this._device.Dispose();
+            this._swapChain.Dispose();
+            this._deviceContext.Dispose();
             this._renderTargetView.Dispose();
+            this._renderForm.Dispose();
         }
 
         /// <summary>
@@ -134,20 +142,21 @@ namespace BlitzDx
                 IsWindowed = true
             };
 
-            DX3D11.Device d3dDevice;
-
+            // Create device and swap chain.
             DX3D11.Device.CreateWithSwapChain(
                 DriverType.Hardware,
                 DX3D11.DeviceCreationFlags.None,
                 swapChainDesc,
-                out d3dDevice,
+                out this._device,
                 out this._swapChain);
 
-            this._deviceContext = d3dDevice.ImmediateContext;
+            // Get device context.
+            this._deviceContext = this._device.ImmediateContext;
 
+            // Create target view.
             using (var backBuffer = this._swapChain.GetBackBuffer<DX3D11.Texture2D>(0))
             {
-                this._renderTargetView = new DX3D11.RenderTargetView(d3dDevice, backBuffer);
+                this._renderTargetView = new DX3D11.RenderTargetView(this._device, backBuffer);
             }
 
             this._deviceContext.OutputMerger.SetRenderTargets(this._renderTargetView);
