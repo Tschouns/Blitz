@@ -27,9 +27,31 @@ namespace Base.RuntimeChecks
         }
 
         /// <summary>
+        /// Asserts that the specified floating point number is positive, including 0.
+        /// </summary>
+        public static void AssertIsPositive(float argument, string argumentName)
+        {
+            if (argument < 0)
+            {
+                throw new ArgumentException($"The floating point number {argument}, specified in argument {argumentName}, must be positive.");
+            }
+        }
+
+        /// <summary>
         /// Asserts that the specified floating point number is positive and greater than 0.
         /// </summary>
         public static void AssertIsStrictPositive(double argument, string argumentName)
+        {
+            if (argument <= 0)
+            {
+                throw new ArgumentException($"The floating point number {argument}, specified in argument {argumentName}, must be greater than 0.");
+            }
+        }
+
+        /// <summary>
+        /// Asserts that the specified floating point number is positive and greater than 0.
+        /// </summary>
+        public static void AssertIsStrictPositive(float argument, string argumentName)
         {
             if (argument <= 0)
             {

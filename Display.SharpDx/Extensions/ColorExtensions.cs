@@ -4,18 +4,21 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Display
+namespace Display.SharpDx.Extensions
 {
     using System.Drawing;
 
     /// <summary>
-    /// Defines a set of properties of an <see cref="IDisplay"/> instance.
+    /// Provides extension methods for <see cref="Color"/>.
     /// </summary>
-    public struct DisplayProperties
+    public static class ColorExtensions
     {
         /// <summary>
-        /// Gets or sets the resolution.
+        /// Converts the <see cref="Color"/> into a <see cref="SharpDX.Color"/>.
         /// </summary>
-        public Size Resolution { get; set; }
+        public static SharpDX.Color ToSharpDxColor(this Color color)
+        {
+            return new SharpDX.Color(color.R, color.G, color.B, color.A);
+        }
     }
 }

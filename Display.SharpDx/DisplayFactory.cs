@@ -7,6 +7,7 @@
 namespace Display.SharpDx
 {
     using System;
+    using Base.RuntimeChecks;
 
     /// <summary>
     /// See <see cref="IDisplayFactory"/>.
@@ -18,7 +19,9 @@ namespace Display.SharpDx
         /// </summary>
         public IDisplay CreateDisplay(DisplayProperties properties, Action<IDrawingContext> drawCallback)
         {
-            throw new NotImplementedException();
+            Checks.AssertNotNull(drawCallback, nameof(drawCallback));
+
+            return new Display(properties, drawCallback);
         }
     }
 }
