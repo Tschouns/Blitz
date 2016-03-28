@@ -215,9 +215,9 @@ namespace BlitzDx
         {
             this._vertices = new Vector3[]
             {
-                new Vector3(-0.5f, 0.5f, 0f),
-                new Vector3(0.5f, 0.5f, 0),
-                new Vector3(0f, -0.5f, 0f), 
+                new Vector3(-0.5f, 0.5f, 0.0f),
+                new Vector3(0.5f, 0.5f, 0.0f),
+                new Vector3(0f, -0.5f, 0.0f), 
             };
 
             this._triangleVertexBuffer = DX3D11.Buffer.Create(
