@@ -46,11 +46,17 @@ namespace BlitzDx
         private RenderTarget _renderTarget;
 
         /// <summary>
+        /// A number used to experiment.
+        /// </summary>
+        private float _number;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PrototypeDx2DShapesDemo"/> class.
         /// </summary>
         public PrototypeDx2DShapesDemo()
         {
             this._renderForm = new RenderForm("2D Shapes");
+            this._number = 0.0f;
 
             this.InitializeDeviceResources();
             this.SetRenderFormSize();
@@ -170,15 +176,61 @@ namespace BlitzDx
         /// </summary>
         private void Draw()
         {
-            this._renderTarget.BeginDraw();
-            this._renderTarget.Transform = Matrix3x2.Identity;
-            this._renderTarget.Clear(Color.YellowGreen);
+            var transformationMatrix = Matrix3x2.Rotation(this._number);
+            ////this._number += 0.0001f;
 
-            //// TODO: Put drawing code here...
+            this._renderTarget.BeginDraw();
+            ////this._renderTarget.Transform = Matrix3x2.Identity;
+            this._renderTarget.Transform = transformationMatrix;
+            this._renderTarget.Clear(Color.YellowGreen);
+            
+            this.DrawScene();
 
             this._renderTarget.EndDraw();
 
             this._swapChain.Present(0, PresentFlags.None);
+        }
+
+        /// <summary>
+        /// Draws different stuff...
+        /// </summary>
+        private void DrawScene()
+        {
+            using (var grayBrush = new SolidColorBrush(this._renderTarget, Color.LightSlateGray))
+            {
+                // Draw the vertical gray grid lines.
+                for (int x = 0; x < this._renderTarget.Size.Width; x += 10)
+                {
+                    this._renderTarget.DrawLine(
+                        new Vector2(x, 0),
+                        new Vector2(x, this._renderTarget.Size.Height),
+                        grayBrush,
+                        0.5f);
+                }
+
+                // Draw the horizontal gray grid lines.
+                for (int y = 0; y < this._renderTarget.Size.Height; y += 10)
+                {
+                    this._renderTarget.DrawLine(
+                        new Vector2(0, y),
+                        new Vector2(this._renderTarget.Size.Width, y),
+                        grayBrush,
+                        0.5f);
+                }
+
+                // Draw the gray "filled" rectangle area.
+                this._renderTarget.FillRectangle(
+                    new RectangleF((this._renderTarget.Size.Width / 2) - 50, (this._renderTarget.Size.Height / 2) - 50, 100, 100),
+                    grayBrush);
+            }
+
+            // Draw the blue rectangle.
+            using (var blueBrush = new SolidColorBrush(this._renderTarget, Color.CornflowerBlue))
+            {
+                this._renderTarget.DrawRectangle(
+                    new RectangleF((this._renderTarget.Size.Width / 2) - 100, (this._renderTarget.Size.Height / 2) - 100, 200, 200),
+                    blueBrush);
+            }
         }
     }
 }
