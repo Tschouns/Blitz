@@ -6,6 +6,7 @@
 
 namespace Display
 {
+    using System.Collections.Generic;
     using Geometry.Elements;
 
     /// <summary>
@@ -17,5 +18,11 @@ namespace Display
         /// Draws a line.
         /// </summary>
         void DrawLine(Point point1, Point point2, System.Drawing.Color color, float strokeWidth);
+
+        /// <summary>
+        /// Draws a polygon, defined by the specified set of points. The last point is connected back
+        /// to the first by a line segment.
+        /// </summary>
+        void DrawPolygon(IEnumerable<Point> points, System.Drawing.Color color, float strokeWidth);
     }
 }
