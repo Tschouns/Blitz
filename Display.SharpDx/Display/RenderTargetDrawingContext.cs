@@ -18,18 +18,27 @@ namespace Display.SharpDx.Display
     public class RenderTargetDrawingContext : IDrawingContext
     {
         /// <summary>
-        /// The render target to draw to.
+        /// Stores a reference to the render target.
         /// </summary>
-        private RenderTarget _renderTarget;
+        private readonly RenderTarget _renderTarget;
+
+        /// <summary>
+        /// The render target height; used to vertically "flip" positions.
+        /// </summary>
+        private readonly double _renderTargetHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RenderTargetDrawingContext"/> class.
         /// </summary>
-        public RenderTargetDrawingContext(RenderTarget renderTarget)
+        public RenderTargetDrawingContext(
+            RenderTarget renderTarget,
+            double renderTargetHeight)
         {
             Checks.AssertNotNull(renderTarget, nameof(renderTarget));
+            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._renderTarget = renderTarget;
+            this._renderTargetHeight = renderTargetHeight;
         }
 
         /// <summary>
@@ -47,8 +56,8 @@ namespace Display.SharpDx.Display
             using (var brush = new SolidColorBrush(this._renderTarget, color.ToSharpDxColor()))
             {
                 this._renderTarget.DrawLine(
-                    point1.ToSharpDxVector2(),
-                    point2.ToSharpDxVector2(),
+                    point1.ToSharpDxVector2Flipped(this._renderTargetHeight),
+                    point2.ToSharpDxVector2Flipped(this._renderTargetHeight),
                     brush,
                     strokeWidth);
             }

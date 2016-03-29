@@ -16,9 +16,9 @@ namespace Display.SharpDx.Extensions
         /// <summary>
         /// Converts the <see cref="Point"/> into a <see cref="SharpDX.Vector2"/>.
         /// </summary>
-        public static SharpDX.Vector2 ToSharpDxVector2(this Point point)
+        public static SharpDX.Vector2 ToSharpDxVector2Flipped(this Point point, double height)
         {
-            return new SharpDX.Vector2((float)point.X, (float)point.Y);
+            return new SharpDX.Vector2((float)point.X, (float)(height - point.Y));
         }
     }
 }

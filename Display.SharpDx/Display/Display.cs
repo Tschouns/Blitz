@@ -93,7 +93,7 @@ namespace Display.SharpDx.Display
             this._renderTarget.BeginDraw();
 
             this._renderTarget.Transform = Matrix3x2.Identity;
-            this._renderTarget.Clear(Color.YellowGreen);
+            this._renderTarget.Clear(Color.Black);
 
             // Call-back
             this._drawCallback(this._drawingContext);
@@ -218,7 +218,9 @@ namespace Display.SharpDx.Display
         /// </summary>
         private void InitializeDrawingContext()
         {
-            this._drawingContext = new RenderTargetDrawingContext(this._renderTarget);
+            this._drawingContext = new RenderTargetDrawingContext(
+                this._renderTarget,
+                this._renderForm.ClientSize.Height);
         }
     }
 }

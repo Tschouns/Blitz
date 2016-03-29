@@ -89,7 +89,7 @@ namespace BlitzDx
             drawingContext.DrawLine(
                 new Point(0, 0), 
                 new Point(width, height),
-                Color.Brown,
+                Color.Green,
                 2);
 
             drawingContext.DrawLine(
