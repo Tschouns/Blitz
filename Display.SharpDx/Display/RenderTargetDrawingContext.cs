@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Display.SharpDx
+namespace Display.SharpDx.Display
 {
     using System;
     using Base.RuntimeChecks;

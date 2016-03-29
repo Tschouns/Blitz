@@ -14,8 +14,14 @@ namespace Display
     public interface IDisplay : IDisposable
     {
         /// <summary>
-        /// Draws a frame, calls the call-back delegate.
+        /// Shows the display.
         /// </summary>
-        void Draw();
+        void Show();
+
+        /// <summary>
+        /// Draws a frame, calls the call-back delegate. Returns a value indicating whether the display
+        /// still exists.
+        /// </summary>
+        bool DrawFrame();
     }
 }

@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Display.SharpDx
+namespace Display.SharpDx.Display
 {
     using System;
     using System.Windows.Forms;
@@ -67,14 +67,28 @@ namespace Display.SharpDx
 
             this.InitializeRenderForm(properties.Resolution);
             this.InitializeDeviceResources();
+            this.SetupAltEnterHandling();
             this.InitializeRenderTarget();
             this.InitializeDrawingContext();
         }
 
         /// <summary>
-        /// See <see cref="IDisplay.Draw"/>.
+        /// See <see cref="IDisplay.Show"/>.
         /// </summary>
-        public void Draw()
+        public void Show()
+        {
+            if (this._renderForm.IsDisposed)
+            {
+                throw new InvalidOperationException("The display has already been disposed.");
+            }
+
+            this._renderForm.Show();
+        }
+
+        /// <summary>
+        /// See <see cref="IDisplay.DrawFrame"/>.
+        /// </summary>
+        public bool DrawFrame()
         {
             this._renderTarget.BeginDraw();
 
@@ -87,6 +101,9 @@ namespace Display.SharpDx
             this._renderTarget.EndDraw();
 
             this._swapChain.Present(0, PresentFlags.None);
+
+            // returns false if the form has been closed.
+            return !this._renderForm.IsDisposed;
         }
 
         /// <summary>
@@ -107,23 +124,6 @@ namespace Display.SharpDx
         private void InitializeRenderForm(System.Drawing.Size formSize)
         {
             this._renderForm = new RenderForm("2D Shapes");
-
-            // Disable automatic ALT+Enter processing because it doesn't work properly with WinForms.
-            using (var factory = this._swapChain.GetParent<SharpDX.DXGI.Factory1>())
-            {
-                factory.MakeWindowAssociation(
-                    this._renderForm.Handle,
-                    WindowAssociationFlags.IgnoreAltEnter);
-            }
-
-            // Add event handler for ALT+Enter.
-            this._renderForm.KeyDown += (o, e) =>
-            {
-                if (e.Alt && e.KeyCode == Keys.Enter)
-                {
-                    this._swapChain.IsFullScreen = !this._swapChain.IsFullScreen;
-                }
-            };
 
             // Set window size
             this._renderForm.Size = formSize;
@@ -161,6 +161,29 @@ namespace Display.SharpDx
 
             // Get back buffer in a Direct2D-compatible format (DXGI surface)
             this._backBuffer = Surface.FromSwapChain(this._swapChain, 0);
+        }
+
+        /// <summary>
+        /// Sets up a proper handling for ALT+Enter (full screen).
+        /// </summary>
+        private void SetupAltEnterHandling()
+        {
+            // Disable automatic ALT+Enter processing because it doesn't work properly with WinForms.
+            using (var factory = this._swapChain.GetParent<SharpDX.DXGI.Factory1>())
+            {
+                factory.MakeWindowAssociation(
+                    this._renderForm.Handle,
+                    WindowAssociationFlags.IgnoreAltEnter);
+            }
+
+            // Add event handler for ALT+Enter.
+            this._renderForm.KeyDown += (o, e) =>
+            {
+                if (e.Alt && e.KeyCode == Keys.Enter)
+                {
+                    this._swapChain.IsFullScreen = !this._swapChain.IsFullScreen;
+                }
+            };
         }
 
         /// <summary>

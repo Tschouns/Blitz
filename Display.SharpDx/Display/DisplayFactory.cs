@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Display.SharpDx
+namespace Display.SharpDx.Display
 {
     using System;
     using Base.RuntimeChecks;
@@ -21,7 +21,7 @@ namespace Display.SharpDx
         {
             Checks.AssertNotNull(drawCallback, nameof(drawCallback));
 
-            return new Display(properties, drawCallback);
+            return new SharpDx.Display.Display(properties, drawCallback);
         }
     }
 }

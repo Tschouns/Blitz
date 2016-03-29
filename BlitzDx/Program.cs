@@ -22,7 +22,7 @@ namespace BlitzDx
         {
             StartUp.InitializeComponents();
 
-            using (var sim = new PrototypeDx2DShapesDemo())
+            using (var sim = new PrototypeDisplayDemo())
             {
                 sim.Run();
             }

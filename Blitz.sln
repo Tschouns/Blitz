@@ -51,6 +51,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Display", "Display\Display.csproj", "{3ECC218E-A956-4633-AA1A-BA9BC79F119C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Display.SharpDx", "Display.SharpDx\Display.SharpDx.csproj", "{4C573A64-58C3-4191-9EEB-FE2BD2683C8D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FA98A249-C7D0-453B-A62A-C08F8B6CA7E1} = {FA98A249-C7D0-453B-A62A-C08F8B6CA7E1}
+		{AF3C6F9C-3DF9-4DBF-AE55-276E3CDCF6D9} = {AF3C6F9C-3DF9-4DBF-AE55-276E3CDCF6D9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
