@@ -12,12 +12,18 @@ namespace BlitzDx
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
     using Display;
+    using Point = Geometry.Elements.Point;
 
     /// <summary>
     /// A prototype to test the <see cref="IDisplay"/> interface.
     /// </summary>
     public sealed class PrototypeDisplayDemo : IDisposable
     {
+        /// <summary>
+        /// The display properties.
+        /// </summary>
+        private readonly DisplayProperties _displayProperties;
+
         /// <summary>
         /// Holds the <see cref="IDisplay"/>.
         /// </summary>
@@ -38,12 +44,12 @@ namespace BlitzDx
         {
             Checks.AssertNotNull(displayFactory, nameof(displayFactory));
 
-            var properties = new DisplayProperties()
+            this._displayProperties = new DisplayProperties()
             {
                 Resolution = new Size(1280, 720)
             };
 
-            this._display = displayFactory.CreateDisplay(properties, this.Draw);
+            this._display = displayFactory.CreateDisplay(this._displayProperties, this.Draw);
         }
 
         /// <summary>
@@ -75,7 +81,22 @@ namespace BlitzDx
         /// </summary>
         private void Draw(IDrawingContext drawingContext)
         {
-            // Draw stuff.
+            Checks.AssertNotNull(drawingContext, nameof(drawingContext));
+
+            var width = this._displayProperties.Resolution.Width;
+            var height = this._displayProperties.Resolution.Height;
+
+            drawingContext.DrawLine(
+                new Point(0, 0), 
+                new Point(width, height),
+                Color.Brown,
+                2);
+
+            drawingContext.DrawLine(
+                new Point(0, height),
+                new Point(width, 0),
+                Color.Brown,
+                2);
         }
     }
 }

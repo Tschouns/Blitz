@@ -21,7 +21,7 @@ namespace Display.SharpDx.Display
         {
             Checks.AssertNotNull(drawCallback, nameof(drawCallback));
 
-            return new SharpDx.Display.Display(properties, drawCallback);
+            return new Display(properties, drawCallback);
         }
     }
 }

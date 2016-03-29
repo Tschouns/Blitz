@@ -65,7 +65,7 @@ namespace Display.SharpDx.Display
 
             this._drawCallback = drawCallback;
 
-            this.InitializeRenderForm(properties.Resolution);
+            this.InitializeRenderForm(properties);
             this.InitializeDeviceResources();
             this.SetupAltEnterHandling();
             this.InitializeRenderTarget();
@@ -121,12 +121,12 @@ namespace Display.SharpDx.Display
         /// <summary>
         /// Initializes the <see cref="RenderForm"/>.
         /// </summary>
-        private void InitializeRenderForm(System.Drawing.Size formSize)
+        private void InitializeRenderForm(DisplayProperties properties)
         {
-            this._renderForm = new RenderForm("2D Shapes");
+            this._renderForm = new RenderForm(properties.Title);
 
             // Set window size
-            this._renderForm.Size = formSize;
+            this._renderForm.ClientSize = properties.Resolution;
 
             // Prevent window from being re-sized
             this._renderForm.AutoSizeMode = AutoSizeMode.GrowAndShrink;

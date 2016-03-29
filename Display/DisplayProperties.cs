@@ -14,6 +14,11 @@ namespace Display
     public struct DisplayProperties
     {
         /// <summary>
+        /// Gets or sets the display title.
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
         /// Gets or sets the resolution.
         /// </summary>
         public Size Resolution { get; set; }
