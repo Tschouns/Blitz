@@ -109,25 +109,13 @@
       <Project>{63cef2ea-8717-4b68-93b7-36c8cf06e1b2}</Project>
       <Name>Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Display.SharpDx\Display.SharpDx.csproj">
-      <Project>{4c573a64-58c3-4191-9eeb-fe2bd2683c8d}</Project>
-      <Name>Display.SharpDx</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Display\Display.csproj">
       <Project>{3ecc218e-a956-4633-aa1a-ba9bc79f119c}</Project>
       <Name>Display</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Geometry.Service\Geometry.Services.csproj">
-      <Project>{af3c6f9c-3df9-4dbf-ae55-276e3cdcf6d9}</Project>
-      <Name>Geometry.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>
       <Name>Geometry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Physics.Services\Physics.Services.csproj">
-      <Project>{c2c01dee-3cb6-4acb-8ee2-0144750f2bee}</Project>
-      <Name>Physics.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Physics\Physics.csproj">
       <Project>{6d2d2643-22b3-4d4f-b52a-1b72d4f18789}</Project>
