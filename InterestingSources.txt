@@ -19,5 +19,5 @@ http://www.tutorialspoint.com/computer_graphics/2d_transformation.htm
 - Point Rotation:
   http://stackoverflow.com/questions/786472/rotate-a-point-by-another-point-in-2d
 
-=== Matric algebra ===
+=== Matrix algebra ===
 https://www.youtube.com/watch?v=YSA22JSUCo8
