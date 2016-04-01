@@ -4,12 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Base.RuntimeChecks;
+
 namespace Geometry.Elements
 {
     /// <summary>
-    /// Represents a rectangle on a plane.
+    /// Represents an axis-aligned rectangle.
     /// </summary>
-    public class Rectangle
+    public class Rectangle : IFigure
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
@@ -22,21 +24,27 @@ namespace Geometry.Elements
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
         /// </summary>
-        public Rectangle(Point origin, double width, double height)
+        public Rectangle(Point a, double width, double height)
         {
-            this.A = origin;
+            Checks.AssertIsStrictPositive(width, nameof(width));
+            Checks.AssertIsStrictPositive(height, nameof(height));
 
+            this.Width = width;
+            this.Height = height;
+
+            this.A = a;
+            
             this.B = new Point(
-                origin.X + width,
-                origin.Y);
+                a.X + width,
+                a.Y);
 
             this.C = new Point(
-                origin.X + width,
-                origin.Y + height);
+                a.X + width,
+                a.Y + height);
 
             this.D = new Point(
-                origin.X,
-                origin.Y + height);
+                a.X,
+                a.Y + height);
 
             this.Corners = new Point[4]
                 {
@@ -53,27 +61,27 @@ namespace Geometry.Elements
         public double Width { get; }
 
         /// <summary>
-        /// Gets the width of the rectangle.
+        /// Gets the height of the rectangle.
         /// </summary>
-        public double Heigh { get; }
+        public double Height { get; }
 
         /// <summary>
-        /// Gets the first corner point going around the rectangle (origin).
+        /// Gets the first (lower-left) corner point going around the rectangle counter-clockwise.
         /// </summary>
         public Point A { get; }
 
         /// <summary>
-        /// Gets the second corner point going around the rectangle.
+        /// Gets the second (lower-right) corner point going around the rectangle counter-clockwise.
         /// </summary>
         public Point B { get; }
 
         /// <summary>
-        /// Gets the third corner point going around the rectangle.
+        /// Gets the third (upper-right) corner point going around the rectangle counter-clockwise.
         /// </summary>
         public Point C { get; }
 
         /// <summary>
-        /// Gets the fourth corner point going around the rectangle.
+        /// Gets the fourth (upper-left) corner point going around the rectangle counter-clockwise.
         /// </summary>
         public Point D { get; }
 
