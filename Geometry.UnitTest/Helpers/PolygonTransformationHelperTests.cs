@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.UnitTest
+namespace Geometry.UnitTest.Helpers
 {
     using System;
-    using Elements;
-    using Helpers;
+    using Geometry.Elements;
+    using Geometry.Helpers;
+    using Geometry.Service.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Service.Helpers;
-    
+
     /// <summary>
     /// Contains unit tests for <see cref="PolygonTransformationHelper"/>.
     /// </summary>
@@ -21,12 +21,12 @@ namespace Geometry.UnitTest
         /// <summary>
         /// Used to verify certain results.
         /// </summary>
-        private IPolygonCalculationHelper polygonCalculationHelper;
+        private IPolygonCalculationHelper _polygonCalculationHelper;
 
         /// <summary>
         /// Stores the test candidate.
         /// </summary>
-        private PolygonTransformationHelper testCandidate;
+        private PolygonTransformationHelper _testCandidate;
 
         /// <summary>
         /// Sets up each test.
@@ -34,11 +34,11 @@ namespace Geometry.UnitTest
         [TestInitialize]
         public void Setup()
         {
-            this.polygonCalculationHelper = new PolygonCalculationHelper(new LineIntersectionHelper());
+            this._polygonCalculationHelper = new PolygonCalculationHelper(new LineIntersectionHelper());
 
-            this.testCandidate = new PolygonTransformationHelper(
+            this._testCandidate = new PolygonTransformationHelper(
                 new PointTransformationHelper(),
-                this.polygonCalculationHelper);
+                this._polygonCalculationHelper);
         }
 
         #region AreLinesParallel
@@ -60,15 +60,15 @@ namespace Geometry.UnitTest
 
             // Act
             var original = new Polygon(corners);
-            var result = this.testCandidate.CenterOnOrigin(original);
+            var result = this._testCandidate.CenterOnOrigin(original);
 
             // Assert - The area must remain the same.
             Assert.AreEqual(
-                this.polygonCalculationHelper.CalculateArea(original),
-                this.polygonCalculationHelper.CalculateArea(result));
+                this._polygonCalculationHelper.CalculateArea(original),
+                this._polygonCalculationHelper.CalculateArea(result));
 
             // Assert - The centroid must be {0,0} (or almost: the floating point calculations may leave tiny inaccuracies).
-            var resultCentroid = this.polygonCalculationHelper.DetermineCentroid(result);
+            var resultCentroid = this._polygonCalculationHelper.DetermineCentroid(result);
 
             var roundedResultCentroidX = Math.Round(resultCentroid.X, 15);
             var roundedResultCentroidY = Math.Round(resultCentroid.Y, 15);

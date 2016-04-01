@@ -29,5 +29,13 @@ namespace Geometry.Elements
         /// Gets or sets the Y component.
         /// </summary>
         public double Y { get; set; }
+
+        /// <summary>
+        /// See <see cref="object.ToString"/>.
+        /// </summary>
+        public override string ToString()
+        {
+            return $"({this.X},{this.Y})";
+        }
     }
 }

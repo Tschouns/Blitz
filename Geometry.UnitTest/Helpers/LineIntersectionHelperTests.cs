@@ -4,11 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.UnitTest
+namespace Geometry.UnitTest.Helpers
 {
-    using Elements;
+    using Geometry.Elements;
+    using Geometry.Service.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Service.Helpers;
 
     /// <summary>
     /// Contains unit tests for <see cref="LineIntersectionHelper"/>.
@@ -19,7 +19,7 @@ namespace Geometry.UnitTest
         /// <summary>
         /// Stores the test candidate.
         /// </summary>
-        private LineIntersectionHelper testCandidate;
+        private LineIntersectionHelper _testCandidate;
 
         /// <summary>
         /// Sets up each test.
@@ -27,7 +27,7 @@ namespace Geometry.UnitTest
         [TestInitialize]
         public void Setup()
         {
-            this.testCandidate = new LineIntersectionHelper();
+            this._testCandidate = new LineIntersectionHelper();
         }
 
         #region AreLinesParallel
@@ -48,7 +48,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var result = this.testCandidate.AreLinesParallel(lineA, lineB);
+            var result = this._testCandidate.AreLinesParallel(lineA, lineB);
 
             // Assert
             Assert.IsTrue(result);
@@ -70,7 +70,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var result = this.testCandidate.AreLinesParallel(lineA, lineB);
+            var result = this._testCandidate.AreLinesParallel(lineA, lineB);
 
             // Assert
             Assert.IsTrue(result);
@@ -92,7 +92,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var result = this.testCandidate.AreLinesParallel(lineA, lineB);
+            var result = this._testCandidate.AreLinesParallel(lineA, lineB);
 
             // Assert
             Assert.IsTrue(result);
@@ -114,7 +114,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var result = this.testCandidate.AreLinesParallel(lineA, lineB);
+            var result = this._testCandidate.AreLinesParallel(lineA, lineB);
 
             // Assert
             Assert.IsFalse(result);
@@ -140,7 +140,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNull(intersectionPoint);
@@ -162,7 +162,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNotNull(intersectionPoint);
@@ -185,7 +185,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNotNull(intersectionPoint);
@@ -208,7 +208,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNotNull(intersectionPoint);
@@ -235,7 +235,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineSegmentIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineSegmentIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNull(intersectionPoint);
@@ -257,7 +257,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineSegmentIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineSegmentIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNotNull(intersectionPoint);
@@ -280,7 +280,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineSegmentIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineSegmentIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNull(intersectionPoint);
@@ -302,7 +302,7 @@ namespace Geometry.UnitTest
             var lineB = new Line(pointB1, pointB2);
 
             // Act
-            var intersectionPoint = this.testCandidate.GetLineSegmentIntersection(lineA, lineB);
+            var intersectionPoint = this._testCandidate.GetLineSegmentIntersection(lineA, lineB);
 
             // Assert
             Assert.IsNull(intersectionPoint);

@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.UnitTest
+namespace Geometry.UnitTest.Helpers
 {
     using Geometry.Elements;
     using Geometry.Service.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Contains unit tests for <see cref="PolygonCalculationHelperTests"/>.
+    /// Contains unit tests for <see cref="PolygonCalculationHelper"/>.
     /// </summary>
     [TestClass]
     public class PolygonCalculationHelperTests
@@ -19,7 +19,7 @@ namespace Geometry.UnitTest
         /// <summary>
         /// Stores the test candidate.
         /// </summary>
-        private PolygonCalculationHelper testCandidate;
+        private PolygonCalculationHelper _testCandidate;
 
         /// <summary>
         /// Sets up each test.
@@ -27,7 +27,7 @@ namespace Geometry.UnitTest
         [TestInitialize]
         public void Setup()
         {
-            this.testCandidate = new PolygonCalculationHelper(new LineIntersectionHelper());
+            this._testCandidate = new PolygonCalculationHelper(new LineIntersectionHelper());
         }
 
         #region IsNonsimplePolygon
@@ -48,7 +48,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.IsNonsimplePolygon(new Polygon(corners));
+            var result = this._testCandidate.IsNonsimplePolygon(new Polygon(corners));
 
             // Assert
             Assert.IsFalse(result);
@@ -71,7 +71,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.IsNonsimplePolygon(new Polygon(corners));
+            var result = this._testCandidate.IsNonsimplePolygon(new Polygon(corners));
 
             // Assert
             Assert.IsFalse(result);
@@ -93,7 +93,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.IsNonsimplePolygon(new Polygon(corners));
+            var result = this._testCandidate.IsNonsimplePolygon(new Polygon(corners));
 
             // Assert
             Assert.IsTrue(result);
@@ -116,7 +116,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.IsNonsimplePolygon(new Polygon(corners));
+            var result = this._testCandidate.IsNonsimplePolygon(new Polygon(corners));
 
             // Assert
             Assert.IsTrue(result);
@@ -141,7 +141,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+            var result = this._testCandidate.CalculateArea(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(12.0, result);
@@ -163,7 +163,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+            var result = this._testCandidate.CalculateArea(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(24.0, result);
@@ -185,7 +185,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+            var result = this._testCandidate.CalculateArea(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(24.0, result);
@@ -208,7 +208,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+            var result = this._testCandidate.CalculateArea(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(30.0, result);
@@ -234,7 +234,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.CalculateArea(new Polygon(corners));
+            var result = this._testCandidate.CalculateArea(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(29.0, result);
@@ -260,7 +260,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.DetermineCentroid(new Polygon(corners));
+            var result = this._testCandidate.DetermineCentroid(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(2, result.X);
@@ -283,7 +283,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.DetermineCentroid(new Polygon(corners));
+            var result = this._testCandidate.DetermineCentroid(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(2, result.X);
@@ -306,7 +306,7 @@ namespace Geometry.UnitTest
             };
 
             // Act
-            var result = this.testCandidate.DetermineCentroid(new Polygon(corners));
+            var result = this._testCandidate.DetermineCentroid(new Polygon(corners));
 
             // Assert
             Assert.AreEqual(-2, result.X);

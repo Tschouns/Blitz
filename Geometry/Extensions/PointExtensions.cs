@@ -14,7 +14,7 @@ namespace Geometry.Extensions
     public static class PointExtensions
     {
         /// <summary>
-        /// Adds a the specified vector to this point.
+        /// Adds the specified vector to this point.
         /// </summary>
         public static Point AddVector(this Point point, Vector2 vector)
         {
@@ -24,13 +24,21 @@ namespace Geometry.Extensions
         }
 
         /// <summary>
-        /// Subtracts a the specified vector to this point.
+        /// Subtracts the specified vector from this point.
         /// </summary>
         public static Point SubtactVector(this Point point, Vector2 vector)
         {
             return new Point(
                 point.X - vector.X,
                 point.Y - vector.Y);
+        }
+
+        /// <summary>
+        /// Converts the this point to a vector.
+        /// </summary>
+        public static Vector2 AsVector(this Point point)
+        {
+            return new Vector2(point.X, point.Y);
         }
 
         /// <summary>
@@ -42,6 +50,14 @@ namespace Geometry.Extensions
                 point.X - otherPoint.X,
                 point.Y - otherPoint.Y);
         }
+        
+        /// <summary>
+        /// Gets the "dot product" <c>A * B = Ax * Bx + Ay * By</c>. It is commutative.
+        /// </summary>
+        public static double Dot(this Point a, Point b)
+        {
+            return (a.X * b.X) + (a.Y * b.Y);
+        }
 
         /// <summary>
         /// Gets the "cross product" <c>A x B = Ax * By - Ay * Bx</c>. It is anti-commutative.
@@ -49,14 +65,6 @@ namespace Geometry.Extensions
         public static double Cross(this Point a, Point b)
         {
             return (a.X * b.Y) - (a.Y * b.X);
-        }
-
-        /// <summary>
-        /// Gets the "dot product" <c>A x B = Ax * By + Ay * Bx</c>. It is commutative.
-        /// </summary>
-        public static double Dot(this Point a, Point b)
-        {
-            return (a.X * b.Y) + (a.Y * b.X);
         }
     }
 }

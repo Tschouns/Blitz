@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Gjk\CircleSupportFunctions.cs" />
+    <Compile Include="Algorithms\Gjk\PolygonSupportFunctions.cs" />
     <Compile Include="Helpers\LineIntersectionHelper.cs" />
     <Compile Include="Helpers\PointTransformationHelper.cs" />
     <Compile Include="Helpers\PolygonCalculationHelper.cs" />

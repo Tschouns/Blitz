@@ -11,6 +11,8 @@
   http://www.dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/
 - GJK algorithm lecture video:
   http://mollyrocket.com/849
+- GJK implementation for 2D:
+  http://in2gpu.com/2014/05/12/gjk-algorithm-collision-detection-2d-in-c/
 
 === WPF 2D graphics (Louis Yang) ===
 https://www.youtube.com/watch?v=wTxktpA5GUM

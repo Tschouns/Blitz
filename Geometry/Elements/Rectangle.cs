@@ -4,10 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Base.RuntimeChecks;
-
 namespace Geometry.Elements
 {
+    using Base.RuntimeChecks;
+
     /// <summary>
     /// Represents an axis-aligned rectangle.
     /// </summary>
