@@ -20,6 +20,7 @@ namespace Physics.Services.Elements
     /// See <see cref="IBody{TShapeFigure}"/>.
     /// </typeparam>
     public class RigidBody<TShapeFigure> : IBody<TShapeFigure>
+        where TShapeFigure : class, IFigure
     {
         /// <summary>
         /// Used to calculate the torque.

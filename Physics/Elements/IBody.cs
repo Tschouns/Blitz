@@ -6,6 +6,8 @@
 
 namespace Physics.Elements
 {
+    using Geometry.Elements;
+
     /// <summary>
     /// Represents a body in the "physical world".
     /// </summary>
@@ -13,6 +15,7 @@ namespace Physics.Elements
     /// Type of the geometric figure which represents the shape of the body
     /// </typeparam>
     public interface IBody<TShapeFigure> : IPhysicalObject
+        where TShapeFigure : class, IFigure
     {
         /// <summary>
         /// Gets the inertia.

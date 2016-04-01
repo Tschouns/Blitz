@@ -15,7 +15,7 @@ namespace Geometry.Elements
     /// Represents polygon, defined by a set of points (corners). Each pair of consecutive additionalCorners
     /// define a segment. The last corner connect to the first.
     /// </summary>
-    public class Polygon
+    public class Polygon : IFigure
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class.

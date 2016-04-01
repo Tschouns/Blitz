@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Gjk\ISupport.cs" />
+    <Compile Include="Elements\Circle.cs" />
+    <Compile Include="Elements\IFigure.cs" />
     <Compile Include="Elements\Polygon.cs" />
     <Compile Include="Elements\Rectangle.cs" />
     <Compile Include="Elements\Vector2.cs" />
