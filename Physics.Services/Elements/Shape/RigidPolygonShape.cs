@@ -7,12 +7,12 @@
 namespace Physics.Services.Elements.Shape
 {
     using Base.RuntimeChecks;
+    using Elements;
     using Geometry;
     using Geometry.Elements;
     using Geometry.Extensions;
     using Geometry.Helpers;
-    using Physics.Elements;
-    using Physics.Services.Helpers;
+    using Helpers;
 
     /// <summary>
     /// Implementation of <see cref="IRigidShape{Polygon}"/>

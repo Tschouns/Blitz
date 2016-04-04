@@ -36,6 +36,7 @@ namespace Geometry.Service
             Ioc.Container.RegisterSingleton<IPointTransformationHelper, PointTransformationHelper>();
             Ioc.Container.RegisterSingleton<IPolygonCalculationHelper, PolygonCalculationHelper>();
             Ioc.Container.RegisterSingleton<IPolygonTransformationHelper, PolygonTransformationHelper>();
+            Ioc.Container.RegisterSingleton<ITriangleCalculationHelper, TriangleCalculationHelper>();
         }
     }
 }

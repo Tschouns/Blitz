@@ -13,10 +13,11 @@ namespace Physics.Services.Elements.Shape
     /// Provides a method to update the "current" state of the shape, based
     /// on position and orientation of the body.
     /// </summary>
-    /// <typeparam name="TGeometricFigure">
+    /// <typeparam name="TShapeFigure">
     /// See <see cref="IShape{TGeometricFigure}"/>.
     /// </typeparam>
-    public interface IRigidShape<TGeometricFigure> : IShape<TGeometricFigure>
+    public interface IRigidShape<TShapeFigure> : IShape<TShapeFigure>
+        where TShapeFigure : class, IFigure
     {
         /// <summary>
         /// Calculates the inertia for this shape, given a specified mass.

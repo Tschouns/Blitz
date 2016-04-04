@@ -46,10 +46,12 @@
     <Compile Include="Elements\IFigure.cs" />
     <Compile Include="Elements\Polygon.cs" />
     <Compile Include="Elements\Rectangle.cs" />
+    <Compile Include="Elements\Triangle.cs" />
     <Compile Include="Elements\Vector2.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
     <Compile Include="GeometryConstants.cs" />
+    <Compile Include="Helpers\Result\BarycentricCoordinates.cs" />
     <Compile Include="Helpers\ILineCalculationHelper.cs" />
     <Compile Include="Helpers\ILineIntersectionHelper.cs" />
     <Compile Include="Elements\Line.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="Helpers\IPointTransformationHelper.cs" />
     <Compile Include="Helpers\IPolygonCalculationHelper.cs" />
     <Compile Include="Helpers\IPolygonTransformationHelper.cs" />
+    <Compile Include="Helpers\ITriangleCalculationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

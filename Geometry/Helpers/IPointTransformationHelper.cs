@@ -6,7 +6,7 @@
 
 namespace Geometry.Helpers
 {
-    using Geometry.Elements;
+    using Elements;
 
     /// <summary>
     /// Provides methods to perform different point transformations.

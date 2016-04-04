@@ -43,20 +43,28 @@ namespace Geometry.Service.Algorithms.Gjk
         private ILineCalculationHelper _lineCalculationHelper;
 
         /// <summary>
+        /// Used to check whether the simplex (triangle) encloses the origin.
+        /// </summary>
+        private ITriangleCalculationHelper _triangleCalculationHelper;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GjkAlgorithm{TFigure1,TFigure2}"/> class.
         /// </summary>
         public GjkAlgorithm(
             ISupportFunctions<TFigure1> figure1SupportFunctions,
             ISupportFunctions<TFigure2> figure2SupportFunctions,
-            ILineCalculationHelper lineCalculationHelper)
+            ILineCalculationHelper lineCalculationHelper,
+            ITriangleCalculationHelper triangleCalculationHelper)
         {
             Checks.AssertNotNull(figure1SupportFunctions, nameof(figure1SupportFunctions));
             Checks.AssertNotNull(figure2SupportFunctions, nameof(figure2SupportFunctions));
             Checks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
+            Checks.AssertNotNull(triangleCalculationHelper, nameof(triangleCalculationHelper));
 
             this._figure1SupportFunctions = figure1SupportFunctions;
             this._figure2SupportFunctions = figure2SupportFunctions;
             this._lineCalculationHelper = lineCalculationHelper;
+            this._triangleCalculationHelper = triangleCalculationHelper;
         }
 
         /// <summary>
@@ -67,13 +75,15 @@ namespace Geometry.Service.Algorithms.Gjk
             Checks.AssertNotNull(figure1, nameof(figure1));
             Checks.AssertNotNull(figure2, nameof(figure2));
 
-            throw new NotImplementedException();
+            var doFiguresIntersect = this.Gfk2DInternal(figure1, figure2);
+
+            return doFiguresIntersect;
         }
 
         /// <summary>
         /// Internal implementation. TODO: extend return value so it can determine the distance and penetration depth etc...
         /// </summary>
-        private bool Gfk2dInternal(TFigure1 figure1, TFigure2 figure2)
+        private bool Gfk2DInternal(TFigure1 figure1, TFigure2 figure2)
         {
             Checks.AssertNotNull(figure1, nameof(figure1));
             Checks.AssertNotNull(figure2, nameof(figure2));
@@ -85,12 +95,12 @@ namespace Geometry.Service.Algorithms.Gjk
             var direction = new Vector2(1, 0);
             var firstPoint = this.GetSupportPointInMinkowskyDifference(figure1, figure2, direction);
             simplexPoints.Add(firstPoint);
-            
-            while (true)
+
+            bool? minkowskyDifferenceContainsOrigin = null;
+
+            while (minkowskyDifferenceContainsOrigin == null)
             {
-                this.UpdateSimplexAndDirection(simplexPoints, ref direction);
-                
-                //// TODO: Check if simplex encloses the origin; means that there is an intersection.
+                minkowskyDifferenceContainsOrigin = this.UpdateSimplexAndDirection(simplexPoints, ref direction);
 
                 var nextSupportPoint = this.GetSupportPointInMinkowskyDifference(figure1, figure2, direction);
                 if (nextSupportPoint.AsVector().Dot(direction) < 0)
@@ -101,12 +111,18 @@ namespace Geometry.Service.Algorithms.Gjk
 
                 simplexPoints.Add(nextSupportPoint);
             }
+
+            return minkowskyDifferenceContainsOrigin.Value;
         }
 
         /// <summary>
         /// Helper method. Updates the simplex and the direction.
         /// </summary>
-        private void UpdateSimplexAndDirection(IList<Point> simplexPoints, ref Vector2 direction)
+        /// <returns>
+        /// - <c>null</c>, while the simplex is not yet a triangle
+        /// - <c>true</c>, if the simplex contains the origin, otherwise <c>false</c>
+        /// </returns>
+        private bool? UpdateSimplexAndDirection(IList<Point> simplexPoints, ref Vector2 direction)
         {
             switch (simplexPoints.Count)
             {
@@ -115,7 +131,7 @@ namespace Geometry.Service.Algorithms.Gjk
                     // We just update the search direction from the point towards the origin.
                     direction = simplexPoints[0].AsVector().Invert();
 
-                    break;
+                    return null;
 
                 // Line segments
                 case 2:
@@ -137,14 +153,16 @@ namespace Geometry.Service.Algorithms.Gjk
                         direction = directionFromNewPointTowardsOrigin;
                     }
 
-                    break;
+                    return null;
                 
                 // Triangle
                 case 3:
-                    //// TODO: Check if the origin is enclosed in the triangle.
+                    // The triangle is complete.
+                    var triangle = new Triangle(simplexPoints[0], simplexPoints[1], simplexPoints[2]);
 
-                    break;
-
+                    return this._triangleCalculationHelper.IsPointWithinTriangle(triangle, GeometryConstants.Origin);
+                
+                // Any other number of point...
                 default:
                     throw new ArgumentException($"{nameof(simplexPoints)} contains an unexpected number of points: {simplexPoints.Count}");
             }

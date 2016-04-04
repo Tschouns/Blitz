@@ -6,12 +6,13 @@
 
 namespace Geometry.Elements
 {
+    using System.Linq;
     using Base.RuntimeChecks;
 
     /// <summary>
     /// Represents an axis-aligned rectangle.
     /// </summary>
-    public class Rectangle : IFigure
+    public class Rectangle : Polygon
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
@@ -25,6 +26,11 @@ namespace Geometry.Elements
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
         /// </summary>
         public Rectangle(Point a, double width, double height)
+            : base(
+                  a,
+                  new Point(a.X + width, a.Y),
+                  new Point(a.X + width, a.Y + height),
+                  new Point(a.X, a.Y + height))
         {
             Checks.AssertIsStrictPositive(width, nameof(width));
             Checks.AssertIsStrictPositive(height, nameof(height));
@@ -32,27 +38,10 @@ namespace Geometry.Elements
             this.Width = width;
             this.Height = height;
 
-            this.A = a;
-            
-            this.B = new Point(
-                a.X + width,
-                a.Y);
-
-            this.C = new Point(
-                a.X + width,
-                a.Y + height);
-
-            this.D = new Point(
-                a.X,
-                a.Y + height);
-
-            this.Corners = new Point[4]
-                {
-                    this.A,
-                    this.B,
-                    this.C,
-                    this.D
-                };
+            this.A = this.Corners.ElementAt(0);
+            this.B = this.Corners.ElementAt(1);
+            this.C = this.Corners.ElementAt(2);
+            this.D = this.Corners.ElementAt(3);
         }
 
         /// <summary>
@@ -84,10 +73,5 @@ namespace Geometry.Elements
         /// Gets the fourth (upper-left) corner point going around the rectangle counter-clockwise.
         /// </summary>
         public Point D { get; }
-
-        /// <summary>
-        /// Gets all four corner points going around rectangle.
-        /// </summary>
-        public Point[] Corners { get; }
     }
 }
