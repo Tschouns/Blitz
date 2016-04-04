@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Gjk\IGjkAlgorithm.cs" />
     <Compile Include="Algorithms\Gjk\ISupportFunctions.cs" />
     <Compile Include="Elements\Circle.cs" />
     <Compile Include="Elements\IFigure.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
     <Compile Include="GeometryConstants.cs" />
+    <Compile Include="Helpers\ILineCalculationHelper.cs" />
     <Compile Include="Helpers\ILineIntersectionHelper.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\Point.cs" />

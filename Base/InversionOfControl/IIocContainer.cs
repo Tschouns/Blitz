@@ -6,14 +6,16 @@
 
 namespace Base.InversionOfControl
 {
+    using System;
+
     /// <summary>
     /// Represents an IOC container.
     /// </summary>
     public interface IIocContainer
     {
         /// <summary>
-        /// Registers an singleton implementation, <typeparamref name="TImplementation"/>, for
-        /// an interface, <typeparamref name="TInterface"/>.
+        /// Registers the implementation <typeparamref name="TImplementation"/> for
+        /// the interface <typeparamref name="TInterface"/>, as a singleton (per thread).
         /// </summary>
         /// <typeparam name="TInterface">
         /// The interface type
@@ -24,6 +26,12 @@ namespace Base.InversionOfControl
         void RegisterSingleton<TInterface, TImplementation>()
             where TInterface : class
             where TImplementation : TInterface;
+
+        /// <summary>
+        /// Registers the specified implementation type for the specified interface type,
+        /// as a singleton (per thread).
+        /// </summary>
+        void RegisterSingleton(Type interfaceType, Type implementationType);
 
         /// <summary>
         /// Resolves the implementation for <typeparamref name="TInterface"/> and returns the instance,

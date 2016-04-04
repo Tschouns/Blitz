@@ -8,6 +8,7 @@ namespace Base.InversionOfControl
 {
     using System;
     using Microsoft.Practices.Unity;
+    using RuntimeChecks;
 
     /// <summary>
     /// Implements <see cref="IIocContainer"/> and wraps a Unity IOC container.
@@ -20,7 +21,7 @@ namespace Base.InversionOfControl
         private readonly UnityContainer _iocContainer = new UnityContainer();
 
         /// <summary>
-        /// See <see cref="IIocContainer.RegisterSingleton{TInterface, TImplementation}"/>
+        /// See <see cref="IIocContainer.RegisterSingleton{TInterface, TImplementation}"/>.
         /// </summary>
         public void RegisterSingleton<TInterface, TImplementation>()
             where TInterface : class
@@ -30,7 +31,18 @@ namespace Base.InversionOfControl
         }
 
         /// <summary>
-        /// See <see cref="IIocContainer.Resolve{TInterface}"/>
+        /// See <see cref="IIocContainer.RegisterSingleton"/>.
+        /// </summary>
+        public void RegisterSingleton(Type interfaceType, Type implementationType)
+        {
+            Checks.AssertNotNull(interfaceType, nameof(interfaceType));
+            Checks.AssertNotNull(implementationType, nameof(implementationType));
+
+            this._iocContainer.RegisterType(interfaceType, implementationType, new PerThreadLifetimeManager());
+        }
+
+        /// <summary>
+        /// See <see cref="IIocContainer.Resolve{TInterface}"/>.
         /// </summary>
         public TInterface Resolve<TInterface>() where TInterface : class
         {

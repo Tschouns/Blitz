@@ -55,6 +55,14 @@ namespace Geometry.Extensions
         }
 
         /// <summary>
+        /// Inverts this vector, i.e. returns a vector pointing in the opposite direction.
+        /// </summary>
+        public static Vector2 Invert(this Vector2 vector)
+        {
+            return vector.Multiply(-1);
+        }
+
+        /// <summary>
         /// Gets the "dot product"<c> U * V = Ux * Vx + Uy * Vy</c>. It is commutative.
         /// </summary>
         public static double Dot(this Vector2 u, Vector2 v)

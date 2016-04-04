@@ -6,8 +6,11 @@
 
 namespace Geometry.Service
 {
+    using Algorithms.Gjk;
     using Base.InversionOfControl;
     using Base.StartUp;
+    using Elements;
+    using Geometry.Algorithms.Gjk;
     using Geometry.Helpers;
     using Helpers;
 
@@ -22,6 +25,13 @@ namespace Geometry.Service
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            // Algorithms
+            Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<,>), typeof(GjkAlgorithm<,>));
+            Ioc.Container.RegisterSingleton<ISupportFunctions<Circle>, CircleSupportFunctions>();
+            Ioc.Container.RegisterSingleton<ISupportFunctions<Polygon>, PolygonSupportFunctions>();
+
+            // Helpers
+            Ioc.Container.RegisterSingleton<ILineCalculationHelper, LineCalculationHelper>();
             Ioc.Container.RegisterSingleton<ILineIntersectionHelper, LineIntersectionHelper>();
             Ioc.Container.RegisterSingleton<IPointTransformationHelper, PointTransformationHelper>();
             Ioc.Container.RegisterSingleton<IPolygonCalculationHelper, PolygonCalculationHelper>();

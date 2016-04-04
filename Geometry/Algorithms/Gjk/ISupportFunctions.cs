@@ -6,7 +6,7 @@
 
 namespace Geometry.Algorithms.Gjk
 {
-    using Geometry.Elements;
+    using Elements;
 
     /// <summary>
     /// Represents a "support function" used in the <c>Gilbert-Johnson-Keerthi</c> algorithm to determine

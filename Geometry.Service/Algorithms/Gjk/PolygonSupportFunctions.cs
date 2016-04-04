@@ -7,17 +7,17 @@
 namespace Geometry.Service.Algorithms.Gjk
 {
     using Base.RuntimeChecks;
+    using Elements;
+    using Extensions;
     using Geometry.Algorithms.Gjk;
-    using Geometry.Elements;
-    using Geometry.Extensions;
 
     /// <summary>
-    /// Implements <see cref="ISupportFunctionss{TFigure}"/> for <see cref="Polygon"/>.
+    /// Implements <see cref="ISupportFunctions{TFigure}"/> for <see cref="Polygon"/>.
     /// </summary>
     public class PolygonSupportFunctions : ISupportFunctions<Polygon>
     {
         /// <summary>
-        /// See <see cref="ISupportFunctionss{TFigure}.GetSupportPoint"/>.
+        /// See <see cref="ISupportFunctions{TFigure}.GetSupportPoint"/>.
         /// </summary>
         public Point GetSupportPoint(Polygon figure, Vector2 direction)
         {
