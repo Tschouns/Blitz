@@ -7,10 +7,10 @@
 namespace Geometry.UnitTest.Helpers
 {
     using System;
-    using Geometry.Elements;
+    using Elements;
     using Geometry.Helpers;
-    using Geometry.Service.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Service.Helpers;
 
     /// <summary>
     /// Contains unit tests for <see cref="PolygonTransformationHelper"/>.
@@ -41,7 +41,7 @@ namespace Geometry.UnitTest.Helpers
                 this._polygonCalculationHelper);
         }
 
-        #region AreLinesParallel
+        #region CenterOnOrigin
 
         /// <summary>
         /// Does a test.

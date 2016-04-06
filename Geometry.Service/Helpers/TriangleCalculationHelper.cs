@@ -6,7 +6,6 @@
 
 namespace Geometry.Service.Helpers
 {
-    using System;
     using Base.RuntimeChecks;
     using Elements;
     using Extensions;
