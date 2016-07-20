@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Algorithms\Gjk\CircleSupportFunctionsTests.cs" />
+    <Compile Include="Algorithms\Gjk\GjkAlgorithmTests.cs" />
     <Compile Include="Helpers\PolygonCalculationHelperTests.cs" />
     <Compile Include="Algorithms\Gjk\PolygonSupportFunctionsTests.cs" />
     <Compile Include="Helpers\PolygonTransformationHelperTests.cs" />
