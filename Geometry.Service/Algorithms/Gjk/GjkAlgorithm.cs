@@ -91,7 +91,7 @@ namespace Geometry.Service.Algorithms.Gjk
             // We only need a simplex 2, i.e. a triangle, in 2D.
             IList<Point> simplexPoints = new List<Point>(3);
 
-            // We choose any direction and get first point in the Minkowsy difference.
+            // We choose any direction and get any point in the Minkowsi difference, using the support function.
             var direction = new Vector2(1, 0);
             var firstPoint = this.GetSupportPointInMinkowskyDifference(figure1, figure2, direction);
             simplexPoints.Add(firstPoint);
@@ -179,7 +179,7 @@ namespace Geometry.Service.Algorithms.Gjk
         }
 
         /// <summary>
-        /// Gets the support point in the <c>Minkowsky</c> difference between the specified figure 1 and figure 2, in
+        /// Gets the support point in the <c>Minkowski</c> difference between the specified figure 1 and figure 2, in
         /// the specified direction. 
         /// </summary>
         private Point GetSupportPointInMinkowskyDifference(TFigure1 figure1, TFigure2 figure2, Vector2 direction)

@@ -4,13 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Geometry.Service.Helpers;
-
 namespace Geometry.UnitTest.Algorithms.Gjk
 {
-    using System;
     using Geometry.Elements;
     using Geometry.Service.Algorithms.Gjk;
+    using Geometry.Service.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
