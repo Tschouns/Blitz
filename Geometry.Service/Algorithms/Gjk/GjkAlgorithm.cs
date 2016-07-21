@@ -70,20 +70,20 @@ namespace Geometry.Service.Algorithms.Gjk
         /// <summary>
         /// See <see cref="IGjkAlgorithm{TFigure1,TFigure2}.DoFiguresIntersect"/>.
         /// </summary>
-        public bool DoFiguresIntersect(TFigure1 figure1, TFigure2 figure2)
+        public FigureIntersectionResult DoFiguresIntersect(TFigure1 figure1, TFigure2 figure2)
         {
             Checks.AssertNotNull(figure1, nameof(figure1));
             Checks.AssertNotNull(figure2, nameof(figure2));
 
-            var doFiguresIntersect = this.Gfk2DInternal(figure1, figure2);
+            var figureIntersectionResult = this.Gfk2DInternal(figure1, figure2);
 
-            return doFiguresIntersect;
+            return figureIntersectionResult;
         }
 
         /// <summary>
         /// Internal implementation. TODO: extend return value so it can determine the distance and penetration depth etc...
         /// </summary>
-        private bool Gfk2DInternal(TFigure1 figure1, TFigure2 figure2)
+        private FigureIntersectionResult Gfk2DInternal(TFigure1 figure1, TFigure2 figure2)
         {
             Checks.AssertNotNull(figure1, nameof(figure1));
             Checks.AssertNotNull(figure2, nameof(figure2));
@@ -96,23 +96,23 @@ namespace Geometry.Service.Algorithms.Gjk
             var firstPoint = this.GetSupportPointInMinkowskyDifference(figure1, figure2, direction);
             simplexPoints.Add(firstPoint);
 
-            bool? minkowskyDifferenceContainsOrigin = null;
+            FigureIntersectionResult result = null;
 
-            while (minkowskyDifferenceContainsOrigin == null)
+            while (result == null)
             {
-                minkowskyDifferenceContainsOrigin = this.UpdateSimplexAndDirection(simplexPoints, ref direction);
+                result = this.UpdateSimplexAndDirection(simplexPoints, ref direction);
 
                 var nextSupportPoint = this.GetSupportPointInMinkowskyDifference(figure1, figure2, direction);
                 if (nextSupportPoint.AsVector().Dot(direction) < 0)
                 {
                     // There is no intersection.
-                    return false;
+                    return new FigureIntersectionResult(false, null);
                 }
 
                 simplexPoints.Add(nextSupportPoint);
             }
 
-            return minkowskyDifferenceContainsOrigin.Value;
+            return result;
         }
 
         /// <summary>
@@ -120,9 +120,9 @@ namespace Geometry.Service.Algorithms.Gjk
         /// </summary>
         /// <returns>
         /// - <c>null</c>, while the simplex is not yet a triangle
-        /// - <c>true</c>, if the simplex contains the origin, otherwise <c>false</c>
+        /// - otherwise, the result
         /// </returns>
-        private bool? UpdateSimplexAndDirection(IList<Point> simplexPoints, ref Vector2 direction)
+        private FigureIntersectionResult UpdateSimplexAndDirection(IList<Point> simplexPoints, ref Vector2 direction)
         {
             switch (simplexPoints.Count)
             {
@@ -142,8 +142,8 @@ namespace Geometry.Service.Algorithms.Gjk
                     {
                         // The line is closest to the origin, so just update the search direction.
                         var line = new Line(simplexPoints[0], simplexPoints[1]);
-                        var intersectionWithPerpendicular = this._lineCalculationHelper.GetIntersectionWithPerpendicularThroughOrigin(line);
-                        var directionFromLineTowardsOrigin = intersectionWithPerpendicular.AsVector().Invert();
+                        var lineIntersectionWithPerpendicular = this._lineCalculationHelper.GetIntersectionWithPerpendicularThroughOrigin(line);
+                        var directionFromLineTowardsOrigin = lineIntersectionWithPerpendicular.AsVector().Invert();
                         direction = directionFromLineTowardsOrigin;
                     }
                     else
@@ -157,11 +157,29 @@ namespace Geometry.Service.Algorithms.Gjk
                 
                 // Triangle
                 case 3:
-                    // The triangle is complete.
                     var triangle = new Triangle(simplexPoints[0], simplexPoints[1], simplexPoints[2]);
+                    var doFiguresIntersect = this._triangleCalculationHelper.IsPointWithinTriangle(triangle, GeometryConstants.Origin);
 
-                    return this._triangleCalculationHelper.IsPointWithinTriangle(triangle, GeometryConstants.Origin);
+                    if (doFiguresIntersect)
+                    {
+                        return new FigureIntersectionResult(doFiguresIntersect, triangle);
+                    }
+
+                    // The last line segment must be closest to the origin... (is that so?)
+                    var lastLineSegment = new Line(simplexPoints[1], simplexPoints[2]);
+                    var lastLineSegmentintersectionWithPerpendicular = this._lineCalculationHelper.GetIntersectionWithPerpendicularThroughOrigin(lastLineSegment);
+                    var directionFromLastLineSegmentTowardsOrigin = lastLineSegmentintersectionWithPerpendicular.AsVector().Invert();
+                    direction = directionFromLastLineSegmentTowardsOrigin;
+
+                    return null;
                 
+                // Tetragon (but we check only the "newer" half... which is a triangle again)
+                case 4:
+                    var newerTriangle = new Triangle(simplexPoints[1], simplexPoints[2], simplexPoints[3]);
+                    doFiguresIntersect = this._triangleCalculationHelper.IsPointWithinTriangle(newerTriangle, GeometryConstants.Origin);
+
+                    return new FigureIntersectionResult(doFiguresIntersect, new Polygon(simplexPoints[0], simplexPoints[1], simplexPoints[2], simplexPoints[3]));
+
                 // Any other number of point...
                 default:
                     throw new ArgumentException($"{nameof(simplexPoints)} contains an unexpected number of points: {simplexPoints.Count}");
@@ -186,6 +204,7 @@ namespace Geometry.Service.Algorithms.Gjk
         {
             var supportPoint1 = this._figure1SupportFunctions.GetSupportPoint(figure1, direction);
             var supportPoint2Negative = this._figure2SupportFunctions.GetSupportPoint(figure2, direction.Invert());
+            ////var supportPoint2Negative = this._figure2SupportFunctions.GetSupportPoint(figure2, direction);
 
             var supportPointInMinkowskyDifference = supportPoint1.SubtactVector(supportPoint2Negative.AsVector());
 

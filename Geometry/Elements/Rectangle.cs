@@ -15,7 +15,8 @@ namespace Geometry.Elements
     public class Rectangle : Polygon
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle"/> class.
+        /// Initializes a new instance of the <see cref="Rectangle"/> class. The lower-left
+        /// corner of the rectangle will be the origin.
         /// </summary>
         public Rectangle(double width, double height)
             : this(new Point(0, 0), width, height)
@@ -23,7 +24,8 @@ namespace Geometry.Elements
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle"/> class.
+        /// Initializes a new instance of the <see cref="Rectangle"/> class. The specified
+        /// point A represents the lower-left corner of the rectangle.
         /// </summary>
         public Rectangle(Point a, double width, double height)
             : base(
@@ -32,8 +34,8 @@ namespace Geometry.Elements
                   new Point(a.X + width, a.Y + height),
                   new Point(a.X, a.Y + height))
         {
-            Checks.AssertIsStrictPositive(width, nameof(width));
-            Checks.AssertIsStrictPositive(height, nameof(height));
+            Checks.AssertIsPositive(width, nameof(width));
+            Checks.AssertIsPositive(height, nameof(height));
 
             this.Width = width;
             this.Height = height;

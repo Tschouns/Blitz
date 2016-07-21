@@ -6,6 +6,7 @@
 
 namespace Blitz
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows.Media;
     using Base.RuntimeChecks;
@@ -51,8 +52,19 @@ namespace Blitz
         {
             Checks.AssertNotNull(line, nameof(line));
 
+            this.DrawLineSegment(line, Brushes.Black);
+        }
+
+        /// <summary>
+        /// See <see cref="IDrawingHandler.DrawLineSegment"/>.
+        /// </summary>
+        public void DrawLineSegment(Line line, Brush brush)
+        {
+            Checks.AssertNotNull(line, nameof(line));
+            Checks.AssertNotNull(brush, nameof(brush));
+
             this._drawingContext.DrawLine(
-                new Pen(Brushes.Black, 2),
+                new Pen(brush, 2),
                 new System.Windows.Point(line.Point1.X, line.Point1.Y),
                 new System.Windows.Point(line.Point2.X, line.Point2.Y));
         }
@@ -62,7 +74,15 @@ namespace Blitz
         /// </summary>
         public void DrawPath(IEnumerable<Point> points)
         {
-            this.DrawPathInternal(points, false);
+            this.DrawPathInternal(points, false, Brushes.Black);
+        }
+
+        /// <summary>
+        /// See <see cref="IDrawingHandler.DrawPath"/>.
+        /// </summary>
+        public void DrawPath(IEnumerable<Point> points, Brush brush)
+        {
+            this.DrawPathInternal(points, false, brush);
         }
 
         /// <summary>
@@ -70,13 +90,21 @@ namespace Blitz
         /// </summary>
         public void DrawPolygon(IEnumerable<Point> points)
         {
-            this.DrawPathInternal(points, true);
+            this.DrawPathInternal(points, true, Brushes.Black);
+        }
+
+        /// <summary>
+        /// See <see cref="IDrawingHandler.DrawPolygon"/>.
+        /// </summary>
+        public void DrawPolygon(IEnumerable<Point> points, Brush brush)
+        {
+            this.DrawPathInternal(points, true, brush);
         }
 
         /// <summary>
         /// Internal implementation: draws a path or a closed path, i.e. a polygon.
         /// </summary>
-        private void DrawPathInternal(IEnumerable<Point> points, bool closed)
+        private void DrawPathInternal(IEnumerable<Point> points, bool closed, Brush brush)
         {
             Point? origin = null;
             Point? lastPoint = null;
@@ -90,14 +118,14 @@ namespace Blitz
                     continue;
                 }
 
-                this.DrawLineSegment(new Line(lastPoint.Value, point));
+                this.DrawLineSegment(new Line(lastPoint.Value, point), brush);
                 lastPoint = point;
             }
 
             // Draw closing segment.
             if (closed && lastPoint.HasValue && !object.Equals(lastPoint.Value, origin.Value))
             {
-                this.DrawLineSegment(new Line(lastPoint.Value, origin.Value));
+                this.DrawLineSegment(new Line(lastPoint.Value, origin.Value), brush);
             }
         }
     }

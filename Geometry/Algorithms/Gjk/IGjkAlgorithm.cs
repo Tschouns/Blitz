@@ -25,6 +25,6 @@ namespace Geometry.Algorithms.Gjk
         /// <summary>
         /// Determines whether two figures intersect.
         /// </summary>
-        bool DoFiguresIntersect(TFigure1 figure1, TFigure2 figure2);
+        FigureIntersectionResult DoFiguresIntersect(TFigure1 figure1, TFigure2 figure2);
     }
 }

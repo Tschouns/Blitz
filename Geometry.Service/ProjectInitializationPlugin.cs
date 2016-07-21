@@ -29,6 +29,8 @@ namespace Geometry.Service
             Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<,>), typeof(GjkAlgorithm<,>));
             Ioc.Container.RegisterSingleton<ISupportFunctions<Circle>, CircleSupportFunctions>();
             Ioc.Container.RegisterSingleton<ISupportFunctions<Polygon>, PolygonSupportFunctions>();
+            Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<Polygon, Polygon>), typeof(GjkAlgorithm<Polygon, Polygon>));
+
 
             // Helpers
             Ioc.Container.RegisterSingleton<ILineCalculationHelper, LineCalculationHelper>();

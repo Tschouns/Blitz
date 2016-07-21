@@ -73,10 +73,10 @@ namespace Geometry.UnitTest.Algorithms.Gjk
                 new Point(0.5, 1));
 
             // Act 
-            var doIntersect = this._polygonPolygonTestCandidate.DoFiguresIntersect(polygon1, polygon2);
+            var figureIntersectionResult = this._polygonPolygonTestCandidate.DoFiguresIntersect(polygon1, polygon2);
 
             // Assert
-            Assert.IsFalse(doIntersect);
+            Assert.IsFalse(figureIntersectionResult.DoFiguresIntersect);
         }
 
         /// <summary>
@@ -101,10 +101,10 @@ namespace Geometry.UnitTest.Algorithms.Gjk
                 new Point(2.5, 1));
 
             // Act 
-            var doIntersect = this._polygonPolygonTestCandidate.DoFiguresIntersect(polygon1, polygon2);
+            var figureIntersectionResult = this._polygonPolygonTestCandidate.DoFiguresIntersect(polygon1, polygon2);
 
             // Assert
-            Assert.IsTrue(doIntersect);
+            Assert.IsTrue(figureIntersectionResult.DoFiguresIntersect);
         }
 
         /// <summary>
@@ -129,10 +129,10 @@ namespace Geometry.UnitTest.Algorithms.Gjk
                 new Point(1.3, -1));
 
             // Act 
-            var doIntersect = this._polygonPolygonTestCandidate.DoFiguresIntersect(polygon1, polygon2);
+            var figureIntersectionResult = this._polygonPolygonTestCandidate.DoFiguresIntersect(polygon1, polygon2);
 
             // Assert
-            Assert.IsTrue(doIntersect);
+            Assert.IsTrue(figureIntersectionResult.DoFiguresIntersect);
         }
     }
 }
