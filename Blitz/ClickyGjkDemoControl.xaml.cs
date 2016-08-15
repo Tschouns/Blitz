@@ -145,8 +145,14 @@ namespace Blitz
             // Draw magic pol<gon.
             if (this._doPolygonsIntersectResult?.MagicPolygonNullable != null)
             {
-                var polygonPointsWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Select(aX => aX.AddVector(this._displayOffset)).ToList();
-                eventArgs.DrawingHandler.DrawPolygon(polygonPointsWithOffset);
+                var firstMagicTriangleWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Take(3).Select(aX => aX.AddVector(this._displayOffset)).ToList();
+                eventArgs.DrawingHandler.DrawPolygon(firstMagicTriangleWithOffset);
+
+                if (this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Count() > 3)
+                {
+                    var secondMagicTriangleWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Skip(1).Select(aX => aX.AddVector(this._displayOffset)).ToList();
+                    eventArgs.DrawingHandler.DrawPolygon(secondMagicTriangleWithOffset);
+                }
             }
 
             // Minkowski hack.
