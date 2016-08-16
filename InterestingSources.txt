@@ -32,3 +32,4 @@ https://www.youtube.com/watch?v=YSA22JSUCo8
 
 === 2D Camera ===
 http://stackoverflow.com/questions/712296/xna-2d-camera-engine-that-follows-sprite
+http://gamedev.stackexchange.com/questions/59301/xna-2d-camera-scrolling-why-use-matrix-transform
