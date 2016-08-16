@@ -29,3 +29,6 @@ http://www.tutorialspoint.com/computer_graphics/2d_transformation.htm
 
 === Matrix algebra ===
 https://www.youtube.com/watch?v=YSA22JSUCo8
+
+=== 2D Camera ===
+http://stackoverflow.com/questions/712296/xna-2d-camera-engine-that-follows-sprite
