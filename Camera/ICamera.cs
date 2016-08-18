@@ -23,17 +23,23 @@ namespace Camera
         /// <summary>
         /// Gets or sets the current orientation of the camera, about the center (in radians).
         /// </summary>
-        float Orientation { get; set; }
+        double Orientation { get; set; }
 
         /// <summary>
         /// Gets or sets the current camera scale.
         /// </summary>
-        float Scale { get; set; }
+        double Scale { get; set; }
 
         /// <summary>
         /// Gets the resulting transformation object, which transforms positions between world
         /// and viewport coordinates.
         /// </summary>
         ICameraTransformation GetCameraTransformation();
+
+        /// <summary>
+        /// Determines whether the specified point (in world coordinates) is in view, based on the current
+        /// camera state.
+        /// </summary>
+        bool IsInView(Point point);
     }
 }

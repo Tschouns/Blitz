@@ -7,6 +7,7 @@
 namespace Camera.Services
 {
     using System;
+    using Base.RuntimeChecks;
     using Geometry.Elements;
 
     /// <summary>
@@ -15,24 +16,54 @@ namespace Camera.Services
     public class Camera : ICamera
     {
         /// <summary>
-        /// See <see cref="ICamera.Position"/> .
+        /// The width of the viewport.
+        /// </summary>
+        private double _viewportWidth;
+
+        /// <summary>
+        /// The height of the viewport.
+        /// </summary>
+        private double _viewportHeight;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Camera"/> class.
+        /// </summary>
+        public Camera(int viewportWidth, int viewportHeight)
+        {
+            Checks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
+            Checks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
+
+            this._viewportWidth = viewportWidth;
+            this._viewportHeight = viewportHeight;
+        }
+
+        /// <summary>
+        /// See <see cref="ICamera.Position"/>.
         /// </summary>
         public Point Position { get; set; }
 
         /// <summary>
-        /// See <see cref="ICamera.Orientation"/> .
+        /// See <see cref="ICamera.Orientation"/>.
         /// </summary>
-        public float Orientation { get; set; }
+        public double Orientation { get; set; }
 
         /// <summary>
-        /// See <see cref="ICamera.Scale"/> .
+        /// See <see cref="ICamera.Scale"/>.
         /// </summary>
-        public float Scale { get; set; }
+        public double Scale { get; set; }
 
         /// <summary>
-        /// See <see cref="ICamera.GetCameraTransformation"/> .
+        /// See <see cref="ICamera.GetCameraTransformation"/>.
         /// </summary>
         public ICameraTransformation GetCameraTransformation()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// See <see cref="ICamera.IsInView"/>.
+        /// </summary>
+        public bool IsInView(Point point)
         {
             throw new NotImplementedException();
         }
