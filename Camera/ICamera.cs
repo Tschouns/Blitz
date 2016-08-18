@@ -10,7 +10,7 @@ namespace Camera
 
     /// <summary>
     /// Represents a camera pointed at the game world. Helps with transforming positions
-    /// between world and display coordinates.
+    /// between world and viewport coordinates.
     /// </summary>
     public interface ICamera
     {
@@ -29,5 +29,11 @@ namespace Camera
         /// Gets or sets the current camera scale.
         /// </summary>
         float Scale { get; set; }
+
+        /// <summary>
+        /// Gets the resulting transformation object, which transforms positions between world
+        /// and viewport coordinates.
+        /// </summary>
+        ICameraTransformation GetCameraTransformation();
     }
 }
