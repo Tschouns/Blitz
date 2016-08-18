@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.Service.Algorithms.Gjk
+namespace Geometry.Services.Algorithms.Gjk
 {
     using System;
     using System.Collections.Generic;

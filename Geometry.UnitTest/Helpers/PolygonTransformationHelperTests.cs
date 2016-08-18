@@ -10,7 +10,7 @@ namespace Geometry.UnitTest.Helpers
     using Elements;
     using Geometry.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Service.Helpers;
+    using Services.Helpers;
 
     /// <summary>
     /// Contains unit tests for <see cref="PolygonTransformationHelper"/>.

@@ -7,7 +7,7 @@
 namespace Geometry.UnitTest.Helpers
 {
     using Geometry.Elements;
-    using Geometry.Service.Helpers;
+    using Geometry.Services.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

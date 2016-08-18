@@ -7,7 +7,7 @@
 namespace Geometry.UnitTest.Algorithms.Gjk
 {
     using Geometry.Elements;
-    using Geometry.Service.Algorithms.Gjk;
+    using Geometry.Services.Algorithms.Gjk;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

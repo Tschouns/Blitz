@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.Service.Helpers
+namespace Geometry.Services.Helpers
 {
     using System.Linq;
     using Base.RuntimeChecks;

@@ -8,7 +8,7 @@ namespace Geometry.UnitTest.Helpers
 {
     using Elements;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Service.Helpers;
+    using Services.Helpers;
 
     /// <summary>
     /// Contains unit tests for <see cref="TriangleCalculationHelper"/>.

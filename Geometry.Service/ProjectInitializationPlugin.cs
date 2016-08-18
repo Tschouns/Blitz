@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.Service
+namespace Geometry.Services
 {
     using Algorithms.Gjk;
     using Base.InversionOfControl;
