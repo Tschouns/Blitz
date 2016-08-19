@@ -7,6 +7,7 @@
 namespace Camera.Services
 {
     using System;
+    using System.Numerics;
     using Base.RuntimeChecks;
     using Geometry.Elements;
 
@@ -57,7 +58,15 @@ namespace Camera.Services
         /// </summary>
         public ICameraTransformation GetCameraTransformation()
         {
-            throw new NotImplementedException();
+            // TODO: Get rid of those f*****g casts.
+            var position = new System.Numerics.Vector2((float)this.Position.X, (float)this.Position.Y);
+
+            var worldToViewportTransformationMatrix = Matrix3x2.Identity *
+                Matrix3x2.CreateTranslation(position) *
+                Matrix3x2.CreateRotation((float)this.Orientation) *
+                Matrix3x2.CreateScale((float)this.Scale, (float)this.Scale);
+
+            return new CameraTransformation(worldToViewportTransformationMatrix);
         }
 
         /// <summary>
