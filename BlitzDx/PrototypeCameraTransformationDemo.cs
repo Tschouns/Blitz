@@ -9,6 +9,7 @@ namespace BlitzDx
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Windows.Forms;
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
@@ -75,6 +76,10 @@ namespace BlitzDx
             this._camera = cameraFactory.CreateCamera(
                 displayProperties.Resolution.Width,
                 displayProperties.Resolution.Height);
+
+            this._camera.Scale = 2;
+            //this._camera.Orientation = 0.2;
+            this._camera.Position = new Point(10, 10);
 
             // Initialize world.
             this._linesInTheWorld = new List<Line>();
@@ -163,13 +168,13 @@ namespace BlitzDx
                 new Point(0, 0),
                 new Point(width, height),
                 Color.Green,
-                2);
+                1);
 
             drawingContext.DrawLine(
                 new Point(0, height),
                 new Point(width, 0),
-                Color.Brown,
-                2);
+                Color.Green,
+                1);
 
             // Get transformation.
             var transform = this._camera.GetCameraTransformation();
@@ -177,13 +182,18 @@ namespace BlitzDx
             // Draw the lines.
             foreach (var line in this._linesInTheWorld)
             {
-                var transformedLine = new Line(
-                    transform.WorldToViewport(line.Point1),
-                    transform.WorldToViewport(line.Point2));
-
                 drawingContext.DrawLine(
-                    transformedLine.Point1,
-                    transformedLine.Point2,
+                    transform.WorldToViewport(line.Point1),
+                    transform.WorldToViewport(line.Point2),
+                    Color.Red,
+                    2);
+            }
+
+            // Draw the lines.
+            foreach (var polygon in this._polygonsInTheWorld)
+            {
+                drawingContext.DrawPolygon(
+                    polygon.Corners.Select(aX => transform.WorldToViewport(aX)).ToList(),
                     Color.Red,
                     2);
             }

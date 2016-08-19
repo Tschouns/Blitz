@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blitz", "Blitz\Blitz.csproj", "{88437C20-6594-4870-8696-97CEC33D9496}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -47,6 +47,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physics.Services", "Physics
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlitzDx", "BlitzDx\BlitzDx.csproj", "{23A37549-7931-4433-A799-9A20F3E61AE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0EB98751-4B4F-40F7-B400-95A54CC64FF7} = {0EB98751-4B4F-40F7-B400-95A54CC64FF7}
+		{4C573A64-58C3-4191-9EEB-FE2BD2683C8D} = {4C573A64-58C3-4191-9EEB-FE2BD2683C8D}
+		{EC42DF80-D12A-4E90-ABDF-B144A18E7971} = {EC42DF80-D12A-4E90-ABDF-B144A18E7971}
+		{AF3C6F9C-3DF9-4DBF-AE55-276E3CDCF6D9} = {AF3C6F9C-3DF9-4DBF-AE55-276E3CDCF6D9}
+		{C2C01DEE-3CB6-4ACB-8EE2-0144750F2BEE} = {C2C01DEE-3CB6-4ACB-8EE2-0144750F2BEE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Display", "Display\Display.csproj", "{3ECC218E-A956-4633-AA1A-BA9BC79F119C}"
 EndProject
@@ -57,6 +64,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Display.SharpDx", "Display.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera", "Camera\Camera.csproj", "{EC42DF80-D12A-4E90-ABDF-B144A18E7971}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF3C6F9C-3DF9-4DBF-AE55-276E3CDCF6D9} = {AF3C6F9C-3DF9-4DBF-AE55-276E3CDCF6D9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera.Services", "Camera.Services\Camera.Services.csproj", "{0EB98751-4B4F-40F7-B400-95A54CC64FF7}"
 EndProject

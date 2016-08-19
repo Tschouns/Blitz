@@ -13,7 +13,7 @@ namespace Camera.Services
     using Geometry.Extensions;
 
     /// <summary>
-    /// See <see cref="ICamera"/> .
+    /// See <see cref="ICamera"/>.
     /// </summary>
     public class Camera : ICamera
     {
@@ -74,10 +74,10 @@ namespace Camera.Services
             var origin = new System.Numerics.Vector2((float)this._viewportCenter.X, (float)this._viewportCenter.Y) / (float)this.Scale;
 
             var worldToViewportTransformationMatrix = Matrix3x2.Identity *
-                Matrix3x2.CreateTranslation(origin) *
                 Matrix3x2.CreateTranslation(new System.Numerics.Vector2((float)-this.Position.X, (float)-this.Position.Y)) *
                 Matrix3x2.CreateRotation((float)this.Orientation) *
-                Matrix3x2.CreateScale((float)this.Scale, (float)this.Scale);
+                Matrix3x2.CreateTranslation(origin) *
+                Matrix3x2.CreateScale((float)this.Scale, (float)this.Scale);               ;
 
             return new CameraTransformation(worldToViewportTransformationMatrix);
         }

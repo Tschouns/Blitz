@@ -56,9 +56,15 @@ namespace Camera.Services
         /// </summary>
         private static Point TransformPosition(Point position, Matrix3x2 transformationMatrix)
         {
-            return new Point(
+            var transformedPosition = new Point(
                 (transformationMatrix.M11 * position.X) + (transformationMatrix.M12 * position.Y),
                 (transformationMatrix.M21 * position.X) + (transformationMatrix.M22 * position.Y));
+
+            transformedPosition = new Point(
+                transformedPosition.X + transformationMatrix.M31,
+                transformedPosition.Y + transformationMatrix.M32);
+
+            return transformedPosition;
         }
     }
 }
