@@ -18,12 +18,12 @@ namespace Camera.Services
         /// <summary>
         /// The width of the viewport.
         /// </summary>
-        private double _viewportWidth;
+        private readonly double _viewportWidth;
 
         /// <summary>
         /// The height of the viewport.
         /// </summary>
-        private double _viewportHeight;
+        private readonly double _viewportHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Camera"/> class.
