@@ -14,6 +14,11 @@ namespace Display
     public interface IDisplay : IDisposable
     {
         /// <summary>
+        /// Gets the display properties.
+        /// </summary>
+        DisplayProperties Properties { get; }
+
+        /// <summary>
         /// Shows the display.
         /// </summary>
         void Show();

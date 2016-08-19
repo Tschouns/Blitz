@@ -57,15 +57,21 @@ namespace Display.SharpDx.Display
         private RenderTargetDrawingContext _drawingContext;
 
         /// <summary>
+        /// See <see cref="IDisplay.Properties"/>.
+        /// </summary>
+        public DisplayProperties Properties { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Display"/> class.
         /// </summary>
         public Display(DisplayProperties properties, Action<IDrawingContext> drawCallback)
         {
             Checks.AssertNotNull(drawCallback, nameof(drawCallback));
 
+            this.Properties = properties;
             this._drawCallback = drawCallback;
 
-            this.InitializeRenderForm(properties);
+            this.InitializeRenderForm();
             this.InitializeDeviceResources();
             this.SetupAltEnterHandling();
             this.InitializeRenderTarget();
@@ -121,12 +127,12 @@ namespace Display.SharpDx.Display
         /// <summary>
         /// Initializes the <see cref="RenderForm"/>.
         /// </summary>
-        private void InitializeRenderForm(DisplayProperties properties)
+        private void InitializeRenderForm()
         {
-            this._renderForm = new RenderForm(properties.Title);
+            this._renderForm = new RenderForm(this.Properties.Title);
 
             // Set window size
-            this._renderForm.ClientSize = properties.Resolution;
+            this._renderForm.ClientSize = this.Properties.Resolution;
 
             // Prevent window from being re-sized
             this._renderForm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
