@@ -6,25 +6,28 @@
 
 namespace Input.Services.InputAction
 {
-    using System;
-    using System.Windows.Input;
+    using Base.RuntimeChecks;
+    using Input.Button;
 
     /// <summary>
-    /// See <see cref="IInputAction"/>. This type of action is active while a certain button is pressed.
+    /// See <see cref="IInputAction"/>. This type of action is active while a certain button is pressed. It stays
+    /// active as long as the button remains pressed.
     /// </summary>
-    public class KeyboardButtonHoldInputAction : IInputActionInternal
+    public class ButtonHoldInputAction : IInputActionInternal
     {
         /// <summary>
-        /// Stores the key this action represents.
+        /// Stores the button.
         /// </summary>
-        private readonly Key _key;
+        private readonly IButton _button;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardButtonHoldInputAction"/> class.
+        /// Initializes a new instance of the <see cref="ButtonHoldInputAction"/> class.
         /// </summary>
-        public KeyboardButtonHoldInputAction(Key key)
+        public ButtonHoldInputAction(IButton button)
         {
-            this._key = key;
+            Checks.AssertNotNull(button, nameof(button));
+
+            this._button = button;
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace Input.Services.InputAction
         /// </summary>
         public void Update(double realTimeElapsed)
         {
-            this.IsActive = Keyboard.IsKeyDown(this._key);
+            this.IsActive = this._button.IsPressed;
         }
     }
 }

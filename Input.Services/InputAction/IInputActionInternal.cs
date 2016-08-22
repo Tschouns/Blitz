@@ -6,6 +6,8 @@
 
 namespace Input.Services.InputAction
 {
+    using Input.InputAction;
+
     /// <summary>
     /// Extends <see cref="IInputAction"/>, allows to step.
     /// </summary>

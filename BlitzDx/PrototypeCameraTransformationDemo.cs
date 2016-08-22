@@ -18,6 +18,7 @@ namespace BlitzDx
     using Display;
     using Geometry.Elements;
     using Input;
+    using Input.InputAction;
     using Point = Geometry.Elements.Point;
 
     /// <summary>
@@ -101,12 +102,13 @@ namespace BlitzDx
             // Setup input.
             this._inputActionManager = inputFactory.CreateInputActionManager();
 
-            this._actionCameraUp = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.W);
-            this._actionCameraDown = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.S);
-            this._actionCameraLeft = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.A);
-            this._actionCameraRight = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.D);
+            var keyboard = inputFactory.KeyboardButtonCreator;
+            this._actionCameraUp = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.W));
+            this._actionCameraDown = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.S));
+            this._actionCameraLeft = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.A));
+            this._actionCameraRight = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.D));
 
-            this._actionEnd = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.Escape);
+            this._actionEnd = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.Escape));
 
             // Setup display.
             var displayProperties = new DisplayProperties()

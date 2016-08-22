@@ -4,16 +4,22 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Input
+namespace Input.Services.Button
 {
+    using System.Windows.Input;
+    using Input.Button;
+
     /// <summary>
-    /// Represents a user input action, such as a keyboard button which is pressed.
+    /// See <see cref="IKeyboardButtonCreator"/>.
     /// </summary>
-    public interface IInputAction
+    public class KeyboardButtonCreator : IKeyboardButtonCreator
     {
         /// <summary>
-        /// Gets a value indicating whether the input action is currently active.
+        /// See <see cref="IKeyboardButtonCreator.Create(Key)"/>.
         /// </summary>
-        bool IsActive { get; }
+        public IButton Create(Key key)
+        {
+            return new KeyboardButton(key);
+        }
     }
 }

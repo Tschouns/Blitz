@@ -6,20 +6,20 @@
 
 namespace Input.Services.InputAction
 {
-    using System;
-    using System.Windows.Input;
+    using Base.RuntimeChecks;
+    using Input.Button;
 
     /// <summary>
-    /// See <see cref="IInputAction"/>. This type of action becomes active for a single update cycle when
-    /// a certain button is pressed. The user has to release and press the button anew in order for
-    /// the action to become active again.
+    /// See <see cref="IInputAction"/>. This type of action becomes active for one single update cycle (!) when
+    /// a certain button is pressed. The user has to release and press the button anew in order for the action
+    /// to become active again.
     /// </summary>
-    public class KeyboardButtonHitInputAction : IInputActionInternal
+    public class ButtonHitInputAction : IInputActionInternal
     {
         /// <summary>
-        /// Stores the key this action represents.
+        /// Stores the button.
         /// </summary>
-        private readonly Key _key;
+        private readonly IButton _button;
 
         /// <summary>
         /// Becomes true when the pressing of a button has been processed, i.e. when the action has been
@@ -28,11 +28,13 @@ namespace Input.Services.InputAction
         private bool _isAlreadyProcessed = false;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardButtonHitInputAction"/> class.
+        /// Initializes a new instance of the <see cref="ButtonHitInputAction"/> class.
         /// </summary>
-        public KeyboardButtonHitInputAction(Key key)
+        public ButtonHitInputAction(IButton button)
         {
-            this._key = key;
+            Checks.AssertNotNull(button, nameof(button));
+
+            this._button = button;
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace Input.Services.InputAction
         /// </summary>
         public void Update(double realTimeElapsed)
         {
-            if (Keyboard.IsKeyDown(this._key))
+            if (this._button.IsPressed)
             {
                 this.IsActive = !this._isAlreadyProcessed;
                 this._isAlreadyProcessed = true;

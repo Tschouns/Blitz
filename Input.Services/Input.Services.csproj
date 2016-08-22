@@ -43,10 +43,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InputActionManager.cs" />
+    <Compile Include="Button\KeyboardButton.cs" />
+    <Compile Include="Button\KeyboardButtonCreator.cs" />
+    <Compile Include="InputAction\InputActionManager.cs" />
     <Compile Include="InputAction\IInputActionInternal.cs" />
-    <Compile Include="InputAction\KeyboardButtonHitInputAction.cs" />
-    <Compile Include="InputAction\KeyboardButtonHoldInputAction.cs" />
+    <Compile Include="InputAction\ButtonHitInputAction.cs" />
+    <Compile Include="InputAction\ButtonHoldInputAction.cs" />
     <Compile Include="InputFactory.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

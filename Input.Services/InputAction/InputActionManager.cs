@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Input.Services
+namespace Input.Services.InputAction
 {
     using System.Collections.Generic;
-    using System.Windows.Input;
     using Base.RuntimeChecks;
-    using InputAction;
+    using Input.Button;
+    using Input.InputAction;
 
     /// <summary>
     /// See <see cref="IInputActionManager"/>.
@@ -22,22 +22,26 @@ namespace Input.Services
         private readonly IList<IInputActionInternal> _inputActions = new List<IInputActionInternal>();
 
         /// <summary>
-        /// See <see cref="IInputActionManager.RegisterKeyboardButtonHoldAction(Key)"/>.
+        /// See <see cref="IInputActionManager.RegisterButtonHoldAction(IButton)"/>.
         /// </summary>
-        public IInputAction RegisterKeyboardButtonHoldAction(Key key)
+        public IInputAction RegisterButtonHoldAction(IButton button)
         {
-            var inputAction = new KeyboardButtonHoldInputAction(key);
+            Checks.AssertNotNull(button, nameof(button));
+
+            var inputAction = new ButtonHoldInputAction(button);
             this._inputActions.Add(inputAction);
 
             return inputAction;
         }
 
         /// <summary>
-        /// See <see cref="IInputActionManager.RegisterKeyboardButtonHitAction(Key)"/>.
+        /// See <see cref="IInputActionManager.RegisterButtonHitAction(IButton)"/>.
         /// </summary>
-        public IInputAction RegisterKeyboardButtonHitAction(Key key)
+        public IInputAction RegisterButtonHitAction(IButton button)
         {
-            var inputAction = new KeyboardButtonHitInputAction(key);
+            Checks.AssertNotNull(button, nameof(button));
+
+            var inputAction = new ButtonHitInputAction(button);
             this._inputActions.Add(inputAction);
 
             return inputAction;

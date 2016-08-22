@@ -8,6 +8,8 @@ namespace Input.Services
 {
     using Base.InversionOfControl;
     using Base.StartUp;
+    using Button;
+    using Input.Button;
 
     /// <summary>
     /// Initializes this project, see <see cref="IProjectInitializationPlugin"/>.
@@ -20,6 +22,7 @@ namespace Input.Services
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            Ioc.Container.RegisterSingleton<IKeyboardButtonCreator, KeyboardButtonCreator>();
             Ioc.Container.RegisterSingleton<IInputFactory, InputFactory>();
         }
     }
