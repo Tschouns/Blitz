@@ -10,7 +10,7 @@ namespace Input.Services.InputAction
     using System.Windows.Input;
 
     /// <summary>
-    /// See <see cref="IInputAction"/>. This type of action is active while a certain keyboard button is pressed.
+    /// See <see cref="IInputAction"/>. This type of action is active while a certain button is pressed.
     /// </summary>
     public class KeyboardButtonHoldInputAction : IInputActionInternal
     {

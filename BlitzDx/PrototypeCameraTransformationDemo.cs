@@ -101,12 +101,12 @@ namespace BlitzDx
             // Setup input.
             this._inputActionManager = inputFactory.CreateInputActionManager();
 
-            this._actionCameraUp = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.W);
-            this._actionCameraDown = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.S);
-            this._actionCameraLeft = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.A);
-            this._actionCameraRight = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.D);
+            this._actionCameraUp = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.W);
+            this._actionCameraDown = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.S);
+            this._actionCameraLeft = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.A);
+            this._actionCameraRight = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.D);
 
-            this._actionEnd = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.E);
+            this._actionEnd = this._inputActionManager.RegisterKeyboardButtonHitAction(Key.Escape);
 
             // Setup display.
             var displayProperties = new DisplayProperties()
@@ -158,28 +158,29 @@ namespace BlitzDx
                 this._inputActionManager.Update(elapsedRealTimeInSeconds);
 
                 // Control camera (in a highly adventurous fashion).
+                var stepDistance = 10;
                 if (this._actionCameraUp.IsActive)
                 {
                     var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X, p.Y + 1);
+                    this._camera.Position = new Point(p.X, p.Y + stepDistance);
                 }
 
                 if (this._actionCameraDown.IsActive)
                 {
                     var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X, p.Y - 1);
+                    this._camera.Position = new Point(p.X, p.Y - stepDistance);
                 }
 
                 if (this._actionCameraLeft.IsActive)
                 {
                     var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X - 1, p.Y);
+                    this._camera.Position = new Point(p.X - stepDistance, p.Y);
                 }
 
                 if (this._actionCameraRight.IsActive)
                 {
                     var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X + 1, p.Y);
+                    this._camera.Position = new Point(p.X + stepDistance, p.Y);
                 }
             }
             while (this._display.DrawFrame() && !this._actionEnd.IsActive);
@@ -226,22 +227,6 @@ namespace BlitzDx
         {
             Checks.AssertNotNull(drawingContext, nameof(drawingContext));
 
-            // Draw the cross.
-            var width = this._display.Properties.Resolution.Width;
-            var height = this._display.Properties.Resolution.Height;
-
-            drawingContext.DrawLine(
-                new Point(0, 0),
-                new Point(width, height),
-                Color.Green,
-                1);
-
-            drawingContext.DrawLine(
-                new Point(0, height),
-                new Point(width, 0),
-                Color.Green,
-                1);
-
             // Get transformation.
             var transform = this._camera.GetCameraTransformation();
 
@@ -263,6 +248,22 @@ namespace BlitzDx
                     Color.Red,
                     2);
             }
+
+            // Draw the cross.
+            var width = this._display.Properties.Resolution.Width;
+            var height = this._display.Properties.Resolution.Height;
+
+            drawingContext.DrawLine(
+                new Point(0, 0),
+                new Point(width, height),
+                Color.Green,
+                1);
+
+            drawingContext.DrawLine(
+                new Point(0, height),
+                new Point(width, 0),
+                Color.Green,
+                1);
         }
     }
 }

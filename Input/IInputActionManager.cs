@@ -14,10 +14,16 @@ namespace Input
     public interface IInputActionManager
     {
         /// <summary>
-        /// Registers an input action which is active while the specified key is pressed.
+        /// Registers an input action which is active while the specified button is pressed.
         /// </summary>
-        /// <param name="action"></param>
         IInputAction RegisterKeyboardButtonHoldAction(Key key);
+
+        /// <summary>
+        /// Registers an input action which becomes active for a single update cycle when a certain key
+        /// is pressed. The user has to release and press the button anew in order for the action
+        /// to become active again.
+        /// </summary>
+        IInputAction RegisterKeyboardButtonHitAction(Key key);
 
         /// <summary>
         /// Updates the registered input actions, potentially with regard to elapsed time.

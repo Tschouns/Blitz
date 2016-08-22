@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="InputActionManager.cs" />
     <Compile Include="InputAction\IInputActionInternal.cs" />
+    <Compile Include="InputAction\KeyboardButtonHitInputAction.cs" />
     <Compile Include="InputAction\KeyboardButtonHoldInputAction.cs" />
     <Compile Include="InputFactory.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />

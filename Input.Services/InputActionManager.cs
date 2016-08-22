@@ -33,6 +33,17 @@ namespace Input.Services
         }
 
         /// <summary>
+        /// See <see cref="IInputActionManager.RegisterKeyboardButtonHitAction(Key)"/>.
+        /// </summary>
+        public IInputAction RegisterKeyboardButtonHitAction(Key key)
+        {
+            var inputAction = new KeyboardButtonHitInputAction(key);
+            this._inputActions.Add(inputAction);
+
+            return inputAction;
+        }
+
+        /// <summary>
         /// See <see cref="IInputActionManager.Update(double)"/>.
         /// </summary>
         public void Update(double realTimeElapsed)
