@@ -8,6 +8,8 @@ namespace Camera.Services
 {
     using Base.InversionOfControl;
     using Base.StartUp;
+    using CameraEffects;
+    using global::Camera.CameraEffects;
 
     /// <summary>
     /// Initializes this project, see <see cref="IProjectInitializationPlugin"/>.
@@ -20,6 +22,7 @@ namespace Camera.Services
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            Ioc.Container.RegisterSingleton<ICameraEffectCreator, CameraEffectCreator>();
             Ioc.Container.RegisterSingleton<ICameraFactory, CameraFactory>();
         }
     }

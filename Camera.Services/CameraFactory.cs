@@ -8,12 +8,28 @@ namespace Camera.Services
 {
     using System;
     using Base.RuntimeChecks;
+    using global::Camera.CameraEffects;
 
     /// <summary>
     /// See <see cref="ICameraFactory"/>.
     /// </summary>
     public class CameraFactory : ICameraFactory
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CameraFactory"/> class.
+        /// </summary>
+        public CameraFactory(ICameraEffectCreator cameraEffectCreator)
+        {
+            Checks.AssertNotNull(cameraEffectCreator, nameof(cameraEffectCreator));
+
+            this.CameraEffectCreator = cameraEffectCreator;
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraFactory.CameraEffectCreator"/>.
+        /// </summary>
+        public ICameraEffectCreator CameraEffectCreator { get; }
+
         /// <summary>
         /// Creates a <see cref="ICamera"/>.
         /// </summary>

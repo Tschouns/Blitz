@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Camera.CameraEffects;
+
 namespace Camera
 {
     /// <summary>
@@ -11,6 +13,11 @@ namespace Camera
     /// </summary>
     public interface ICameraFactory
     {
+        /// <summary>
+        /// Gets the <see cref="ICameraEffectCreator"/>.
+        /// </summary>
+        ICameraEffectCreator CameraEffectCreator { get; }
+
         /// <summary>
         /// Creates a <see cref="ICamera"/>.
         /// </summary>

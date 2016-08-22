@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraEffects\ICameraEffect.cs" />
+    <Compile Include="CameraEffects\ICameraEffectCreator.cs" />
     <Compile Include="ICamera.cs" />
     <Compile Include="ICameraFactory.cs" />
     <Compile Include="ICameraTransformation.cs" />
@@ -55,6 +57,13 @@
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>
       <Name>Geometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Input\Input.csproj">
+      <Project>{A457EEE3-F552-4774-817F-33F7DECAAFDF}</Project>
+      <Name>Input</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CameraController\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

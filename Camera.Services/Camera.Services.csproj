@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="CameraEffects\CameraEffectCreator.cs" />
+    <Compile Include="CameraEffects\PositionByButtonsAxisAlignedEffect.cs" />
     <Compile Include="CameraFactory.cs" />
     <Compile Include="CameraTransformation.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
@@ -61,7 +63,12 @@
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>
       <Name>Geometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Input\Input.csproj">
+      <Project>{a457eee3-f552-4774-817f-33f7decaafdf}</Project>
+      <Name>Input</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

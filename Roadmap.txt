@@ -29,6 +29,15 @@
 ===Camera===
   - Projection
   - Camera movement
+  - Camera effects:
+	- position by key input, axis-aligned
+	- position by key inpit, relative to orientation
+	- position by drag
+	- position ..., smooth acceleration
+	- position "track shot"
+        - orientation by key input
+	- scale by key (or mouse wheel) input, linear
+	- scale progressive (to resemble camera "movement" in Z axis)
 
 ==="Engine"===
 - Reasonable game loop and game time management
