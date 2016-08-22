@@ -20,7 +20,7 @@ namespace BlitzDx
     using Input;
     using Input.InputAction;
     using Point = Geometry.Elements.Point;
-
+    using Camera.CameraEffects;
     /// <summary>
     /// A prototype to test the <see cref="ICamera"/> interface.
     /// </summary>
@@ -32,39 +32,24 @@ namespace BlitzDx
         private readonly IInputActionManager _inputActionManager;
 
         /// <summary>
-        /// Action used to move the camera up.
-        /// </summary>
-        private readonly IInputAction _actionCameraUp;
-
-        /// <summary>
-        /// Action used to move the camera down.
-        /// </summary>
-        private readonly IInputAction _actionCameraDown;
-
-        /// <summary>
-        /// Action used to move the camera left.
-        /// </summary>
-        private readonly IInputAction _actionCameraLeft;
-
-        /// <summary>
-        /// Action used to move the camera right.
-        /// </summary>
-        private readonly IInputAction _actionCameraRight;
-
-        /// <summary>
         /// Action used to end the simulation.
         /// </summary>
         private readonly IInputAction _actionEnd;
 
         /// <summary>
-        /// Holds the <see cref="IDisplay"/>.
+        /// Used to move the camera, based on user input.
         /// </summary>
-        private readonly IDisplay _display;
+        private readonly ICameraEffect _positionByButtonsCameraEffect;
 
         /// <summary>
         /// Holds the camera.
         /// </summary>
         private readonly ICamera _camera;
+
+        /// <summary>
+        /// Holds the <see cref="IDisplay"/>.
+        /// </summary>
+        private readonly IDisplay _display;
 
         /// <summary>
         /// Stores a set of lines, defined in world coordinates.
@@ -99,17 +84,6 @@ namespace BlitzDx
             Checks.AssertNotNull(displayFactory, nameof(displayFactory));
             Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
 
-            // Setup input.
-            this._inputActionManager = inputFactory.CreateInputActionManager();
-
-            var keyboard = inputFactory.KeyboardButtonCreator;
-            this._actionCameraUp = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.W));
-            this._actionCameraDown = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.S));
-            this._actionCameraLeft = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.A));
-            this._actionCameraRight = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.D));
-
-            this._actionEnd = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.Escape));
-
             // Setup display.
             var displayProperties = new DisplayProperties()
             {
@@ -119,14 +93,31 @@ namespace BlitzDx
 
             this._display = displayFactory.CreateDisplay(displayProperties, this.Draw);
 
+            // Setup input.
+            this._inputActionManager = inputFactory.CreateInputActionManager();
+
+            var keyboard = inputFactory.KeyboardButtonCreator;
+            var actionCameraUp = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.W));
+            var actionCameraDown = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.S));
+            var actionCameraLeft = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.A));
+            var actionCameraRight = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.D));
+
+            this._actionEnd = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.Escape));
+
             // Setup camera.
             this._camera = cameraFactory.CreateCamera(
                 displayProperties.Resolution.Width,
                 displayProperties.Resolution.Height);
 
             this._camera.Scale = 2;
-            //this._camera.Orientation = 0.2;
-            this._camera.Position = new Point(10, 10);
+            this._camera.Position = new Point(0, 0);
+
+            this._positionByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
+                actionCameraUp,
+                actionCameraDown,
+                actionCameraLeft,
+                actionCameraRight,
+                10);
 
             // Initialize world.
             this._linesInTheWorld = new List<Line>();
@@ -160,30 +151,8 @@ namespace BlitzDx
                 this._inputActionManager.Update(elapsedRealTimeInSeconds);
 
                 // Control camera (in a highly adventurous fashion).
-                var stepDistance = 10;
-                if (this._actionCameraUp.IsActive)
-                {
-                    var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X, p.Y + stepDistance);
-                }
-
-                if (this._actionCameraDown.IsActive)
-                {
-                    var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X, p.Y - stepDistance);
-                }
-
-                if (this._actionCameraLeft.IsActive)
-                {
-                    var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X - stepDistance, p.Y);
-                }
-
-                if (this._actionCameraRight.IsActive)
-                {
-                    var p = this._camera.Position;
-                    this._camera.Position = new Point(p.X + stepDistance, p.Y);
-                }
+                this._positionByButtonsCameraEffect.Update(elapsedRealTimeInSeconds);
+                this._positionByButtonsCameraEffect.ApplyToCamera(this._camera);
             }
             while (this._display.DrawFrame() && !this._actionEnd.IsActive);
         }

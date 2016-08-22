@@ -59,11 +59,13 @@ namespace Camera.Services.CameraEffects
             Checks.AssertNotNull(moveCameraDown, nameof(moveCameraDown));
             Checks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
             Checks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
+            Checks.AssertIsPositive(movingSpeed, nameof(movingSpeed));
 
             this._moveCameraUp = moveCameraUp;
             this._moveCameraDown = moveCameraDown;
             this._moveCameraLeft = moveCameraLeft;
             this._moveCameraRight = moveCameraRight;
+            this.MovingSpeed = movingSpeed;
         }
 
         /// <summary>

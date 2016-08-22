@@ -11,9 +11,10 @@ namespace Camera.Services.CameraEffects
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Base.RuntimeChecks;
     using global::Camera.CameraEffects;
     using Input.InputAction;
-
+    
     /// <summary>
     /// See <see cref="ICameraEffectCreator"/>.
     /// </summary>
@@ -29,7 +30,18 @@ namespace Camera.Services.CameraEffects
             IInputAction moveCameraRight,
             double movingSpeed)
         {
-            throw new NotImplementedException();
+            Checks.AssertNotNull(moveCameraUp, nameof(moveCameraUp));
+            Checks.AssertNotNull(moveCameraDown, nameof(moveCameraDown));
+            Checks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
+            Checks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
+            Checks.AssertIsPositive(movingSpeed, nameof(movingSpeed));
+
+            return new PositionByButtonsAxisAlignedEffect(
+                moveCameraUp,
+                moveCameraDown,
+                moveCameraLeft,
+                moveCameraRight,
+                movingSpeed);
         }
     }
 }
