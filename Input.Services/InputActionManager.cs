@@ -19,7 +19,7 @@ namespace Input.Services
         /// <summary>
         /// Stores all the registered input actions.
         /// </summary>
-        private readonly IList<IInputActionInternal> _inputActions;
+        private readonly IList<IInputActionInternal> _inputActions = new List<IInputActionInternal>();
 
         /// <summary>
         /// See <see cref="IInputActionManager.RegisterKeyboardButtonHoldAction(Key)"/>.

@@ -16,6 +16,6 @@ namespace Input
         /// <summary>
         /// Creates an <see cref="IInputActionManager"/>.
         /// </summary>
-        IInputActionManager CreateInputActionManager(Key key);
+        IInputActionManager CreateInputActionManager();
     }
 }

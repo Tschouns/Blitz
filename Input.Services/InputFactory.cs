@@ -17,7 +17,7 @@ namespace Input.Services
         /// <summary>
         /// See <see cref="IInputActionManager"/>
         /// </summary>
-        public IInputActionManager CreateInputActionManager(Key key)
+        public IInputActionManager CreateInputActionManager()
         {
             return new InputActionManager();
         }

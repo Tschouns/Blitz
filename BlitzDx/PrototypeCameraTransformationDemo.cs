@@ -11,11 +11,13 @@ namespace BlitzDx
     using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
+    using System.Windows.Input;
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
     using Camera;
     using Display;
     using Geometry.Elements;
+    using Input;
     using Point = Geometry.Elements.Point;
 
     /// <summary>
@@ -23,6 +25,36 @@ namespace BlitzDx
     /// </summary>
     public sealed class PrototypeCameraTransformationDemo : IDisposable
     {
+        /// <summary>
+        /// Holds the <see cref="IInputActionManager"/>.
+        /// </summary>
+        private readonly IInputActionManager _inputActionManager;
+
+        /// <summary>
+        /// Action used to move the camera up.
+        /// </summary>
+        private readonly IInputAction _actionCameraUp;
+
+        /// <summary>
+        /// Action used to move the camera down.
+        /// </summary>
+        private readonly IInputAction _actionCameraDown;
+
+        /// <summary>
+        /// Action used to move the camera left.
+        /// </summary>
+        private readonly IInputAction _actionCameraLeft;
+
+        /// <summary>
+        /// Action used to move the camera right.
+        /// </summary>
+        private readonly IInputAction _actionCameraRight;
+
+        /// <summary>
+        /// Action used to end the simulation.
+        /// </summary>
+        private readonly IInputAction _actionEnd;
+
         /// <summary>
         /// Holds the <see cref="IDisplay"/>.
         /// </summary>
@@ -48,6 +80,7 @@ namespace BlitzDx
         /// </summary>
         public PrototypeCameraTransformationDemo()
             : this(
+                  Ioc.Container.Resolve<IInputFactory>(),
                   Ioc.Container.Resolve<IDisplayFactory>(),
                   Ioc.Container.Resolve<ICameraFactory>())
         {
@@ -57,11 +90,23 @@ namespace BlitzDx
         /// Initializes a new instance of the <see cref="PrototypeCameraTransformationDemo"/> class.
         /// </summary>
         public PrototypeCameraTransformationDemo(
+            IInputFactory inputFactory,
             IDisplayFactory displayFactory,
             ICameraFactory cameraFactory)
         {
+            Checks.AssertNotNull(inputFactory, nameof(inputFactory));
             Checks.AssertNotNull(displayFactory, nameof(displayFactory));
             Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+
+            // Setup input.
+            this._inputActionManager = inputFactory.CreateInputActionManager();
+
+            this._actionCameraUp = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.W);
+            this._actionCameraDown = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.S);
+            this._actionCameraLeft = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.A);
+            this._actionCameraRight = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.D);
+
+            this._actionEnd = this._inputActionManager.RegisterKeyboardButtonHoldAction(Key.E);
 
             // Setup display.
             var displayProperties = new DisplayProperties()
@@ -97,26 +142,47 @@ namespace BlitzDx
             this.PopulateWorld();
 
             // Initialize time.
-            double simTime = 0;
             var realTime = DateTime.Now;
 
             // Loop.
             do
             {
                 Application.DoEvents();
-
+                
                 // Calculate elapsed time (real time).
                 var now = DateTime.Now;
                 var elapsedRealTimeInSeconds = (now - realTime).TotalSeconds;
                 realTime = now;
 
-                // Set current simulation time (= real time).
-                var elapsedSimTimeInSeconds = elapsedRealTimeInSeconds;
-                simTime += elapsedRealTimeInSeconds;
+                // Update input.
+                this._inputActionManager.Update(elapsedRealTimeInSeconds);
 
-                // Step the simulation...
+                // Control camera (in a highly adventurous fashion).
+                if (this._actionCameraUp.IsActive)
+                {
+                    var p = this._camera.Position;
+                    this._camera.Position = new Point(p.X, p.Y + 1);
+                }
+
+                if (this._actionCameraDown.IsActive)
+                {
+                    var p = this._camera.Position;
+                    this._camera.Position = new Point(p.X, p.Y - 1);
+                }
+
+                if (this._actionCameraLeft.IsActive)
+                {
+                    var p = this._camera.Position;
+                    this._camera.Position = new Point(p.X - 1, p.Y);
+                }
+
+                if (this._actionCameraRight.IsActive)
+                {
+                    var p = this._camera.Position;
+                    this._camera.Position = new Point(p.X + 1, p.Y);
+                }
             }
-            while (this._display.DrawFrame());
+            while (this._display.DrawFrame() && !this._actionEnd.IsActive);
         }
 
         /// <summary>
