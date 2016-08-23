@@ -13,10 +13,10 @@ namespace Camera.Services.CameraEffects
     using Input.InputAction;
 
     /// <summary>
-    /// A camera effect which changes the camera scale continuously, when the user
-    /// holds the button for the corresponing direction.
+    /// A camera effect which increases and decreases the camera scale linearly, when
+    /// the user holds the button for the corresponing direction.
     /// </summary>
-    public class ScaleByButtonsEffect : ICameraEffect
+    public class ScaleLinearByButtonsEffect : ICameraEffect
     {
         /// <summary>
         /// Action which increases the camera scale.
@@ -44,9 +44,9 @@ namespace Camera.Services.CameraEffects
         private double _scaleDifference;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ScaleByButtonsEffect"/> class.
+        /// Initializes a new instance of the <see cref="ScaleLinearByButtonsEffect"/> class.
         /// </summary>
-        public ScaleByButtonsEffect(
+        public ScaleLinearByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton increaseScale,
             IButton decreaseScale,

@@ -27,15 +27,27 @@ namespace Camera.CameraEffects
             double movingSpeed);
 
         /// <summary>
-        /// Creates a camera effect which changes the camera scale continuously, when the user
-        /// holds the button for the corresponing direction.
+        /// Creates a camera effect which increases and decreases the camera scale linearly, when
+        /// the user holds the button for the corresponing direction.
         /// </summary>
-        ICameraEffect CreateScaleByButtonsEffect(
+        ICameraEffect CreateScaleLinearByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton increaseScale,
             IButton decreaseScale,
             double scaleLowerLimit,
             double scaleUpperLimit,
             double scaleSpeed);
+
+        /// <summary>
+        /// Creates a camera effect which increases and decreases the camera scale exponentially (which creates
+        /// the impression of the camera changing its "altitude" linearly).
+        /// </summary>
+        ICameraEffect CreateScaleExponentialByButtonsEffect(
+            IInputActionManager inputActionManager,
+            IButton increaseScale,
+            IButton decreaseScale,
+            double scaleLowerLimit,
+            double scaleUpperLimit,
+            double normScaleSpeed);
     }
 }

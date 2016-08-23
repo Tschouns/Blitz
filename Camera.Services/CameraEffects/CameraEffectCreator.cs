@@ -48,9 +48,9 @@ namespace Camera.Services.CameraEffects
         }
 
         /// <summary>
-        /// See <see cref="ICameraEffectCreator.CreateScaleByButtonsEffect(IInputActionManager, IButton, IButton, double, double, double)"/>.
+        /// See <see cref="ICameraEffectCreator.CreateScaleLinearByButtonsEffect(IInputActionManager, IButton, IButton, double, double, double)"/>.
         /// </summary>
-        public ICameraEffect CreateScaleByButtonsEffect(
+        public ICameraEffect CreateScaleLinearByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton increaseScale,
             IButton decreaseScale,
@@ -64,13 +64,44 @@ namespace Camera.Services.CameraEffects
             Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
             Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
 
-            return new ScaleByButtonsEffect(
+            return new ScaleLinearByButtonsEffect(
                 inputActionManager,
                 increaseScale,
                 decreaseScale,
                 scaleLowerLimit,
                 scaleUpperLimit,
                 scaleSpeed);
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraEffectCreator.CreateScaleExponentialByButtonsEffect(IInputActionManager, IButton, IButton, double, double, double)" />.
+        /// </summary>
+        public ICameraEffect CreateScaleExponentialByButtonsEffect(
+            IInputActionManager inputActionManager,
+            IButton increaseScale, 
+            IButton decreaseScale, 
+            double scaleLowerLimit,
+            double scaleUpperLimit,
+            double normScaleSpeed)
+        {
+            Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
+            Checks.AssertNotNull(increaseScale, nameof(increaseScale));
+            Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
+            Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
+            Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
+
+            // TODO: Get rid of the cast...
+            var scaleLinearbyButtonsEffect = (ScaleLinearByButtonsEffect)this.CreateScaleLinearByButtonsEffect(
+                inputActionManager,
+                increaseScale,
+                decreaseScale,
+                scaleLowerLimit,
+                scaleUpperLimit,
+                1.0f);
+
+            return new ScaleExponentialByButtonEffect(
+                scaleLinearbyButtonsEffect,
+                normScaleSpeed);
         }
     }
 }

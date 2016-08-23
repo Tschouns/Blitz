@@ -99,7 +99,7 @@ namespace BlitzDx
                 displayProperties.Resolution.Width,
                 displayProperties.Resolution.Height);
 
-            var positionByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
+            var positionEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
                 this._inputActionManager,
                 keyboard.Create(Key.W),
                 keyboard.Create(Key.S),
@@ -107,17 +107,17 @@ namespace BlitzDx
                 keyboard.Create(Key.D),
                 50);
 
-            var scaleByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreateScaleByButtonsEffect(
+            var scaleEffect = cameraFactory.CameraEffectCreator.CreateScaleExponentialByButtonsEffect(
                 this._inputActionManager,
                 keyboard.Create(Key.E),
                 keyboard.Create(Key.Q),
                 0.5,
                 5.0,
-                0.1);
+                0.5);
 
             this._cameraController = cameraFactory.CreateCameraController(camera);
-            this._cameraController.AddEffect(positionByButtonsCameraEffect);
-            this._cameraController.AddEffect(scaleByButtonsCameraEffect);
+            this._cameraController.AddEffect(positionEffect);
+            this._cameraController.AddEffect(scaleEffect);
 
             // Initialize world.
             this._linesInTheWorld = new List<Line>();
