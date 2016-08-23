@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8911433-0C31-404C-99A2-45717335B972}</ProjectGuid>
+    <ProjectGuid>{7546B6D4-ED51-4BD0-8E9C-E3BD257A4EEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Loop</RootNamespace>
-    <AssemblyName>Loop</AssemblyName>
+    <RootNamespace>GameLoop.Services</RootNamespace>
+    <AssemblyName>GameLoop.Services</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -41,7 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Loop\Loop.cs" />
+    <Compile Include="Loop\LoopCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{63cef2ea-8717-4b68-93b7-36c8cf06e1b2}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameLoop\GameLoop.csproj">
+      <Project>{F8911433-0C31-404C-99A2-45717335B972}</Project>
+      <Name>GameLoop</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

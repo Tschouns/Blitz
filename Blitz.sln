@@ -77,9 +77,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Input", "Input\Input.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Input.Services", "Input.Services\Input.Services.csproj", "{8C609F17-9467-4C07-9EE4-682673CD1660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loop", "GameLoop\Loop.csproj", "{F8911433-0C31-404C-99A2-45717335B972}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLoop", "GameLoop\GameLoop.csproj", "{F8911433-0C31-404C-99A2-45717335B972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loop.Services", "GameLoop.Services\Loop.Services.csproj", "{7546B6D4-ED51-4BD0-8E9C-E3BD257A4EEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLoop.Services", "GameLoop.Services\GameLoop.Services.csproj", "{7546B6D4-ED51-4BD0-8E9C-E3BD257A4EEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
