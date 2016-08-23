@@ -22,6 +22,21 @@ namespace Camera.Services.CameraEffects
     public class CameraEffectCreator : ICameraEffectCreator
     {
         /// <summary>
+        /// Stores the <see cref="ICameraEffectHelper"/> which is used by various effects.
+        /// </summary>
+        private readonly ICameraEffectHelper _cameraEffectHelper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CameraEffectCreator"/> class.
+        /// </summary>
+        public CameraEffectCreator(ICameraEffectHelper cameraEffectHelper)
+        {
+            Checks.AssertNotNull(cameraEffectHelper, nameof(cameraEffectHelper));
+
+            this._cameraEffectHelper = cameraEffectHelper;
+        }
+
+        /// <summary>
         /// See <see cref="ICameraEffectCreator.CreatePositionByButtonsEffect(IInputAction, IInputAction, IInputAction, IInputAction, double)"/>.
         /// </summary>
         public ICameraEffect CreatePositionByButtonsEffect(
@@ -65,6 +80,7 @@ namespace Camera.Services.CameraEffects
             Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
 
             return new ScaleLinearByButtonsEffect(
+                this._cameraEffectHelper,
                 inputActionManager,
                 increaseScale,
                 decreaseScale,
@@ -89,18 +105,14 @@ namespace Camera.Services.CameraEffects
             Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
             Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
             Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
-
-            // TODO: Get rid of the cast...
-            var scaleLinearbyButtonsEffect = (ScaleLinearByButtonsEffect)this.CreateScaleLinearByButtonsEffect(
+            
+            return new ScaleExponentialByButtonEffect(
+                this._cameraEffectHelper,
                 inputActionManager,
                 increaseScale,
                 decreaseScale,
                 scaleLowerLimit,
                 scaleUpperLimit,
-                1.0f);
-
-            return new ScaleExponentialByButtonEffect(
-                scaleLinearbyButtonsEffect,
                 normScaleSpeed);
         }
     }

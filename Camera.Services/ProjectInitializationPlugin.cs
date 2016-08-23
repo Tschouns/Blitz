@@ -22,6 +22,7 @@ namespace Camera.Services
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            Ioc.Container.RegisterSingleton<ICameraEffectHelper, CameraEffectHelper>();
             Ioc.Container.RegisterSingleton<ICameraEffectCreator, CameraEffectCreator>();
             Ioc.Container.RegisterSingleton<ICameraFactory, CameraFactory>();
         }

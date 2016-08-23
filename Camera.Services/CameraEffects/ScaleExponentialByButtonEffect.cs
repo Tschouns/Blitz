@@ -19,24 +19,60 @@ namespace Camera.Services.CameraEffects
     public class ScaleExponentialByButtonEffect : ICameraEffect
     {
         /// <summary>
-        /// The actual effect, which is wrapped and slightly modified by this class.
+        /// Helper which provides various helper methods.
         /// </summary>
-        private readonly ScaleLinearByButtonsEffect _scaleLinearByButtonEffect;
+        private readonly ICameraEffectHelper _helper;
+
+        /// <summary>
+        /// Action which increases the camera scale.
+        /// </summary>
+        private readonly IInputAction _increaseScaleAction;
+
+        /// <summary>
+        /// Action which decreases the camera scale.
+        /// </summary>
+        private readonly IInputAction _decreaseScaleAction;
+
+        /// <summary>
+        /// Represents the lower limit of the scale factor.
+        /// </summary>
+        private double _scaleLowerLimit;
+
+        /// <summary>
+        /// Represents the upper limit of the scale factor.
+        /// </summary>
+        private double _scaleUpperLimit;
+
+        /// <summary>
+        /// Stores the last "time elapse", in seconds.
+        /// </summary>
+        private double _timeElapsed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaleLinearByButtonsEffect"/> class.
         /// </summary>
         public ScaleExponentialByButtonEffect(
-            ScaleLinearByButtonsEffect scaleByButtonEffect,
+            ICameraEffectHelper helper,
+            IInputActionManager inputActionManager,
+            IButton increaseScale,
+            IButton decreaseScale,
+            double scaleLowerLimit,
+            double scaleUpperLimit,
             double normScaleSpeed)
         {
-            Checks.AssertNotNull(scaleByButtonEffect, nameof(scaleByButtonEffect));
+            Checks.AssertNotNull(helper, nameof(helper));
+            Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
+            Checks.AssertNotNull(increaseScale, nameof(increaseScale));
+            Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
+            Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
+            Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
 
-            this._scaleLinearByButtonEffect = scaleByButtonEffect;
+            this._helper = helper;
+            this._increaseScaleAction = inputActionManager.RegisterButtonHoldAction(increaseScale);
+            this._decreaseScaleAction = inputActionManager.RegisterButtonHoldAction(decreaseScale);
+            this._scaleLowerLimit = scaleLowerLimit;
+            this._scaleUpperLimit = scaleUpperLimit;
             this.NormScaleSpeed = normScaleSpeed;
-
-            // We initialize the effect with the norm scale speed, which is strictly not correct, as the camera scale is not known. But it won't matter much.
-            this._scaleLinearByButtonEffect.ScaleSpeed = this.NormScaleSpeed;
         }
 
         /// <summary>
@@ -49,7 +85,7 @@ namespace Camera.Services.CameraEffects
         /// </summary>
         public void Update(double timeElapsed)
         {
-            this._scaleLinearByButtonEffect.Update(timeElapsed);
+            this._timeElapsed = timeElapsed;
         }
 
         /// <summary>
@@ -57,10 +93,23 @@ namespace Camera.Services.CameraEffects
         /// </summary>
         public void ApplyToCamera(ICamera camera)
         {
-            this._scaleLinearByButtonEffect.ApplyToCamera(camera);
-            
-            // Update the effect based on the current camera scale.
-            this._scaleLinearByButtonEffect.ScaleSpeed = this.NormScaleSpeed * camera.Scale;
+            Checks.AssertNotNull(camera, nameof(camera));
+
+            var scaleDifference = this.NormScaleSpeed * this._timeElapsed * camera.Scale;
+
+            // Increase/decrease scale.
+            if (this._increaseScaleAction.IsActive)
+            {
+                camera.Scale += scaleDifference;
+            }
+
+            if (this._decreaseScaleAction.IsActive)
+            {
+                camera.Scale -= scaleDifference;
+            }
+
+            // Apply limits.
+            camera.Scale = this._helper.LimitValue(camera.Scale, this._scaleLowerLimit, this._scaleUpperLimit);
         }
     }
 }

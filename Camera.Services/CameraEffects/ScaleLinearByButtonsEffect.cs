@@ -19,6 +19,11 @@ namespace Camera.Services.CameraEffects
     public class ScaleLinearByButtonsEffect : ICameraEffect
     {
         /// <summary>
+        /// Helper which provides various helper methods.
+        /// </summary>
+        private readonly ICameraEffectHelper _helper;
+
+        /// <summary>
         /// Action which increases the camera scale.
         /// </summary>
         private readonly IInputAction _increaseScaleAction;
@@ -47,6 +52,7 @@ namespace Camera.Services.CameraEffects
         /// Initializes a new instance of the <see cref="ScaleLinearByButtonsEffect"/> class.
         /// </summary>
         public ScaleLinearByButtonsEffect(
+            ICameraEffectHelper helper,
             IInputActionManager inputActionManager,
             IButton increaseScale,
             IButton decreaseScale,
@@ -54,12 +60,14 @@ namespace Camera.Services.CameraEffects
             double scaleUpperLimit,
             double scaleSpeed)
         {
+            Checks.AssertNotNull(helper, nameof(helper));
             Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
             Checks.AssertNotNull(increaseScale, nameof(increaseScale));
             Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
             Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
             Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
 
+            this._helper = helper;
             this._increaseScaleAction = inputActionManager.RegisterButtonHoldAction(increaseScale);
             this._decreaseScaleAction = inputActionManager.RegisterButtonHoldAction(decreaseScale);
             this._scaleLowerLimit = scaleLowerLimit;
@@ -99,15 +107,7 @@ namespace Camera.Services.CameraEffects
             }
 
             // Apply limits.
-            if (camera.Scale < this._scaleLowerLimit)
-            {
-                camera.Scale = this._scaleLowerLimit;
-            }
-
-            if (camera.Scale > this._scaleUpperLimit)
-            {
-                camera.Scale = this._scaleUpperLimit;
-            }
+            camera.Scale = this._helper.LimitValue(camera.Scale, this._scaleLowerLimit, this._scaleUpperLimit);
         }
     }
 }
