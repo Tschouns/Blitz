@@ -6,6 +6,7 @@
 
 namespace Camera.CameraEffects
 {
+    using Input.Button;
     using Input.InputAction;
 
     /// <summary>
@@ -18,10 +19,23 @@ namespace Camera.CameraEffects
         /// holds the button for the corresponing direction.
         /// </summary>
         ICameraEffect CreatePositionByButtonsEffect(
-            IInputAction moveCameraUp,
-            IInputAction moveCameraDown,
-            IInputAction moveCameraLeft,
-            IInputAction moveCameraRight,
+            IInputActionManager inputActionManager,
+            IButton moveCameraUp,
+            IButton moveCameraDown,
+            IButton moveCameraLeft,
+            IButton moveCameraRight,
             double movingSpeed);
+
+        /// <summary>
+        /// Creates a camera effect which changes the camera scale continuously, when the user
+        /// holds the button for the corresponing direction.
+        /// </summary>
+        ICameraEffect CreateScaleByButtonsEffect(
+            IInputActionManager inputActionManager,
+            IButton increaseScale,
+            IButton decreaseScale,
+            double scaleLowerLimit,
+            double scaleUpperLimit,
+            double scaleSpeed);
     }
 }

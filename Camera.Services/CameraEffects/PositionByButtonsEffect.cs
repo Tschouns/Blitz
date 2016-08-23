@@ -18,27 +18,27 @@ namespace Camera.Services.CameraEffects
     /// A camera effect which moves the camera position along the axes, when the user
     /// holds the button for the corresponing direction.
     /// </summary>
-    public class PositionByButtonsAxisAlignedEffect : ICameraEffect
+    public class PositionByButtonsEffect : ICameraEffect
     {
         /// <summary>
         /// Action which makes the camera move up.
         /// </summary>
-        private readonly IInputAction _moveCameraUp;
+        private readonly IInputAction _moveCameraUpAction;
 
         /// <summary>
         /// Action which makes the camera move down.
         /// </summary>
-        private readonly IInputAction _moveCameraDown;
+        private readonly IInputAction _moveCameraDownAction;
 
         /// <summary>
         /// Action which makes the camera move left.
         /// </summary>
-        private readonly IInputAction _moveCameraLeft;
+        private readonly IInputAction _moveCameraLeftAction;
 
         /// <summary>
         /// Action which makes the camera move right.
         /// </summary>
-        private readonly IInputAction _moveCameraRight;
+        private readonly IInputAction _moveCameraRightAction;
 
         /// <summary>
         /// Stores the distance by which the camera is moved, if the effect is applied.
@@ -46,13 +46,14 @@ namespace Camera.Services.CameraEffects
         private double _movingDistance;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PositionByButtonsAxisAlignedEffect"/> class.
+        /// Initializes a new instance of the <see cref="PositionByButtonsEffect"/> class.
         /// </summary>
-        public PositionByButtonsAxisAlignedEffect(
-            IInputAction moveCameraUp,
-            IInputAction moveCameraDown,
-            IInputAction moveCameraLeft,
-            IInputAction moveCameraRight,
+        public PositionByButtonsEffect(
+            IInputActionManager inputActionManager,
+            IButton moveCameraUp,
+            IButton moveCameraDown,
+            IButton moveCameraLeft,
+            IButton moveCameraRight,
             double movingSpeed)
         {
             Checks.AssertNotNull(moveCameraUp, nameof(moveCameraUp));
@@ -61,10 +62,10 @@ namespace Camera.Services.CameraEffects
             Checks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
             Checks.AssertIsPositive(movingSpeed, nameof(movingSpeed));
 
-            this._moveCameraUp = moveCameraUp;
-            this._moveCameraDown = moveCameraDown;
-            this._moveCameraLeft = moveCameraLeft;
-            this._moveCameraRight = moveCameraRight;
+            this._moveCameraUpAction = inputActionManager.RegisterButtonHoldAction(moveCameraUp);
+            this._moveCameraDownAction = inputActionManager.RegisterButtonHoldAction(moveCameraDown);
+            this._moveCameraLeftAction = inputActionManager.RegisterButtonHoldAction(moveCameraLeft);
+            this._moveCameraRightAction = inputActionManager.RegisterButtonHoldAction(moveCameraRight);
             this.MovingSpeed = movingSpeed;
         }
 
@@ -88,10 +89,10 @@ namespace Camera.Services.CameraEffects
         {
             Checks.AssertNotNull(camera, nameof(camera));
 
-            ApplyAction(camera, this._moveCameraUp, p => new Point(p.X, p.Y + this._movingDistance));
-            ApplyAction(camera, this._moveCameraDown, p => new Point(p.X, p.Y - this._movingDistance));
-            ApplyAction(camera, this._moveCameraLeft, p => new Point(p.X - this._movingDistance, p.Y));
-            ApplyAction(camera, this._moveCameraRight, p => new Point(p.X + this._movingDistance, p.Y));
+            ApplyAction(camera, this._moveCameraUpAction, p => new Point(p.X, p.Y + this._movingDistance));
+            ApplyAction(camera, this._moveCameraDownAction, p => new Point(p.X, p.Y - this._movingDistance));
+            ApplyAction(camera, this._moveCameraLeftAction, p => new Point(p.X - this._movingDistance, p.Y));
+            ApplyAction(camera, this._moveCameraRightAction, p => new Point(p.X + this._movingDistance, p.Y));
         }
 
         /// <summary>

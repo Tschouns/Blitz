@@ -92,11 +92,6 @@ namespace BlitzDx
             this._inputActionManager = inputFactory.CreateInputActionManager();
 
             var keyboard = inputFactory.KeyboardButtonCreator;
-            var actionCameraUp = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.W));
-            var actionCameraDown = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.S));
-            var actionCameraLeft = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.A));
-            var actionCameraRight = this._inputActionManager.RegisterButtonHoldAction(keyboard.Create(Key.D));
-
             this._actionEnd = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.Escape));
 
             // Setup camera and camera controller.
@@ -105,14 +100,24 @@ namespace BlitzDx
                 displayProperties.Resolution.Height);
 
             var positionByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
-                actionCameraUp,
-                actionCameraDown,
-                actionCameraLeft,
-                actionCameraRight,
-                10);
+                this._inputActionManager,
+                keyboard.Create(Key.W),
+                keyboard.Create(Key.S),
+                keyboard.Create(Key.A),
+                keyboard.Create(Key.D),
+                50);
+
+            var scaleByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreateScaleByButtonsEffect(
+                this._inputActionManager,
+                keyboard.Create(Key.E),
+                keyboard.Create(Key.Q),
+                0.5,
+                5.0,
+                0.1);
 
             this._cameraController = cameraFactory.CreateCameraController(camera);
             this._cameraController.AddEffect(positionByButtonsCameraEffect);
+            this._cameraController.AddEffect(scaleByButtonsCameraEffect);
 
             // Initialize world.
             this._linesInTheWorld = new List<Line>();
