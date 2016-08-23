@@ -78,8 +78,6 @@ namespace Camera.Services.CameraEffects
         /// </summary>
         public void Update(double timeElapsed)
         {
-            Checks.AssertIsPositive(timeElapsed, nameof(timeElapsed));
-
             this._movingDistance = this.MovingSpeed * timeElapsed;
         }
 

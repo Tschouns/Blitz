@@ -4,10 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Camera.CameraEffects;
-
 namespace Camera
 {
+    using Camera.CameraEffects;
+
     /// <summary>
     /// Creates instances of <see cref="ICamera"/>.
     /// </summary>
@@ -22,5 +22,10 @@ namespace Camera
         /// Creates a <see cref="ICamera"/>.
         /// </summary>
         ICamera CreateCamera(int viewportWidth, int viewportHeight);
+
+        /// <summary>
+        /// Creates a <see cref="ICameraController"/> for the specified camera.
+        /// </summary>
+        ICameraController CreateCameraController(ICamera camera);
     }
 }

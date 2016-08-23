@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="CameraController.cs" />
     <Compile Include="CameraEffects\CameraEffectCreator.cs" />
     <Compile Include="CameraEffects\PositionByButtonsAxisAlignedEffect.cs" />
     <Compile Include="CameraFactory.cs" />

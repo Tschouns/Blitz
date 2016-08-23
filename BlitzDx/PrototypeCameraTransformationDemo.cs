@@ -20,7 +20,7 @@ namespace BlitzDx
     using Input;
     using Input.InputAction;
     using Point = Geometry.Elements.Point;
-    using Camera.CameraEffects;
+
     /// <summary>
     /// A prototype to test the <see cref="ICamera"/> interface.
     /// </summary>
@@ -37,14 +37,9 @@ namespace BlitzDx
         private readonly IInputAction _actionEnd;
 
         /// <summary>
-        /// Used to move the camera, based on user input.
+        /// Controls the camera.
         /// </summary>
-        private readonly ICameraEffect _positionByButtonsCameraEffect;
-
-        /// <summary>
-        /// Holds the camera.
-        /// </summary>
-        private readonly ICamera _camera;
+        private readonly ICameraController _cameraController;
 
         /// <summary>
         /// Holds the <see cref="IDisplay"/>.
@@ -104,20 +99,20 @@ namespace BlitzDx
 
             this._actionEnd = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.Escape));
 
-            // Setup camera.
-            this._camera = cameraFactory.CreateCamera(
+            // Setup camera and camera controller.
+            var camera = cameraFactory.CreateCamera(
                 displayProperties.Resolution.Width,
                 displayProperties.Resolution.Height);
 
-            this._camera.Scale = 2;
-            this._camera.Position = new Point(0, 0);
-
-            this._positionByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
+            var positionByButtonsCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
                 actionCameraUp,
                 actionCameraDown,
                 actionCameraLeft,
                 actionCameraRight,
                 10);
+
+            this._cameraController = cameraFactory.CreateCameraController(camera);
+            this._cameraController.AddEffect(positionByButtonsCameraEffect);
 
             // Initialize world.
             this._linesInTheWorld = new List<Line>();
@@ -151,8 +146,7 @@ namespace BlitzDx
                 this._inputActionManager.Update(elapsedRealTimeInSeconds);
 
                 // Control camera (in a highly adventurous fashion).
-                this._positionByButtonsCameraEffect.Update(elapsedRealTimeInSeconds);
-                this._positionByButtonsCameraEffect.ApplyToCamera(this._camera);
+                this._cameraController.Update(elapsedRealTimeInSeconds);
             }
             while (this._display.DrawFrame() && !this._actionEnd.IsActive);
         }
@@ -199,7 +193,7 @@ namespace BlitzDx
             Checks.AssertNotNull(drawingContext, nameof(drawingContext));
 
             // Get transformation.
-            var transform = this._camera.GetCameraTransformation();
+            var transform = this._cameraController.Camera.GetCameraTransformation();
 
             // Draw the lines.
             foreach (var line in this._linesInTheWorld)

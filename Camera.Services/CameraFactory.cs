@@ -31,7 +31,7 @@ namespace Camera.Services
         public ICameraEffectCreator CameraEffectCreator { get; }
 
         /// <summary>
-        /// Creates a <see cref="ICamera"/>.
+        /// Creates a <see cref="ICameraFactory.CreateCamera(int, int)"/>.
         /// </summary>
         public ICamera CreateCamera(int viewportWidth, int viewportHeight)
         {
@@ -39,6 +39,16 @@ namespace Camera.Services
             Checks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
 
             return new Camera(viewportWidth, viewportHeight);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ICameraFactory.CreateCameraController(ICamera)"/>.
+        /// </summary>
+        public ICameraController CreateCameraController(ICamera camera)
+        {
+            Checks.AssertNotNull(camera, nameof(camera));
+
+            return new CameraController(camera);
         }
     }
 }
