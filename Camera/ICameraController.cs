@@ -7,8 +7,11 @@
 namespace Camera
 {
     using Camera.CameraEffects;
-
-    // Controls a camera, using a set of camera effects.
+    
+    /// <summary>
+    /// Controls a camera, i.e. manages and applies a set of camera effects. Removes
+    /// expired effects automatically effects.
+    /// </summary>
     public interface ICameraController
     {
         /// <summary>

@@ -15,6 +15,7 @@ namespace BlitzDx
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
     using Camera;
+    using Camera.CameraEffects;
     using Display;
     using Geometry.Elements;
     using Input;
@@ -30,6 +31,21 @@ namespace BlitzDx
         /// Holds the <see cref="IInputActionManager"/>.
         /// </summary>
         private readonly IInputActionManager _inputActionManager;
+
+        /// <summary>
+        /// Used to create "blow" effects.
+        /// </summary>
+        private readonly ICameraEffectCreator _cameraEffectCreator;
+
+        /// <summary>
+        /// Action used to cause a blow to the left.
+        /// </summary>
+        private readonly IInputAction _actionCauseBlowLeft;
+
+        /// <summary>
+        /// Action used to cause a blow upwards.
+        /// </summary>
+        private readonly IInputAction _actionCauseBlowUp;
 
         /// <summary>
         /// Action used to end the simulation.
@@ -93,13 +109,16 @@ namespace BlitzDx
 
             var keyboard = inputFactory.KeyboardButtonCreator;
             this._actionEnd = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.Escape));
+            this._actionCauseBlowLeft = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.NumPad4));
+            this._actionCauseBlowUp = this._inputActionManager.RegisterButtonHitAction(keyboard.Create(Key.NumPad8));
 
             // Setup camera and camera controller.
             var camera = cameraFactory.CreateCamera(
                 displayProperties.Resolution.Width,
                 displayProperties.Resolution.Height);
 
-            var positionEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
+            this._cameraEffectCreator = cameraFactory.CameraEffectCreator;
+            var positionEffect = this._cameraEffectCreator.CreatePositionByButtonsEffect(
                 this._inputActionManager,
                 keyboard.Create(Key.W),
                 keyboard.Create(Key.S),
@@ -107,7 +126,7 @@ namespace BlitzDx
                 keyboard.Create(Key.D),
                 50);
 
-            var scaleEffect = cameraFactory.CameraEffectCreator.CreateScaleExponentialByButtonsEffect(
+            var scaleEffect = this._cameraEffectCreator.CreateScaleExponentialByButtonsEffect(
                 this._inputActionManager,
                 keyboard.Create(Key.E),
                 keyboard.Create(Key.Q),
@@ -150,7 +169,27 @@ namespace BlitzDx
                 // Update input.
                 this._inputActionManager.Update(elapsedRealTimeInSeconds);
 
-                // Control camera (in a highly adventurous fashion).
+                // Control camera, create "blows".
+                if (this._actionCauseBlowLeft.IsActive)
+                {
+                    var blowLeft = this._cameraEffectCreator.CreatePositionBlowOscillationEffect(
+                        new Vector2(-50, 0),
+                        1,
+                        5);
+
+                    this._cameraController.AddEffect(blowLeft);
+                }
+
+                if (this._actionCauseBlowUp.IsActive)
+                {
+                    var blowUp = this._cameraEffectCreator.CreatePositionBlowOscillationEffect(
+                        new Vector2(0, 50),
+                        1,
+                        5);
+
+                    this._cameraController.AddEffect(blowUp);
+                }
+
                 this._cameraController.Update(elapsedRealTimeInSeconds);
             }
             while (this._display.DrawFrame() && !this._actionEnd.IsActive);

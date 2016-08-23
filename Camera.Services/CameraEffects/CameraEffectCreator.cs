@@ -12,6 +12,7 @@ namespace Camera.Services.CameraEffects
     using System.Text;
     using System.Threading.Tasks;
     using Base.RuntimeChecks;
+    using Geometry.Elements;
     using global::Camera.CameraEffects;
     using Input.Button;
     using Input.InputAction;
@@ -53,7 +54,7 @@ namespace Camera.Services.CameraEffects
             Checks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
             Checks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
 
-            return new PositionByButtonsEffect(
+            return new PositionAbsoluteByButtonsEffect(
                 inputActionManager,
                 moveCameraUp,
                 moveCameraDown,
@@ -114,6 +115,22 @@ namespace Camera.Services.CameraEffects
                 scaleLowerLimit,
                 scaleUpperLimit,
                 normScaleSpeed);
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraEffectCreator.CreatePositionBlowOscillationEffect(Vector2, double, double)"/>.
+        /// </summary>
+        public ICameraEffect CreatePositionBlowOscillationEffect(
+            Vector2 startOscillation,
+            double duration,
+            double frequency)
+        {
+            var blowOscillation = new BlowOscillation(
+                startOscillation,
+                duration,
+                frequency);
+
+            return new PositionBlowOscillationEffect(blowOscillation);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Camera.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Base.RuntimeChecks;
     using global::Camera.CameraEffects;
 
@@ -56,6 +57,14 @@ namespace Camera.Services
         /// </summary>
         public void Update(double timeElapsed)
         {
+            // Remove expired effects.
+            var expiredEffects = this._cameraEffects.Where(aX => aX.HasExpired).ToList();
+            foreach(var expiredEffect in expiredEffects)
+            {
+                this._cameraEffects.Remove(expiredEffect);
+            }
+
+            // Update and apply remaining effects.
             foreach(var cameraEffect in this._cameraEffects)
             {
                 cameraEffect.Update(timeElapsed);

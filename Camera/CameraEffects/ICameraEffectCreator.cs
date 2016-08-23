@@ -6,6 +6,7 @@
 
 namespace Camera.CameraEffects
 {
+    using Geometry.Elements;
     using Input.Button;
     using Input.InputAction;
 
@@ -49,5 +50,13 @@ namespace Camera.CameraEffects
             double scaleLowerLimit,
             double scaleUpperLimit,
             double normScaleSpeed);
+
+        /// <summary>
+        /// Creates a camera effect which applies an oscillation to the camera position, as caused by a "blow".
+        /// </summary>
+        ICameraEffect CreatePositionBlowOscillationEffect(
+            Vector2 startOscillation,
+            double duration,
+            double frequency);
     }
 }

@@ -44,10 +44,13 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="CameraController.cs" />
+    <Compile Include="CameraEffects\BlowOscillation.cs" />
     <Compile Include="CameraEffects\CameraEffectCreator.cs" />
     <Compile Include="CameraEffects\CameraEffectHelper.cs" />
+    <Compile Include="CameraEffects\IBlowOscillation.cs" />
     <Compile Include="CameraEffects\ICameraEffectHelper.cs" />
-    <Compile Include="CameraEffects\PositionByButtonsEffect.cs" />
+    <Compile Include="CameraEffects\PositionAbsoluteByButtonsEffect.cs" />
+    <Compile Include="CameraEffects\PositionBlowOscillationEffect.cs" />
     <Compile Include="CameraEffects\ScaleExponentialByButtonEffect.cs" />
     <Compile Include="CameraEffects\ScaleLinearByButtonsEffect.cs" />
     <Compile Include="CameraFactory.cs" />

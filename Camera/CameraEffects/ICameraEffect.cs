@@ -14,6 +14,13 @@ namespace Camera.CameraEffects
     public interface ICameraEffect
     {
         /// <summary>
+        /// Gets a value indicating whether the effect has expired, i.e. it does no longer take any
+        /// influence on the camera when applied to it.
+        /// An expired effect can be disposed of.
+        /// </summary>
+        bool HasExpired { get; }
+
+        /// <summary>
         /// Updates the camera effect, potentially with regard to elapsed time.
         /// This is supposed to be called once in the game/sim update loop.
         /// </summary>

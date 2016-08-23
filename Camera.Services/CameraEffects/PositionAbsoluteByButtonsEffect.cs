@@ -18,7 +18,7 @@ namespace Camera.Services.CameraEffects
     /// A camera effect which moves the camera position along the axes, when the user
     /// holds the button for the corresponing direction.
     /// </summary>
-    public class PositionByButtonsEffect : ICameraEffect
+    public class PositionAbsoluteByButtonsEffect : ICameraEffect
     {
         /// <summary>
         /// Action which makes the camera move up.
@@ -46,9 +46,9 @@ namespace Camera.Services.CameraEffects
         private double _movingDistance;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PositionByButtonsEffect"/> class.
+        /// Initializes a new instance of the <see cref="PositionAbsoluteByButtonsEffect"/> class.
         /// </summary>
-        public PositionByButtonsEffect(
+        public PositionAbsoluteByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton moveCameraUp,
             IButton moveCameraDown,
@@ -73,6 +73,11 @@ namespace Camera.Services.CameraEffects
         /// Gets or sets the camera moving speed.
         /// </summary>
         public double MovingSpeed { get; set; }
+
+        /// <summary>
+        /// See <see cref="ICameraEffect.HasExpired"/>. This effect does not expire.
+        /// </summary>
+        public bool HasExpired => false;
 
         /// <summary>
         /// See <see cref="ICameraEffect.Update(double)"/>.

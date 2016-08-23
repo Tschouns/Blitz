@@ -81,6 +81,11 @@ namespace Camera.Services.CameraEffects
         public double ScaleSpeed { get; set; }
 
         /// <summary>
+        /// See <see cref="ICameraEffect.HasExpired"/>. This effect does not expire.
+        /// </summary>
+        public bool HasExpired => false;
+
+        /// <summary>
         /// See <see cref="ICameraEffect.Update(double)"/>.
         /// </summary>
         public void Update(double timeElapsed)
