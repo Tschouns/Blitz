@@ -8,7 +8,9 @@ namespace BlitzDx.PrototypeRenderLoopDemo
 {
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
+    using Camera;
     using Display;
+    using Input;
     using RenderLoop.Loop;
 
     /// <summary>
@@ -16,6 +18,16 @@ namespace BlitzDx.PrototypeRenderLoopDemo
     /// </summary>
     public class DemoGame
     {
+        /// <summary>
+        /// Needed by the <see cref="DemoGameLogic"/>.
+        /// </summary>
+        private readonly IInputFactory _inputFactory;
+
+        /// <summary>
+        /// Needed by the <see cref="DemoGameLogic"/>.
+        /// </summary>
+        private readonly ICameraFactory _cameraFactory;
+
         /// <summary>
         /// Needed by the <see cref="DemoGameDisplayRenderer"/>.
         /// </summary>
@@ -31,6 +43,8 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         /// </summary>
         public DemoGame()
             : this(
+                  Ioc.Container.Resolve<IInputFactory>(),
+                  Ioc.Container.Resolve<ICameraFactory>(),
                   Ioc.Container.Resolve<IDisplayFactory>(),
                   Ioc.Container.Resolve<ILoopFactory>())
         {
@@ -40,12 +54,18 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         /// Initializes a new instance of the <see cref="DemoGame"/> class.
         /// </summary>
         public DemoGame(
+            IInputFactory inputFactory,
+            ICameraFactory cameraFactory,
             IDisplayFactory displayFactory,
             ILoopFactory loopFactory)
         {
+            Checks.AssertNotNull(inputFactory, nameof(inputFactory));
+            Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
             Checks.AssertNotNull(displayFactory, nameof(displayFactory));
             Checks.AssertNotNull(loopFactory, nameof(loopFactory));
 
+            this._inputFactory = inputFactory;
+            this._cameraFactory = cameraFactory;
             this._displayFactory = displayFactory;
             this._loopFactory = loopFactory;
         }
@@ -56,16 +76,17 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         public void Run()
         {
             // Define display properties.
+            var displaySize = new System.Drawing.Size(1280, 720);
             var displayProperties = new DisplayProperties
             {
                 Title = "Render Loop Demo",
-                Resolution = new System.Drawing.Size(1280, 720)
+                Resolution = displaySize
             };
 
             using (var demoGameDisplayRenderer = new DemoGameDisplayRenderer(this._displayFactory, displayProperties))
             {
                 var loop = this._loopFactory.CreateLoop(
-                    new DemoGameLogic(),
+                    new DemoGameLogic(this._inputFactory, this._cameraFactory, displaySize),
                     demoGameDisplayRenderer);
 
                 demoGameDisplayRenderer.ShowDisplay();

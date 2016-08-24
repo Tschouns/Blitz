@@ -7,9 +7,13 @@
 namespace BlitzDx.PrototypeRenderLoopDemo
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using Base.RuntimeChecks;
+    using Camera;
     using Display;
+    using Geometry.Elements;
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
 
@@ -69,11 +73,44 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         }
 
         /// <summary>
+        /// Helper method: transforms a specified polygon, using the specified transformation, and returns the
+        /// transformed corners of the polygon.
+        /// </summary>
+        private static IEnumerable<Point> TransformPolygonForDrawing(
+            Polygon polygon,
+            ICameraTransformation transform)
+        {
+            var transformedCorners = polygon.Corners.Select(aX => transform.WorldToViewport(aX)).ToList();
+
+            return transformedCorners;
+        }
+
+        /// <summary>
         /// Draw callback for the display.
         /// </summary>
         private void DrawToDisplay(IDrawingContext drawingContext)
         {
             Checks.AssertNotNull(drawingContext, nameof(drawingContext));
+
+            var transformation = this._currentGameState.CameraTransformation;
+
+            // Draw the buildings.
+            foreach (var building in this._currentGameState.Buildings)
+            {
+                drawingContext.DrawPolygon(
+                    TransformPolygonForDrawing(building.Polygon, transformation),
+                    building.Color,
+                    2);
+            }
+
+            // Draw the cars.
+            foreach (var car in this._currentGameState.Cars)
+            {
+                drawingContext.DrawPolygon(
+                   TransformPolygonForDrawing(car.Polygon, transformation),
+                    car.Color,
+                    2);
+            }
 
             // Draw the cross.
             var width = this._display.Properties.Resolution.Width;

@@ -77,6 +77,8 @@ namespace RenderLoop.Services.Loop
                 realTimeTotal += realTimeElapsed;
                 gameTimeTotal += gameTimeElapsed;
 
+                time = now;
+
                 // Update.
                 var gameState = this._updateCallback.Update(
                     new TimeInfo(realTimeElapsed, realTimeTotal),

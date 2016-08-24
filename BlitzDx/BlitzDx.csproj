@@ -102,6 +102,8 @@
     <Compile Include="PrototypeRenderLoopDemo\DemoGameState.cs" />
     <Compile Include="PrototypeRenderLoopDemo\DemoGame.cs" />
     <Compile Include="PrototypePhysicsDemo.cs" />
+    <Compile Include="PrototypeRenderLoopDemo\HumbleWorldObjects\Building.cs" />
+    <Compile Include="PrototypeRenderLoopDemo\HumbleWorldObjects\Car.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
