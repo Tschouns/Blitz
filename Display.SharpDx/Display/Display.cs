@@ -96,6 +96,8 @@ namespace Display.SharpDx.Display
         /// </summary>
         public bool DrawFrame()
         {
+            Application.DoEvents();
+
             this._renderTarget.BeginDraw();
 
             this._renderTarget.Transform = Matrix3x2.Identity;

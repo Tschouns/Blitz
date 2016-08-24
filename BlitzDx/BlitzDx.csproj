@@ -97,7 +97,10 @@
     <Compile Include="PrototypeDxRigidBodySimulation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PrototypeRenderLoopDemo.cs" />
+    <Compile Include="PrototypeRenderLoopDemo\DemoGameLogic.cs" />
+    <Compile Include="PrototypeRenderLoopDemo\DemoGameDisplayRenderer.cs" />
+    <Compile Include="PrototypeRenderLoopDemo\DemoGameState.cs" />
+    <Compile Include="PrototypeRenderLoopDemo\DemoGame.cs" />
     <Compile Include="PrototypePhysicsDemo.cs" />
   </ItemGroup>
   <ItemGroup>

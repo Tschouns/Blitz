@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzDx
+namespace BlitzDx.PrototypeRenderLoopDemo
 {
     /// <summary>
-    /// A prototype to test the <see cref="GameLoop"/> interface.
+    /// Represents a "game state" for this demo.
     /// </summary>
-    public class PrototypeRenderLoopDemo
+    public class DemoGameState
     {
     }
 }

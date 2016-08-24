@@ -10,7 +10,6 @@ namespace BlitzDx
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Windows.Forms;
     using System.Windows.Input;
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
@@ -158,9 +157,7 @@ namespace BlitzDx
 
             // Loop.
             do
-            {
-                Application.DoEvents();
-                
+            {                
                 // Calculate elapsed time (real time).
                 var now = DateTime.Now;
                 var elapsedRealTimeInSeconds = (now - realTime).TotalSeconds;
