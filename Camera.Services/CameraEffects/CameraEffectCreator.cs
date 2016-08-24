@@ -38,9 +38,9 @@ namespace Camera.Services.CameraEffects
         }
 
         /// <summary>
-        /// See <see cref="ICameraEffectCreator.CreatePositionByButtonsEffect(IInputAction, IInputAction, IInputAction, IInputAction, double)"/>.
+        /// See <see cref="ICameraEffectCreator.CreatePositionAbsoluteByButtonsEffect(IInputActionManager, IButton, IButton, IButton, IButton, double)"/>.
         /// </summary>
-        public ICameraEffect CreatePositionByButtonsEffect(
+        public ICameraEffect CreatePositionAbsoluteByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton moveCameraUp,
             IButton moveCameraDown,
@@ -61,6 +61,25 @@ namespace Camera.Services.CameraEffects
                 moveCameraLeft,
                 moveCameraRight,
                 movingSpeed);
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraEffectCreator.CreatePositionFollowEffect{TFollowed}(TFollowed, Func{TFollowed, Point}, Func{bool})"/>.
+        /// </summary>
+        public ICameraEffect CreatePositionFollowEffect<TFollowed>(
+            TFollowed followedObject,
+            Func<TFollowed, Point> retrieveCurrentFollowedObjectPositionFunc,
+            Func<bool> determineIsExpiredFunc)
+            where TFollowed : class
+        {
+            Checks.AssertNotNull(followedObject, nameof(followedObject));
+            Checks.AssertNotNull(retrieveCurrentFollowedObjectPositionFunc, nameof(retrieveCurrentFollowedObjectPositionFunc));
+            Checks.AssertNotNull(determineIsExpiredFunc, nameof(determineIsExpiredFunc));
+
+            return new PositionFollowEffect<TFollowed>(
+                followedObject,
+                retrieveCurrentFollowedObjectPositionFunc,
+                determineIsExpiredFunc);
         }
 
         /// <summary>

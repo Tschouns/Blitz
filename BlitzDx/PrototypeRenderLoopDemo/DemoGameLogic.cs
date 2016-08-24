@@ -81,7 +81,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             this._actionSpawnCarRight = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.NumPad6));
             this._actionEndGame = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.Escape));
 
-            var positionCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionByButtonsEffect(
+            var positionCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionAbsoluteByButtonsEffect(
                 this._inputActionManager,
                 button.Create(Key.W),
                 button.Create(Key.S),

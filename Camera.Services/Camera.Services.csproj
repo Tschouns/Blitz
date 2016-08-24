@@ -49,6 +49,7 @@
     <Compile Include="CameraEffects\CameraEffectHelper.cs" />
     <Compile Include="CameraEffects\IBlowOscillation.cs" />
     <Compile Include="CameraEffects\ICameraEffectHelper.cs" />
+    <Compile Include="CameraEffects\PositionFollowEffect.cs" />
     <Compile Include="CameraEffects\PositionAbsoluteByButtonsEffect.cs" />
     <Compile Include="CameraEffects\PositionBlowOscillationEffect.cs" />
     <Compile Include="CameraEffects\ScaleExponentialByButtonEffect.cs" />

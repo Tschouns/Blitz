@@ -6,6 +6,7 @@
 
 namespace Camera.CameraEffects
 {
+    using System;
     using Geometry.Elements;
     using Input.Button;
     using Input.InputAction;
@@ -19,13 +20,25 @@ namespace Camera.CameraEffects
         /// Creates a camera effect which moves the camera position along the axes, when the user
         /// holds the button for the corresponing direction.
         /// </summary>
-        ICameraEffect CreatePositionByButtonsEffect(
+        ICameraEffect CreatePositionAbsoluteByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton moveCameraUp,
             IButton moveCameraDown,
             IButton moveCameraLeft,
             IButton moveCameraRight,
             double movingSpeed);
+
+        /// <summary>
+        /// Creates a camera effect which makes the camera follow an object or character in the world.
+        /// </summary>
+        /// <typeparam name="TFollowed">
+        /// The type of the object the camera is supposed to follow
+        /// </typeparam>
+        ICameraEffect CreatePositionFollowEffect<TFollowed>(
+            TFollowed followedObject,
+            Func<TFollowed, Point> retrieveCurrentFollowedObjectPositionFunc,
+            Func<bool> determineIsExpiredFunc)
+            where TFollowed : class;
 
         /// <summary>
         /// Creates a camera effect which increases and decreases the camera scale linearly, when

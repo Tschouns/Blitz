@@ -117,7 +117,7 @@ namespace BlitzDx
                 displayProperties.Resolution.Height);
 
             this._cameraEffectCreator = cameraFactory.CameraEffectCreator;
-            var positionEffect = this._cameraEffectCreator.CreatePositionByButtonsEffect(
+            var positionEffect = this._cameraEffectCreator.CreatePositionAbsoluteByButtonsEffect(
                 this._inputActionManager,
                 keyboard.Create(Key.W),
                 keyboard.Create(Key.S),
