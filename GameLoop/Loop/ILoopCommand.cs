@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Loop
+namespace RenderLoop.Loop
 {
     /// <summary>
     /// Provides an interface to control the loop.

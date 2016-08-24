@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Callback
+namespace RenderLoop.Callback
 {
     /// <summary>
     /// Provides the "draw callback" method, which takes the "game state" as an argument and

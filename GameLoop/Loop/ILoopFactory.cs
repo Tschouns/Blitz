@@ -4,9 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Loop
+namespace RenderLoop.Loop
 {
-    using GameLoop.Callback;
+    using RenderLoop.Callback;
     using Loop;
 
     /// <summary>

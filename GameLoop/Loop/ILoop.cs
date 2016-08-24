@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Loop
+namespace RenderLoop.Loop
 {
     /// <summary>
     /// Represents the game/sim loop.

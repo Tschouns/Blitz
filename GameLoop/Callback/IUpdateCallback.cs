@@ -4,9 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Callback
+namespace RenderLoop.Callback
 {
-    using GameLoop.Loop;
+    using RenderLoop.Loop;
 
     /// <summary>
     /// Provides the "update callback" method, which creates the "game state" as an output.

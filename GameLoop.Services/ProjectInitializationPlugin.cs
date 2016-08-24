@@ -4,11 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Services
+namespace RenderLoop.Services
 {
     using Base.InversionOfControl;
     using Base.StartUp;
-    using GameLoop.Loop;
+    using RenderLoop.Loop;
     using Loop;
 
     /// <summary>

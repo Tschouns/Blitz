@@ -7,8 +7,8 @@
     <ProjectGuid>{7546B6D4-ED51-4BD0-8E9C-E3BD257A4EEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameLoop.Services</RootNamespace>
-    <AssemblyName>GameLoop.Services</AssemblyName>
+    <RootNamespace>RenderLoop.Services</RootNamespace>
+    <AssemblyName>RenderLoop.Services</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -52,9 +52,9 @@
       <Project>{63cef2ea-8717-4b68-93b7-36c8cf06e1b2}</Project>
       <Name>Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameLoop\GameLoop.csproj">
+    <ProjectReference Include="..\GameLoop\RenderLoop.csproj">
       <Project>{F8911433-0C31-404C-99A2-45717335B972}</Project>
-      <Name>GameLoop</Name>
+      <Name>RenderLoop</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

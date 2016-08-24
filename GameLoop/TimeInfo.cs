@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop
+namespace RenderLoop
 {
     /// <summary>
     /// Provides time information.

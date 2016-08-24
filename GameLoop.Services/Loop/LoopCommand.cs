@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Services.Loop
+namespace RenderLoop.Services.Loop
 {
     using System;
     using Base.RuntimeChecks;
-    using GameLoop;
-    using GameLoop.Loop;
+    using RenderLoop;
+    using RenderLoop.Loop;
 
     /// <summary>
     /// 

@@ -4,11 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop.Services.Loop
+namespace RenderLoop.Services.Loop
 {
     using Base.RuntimeChecks;
     using Callback;
-    using GameLoop.Loop;
+    using RenderLoop.Loop;
 
     /// <summary>
     /// See <see cref="ILoopFactory"/>.
