@@ -6,6 +6,8 @@
 
 namespace GameLoop.Callback
 {
+    using GameLoop.Loop;
+
     /// <summary>
     /// Provides the "update callback" method, which creates the "game state" as an output.
     /// </summary>
@@ -15,6 +17,6 @@ namespace GameLoop.Callback
         /// <summary>
         /// Updates the game/sim. Produces a "game state" as output.
         /// </summary>
-        TGameState Update(TimeInfo realTime, TimeInfo inGameTime, ILoopCommand loopCommand);
+        TGameState Update(TimeInfo realTime, TimeInfo gameTime, ILoopCommand loopCommand);
     }
 }

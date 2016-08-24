@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Loop\Loop.cs" />
     <Compile Include="Loop\LoopCommand.cs" />
+    <Compile Include="Loop\LoopFactory.cs" />
+    <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

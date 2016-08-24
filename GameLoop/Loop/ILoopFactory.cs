@@ -4,9 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop
+namespace GameLoop.Loop
 {
     using GameLoop.Callback;
+    using Loop;
 
     /// <summary>
     /// Creates the loop.

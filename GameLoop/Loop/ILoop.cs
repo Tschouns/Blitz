@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GameLoop
+namespace GameLoop.Loop
 {
     /// <summary>
     /// Represents the game/sim loop.
@@ -15,5 +15,11 @@ namespace GameLoop
         /// Runs the loop.
         /// </summary>
         void Run();
+
+        /// <summary>
+        /// Runs the loop. Sets the "game time" factor, which determines how fast time will pass in
+        /// the game, relative to real time.
+        /// </summary>
+        void Run(double gameTimeFactor);
     }
 }

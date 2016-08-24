@@ -44,10 +44,10 @@
     <Compile Include="Callback\IDrawCallback.cs" />
     <Compile Include="Loop\ILoop.cs" />
     <Compile Include="Loop\ILoopCommand.cs" />
-    <Compile Include="ILoopFactory.cs" />
+    <Compile Include="Loop\ILoopFactory.cs" />
     <Compile Include="Callback\IUpdateCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Callback\TimeInfo.cs" />
+    <Compile Include="TimeInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

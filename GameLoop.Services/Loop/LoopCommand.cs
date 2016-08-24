@@ -9,6 +9,7 @@ namespace GameLoop.Services.Loop
     using System;
     using Base.RuntimeChecks;
     using GameLoop;
+    using GameLoop.Loop;
 
     /// <summary>
     /// 
@@ -23,10 +24,13 @@ namespace GameLoop.Services.Loop
         /// <summary>
         /// Initializes a new instance of the <see cref="LoopCommand"/> class.
         /// </summary>
-        public LoopCommand(Action stopLoopAction)
+        public LoopCommand(
+            double initialGameTimeFactor,
+            Action stopLoopAction)
         {
             Checks.AssertNotNull(stopLoopAction, nameof(stopLoopAction));
 
+            this.GameTimeFactor = initialGameTimeFactor;
             this._stopLoopAction = stopLoopAction;
         }
 

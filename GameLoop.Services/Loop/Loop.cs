@@ -9,6 +9,7 @@ namespace GameLoop.Services.Loop
     using System;
     using Base.RuntimeChecks;
     using GameLoop.Callback;
+    using GameLoop.Loop;
 
     /// <summary>
     /// See <see cref="ILoop"/>.
@@ -48,7 +49,44 @@ namespace GameLoop.Services.Loop
         /// </summary>
         public void Run()
         {
-            throw new NotImplementedException();
+            this.Run(1.0);
+        }
+
+        /// <summary>
+        /// See <see cref="ILoop.Run(double)"/>.
+        /// </summary>
+        public void Run(double gameTimeFactor)
+        {
+            // Initialize time info.
+            var time = DateTime.Now;
+            double realTimeTotal = 0.0;
+            double gameTimeTotal = 0.0;
+
+            // Initialize loop command.
+            var isAlive = true;
+            var loopCommand = new LoopCommand(
+                gameTimeFactor,
+                () => isAlive = false);
+
+            do
+            {
+                // Calculate time info.
+                var now = DateTime.Now;
+                var realTimeElapsed = (now - time).TotalSeconds;
+                var gameTimeElapsed = realTimeElapsed * loopCommand.GameTimeFactor;
+                realTimeTotal += realTimeElapsed;
+                gameTimeTotal += gameTimeElapsed;
+
+                // Update.
+                var gameState = this._updateCallback.Update(
+                    new TimeInfo(realTimeElapsed, realTimeTotal),
+                    new TimeInfo(gameTimeElapsed, gameTimeTotal),
+                    loopCommand);
+
+                // Draw.
+                isAlive &= this._drawCallback.Draw(gameState);
+            }
+            while (isAlive);
         }
     }
 }
