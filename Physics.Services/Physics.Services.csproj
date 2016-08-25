@@ -49,6 +49,7 @@
     <Compile Include="Elements\Shape\IShapeFactory.cs" />
     <Compile Include="Elements\Shape\RigidPolygonShape.cs" />
     <Compile Include="Elements\Shape\ShapeFactory.cs" />
+    <Compile Include="Forces\Blast.cs" />
     <Compile Include="Helpers\BodyCalculationHelper.cs" />
     <Compile Include="Helpers\IsaacNewtonHelper.cs" />
     <Compile Include="Helpers\IBodyCalculationHelper.cs" />
