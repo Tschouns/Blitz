@@ -6,6 +6,7 @@
 
 namespace Camera.Services.CameraEffects
 {
+    using System;
     using Base.RuntimeChecks;
     using global::Camera.CameraEffects;
     using Input;
@@ -42,11 +43,6 @@ namespace Camera.Services.CameraEffects
         /// Represents the upper limit of the scale factor.
         /// </summary>
         private double _scaleUpperLimit;
-
-        /// <summary>
-        /// Stores the last "time elapse", in seconds.
-        /// </summary>
-        private double _timeElapsed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaleLinearByButtonsEffect"/> class.
@@ -86,40 +82,30 @@ namespace Camera.Services.CameraEffects
         public bool HasExpired => false;
 
         /// <summary>
-        /// See <see cref="ICameraEffect.Update(double)"/>.
+        /// See <see cref="ICameraEffect.GetCameraOffset(CameraState, double)"/>.
         /// </summary>
-        public void Update(double timeElapsed)
+        public CameraOffset GetCameraOffset(CameraState cameraState, double timeElapsed)
         {
-            this._timeElapsed = timeElapsed;
-        }
+            var scaleDifference = this.NormScaleSpeed * timeElapsed * cameraState.Scale;
 
-        /// <summary>
-        /// See <see cref="ICameraEffect.ApplyToCamera(double)"/>.
-        /// </summary>
-        public void ApplyToCamera(ICamera camera)
-        {
-            Checks.AssertNotNull(camera, nameof(camera));
-
-            var scaleDifference = this.NormScaleSpeed * this._timeElapsed * camera.State.Scale;
-
-            // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
-            var state = camera.State;
+            var offset = new CameraOffset();
 
             // Increase/decrease scale.
             if (this._increaseScaleAction.IsActive)
             {
-                state.Scale += scaleDifference;
+                offset.ScaleOffset += scaleDifference;
             }
 
             if (this._decreaseScaleAction.IsActive)
             {
-                state.Scale -= scaleDifference;
+                offset.ScaleOffset -= scaleDifference;
             }
 
-            // Apply limits.
-            state.Scale = this._helper.LimitValue(state.Scale, this._scaleLowerLimit, this._scaleUpperLimit);
+            // Apply correction according limits.
+            var expectedLimitViolation = this._helper.OutOfBounds(offset.ScaleOffset + cameraState.Scale, this._scaleLowerLimit, this._scaleUpperLimit);
+            offset.ScaleOffset -= expectedLimitViolation;
 
-            camera.State = state;
+            return offset;
         }
     }
 }

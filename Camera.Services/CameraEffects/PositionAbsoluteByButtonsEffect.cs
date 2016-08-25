@@ -41,11 +41,6 @@ namespace Camera.Services.CameraEffects
         private readonly IInputAction _moveCameraRightAction;
 
         /// <summary>
-        /// Stores the distance by which the camera is moved, if the effect is applied.
-        /// </summary>
-        private double _movingDistance;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PositionAbsoluteByButtonsEffect"/> class.
         /// </summary>
         public PositionAbsoluteByButtonsEffect(
@@ -80,43 +75,37 @@ namespace Camera.Services.CameraEffects
         public bool HasExpired => false;
 
         /// <summary>
-        /// See <see cref="ICameraEffect.Update(double)"/>.
+        /// See <see cref="ICameraEffect.GetCameraOffset(CameraState, double)"/>.
         /// </summary>
-        public void Update(double timeElapsed)
+        public CameraOffset GetCameraOffset(CameraState cameraState, double timeElapsed)
         {
-            this._movingDistance = this.MovingSpeed * timeElapsed;
-        }
+            var movingDistance = this.MovingSpeed * timeElapsed;
+            var positionOffset = new Vector2();
 
-        /// <summary>
-        /// See <see cref="ICameraEffect.ApplyToCamera(double)"/>.
-        /// </summary>
-        public void ApplyToCamera(ICamera camera)
-        {
-            Checks.AssertNotNull(camera, nameof(camera));
-
-            ApplyAction(camera, this._moveCameraUpAction, p => new Point(p.X, p.Y + this._movingDistance));
-            ApplyAction(camera, this._moveCameraDownAction, p => new Point(p.X, p.Y - this._movingDistance));
-            ApplyAction(camera, this._moveCameraLeftAction, p => new Point(p.X - this._movingDistance, p.Y));
-            ApplyAction(camera, this._moveCameraRightAction, p => new Point(p.X + this._movingDistance, p.Y));
-        }
-
-        /// <summary>
-        /// Private helper method. Simplifies changing the camera position.
-        /// </summary>
-        private static void ApplyAction(ICamera camera, IInputAction action, Func<Point, Point> ChangePositionFunc)
-        {
-            if (action.IsActive)
+            if (this._moveCameraUpAction.IsActive)
             {
-                // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
-                var state = new CameraState()
-                {
-                    Position = ChangePositionFunc(camera.State.Position),
-                    Orientation = camera.State.Orientation,
-                    Scale = camera.State.Scale
-                };
-
-                camera.State = state;
+                positionOffset.Y += movingDistance;
             }
+
+            if (this._moveCameraDownAction.IsActive)
+            {
+                positionOffset.Y -= movingDistance;
+            }
+
+            if (this._moveCameraLeftAction.IsActive)
+            {
+                positionOffset.X -= movingDistance;
+            }
+
+            if (this._moveCameraRightAction.IsActive)
+            {
+                positionOffset.X += movingDistance;
+            }
+
+            return new CameraOffset()
+            {
+                PositionOffset = positionOffset
+            };
         }
     }
 }

@@ -9,7 +9,10 @@ namespace Camera.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.Extensions;
     using Base.RuntimeChecks;
+    using Geometry.Elements;
+    using Geometry.Extensions;
     using global::Camera.CameraEffects;
 
     /// <summary>
@@ -65,11 +68,29 @@ namespace Camera.Services
             }
 
             // Update and apply remaining effects.
-            foreach(var cameraEffect in this._cameraEffects)
+            var totalOffset = new CameraOffset();
+            foreach (var cameraEffect in this._cameraEffects)
             {
-                cameraEffect.Update(timeElapsed);
-                cameraEffect.ApplyToCamera(this.Camera);
+                var effectOffset = cameraEffect.GetCameraOffset(this.Camera.State, timeElapsed);
+
+                totalOffset.PositionOffset = totalOffset.PositionOffset.AddVector(effectOffset.PositionOffset);
+                totalOffset.OrientationOffset += effectOffset.OrientationOffset;
+                totalOffset.ScaleOffset += effectOffset.ScaleOffset;
             }
+
+            var newCameraState = new CameraState()
+            {
+                Position = this.Camera.State.Position.AddVector(totalOffset.PositionOffset),
+                Orientation = this.Camera.State.Orientation + totalOffset.OrientationOffset,
+                Scale = this.Camera.State.Scale + totalOffset.ScaleOffset
+            };
+
+            // Make values "safe"... is this the right place to do this?
+            newCameraState.Position = new Point(newCameraState.Position.X.Safe(), newCameraState.Position.Y.Safe());
+            newCameraState.Orientation = newCameraState.Orientation.Safe();
+            newCameraState.Scale = newCameraState.Scale.Safe();
+
+            this.Camera.State = newCameraState;
         }
     }
 }

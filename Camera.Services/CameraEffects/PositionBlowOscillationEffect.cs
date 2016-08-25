@@ -23,20 +23,13 @@ namespace Camera.Services.CameraEffects
         private readonly IBlowOscillation _blowOscillation;
 
         /// <summary>
-        /// Stores the current distance and direction by which the camera is moved, if the effect is applied.
-        /// </summary>
-        private Vector2 _movingDistance;
-
-        /// <summary>
         /// Initializes a new instance if the <see cref="PositionBlowOscillationEffect"/> class.
         /// </summary>
-        /// <param name="blowOscillation"></param>
         public PositionBlowOscillationEffect(IBlowOscillation blowOscillation)
         {
             Checks.AssertNotNull(blowOscillation, nameof(blowOscillation));
 
             this._blowOscillation = blowOscillation;
-            this._movingDistance = new Vector2();
         }
 
         /// <summary>
@@ -45,33 +38,20 @@ namespace Camera.Services.CameraEffects
         public bool HasExpired => this._blowOscillation.HasDepleted;
 
         /// <summary>
-        /// See <see cref="ICameraEffect.Update(double)"/>.
+        /// See <see cref="ICameraEffect.GetCameraOffset(CameraState, double)"/>.
         /// </summary>
-        public void Update(double timeElapsed)
+        public CameraOffset GetCameraOffset(CameraState cameraState, double timeElapsed)
         {
             var oscillationBefore = this._blowOscillation.CurrentOscillation;
             this._blowOscillation.Update(timeElapsed);
             var oscillationNow = this._blowOscillation.CurrentOscillation;
 
-            this._movingDistance = oscillationNow.SubtactVector(oscillationBefore);
-        }
+            var positionOffset = oscillationNow.SubtactVector(oscillationBefore);
 
-        /// <summary>
-        /// See <see cref="ICameraEffect.ApplyToCamera(ICamera)"/>.
-        /// </summary>
-        public void ApplyToCamera(ICamera camera)
-        {
-            Checks.AssertNotNull(camera, nameof(camera));
-
-            // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
-            var state = new CameraState()
+            return new CameraOffset()
             {
-                Position = camera.State.Position.AddVector(this._movingDistance),
-                Orientation = camera.State.Orientation,
-                Scale = camera.State.Scale
+                PositionOffset = positionOffset
             };
-
-            camera.State = state;
         }
     }
 }

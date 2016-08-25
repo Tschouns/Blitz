@@ -21,14 +21,10 @@ namespace Camera.CameraEffects
         bool HasExpired { get; }
 
         /// <summary>
-        /// Updates the camera effect, potentially with regard to elapsed time.
+        /// Updates the camera effect, potentially with regard to elapsed time and current camera state, and
+        /// produces a "camera offset".
         /// This is supposed to be called once in the game/sim update loop.
         /// </summary>
-        void Update(double timeElapsed);
-
-        /// <summary>
-        /// Applies the effect
-        /// </summary>
-        void ApplyToCamera(ICamera camera);
+        CameraOffset GetCameraOffset(CameraState cameraState, double timeElapsed);
     }
 }

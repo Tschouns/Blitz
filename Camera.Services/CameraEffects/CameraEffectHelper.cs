@@ -4,10 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-
 namespace Camera.Services.CameraEffects
 {
+    using System;
+
     /// <summary>
     /// See <see cref="ICameraEffectHelper"/>.
     /// </summary>
@@ -29,6 +29,24 @@ namespace Camera.Services.CameraEffects
             }
 
             return value;
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraEffectHelper.OutOfBounds(double, double, double)"/>.
+        /// </summary>
+        public double OutOfBounds(double value, double lowerLimit, double uppderLimit)
+        {
+            if (value < lowerLimit)
+            {
+                return value - lowerLimit;
+            }
+
+            if (value > uppderLimit)
+            {
+                return value - uppderLimit;
+            }
+
+            return 0;
         }
     }
 }

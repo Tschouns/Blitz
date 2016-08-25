@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraEffects\CameraOffset.cs" />
     <Compile Include="CameraState.cs" />
     <Compile Include="ICameraController.cs" />
     <Compile Include="CameraEffects\ICameraEffect.cs" />

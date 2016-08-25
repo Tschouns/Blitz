@@ -10,6 +10,7 @@ namespace Camera.Services.CameraEffects
     using Base.RuntimeChecks;
     using CameraEffects;
     using Geometry.Elements;
+    using Geometry.Extensions;
     using global::Camera.CameraEffects;
 
     /// <summary>
@@ -37,11 +38,6 @@ namespace Camera.Services.CameraEffects
         private readonly Func<bool> _determineIsExpiredFunc;
 
         /// <summary>
-        /// The position of the followed object.
-        /// </summary>
-        private Point _followedPosition;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PositionFollowEffect{TFollowed}"/> class.
         /// </summary>
         public PositionFollowEffect(
@@ -64,30 +60,17 @@ namespace Camera.Services.CameraEffects
         public bool HasExpired => this._determineIsExpiredFunc();
 
         /// <summary>
-        /// See <see cref="ICameraEffect.Update(double)"/>.
+        /// See <see cref="ICameraEffect.GetCameraOffset(CameraState, double)"/>.
         /// </summary>
-        public void Update(double timeElapsed)
+        public CameraOffset GetCameraOffset(CameraState cameraState, double timeElapsed)
         {
-            this._followedPosition = this._retrieveCurrentFollowedObjectPositionFunc(this._followedObject);
-        }
+            var followedPosition = this._retrieveCurrentFollowedObjectPositionFunc(this._followedObject);
+            var positionOffset = followedPosition.GetOffsetFrom(cameraState.Position);
 
-        /// <summary>
-        /// See <see cref="ICameraEffect.ApplyToCamera(double)"/>.
-        /// </summary>
-        public void ApplyToCamera(ICamera camera)
-        {
-            Checks.AssertNotNull(camera, nameof(camera));
-
-            // Cheap first draft - TODO: finish...
-            // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
-            var state = new CameraState()
+            return new CameraOffset()
             {
-                Position = this._followedPosition,
-                Orientation = camera.State.Orientation,
-                Scale = camera.State.Scale
+                PositionOffset = positionOffset
             };
-
-            camera.State = state;
         }
     }
 }
