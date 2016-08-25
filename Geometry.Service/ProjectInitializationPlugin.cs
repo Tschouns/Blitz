@@ -26,11 +26,12 @@ namespace Geometry.Services
         public void PerformIocContainerRegistrations()
         {
             // Algorithms
-            Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<,>), typeof(GjkAlgorithm<,>));
             Ioc.Container.RegisterSingleton<ISupportFunctions<Circle>, CircleSupportFunctions>();
             Ioc.Container.RegisterSingleton<ISupportFunctions<Polygon>, PolygonSupportFunctions>();
             Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<Polygon, Polygon>), typeof(GjkAlgorithm<Polygon, Polygon>));
-
+            Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<Circle, Polygon>), typeof(GjkAlgorithm<Circle, Polygon>));
+            //// TODO: check why the hell type unbound registrations don't work.
+            ////Ioc.Container.RegisterSingleton(typeof(IGjkAlgorithm<,>), typeof(GjkAlgorithm<,>));
 
             // Helpers
             Ioc.Container.RegisterSingleton<ILineCalculationHelper, LineCalculationHelper>();

@@ -35,7 +35,6 @@ namespace Camera.Services
         /// </summary>
         private readonly double _viewportToWorldScale;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CameraTransformation"/> class.
         /// </summary>

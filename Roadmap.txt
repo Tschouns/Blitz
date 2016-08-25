@@ -45,6 +45,9 @@
   - multiple rendering loops in seperate threads
   - "game state" buffer
 
+===Sprites===
+- Review the designs of XNA!
+
 ===Animation===
 - Sprite batch animation
 - Rigged character animation

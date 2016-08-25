@@ -24,7 +24,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
         /// <summary>
         /// The maximum expansion radius.
         /// </summary>
-        private readonly double _maxExpansionRadius = 50.0;
+        private readonly double _maxExpansionRadius;
 
         /// <summary>
         /// The current expansion radius of the explosion.
@@ -32,16 +32,13 @@ namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
         private double _currentExpansionRadius = 1;
 
         /// <summary>
-        /// Indicates whether the explosion is already finished, in which case, for simplicity sake, it becomes a crater;)
-        /// </summary>
-        private bool _isFinished = false;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Explosion"/> class.
         /// </summary>
-        public Explosion(Point position)
+        public Explosion(Point position, double expansionRadius)
         {
             this.Position = position;
+            this._maxExpansionRadius = expansionRadius;
+
             this.Color = Color.OrangeRed;
 
             this.Circle = new Circle(this.Position, this._currentExpansionRadius);
@@ -63,11 +60,16 @@ namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
         public Color Color { get; private set; }
 
         /// <summary>
+        /// Gets a value indicating whether the explosion is already finished, in which case, for simplicity sake, it becomes a crater;)
+        /// </summary>
+        public bool IsFinished { get; private set; }
+
+        /// <summary>
         /// Updates the explosion.
         /// </summary>
         public void Update(double elapsedTime)
         {
-            if (this._isFinished)
+            if (this.IsFinished)
             {
                 return;
             }
@@ -78,7 +80,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
             // "Finish" the explosion, and turn it into a crater.
             if (this._currentExpansionRadius > this._maxExpansionRadius)
             {
-                this._isFinished = true;
+                this.IsFinished = true;
                 this._currentExpansionRadius = 5.0;
                 this.Color = Color.DarkSlateGray;
             }

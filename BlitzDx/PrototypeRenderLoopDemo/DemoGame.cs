@@ -10,6 +10,8 @@ namespace BlitzDx.PrototypeRenderLoopDemo
     using Base.RuntimeChecks;
     using Camera;
     using Display;
+    using Geometry.Algorithms.Gjk;
+    using Geometry.Elements;
     using Input;
     using RenderLoop.Loop;
 
@@ -29,6 +31,11 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         private readonly ICameraFactory _cameraFactory;
 
         /// <summary>
+        /// Needed by the <see cref="DemoGameLogic"/>.
+        /// </summary>
+        private readonly IGjkAlgorithm<Circle, Polygon> _gjk;
+
+        /// <summary>
         /// Needed by the <see cref="DemoGameDisplayRenderer"/>.
         /// </summary>
         private readonly IDisplayFactory _displayFactory;
@@ -45,6 +52,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             : this(
                   Ioc.Container.Resolve<IInputFactory>(),
                   Ioc.Container.Resolve<ICameraFactory>(),
+                  Ioc.Container.Resolve<IGjkAlgorithm<Circle, Polygon>>(),
                   Ioc.Container.Resolve<IDisplayFactory>(),
                   Ioc.Container.Resolve<ILoopFactory>())
         {
@@ -56,16 +64,19 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         public DemoGame(
             IInputFactory inputFactory,
             ICameraFactory cameraFactory,
+            IGjkAlgorithm<Circle, Polygon> gjk,
             IDisplayFactory displayFactory,
             ILoopFactory loopFactory)
         {
             Checks.AssertNotNull(inputFactory, nameof(inputFactory));
             Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            Checks.AssertNotNull(gjk, nameof(gjk));
             Checks.AssertNotNull(displayFactory, nameof(displayFactory));
             Checks.AssertNotNull(loopFactory, nameof(loopFactory));
 
             this._inputFactory = inputFactory;
             this._cameraFactory = cameraFactory;
+            this._gjk = gjk;
             this._displayFactory = displayFactory;
             this._loopFactory = loopFactory;
         }
@@ -86,7 +97,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             using (var demoGameDisplayRenderer = new DemoGameDisplayRenderer(this._displayFactory, displayProperties))
             {
                 var loop = this._loopFactory.CreateLoop(
-                    new DemoGameLogic(this._inputFactory, this._cameraFactory, displaySize),
+                    new DemoGameLogic(this._inputFactory, this._cameraFactory, this._gjk, displaySize),
                     demoGameDisplayRenderer);
 
                 demoGameDisplayRenderer.ShowDisplay();

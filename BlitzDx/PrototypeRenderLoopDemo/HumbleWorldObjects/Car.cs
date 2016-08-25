@@ -64,13 +64,23 @@ namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
         /// <summary>
         /// Gets the color of the building.
         /// </summary>
-        public Color Color { get; }
+        public Color Color { get; private set; }
+
+        /// <summary>
+        ///Gets a value Indicating whether the car is destroyed.
+        /// </summary>
+        public bool IsDestroyed { get; private set; }
 
         /// <summary>
         /// Updates the car.
         /// </summary>
         public void Update(double elapsedTime)
         {
+            if (this.IsDestroyed)
+            {
+                return;
+            }
+
             // Move the car.
             var movingDistance = this._movingSpeed * elapsedTime;
 
@@ -85,6 +95,15 @@ namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
 
             // Set the rectangle.
             this.SetRectangle();
+        }
+
+        /// <summary>
+        /// Destroys the car. It will no longer move.
+        /// </summary>
+        public void Destroy()
+        {
+            this.IsDestroyed = true;
+            this.Color = Color.DarkRed;
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
     using Base.RuntimeChecks;
     using Camera;
     using Camera.CameraEffects;
+    using Geometry.Algorithms.Gjk;
     using Geometry.Elements;
     using HumbleWorldObjects;
     using Input;
@@ -69,6 +70,11 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         private readonly ICameraController _cameraController;
 
         /// <summary>
+        /// Helper used to detect collisions between explosions and cars.
+        /// </summary>
+        private readonly IGjkAlgorithm<Circle, Polygon> _gjk;
+
+        /// <summary>
         /// Stores all the buildings of this fairly humble game world.
         /// </summary>
         private readonly IList<Building> _humbleBuildings = new List<Building>();
@@ -89,10 +95,14 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         public DemoGameLogic(
             IInputFactory inputFactory,
             ICameraFactory cameraFactory,
+            IGjkAlgorithm<Circle, Polygon> gjk,
             Size viewportSize)
         {
             Checks.AssertNotNull(inputFactory, nameof(inputFactory));
             Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            Checks.AssertNotNull(gjk, nameof(gjk));
+
+            this._gjk = gjk;
 
             // Setup input.
             var button = inputFactory.KeyboardButtonCreator;
@@ -105,6 +115,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             this._actionEndGame = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.Escape));
 
             this._cameraEffectCreator = cameraFactory.CameraEffectCreator;
+
             var positionCameraEffect = this._cameraEffectCreator.CreatePositionAbsoluteByButtonsEffect(
                 this._inputActionManager,
                 button.Create(Key.W),
@@ -166,7 +177,8 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             // Shoot.
             if (this._actionShoot.IsActive)
             {
-                this.SpawnExplosion();
+                var position = this._cameraController.Camera.State.Position;
+                this.SpawnExplosion(position, 50);
             }
 
             // Remove cars.
@@ -183,9 +195,27 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             }
 
             // Update explosions.
-            foreach (var explosion in this._explosions)
+            var currentExplosions = this._explosions.ToList();
+            foreach (var explosion in currentExplosions)
             {
                 explosion.Update(gameTime.Elapsed);
+
+                // Test against each (undestroyed) car, and destroy them if hit.
+                if (explosion.IsFinished)
+                {
+                    continue;
+                }
+
+                var undestroyedCars = this._humbleCars.Where(aX => !aX.IsDestroyed).ToList();
+                foreach (var car in undestroyedCars)
+                {
+                    var result = this._gjk.DoFiguresIntersect(explosion.Circle, car.Polygon);
+                    if (result.DoFiguresIntersect)
+                    {
+                        car.Destroy();
+                        SpawnExplosion(car.Position, 30);
+                    }
+                }
             }
 
             // Stop the game.
@@ -305,10 +335,17 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         /// <summary>
         /// Spawns an explosion.
         /// </summary>
-        private void SpawnExplosion()
+        private void SpawnExplosion(Point position, double explosionSize)
         {
-            var position = this._cameraController.Camera.State.Position;
-            var explosion = new Explosion(position);
+            var explosion = new Explosion(position, explosionSize);
+
+            // Make camera rattle.
+            var cameraRattleEffect = this._cameraEffectCreator.CreatePositionBlowOscillationEffect(
+                new Vector2(explosionSize / 3, explosionSize / 4),
+                1,
+                8);
+
+            this._cameraController.AddEffect(cameraRattleEffect);
 
             this._explosions.Add(explosion);
         }
