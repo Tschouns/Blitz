@@ -24,5 +24,10 @@ namespace Display
         /// to the first by a line segment.
         /// </summary>
         void DrawPolygon(IEnumerable<Point> points, System.Drawing.Color color, float strokeWidth);
+
+        /// <summary>
+        /// Draws a cicle, defined by the center and its radius.
+        /// </summary>
+        void DrawCircle(Point center, double radius, System.Drawing.Color color, float strokeWidth);
     }
 }

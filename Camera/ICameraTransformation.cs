@@ -20,8 +20,18 @@ namespace Camera
         Point WorldToViewport(Point worldPosition);
 
         /// <summary>
+        /// Transforms (or scales) the specified distance from world viewport.
+        /// </summary>
+        double WorldToViewport(double worldDistance);
+
+        /// <summary>
         /// Transforms the specified position from viewport coordinates into world coordinates.
         /// </summary>
         Point ViewportToWorld(Point viewportPosition);
+
+        /// <summary>
+        ///  Transforms (or scales) the specified distance from world viewport.
+        /// </summary>
+        double ViewportToWorld(double viewportDistance);
     }
 }

@@ -22,13 +22,13 @@ namespace BlitzDx
         {
             StartUp.InitializeComponents();
 
-            using (var sim = new PrototypeCameraTransformationDemo())
-            {
-                sim.Run();
-            }
+            ////using (var sim = new PrototypeCameraTransformationDemo())
+            ////{
+            ////    sim.Run();
+            ////}
 
-            ////var demo = new PrototypeRenderLoopDemo.DemoGame();
-            ////demo.Run();
+            var demo = new PrototypeRenderLoopDemo.DemoGame();
+            demo.Run();
         }
     }
 }

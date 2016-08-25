@@ -132,14 +132,9 @@ namespace Geometry.UnitTest.Algorithms.Gjk
             // Act
             var resultSupportPoint = this._testCandidate.GetSupportPoint(circle, direction);
 
-            Console.WriteLine($"Expected support point: {expectedSupportPoint}");
-            Console.WriteLine($"Result support point: {resultSupportPoint}");
-
             // Assert
             var deviationX = Math.Abs(expectedSupportPoint.X - resultSupportPoint.X);
             var deviationY = Math.Abs(expectedSupportPoint.Y - resultSupportPoint.Y);
-
-            Console.WriteLine($"Derivation (x, y): {deviationX}, {deviationY}");
 
             Assert.IsTrue(deviationX <= Tolerance);
             Assert.IsTrue(deviationY <= Tolerance);

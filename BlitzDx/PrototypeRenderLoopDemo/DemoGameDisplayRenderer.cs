@@ -14,6 +14,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
     using Camera;
     using Display;
     using Geometry.Elements;
+    using Geometry.Extensions;
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
 
@@ -103,11 +104,37 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                     2);
             }
 
+            // Draw the explosions.
+            foreach (var explosion in this._currentGameState.Explosions)
+            {
+                ////var radius = explosion.Circle.Radius;
+                ////var startPosition = new Point(
+                ////    explosion.Circle.Center.X - (radius / 2),
+                ////    explosion.Circle.Center.Y - (radius / 2));
+
+                ////var temporaryHackPolygon = new Polygon(
+                ////    startPosition,
+                ////    new Point(startPosition.X + radius, startPosition.Y),
+                ////    new Point(startPosition.X + radius, startPosition.Y + radius),
+                ////    new Point(startPosition.X, startPosition.Y + radius));
+
+                ////drawingContext.DrawPolygon(
+                ////    TransformPolygonForDrawing(temporaryHackPolygon, transformation),
+                ////    explosion.Color,
+                ////    2);
+
+                drawingContext.DrawCircle(
+                    transformation.WorldToViewport(explosion.Circle.Center),
+                    transformation.WorldToViewport(explosion.Circle.Radius),
+                    explosion.Color,
+                    2);
+            }
+
             // Draw the cars.
             foreach (var car in this._currentGameState.Cars)
             {
                 drawingContext.DrawPolygon(
-                   TransformPolygonForDrawing(car.Polygon, transformation),
+                    TransformPolygonForDrawing(car.Polygon, transformation),
                     car.Color,
                     2);
             }

@@ -18,24 +18,40 @@ namespace Camera.Services
         /// <summary>
         /// Used to do the actual transformations from world to viewport coordinates.
         /// </summary>
-        private Matrix3x2 _worldToViewportTransformationMatrix;
+        private readonly Matrix3x2 _worldToViewportTransformationMatrix;
 
         /// <summary>
         /// Used to do the actual transformations from viewport to world coordinates.
         /// </summary>
-        private Matrix3x2 _viewportToWorldTransformationMatrix;
+        private readonly Matrix3x2 _viewportToWorldTransformationMatrix;
+
+        /// <summary>
+        /// Used to simply scale distances form world to viewport.
+        /// </summary>
+        private readonly double _worldToViewportScale;
+
+        /// <summary>
+        /// Used to simply scale distances form viewport to world.
+        /// </summary>
+        private readonly double _viewportToWorldScale;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CameraTransformation"/> class.
         /// </summary>
-        public CameraTransformation(Matrix3x2 worldToViewportTransformationMatrix)
+        public CameraTransformation(
+            Matrix3x2 worldToViewportTransformationMatrix,
+            double worldToViewportScale)
         {
             this._worldToViewportTransformationMatrix = worldToViewportTransformationMatrix;
             this._viewportToWorldTransformationMatrix = -worldToViewportTransformationMatrix;
+
+            this._worldToViewportScale = worldToViewportScale;
+            this._viewportToWorldScale = worldToViewportScale == 0 ? 0 : 1 / worldToViewportScale;
         }
 
         /// <summary>
-        /// See <see cref="ICameraTransformation.WorldToViewport"/>.
+        /// See <see cref="ICameraTransformation.WorldToViewport(Point)"/>.
         /// </summary>
         public Point WorldToViewport(Point worldPosition)
         {
@@ -43,11 +59,27 @@ namespace Camera.Services
         }
 
         /// <summary>
-        /// See <see cref="ICameraTransformation.ViewportToWorld"/>.
+        /// See <see cref="ICameraTransformation.WorldToViewport(double)"/>.
+        /// </summary>
+        public double WorldToViewport(double worldDistance)
+        {
+            return worldDistance * this._worldToViewportScale;
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraTransformation.ViewportToWorld(Point)"/>.
         /// </summary>
         public Point ViewportToWorld(Point viewportPosition)
         {
             return TransformPosition(viewportPosition, this._viewportToWorldTransformationMatrix);
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraTransformation.ViewportToWorld(double)"/>.
+        /// </summary>
+        public double ViewportToWorld(double viewportDistance)
+        {
+            return viewportDistance * this._viewportToWorldScale;
         }
 
         /// <summary>

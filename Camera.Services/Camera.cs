@@ -75,7 +75,9 @@ namespace Camera.Services
                 Matrix3x2.CreateTranslation(origin) *
                 Matrix3x2.CreateScale((float)this.State.Scale, (float)this.State.Scale);
 
-            return new CameraTransformation(worldToViewportTransformationMatrix);
+            return new CameraTransformation(
+                worldToViewportTransformationMatrix,
+                this.State.Scale);
         }
 
         /// <summary>

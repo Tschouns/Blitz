@@ -22,15 +22,18 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         public DemoGameState(
             ICameraTransformation cameraTransformation,
             IEnumerable<Building> buildings,
-            IEnumerable<Car> cars)
+            IEnumerable<Car> cars,
+            IEnumerable<Explosion> explosions)
         {
             Checks.AssertNotNull(cameraTransformation, nameof(cameraTransformation));
             Checks.AssertNotNull(buildings, nameof(buildings));
             Checks.AssertNotNull(cars, nameof(cars));
+            Checks.AssertNotNull(explosions, nameof(explosions));
 
             this.CameraTransformation = cameraTransformation;
             this.Buildings = buildings;
             this.Cars = cars;
+            this.Explosions = explosions;
         }
 
         /// <summary>
@@ -47,5 +50,10 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         /// Gets the cars in the world.
         /// </summary>
         public IEnumerable<Car> Cars { get; }
+
+        /// <summary>
+        /// Gets the explosions in the world.
+        /// </summary>
+        public IEnumerable<Explosion> Explosions { get; }
     }
 }

@@ -8,10 +8,12 @@ namespace Display.SharpDx.Display
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using Base.RuntimeChecks;
     using Extensions;
     using Geometry.Elements;
     using SharpDX.Direct2D1;
+    using Point = Geometry.Elements.Point;
 
     /// <summary>
     /// Implements <see cref="IDrawingContext"/>, as a wrapper of <see cref="RenderTarget"/>.
@@ -78,6 +80,19 @@ namespace Display.SharpDx.Display
             }
 
             this.DrawPathInternal(points, true, color, strokeWidth);
+        }
+
+        /// <summary>
+        /// See <see cref="IDrawingContext.DrawCircle"/>.
+        /// </summary>
+        public void DrawCircle(Point center, double radius, Color color, float strokeWidth)
+        {
+            var ellipse = new Ellipse(center.ToSharpDxVector2Flipped(this._renderTargetHeight), (float)radius, (float)radius);
+
+            using (var brush = new SolidColorBrush(this._renderTarget, color.ToSharpDxColor()))
+            {
+                this._renderTarget.DrawEllipse(ellipse, brush, strokeWidth);
+            }
         }
 
         /// <summary>

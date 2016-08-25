@@ -54,6 +54,11 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         private readonly IInputAction _actionFollowCam;
 
         /// <summary>
+        /// The input action which shoots! Hurra!
+        /// </summary>
+        private readonly IInputAction _actionShoot;
+
+        /// <summary>
         /// Used to create camera effects.
         /// </summary>
         private readonly ICameraEffectCreator _cameraEffectCreator;
@@ -74,6 +79,11 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         private readonly IList<Car> _humbleCars = new List<Car>();
 
         /// <summary>
+        /// Stores all the explosions/craters in the world.
+        /// </summary>
+        private readonly IList<Explosion> _explosions = new List<Explosion>();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DemoGameLogic"/> class.
         /// </summary>
         public DemoGameLogic(
@@ -91,6 +101,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             this._actionSpawnCarLeft = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.NumPad4));
             this._actionSpawnCarRight = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.NumPad6));
             this._actionFollowCam = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.F));
+            this._actionShoot = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.Space));
             this._actionEndGame = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.Escape));
 
             this._cameraEffectCreator = cameraFactory.CameraEffectCreator;
@@ -152,6 +163,12 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                 this.SpawnCarRight();
             }
 
+            // Shoot.
+            if (this._actionShoot.IsActive)
+            {
+                this.SpawnExplosion();
+            }
+
             // Remove cars.
             var carsOutOfRange = this._humbleCars.Where(aX => Math.Abs(aX.Position.X) > 200).ToList();
             foreach (var carToRemove in carsOutOfRange)
@@ -165,6 +182,12 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                 car.Update(gameTime.Elapsed);
             }
 
+            // Update explosions.
+            foreach (var explosion in this._explosions)
+            {
+                explosion.Update(gameTime.Elapsed);
+            }
+
             // Stop the game.
             if (this._actionEndGame.IsActive)
             {
@@ -174,7 +197,8 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             return new DemoGameState(
                 this._cameraController.Camera.GetCameraTransformation(),
                 this._humbleBuildings,
-                this._humbleCars);
+                this._humbleCars,
+                this._explosions);
         }
 
         /// <summary>
@@ -276,6 +300,17 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                 () => !this._humbleCars.Contains(car));
 
             this._cameraController.AddEffect(followEffect);
+        }
+
+        /// <summary>
+        /// Spawns an explosion.
+        /// </summary>
+        private void SpawnExplosion()
+        {
+            var position = this._cameraController.Camera.State.Position;
+            var explosion = new Explosion(position);
+
+            this._explosions.Add(explosion);
         }
     }
 }
