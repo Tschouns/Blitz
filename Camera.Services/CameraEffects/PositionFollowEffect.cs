@@ -79,7 +79,15 @@ namespace Camera.Services.CameraEffects
             Checks.AssertNotNull(camera, nameof(camera));
 
             // Cheap first draft - TODO: finish...
-            camera.Position = this._followedPosition;
+            // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
+            var state = new CameraState()
+            {
+                Position = this._followedPosition,
+                Orientation = camera.State.Orientation,
+                Scale = camera.State.Scale
+            };
+
+            camera.State = state;
         }
     }
 }

@@ -107,7 +107,15 @@ namespace Camera.Services.CameraEffects
         {
             if (action.IsActive)
             {
-                camera.Position = ChangePositionFunc(camera.Position);
+                // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
+                var state = new CameraState()
+                {
+                    Position = ChangePositionFunc(camera.State.Position),
+                    Orientation = camera.State.Orientation,
+                    Scale = camera.State.Scale
+                };
+
+                camera.State = state;
             }
         }
     }

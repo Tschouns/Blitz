@@ -13,6 +13,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
     using System.Windows.Input;
     using Base.RuntimeChecks;
     using Camera;
+    using Camera.CameraEffects;
     using Geometry.Elements;
     using HumbleWorldObjects;
     using Input;
@@ -48,6 +49,16 @@ namespace BlitzDx.PrototypeRenderLoopDemo
         private readonly IInputAction _actionSpawnCarRight;
 
         /// <summary>
+        /// The input action which starts the "follow cam".
+        /// </summary>
+        private readonly IInputAction _actionFollowCam;
+
+        /// <summary>
+        /// Used to create camera effects.
+        /// </summary>
+        private readonly ICameraEffectCreator _cameraEffectCreator;
+
+        /// <summary>
         /// The camera controller, used control the camera by keyboard.
         /// </summary>
         private readonly ICameraController _cameraController;
@@ -79,9 +90,11 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             this._inputActionManager = inputFactory.CreateInputActionManager();
             this._actionSpawnCarLeft = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.NumPad4));
             this._actionSpawnCarRight = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.NumPad6));
+            this._actionFollowCam = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.F));
             this._actionEndGame = this._inputActionManager.RegisterButtonHitAction(button.Create(Key.Escape));
 
-            var positionCameraEffect = cameraFactory.CameraEffectCreator.CreatePositionAbsoluteByButtonsEffect(
+            this._cameraEffectCreator = cameraFactory.CameraEffectCreator;
+            var positionCameraEffect = this._cameraEffectCreator.CreatePositionAbsoluteByButtonsEffect(
                 this._inputActionManager,
                 button.Create(Key.W),
                 button.Create(Key.S),
@@ -89,7 +102,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                 button.Create(Key.D),
                 50);
 
-            var scaleCameraEffect = cameraFactory.CameraEffectCreator.CreateScaleExponentialByButtonsEffect(
+            var scaleCameraEffect = this._cameraEffectCreator.CreateScaleExponentialByButtonsEffect(
                 this._inputActionManager,
                 button.Create(Key.E),
                 button.Create(Key.Q),
@@ -121,6 +134,12 @@ namespace BlitzDx.PrototypeRenderLoopDemo
 
             this._inputActionManager.Update(realTime.Elapsed);
             this._cameraController.Update(realTime.Elapsed);
+
+            // Follow cam.
+            if (this._actionFollowCam.IsActive)
+            {
+                this.ActivateFollowCam();
+            }
 
             // Spawn cars.
             if (this._actionSpawnCarLeft.IsActive)
@@ -238,6 +257,25 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                 true);
 
             this._humbleCars.Add(car);
+        }
+
+        /// <summary>
+        /// Activates the "follow cam". Makes the camera follow the last car which was spawned.
+        /// </summary>
+        private void ActivateFollowCam()
+        {
+            if (!this._humbleCars.Any())
+            {
+                return;
+            }
+
+            var car = this._humbleCars.Last();
+            var followEffect = this._cameraEffectCreator.CreatePositionFollowEffect(
+                car,
+                aX => aX.Position,
+                () => !this._humbleCars.Contains(car));
+
+            this._cameraController.AddEffect(followEffect);
         }
     }
 }

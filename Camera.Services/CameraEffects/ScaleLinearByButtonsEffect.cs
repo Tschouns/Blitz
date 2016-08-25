@@ -100,19 +100,24 @@ namespace Camera.Services.CameraEffects
         {
             Checks.AssertNotNull(camera, nameof(camera));
 
+            // Temporary hack - TODO: redesign, so an effect does not know the camera, but produces only an "offset".
+            var state = camera.State;
+
             // Increase/decrease scale.
             if (this._increaseScaleAction.IsActive)
             {
-                camera.Scale += this._scaleDifference;
+                state.Scale += this._scaleDifference;
             }
 
             if (this._decreaseScaleAction.IsActive)
             {
-                camera.Scale -= this._scaleDifference;
+                state.Scale -= this._scaleDifference;
             }
 
             // Apply limits.
-            camera.Scale = this._helper.LimitValue(camera.Scale, this._scaleLowerLimit, this._scaleUpperLimit);
+            state.Scale = this._helper.LimitValue(state.Scale, this._scaleLowerLimit, this._scaleUpperLimit);
+
+            camera.State = state;
         }
     }
 }

@@ -15,20 +15,9 @@ namespace Camera
     public interface ICamera
     {
         /// <summary>
-        /// Gets or sets the current position of the camera, i.e. the position in world coordinates that
-        /// the camera points to.
+        /// Gets or sets current camera state.
         /// </summary>
-        Point Position { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current orientation of the camera, about the center (in radians).
-        /// </summary>
-        double Orientation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current camera scale.
-        /// </summary>
-        double Scale { get; set; }
+        CameraState State { get; set; }
 
         /// <summary>
         /// Gets the resulting transformation object, which transforms positions between world
