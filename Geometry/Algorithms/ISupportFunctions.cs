@@ -24,8 +24,8 @@ namespace Geometry.Algorithms
         Point GetSupportPoint(TFigure figure, Vector2 direction);
 
         /// <summary>
-        /// Gets the point in a specified figure which is closest to the specified position.
+        /// Gets the point in a specified figure outline which is closest to the specified position.
         /// </summary>
-        Point GetFigurePointClosestToPosition(TFigure figure, Point position);
+        Point GetFigureOutlinePointClosestToPosition(TFigure figure, Point position);
     }
 }

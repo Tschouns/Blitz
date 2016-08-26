@@ -12,7 +12,7 @@ namespace Physics.Services.Forces
     using Geometry.Elements;
     using Physics.Elements;
     using Physics.Forces;
-
+    using Geometry.Extensions;
     /// <summary>
     /// Simulates a blast, which pushes surrounding objects away.
     /// </summary>
@@ -64,13 +64,17 @@ namespace Physics.Services.Forces
         /// Initializes a new instance of the <see cref="Blast"/> class.
         /// </summary>
         public Blast(
+            ISupportFunctions<TShapeFigure> supportFunctions,
             Point position,
             double force,
             double blastRadius,
             double expansionSpeed)
         {
+            Checks.AssertNotNull(supportFunctions, nameof(supportFunctions));
             Checks.AssertIsPositive(blastRadius, nameof(blastRadius));
             Checks.AssertIsStrictPositive(expansionSpeed, nameof(expansionSpeed));
+
+            this._supportFunctions = supportFunctions;
 
             this._position = position;
             this._maxForce = force;
@@ -96,7 +100,16 @@ namespace Physics.Services.Forces
         /// </summary>
         public void ApplyToObject(IBody<TShapeFigure> physicalObject)
         {
-            throw new NotImplementedException();
+            Checks.AssertNotNull(physicalObject, nameof(physicalObject));
+
+            var pointClosestToBlastCenter = this._supportFunctions.GetFigureOutlinePointClosestToPosition(
+                physicalObject.Shape.Current,
+                this._position);
+
+            var forceVector = pointClosestToBlastCenter.GetOffsetFrom(this._position).Norm().Multiply(this._currentForce);
+            var forceApplicationOffset = pointClosestToBlastCenter.GetOffsetFrom(physicalObject.CurrentState.Position);
+
+            physicalObject.AddForceAtOffset(forceVector, forceApplicationOffset);
         }
     }
 }

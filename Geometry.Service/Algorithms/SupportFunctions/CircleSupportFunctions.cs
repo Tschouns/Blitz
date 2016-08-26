@@ -33,9 +33,9 @@ namespace Geometry.Services.Algorithms.SupportFunctions
         }
 
         /// <summary>
-        /// See <see cref="ISupportFunctions{TFigure}.GetFigurePointClosestToPosition(TFigure, Point)"/>.
+        /// See <see cref="ISupportFunctions{TFigure}.GetFigureOutlinePointClosestToPosition(TFigure, Point)"/>.
         /// </summary>
-        public Point GetFigurePointClosestToPosition(Circle figure, Point position)
+        public Point GetFigureOutlinePointClosestToPosition(Circle figure, Point position)
         {
             Checks.AssertNotNull(figure, nameof(figure));
 
