@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzDx
+namespace BlitzCarShooter
 {
     using System;
     using Base.StartUp;
@@ -22,13 +22,8 @@ namespace BlitzDx
         {
             StartUp.InitializeComponents();
 
-            using (var sim = new PrototypeCameraTransformationDemo())
-            {
-                sim.Run();
-            }
-
-            ////var demo = new PrototypeRenderLoopDemo.DemoGame();
-            ////demo.Run();
+            var demo = new DemoGame();
+            demo.Run();
         }
     }
 }

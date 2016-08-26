@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzDx.PrototypeRenderLoopDemo.HumbleWorldObjects
+namespace BlitzCarShooter.HumbleWorldObjects
 {
     using System.Drawing;
     using Geometry.Elements;

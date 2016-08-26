@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzDx.PrototypeRenderLoopDemo
+namespace BlitzCarShooter
 {
     using System.Collections.Generic;
     using Base.RuntimeChecks;

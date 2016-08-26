@@ -97,14 +97,7 @@
     <Compile Include="PrototypeDxRigidBodySimulation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\DemoGameLogic.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\DemoGameDisplayRenderer.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\DemoGameState.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\DemoGame.cs" />
     <Compile Include="PrototypePhysicsDemo.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\HumbleWorldObjects\Building.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\HumbleWorldObjects\Car.cs" />
-    <Compile Include="PrototypeRenderLoopDemo\HumbleWorldObjects\Explosion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -122,10 +115,6 @@
     <ProjectReference Include="..\Display\Display.csproj">
       <Project>{3ecc218e-a956-4633-aa1a-ba9bc79f119c}</Project>
       <Name>Display</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameLoop\RenderLoop.csproj">
-      <Project>{f8911433-0c31-404c-99a2-45717335b972}</Project>
-      <Name>RenderLoop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>

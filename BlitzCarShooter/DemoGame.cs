@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzDx.PrototypeRenderLoopDemo
+namespace BlitzCarShooter
 {
     using Base.InversionOfControl;
     using Base.RuntimeChecks;
