@@ -139,7 +139,7 @@ namespace Geometry.Services.Algorithms.Gjk
                     var directionFromNewPointBackward = simplexPoints[0].GetOffsetFrom(simplexPoints[1]);
                     var directionFromNewPointTowardsOrigin = simplexPoints[1].AsVector().Invert();
 
-                    if (this.IsDirectionWithin90Degree(directionFromNewPointBackward, directionFromNewPointTowardsOrigin))
+                    if (directionFromNewPointBackward.IsDirectionWithin90Degrees(directionFromNewPointTowardsOrigin))
                     {
                         // The line is closest to the origin, so just update the search direction.
                         var line = new Line(simplexPoints[0], simplexPoints[1]);
@@ -185,16 +185,6 @@ namespace Geometry.Services.Algorithms.Gjk
                 default:
                     throw new ArgumentException($"{nameof(simplexPoints)} contains an unexpected number of points: {simplexPoints.Count}");
             }
-        }
-
-        /// <summary>
-        /// Determines whether the specified directions are within 90 degree (left or right) of one-another.
-        /// </summary>
-        private bool IsDirectionWithin90Degree(Vector2 direction1, Vector2 direction2)
-        {
-            var dotProduct = direction1.Dot(direction2);
-
-            return dotProduct >= 0;
         }
 
         /// <summary>

@@ -70,18 +70,19 @@ namespace Geometry.Services.Algorithms.SupportFunctions
             var closestCorner = cornersOrderedByDistance[0];
             var secondClosestCorner = cornersOrderedByDistance[1];
 
-            // If the two offsets are within 90 degrees, the closest corner is the closest point.
-            if (closestCorner.GetOffsetFrom(position).IsDirectionWithin90Degrees(secondClosestCorner.GetOffsetFrom(position)))
+            // If the offset of the closes corner and the line segment between the two closest corners are within 90 degrees,...
+            if (position.GetOffsetFrom(closestCorner).IsDirectionWithin90Degrees(secondClosestCorner.GetOffsetFrom(closestCorner)))
             {
-                return closestCorner;
+                // ... then the closest point is somewhere on the line segment.
+                var closestPointOnLineSegment = this._lineCalculationHelper.GetIntersectionWithPerpendicularThroughPoint(
+                    new Line(closestCorner, secondClosestCorner),
+                    position);
+
+                return closestPointOnLineSegment;
             }
 
-            // Otherwise, the closest point is somewhere on the line segment between the two closest corners.
-            var closestPointOnLineSegment = this._lineCalculationHelper.GetIntersectionWithPerpendicularThroughPoint(
-                new Line(closestCorner, secondClosestCorner),
-                position);
-
-            return closestPointOnLineSegment;
+            // Otherwise, the closest corner is the closest point.
+            return closestCorner;
         }
     }
 }

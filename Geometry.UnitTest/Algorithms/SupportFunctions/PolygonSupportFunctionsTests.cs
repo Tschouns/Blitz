@@ -32,6 +32,8 @@ namespace Geometry.UnitTest.Algorithms.SupportFunctions
             this.testCandidate = new PolygonSupportFunctions(lineCalculationHelper);
         }
 
+        #region GetSupportPoint
+
         /// <summary>
         /// Does a test.
         /// </summary>
@@ -117,5 +119,151 @@ namespace Geometry.UnitTest.Algorithms.SupportFunctions
                 expectedSupportPoint,
                 resultSupportPoint);
         }
+
+        #endregion
+
+        #region GetFigurePointClosestToPosition
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void GetFigurePointClosestToPosition_CornerIsClosest_ReturnsClosestCorner()
+        {
+            // Arrange
+            var polygon = new Polygon(new[]
+            {
+                new Point(1, 1),
+                new Point(1, 2),
+                new Point(2, 2),
+                new Point(2, 1)
+            });
+
+            var position = new Point(0, 0);
+
+            // Act
+            var closestPoint = this.testCandidate.GetFigurePointClosestToPosition(polygon, position);
+
+            // Assert
+            var expectedClosestPoint = new Point(1, 1);
+
+            Assert.AreEqual(
+                expectedClosestPoint,
+                closestPoint);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void GetFigurePointClosestToPosition_CornerIsJustClosest_ReturnsClosestCorner()
+        {
+            // Arrange
+            var polygon = new Polygon(new[]
+            {
+                new Point(1, 1),
+                new Point(1, 2),
+                new Point(2, 2),
+                new Point(2, 1)
+            });
+
+            var position = new Point(0, 1);
+
+            // Act
+            var closestPoint = this.testCandidate.GetFigurePointClosestToPosition(polygon, position);
+
+            // Assert
+            var expectedClosestPoint = new Point(1, 1);
+
+            Assert.AreEqual(
+                expectedClosestPoint,
+                closestPoint);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void GetFigurePointClosestToPosition_PositionIsBetweenTwoClosestCorners_ReturnsClosestPointOnLineSegment()
+        {
+            // Arrange
+            var polygon = new Polygon(new[]
+            {
+                new Point(1, 1),
+                new Point(1, 3),
+                new Point(2, 3),
+                new Point(2, 1)
+            });
+
+            var position = new Point(0, 2);
+
+            // Act
+            var closestPoint = this.testCandidate.GetFigurePointClosestToPosition(polygon, position);
+
+            // Assert
+            var expectedClosestPoint = new Point(1, 2);
+
+            Assert.AreEqual(
+                expectedClosestPoint,
+                closestPoint);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void GetFigurePointClosestToPosition_PositionIsJustBetweenTwoClosestCorners_ReturnsClosestPointOnLineSegment()
+        {
+            // Arrange
+            var polygon = new Polygon(new[]
+            {
+                new Point(1, 1),
+                new Point(1, 3),
+                new Point(2, 3),
+                new Point(2, 1)
+            });
+
+            var position = new Point(0, 1.5);
+
+            // Act
+            var closestPoint = this.testCandidate.GetFigurePointClosestToPosition(polygon, position);
+
+            // Assert
+            var expectedClosestPoint = new Point(1, 1.5);
+
+            Assert.AreEqual(
+                expectedClosestPoint,
+                closestPoint);
+        }
+
+        /// <summary>
+        /// Does a test.
+        /// </summary>
+        [TestMethod]
+        public void GetFigurePointClosestToPosition_PositionIsWithinPolygon_ReturnsPosition()
+        {
+            // Arrange
+            var polygon = new Polygon(new[]
+            {
+                new Point(1, 1),
+                new Point(1, 3),
+                new Point(2, 3),
+                new Point(2, 1)
+            });
+
+            var position = new Point(0, 1.0001);
+
+            // Act
+            var closestPoint = this.testCandidate.GetFigurePointClosestToPosition(polygon, position);
+
+            // Assert
+            var expectedClosestPoint = new Point(1, 1.0001);
+
+            Assert.AreEqual(
+                expectedClosestPoint,
+                closestPoint);
+        }
+
+        #endregion
     }
 }
