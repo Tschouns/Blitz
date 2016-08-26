@@ -139,7 +139,7 @@ namespace Blitz
                 {
                     // We apply force (towards left) at a point in space to induce torque...
                     var force = new Vector2(-10, 0);
-                    rigidBody.AddForceAtPointInSpace(force, clickPosition);
+                    rigidBody.ApplyForceAtPointInSpace(force, clickPosition);
                 }
             }
 

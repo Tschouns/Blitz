@@ -9,7 +9,7 @@ namespace BlitzCarShooter
     using System.Collections.Generic;
     using Base.RuntimeChecks;
     using Camera;
-    using HumbleWorldObjects;
+    using HumbleWorld;
 
     /// <summary>
     /// Represents a "game state" for this demo.

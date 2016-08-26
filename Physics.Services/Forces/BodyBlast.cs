@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Forces
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Algorithms;
     using Geometry.Elements;
@@ -88,16 +89,26 @@ namespace Physics.Services.Forces
         }
 
         /// <summary>
-        /// See <see cref="IGlobalForce.Step(double)"/>.
+        /// See <see cref="IForce{TPhysicalObject}.IsDepleted"/>.
+        /// </summary>
+        public bool IsDepleted => this._currentForce <= 0;
+
+        /// <summary>
+        /// See <see cref="IForce.Step(double)"/>.
         /// </summary>
         public void Step(double time)
         {
+            if (this.IsDepleted)
+            {
+                return;
+            }
+
             this._currentForce -= time * this._forceDepletionSpeed;
             this._currentBlastRadius += time * this._expansionSpeed;
         }
 
         /// <summary>
-        /// See <see cref="IGlobalForce.ApplyToObject(TPhysicalObject)"/>.
+        /// See <see cref="IForce.ApplyToObject(TPhysicalObject)"/>.
         /// </summary>
         public void ApplyToObject(IBody<TShapeFigure> physicalObject)
         {
@@ -110,7 +121,7 @@ namespace Physics.Services.Forces
             var forceVector = pointClosestToBlastCenter.GetOffsetFrom(this._position).Norm().Multiply(this._currentForce);
             var forceApplicationOffset = pointClosestToBlastCenter.GetOffsetFrom(physicalObject.CurrentState.Position);
 
-            physicalObject.AddForceAtOffset(forceVector, forceApplicationOffset);
+            physicalObject.ApplyForceAtOffset(forceVector, forceApplicationOffset);
         }
     }
 }

@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzCarShooter.HumbleWorldObjects
+namespace BlitzCarShooter.HumbleWorld
 {
     using System.Drawing;
     using Geometry.Elements;
@@ -19,7 +19,11 @@ namespace BlitzCarShooter.HumbleWorldObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="Building"/> class.
         /// </summary>
-        public Building(Point position, double width, double height, Color color)
+        public Building(
+            Point position,
+            double width,
+            double height,
+            Color color)
         {
             this.Polygon = new Rectangle(
                 position,

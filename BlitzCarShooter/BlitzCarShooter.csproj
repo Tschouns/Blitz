@@ -52,9 +52,9 @@
     <Compile Include="DemoGameDisplayRenderer.cs" />
     <Compile Include="DemoGameLogic.cs" />
     <Compile Include="DemoGameState.cs" />
-    <Compile Include="HumbleWorldObjects\Building.cs" />
-    <Compile Include="HumbleWorldObjects\Car.cs" />
-    <Compile Include="HumbleWorldObjects\Explosion.cs" />
+    <Compile Include="HumbleWorld\Building.cs" />
+    <Compile Include="HumbleWorld\Car.cs" />
+    <Compile Include="HumbleWorld\Explosion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

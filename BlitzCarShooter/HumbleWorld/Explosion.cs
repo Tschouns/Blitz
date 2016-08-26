@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzCarShooter.HumbleWorldObjects
+namespace BlitzCarShooter.HumbleWorld
 {
     using System.Drawing;
     using Geometry.Elements;

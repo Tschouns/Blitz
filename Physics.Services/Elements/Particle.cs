@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Elements
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
@@ -28,6 +29,16 @@ namespace Physics.Services.Elements
         private Vector2 _appliedForce;
 
         /// <summary>
+        /// Stores the currently applied acceleration.
+        /// </summary>
+        private Vector2 _appliedAcceleration;
+
+        /// <summary>
+        /// Stores the currently applied velocity.
+        /// </summary>
+        private Vector2 _appliedVelocity;
+
+        /// <summary>
         /// Stores the current state of this particle.
         /// </summary>
         private ParticleState _state;
@@ -45,7 +56,11 @@ namespace Physics.Services.Elements
 
             this._helper = helper;
             this.Mass = mass;
+
             this._appliedForce = new Vector2();
+            this._appliedAcceleration = new Vector2();
+            this._appliedVelocity = new Vector2();
+
             this._state = initalState;
         }
 
@@ -60,29 +75,45 @@ namespace Physics.Services.Elements
         public ParticleState CurrentState => this._state;
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.AddForce"/>.
+        /// See <see cref="IPhysicalObject.ApplyForce(Vector2)"/>.
         /// </summary>
-        public void AddForce(Vector2 force)
+        public void ApplyForce(Vector2 force)
         {
             this._appliedForce = this._appliedForce.AddVector(force);
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.AddForceAtOffset"/>.
+        /// See <see cref="IPhysicalObject.ApplyForceAtOffset(Vector2, Vector2)"/>.
         /// </summary>
-        public void AddForceAtOffset(Vector2 force, Vector2 offset)
+        public void ApplyForceAtOffset(Vector2 force, Vector2 offset)
         {
             // A particle behaves the same way, no matter what the offset is.
-            this.AddForce(force);
+            this.ApplyForce(force);
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.AddForceAtPointInSpace"/>.
+        /// See <see cref="IPhysicalObject.ApplyForceAtPointInSpace(Vector2, Point)"/>.
         /// </summary>
-        public void AddForceAtPointInSpace(Vector2 force, Point pointInSpace)
+        public void ApplyForceAtPointInSpace(Vector2 force, Point pointInSpace)
         {
             // A particle behaves the same way, no matter what the offset is.
-            this.AddForce(force);
+            this.ApplyForce(force);
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalObject.ApplyAcceleration(Vector2)"/>.
+        /// </summary>
+        public void ApplyAcceleration(Vector2 acceleration)
+        {
+            this._appliedAcceleration = this._appliedAcceleration.AddVector(acceleration);
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalObject.ApplyVelocity(Vector2)"/>.
+        /// </summary>
+        public void ApplyVelocity(Vector2 velocity)
+        {
+            this._appliedVelocity = this._appliedVelocity.AddVector(velocity);
         }
 
         /// <summary>
@@ -91,13 +122,15 @@ namespace Physics.Services.Elements
         public void Step(double time)
         {
             var acceleration = this._helper.CalculateAcceleration(
-                this._appliedForce,
-                this.Mass);
+                    this._appliedForce,
+                    this.Mass)
+                .AddVector(this._appliedAcceleration);
 
             this._state.Velocity = this._helper.CalculateVelocity(
-                this._state.Velocity,
-                acceleration,
-                time);
+                    this._state.Velocity,
+                    acceleration,
+                    time)
+                .AddVector(this._appliedVelocity);
 
             this._state.Position = this._helper.CalculatePosition(
                 this._state.Position,
@@ -106,11 +139,13 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.ResetAppliedForce"/>.
+        /// See <see cref="IPhysicalObject.ResetAppliedPhysicalQuantities"/>.
         /// </summary>
-        public void ResetAppliedForce()
+        public void ResetAppliedPhysicalQuantities()
         {
             this._appliedForce = new Vector2();
+            this._appliedAcceleration = new Vector2();
+            this._appliedVelocity = new Vector2();
         }
     }
 }

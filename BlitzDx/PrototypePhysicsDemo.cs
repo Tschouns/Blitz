@@ -109,7 +109,7 @@ namespace BlitzDx
                 var forceOrigin = new Point(300, 300);
                 foreach (var body in this._bodies)
                 {
-                   body.AddForceAtPointInSpace(force, forceOrigin);
+                   body.ApplyForceAtPointInSpace(force, forceOrigin);
                 }
 
                 // Step the simulation.

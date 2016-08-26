@@ -19,20 +19,30 @@ namespace Physics.Elements
         double Mass { get; }
 
         /// <summary>
-        /// Applies the specified force to a "physical object", at the origin (center of mass).
+        /// Applies the specified force to the "physical object", at the origin (center of mass).
         /// </summary>
-        void AddForce(Vector2 force);
+        void ApplyForce(Vector2 force);
 
         /// <summary>
-        /// Applies the specified force to a "physical object", at a specific point, specified
+        /// Applies the specified force to the "physical object", at a specific point, specified
         /// by an offset relative to the objects origin (center of mass).
         /// </summary>
-        void AddForceAtOffset(Vector2 force, Vector2 offset);
+        void ApplyForceAtOffset(Vector2 force, Vector2 offset);
 
         /// <summary>
-        /// Applies the specified force to a "physical object", at a specific point in space.
+        /// Applies the specified force to the "physical object", at a specific point in space.
         /// </summary>
-        void AddForceAtPointInSpace(Vector2 force, Point pointInSpace);
+        void ApplyForceAtPointInSpace(Vector2 force, Point pointInSpace);
+
+        /// <summary>
+        /// Applies the specified acceleration to the "physical object".
+        /// </summary>
+        void ApplyAcceleration(Vector2 acceleration);
+
+        /// <summary>
+        /// Applies the specified velocity to the "physical object".
+        /// </summary>
+        void ApplyVelocity(Vector2 velocity);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.
@@ -46,8 +56,8 @@ namespace Physics.Elements
         void Step(double time);
 
         /// <summary>
-        /// Resets all applied force.
+        /// Resets all the applied physical quantities, e.g. force, acceleration, velocity,...
         /// </summary>
-        void ResetAppliedForce();
+        void ResetAppliedPhysicalQuantities();
     }
 }

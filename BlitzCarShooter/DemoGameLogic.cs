@@ -16,7 +16,7 @@ namespace BlitzCarShooter
     using Camera.CameraEffects;
     using Geometry.Algorithms.Gjk;
     using Geometry.Elements;
-    using HumbleWorldObjects;
+    using HumbleWorld;
     using Input;
     using Input.InputAction;
     using RenderLoop;

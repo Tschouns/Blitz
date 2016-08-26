@@ -4,10 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlitzCarShooter.HumbleWorldObjects
+namespace BlitzCarShooter.HumbleWorld
 {
     using System.Drawing;
+    using Base.RuntimeChecks;
     using Geometry.Elements;
+    using Physics.Elements;
     using Point = Geometry.Elements.Point;
     using Rectangle = Geometry.Elements.Rectangle;
 
@@ -36,14 +38,22 @@ namespace BlitzCarShooter.HumbleWorldObjects
         /// </summary>
         private readonly bool _isMovingFromRightToLeft;
 
+        /////// <summary>
+        /////// The "physical" car body.
+        /////// </summary>
+        ////private readonly bool _carBody;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Car"/> class.
         /// </summary>
         public Car(
+            //IBody<Polygon> carBody,
             Color color,
             Point startingPosition,
             bool isMovingFromRightToLeft)
         {
+            //Checks.AssertNotNull(carBody, nameof(carBody));
+
             this.Color = color;
             this.Position = startingPosition;
             this._isMovingFromRightToLeft = isMovingFromRightToLeft;

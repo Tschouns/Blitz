@@ -19,6 +19,13 @@ namespace Physics.Forces
         where TPhysicalObject : class, IPhysicalObject
     {
         /// <summary>
+        /// Gets a value indicating whether the force is depleted, i.e. it does no longer have any
+        /// effect on an object when applied to it.
+        /// An depleted force can be disposed of.
+        /// </summary>
+        bool IsDepleted { get; }
+
+        /// <summary>
         /// Steps forward in time, as the force may be dynamic and change over time (like wind).
         /// </summary>
         void Step(double time);

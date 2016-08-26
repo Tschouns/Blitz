@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Forces
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Physics.Elements;
@@ -36,6 +37,11 @@ namespace Physics.Services.Forces
         }
 
         /// <summary>
+        /// See <see cref="IForce{TPhysicalObject}.IsDepleted"/>. Gravity is never depleted.
+        /// </summary>
+        public bool IsDepleted => false;
+
+        /// <summary>
         /// See <see cref="IGlobalForce.ApplyToObject(TPhysicalObject)"/>.
         /// </summary>
         public void ApplyToObject(TPhysicalObject physicalObject)
@@ -44,7 +50,7 @@ namespace Physics.Services.Forces
 
             var force = new Vector2(0, -(this._gravityAcceleration * physicalObject.Mass));
 
-            physicalObject.AddForce(force);
+            physicalObject.ApplyForce(force);
         }
 
         /// <summary>

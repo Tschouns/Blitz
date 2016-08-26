@@ -11,7 +11,7 @@ namespace Physics.Services.Elements
     using Geometry.Elements;
     using Physics.Elements;
     using Physics.Forces;
-
+    using System.Linq;
     /// <summary>
     /// See <see cref="IPhysicalSpace"/>.
     /// </summary>
@@ -95,6 +95,11 @@ namespace Physics.Services.Elements
         {
             Checks.AssertIsPositive(time, nameof(time));
 
+            // Remove depleted forces.
+            RemoveDepletedForces(this._particleForces);
+            RemoveDepletedForces(this._bodyForces);
+
+            // Update particles.
             foreach (var particle in this._particles)
             {
                 foreach (var force in this._particleForces)
@@ -103,9 +108,10 @@ namespace Physics.Services.Elements
                 }
 
                 particle.Step(time);
-                particle.ResetAppliedForce();
+                particle.ResetAppliedPhysicalQuantities();
             }
 
+            // Update bodies.
             foreach (var body in this._bodies)
             {
                 foreach (var force in this._bodyForces)
@@ -114,7 +120,25 @@ namespace Physics.Services.Elements
                 }
 
                 body.Step(time);
-                body.ResetAppliedForce();
+                body.ResetAppliedPhysicalQuantities();
+            }
+        }
+
+        /// <summary>
+        /// Removes the depleted forces from the specified list.
+        /// </summary>
+        /// <typeparam name="TPhysicalObject">
+        /// The type of "physical object" the force applies to
+        /// </typeparam>
+        private static void RemoveDepletedForces<TPhysicalObject>(IList<IForce<TPhysicalObject>> forces)
+            where TPhysicalObject : class, IPhysicalObject
+        {
+            Checks.AssertNotNull(forces, nameof(forces));
+
+            var depletedForces = forces.Where(x => x.IsDepleted).ToList();
+            foreach (var force in depletedForces)
+            {
+                forces.Remove(force);
             }
         }
     }
