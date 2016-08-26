@@ -6,6 +6,7 @@
 
 namespace Physics.World
 {
+    using Forces;
     using Geometry.Elements;
     using Physics.Elements;
 
@@ -23,6 +24,11 @@ namespace Physics.World
         /// Spawns a rigid body in the "physical world".
         /// </summary>
         IBody<Polygon> SpawnRigidBody(double mass, Polygon polygon, Point position);
+
+        /// <summary>
+        /// Adds a force to the "physical world".
+        /// </summary>
+        void AddForce(ForceSet force);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

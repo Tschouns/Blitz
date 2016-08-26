@@ -4,9 +4,13 @@
   x inertia and torque calculation, based on force applied to a specific point
   x angular acceleration and velocity calculation
 
-- Contstrains:
+- Collision detection
   - basic collision detection (narrow phase)
+  X GJK Algorithm
+  - good abstraction for comparing all types of objects with eachother
   - AABB broad phase optimization
+
+- Contstrains:
   - "world bounds"
   - rigid compounds
   - bearings
@@ -15,33 +19,41 @@
   - springs
   - collision groups
 
-- "Global forces"
+- Forces
+  X gravity
   - air resistance
   - wind
   - buoyant force
+  - blast
 
 ===Display API===
 - Evalluation and implementation of a reasonable display API (some lightweight managed DX10 or openGL wrapper...)
-  - SharpDX?
+  X SharpDX?
   - SharpGL?
   - MonoGame?
 
+===Input===
+- Abstraction
+  X Input action
+  X Keyboard buttons
+  - Mouse buttons
+
 ===Camera===
-  - Projection
-  - Camera movement
+  X Projection
+  X Camera movement
   - Camera effects:
-	- position by key input, axis-aligned
-	- position by key inpit, relative to orientation
+	X position by key input, axis-aligned
+	- position by key input, relative to orientation
 	- position by drag
 	- position ..., smooth acceleration
 	- position "track shot"
         - orientation by key input
-	- scale by key (or mouse wheel) input, linear
-	- scale progressive (to resemble camera "movement" in Z axis)
+	X scale by key (or mouse wheel) input, linear
+	X scale progressive (to resemble camera "movement" in Z axis)
 
 ==="Engine"===
 - Reasonable game loop and game time management
-  - Update loop
+  X Update loop
   - multiple rendering loops in seperate threads
   - "game state" buffer
 

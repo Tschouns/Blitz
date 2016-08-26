@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\IElementFactory.cs" />
+    <Compile Include="Forces\ForceSet.cs" />
     <Compile Include="Forces\IForceFactory.cs" />
-    <Compile Include="Forces\IGlobalForce.cs" />
+    <Compile Include="Forces\IForce.cs" />
     <Compile Include="Elements\IPhysicalObject.cs" />
     <Compile Include="Elements\IPhysicalSpace.cs" />
     <Compile Include="Elements\ParticleState.cs" />
@@ -57,6 +58,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{63cef2ea-8717-4b68-93b7-36c8cf06e1b2}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{ec0115bc-f636-428c-9505-55a072a1b238}</Project>
       <Name>Geometry</Name>

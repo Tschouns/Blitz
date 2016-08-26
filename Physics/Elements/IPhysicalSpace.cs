@@ -17,12 +17,12 @@ namespace Physics.Elements
         /// <summary>
         /// Adds a force, which is applied to particles within the "physical space".
         /// </summary>
-        void AddForceForParticles(IGlobalForce<IParticle> force);
+        void AddForceForParticles(IForce<IParticle> force);
         
         /// <summary>
         /// Adds a force, which is applied to bodies within the "physical space".
         /// </summary>
-        void AddForceForBodies(IGlobalForce<IBody<Polygon>> force);
+        void AddForceForBodies(IForce<IBody<Polygon>> force);
 
         /// <summary>
         /// Adds a particle to the "physical space".

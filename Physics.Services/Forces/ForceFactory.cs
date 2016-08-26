@@ -6,8 +6,8 @@
 
 namespace Physics.Services.Forces
 {
-    using System;
     using Base.RuntimeChecks;
+    using Geometry.Algorithms;
     using Geometry.Elements;
     using Physics.Elements;
     using Physics.Forces;
@@ -18,23 +18,55 @@ namespace Physics.Services.Forces
     public class ForceFactory : IForceFactory
     {
         /// <summary>
-        /// See <see cref="IForceFactory.CreateGravityForParticles(double)"/>.
+        /// Used by certain forces.
         /// </summary>
-        public IGlobalForce<IParticle> CreateGravityForParticles(double acceleration)
-        {
-            Checks.AssertIsPositive(acceleration, nameof(acceleration));
+        private readonly ISupportFunctions<Polygon> _polygonSupportFunctions;
 
-            return new Gravity<IParticle>(acceleration);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ForceFactory"/> class.
+        /// </summary>
+        public ForceFactory(ISupportFunctions<Polygon> polygonSupportFunctions)
+        {
+            Checks.AssertNotNull(polygonSupportFunctions, nameof(polygonSupportFunctions));
+
+            this._polygonSupportFunctions = polygonSupportFunctions;
         }
 
         /// <summary>
-        /// See <see cref="IForceFactory.CreateGravityForBodies(double)"/>.
+        /// See <see cref="IForceFactory.CreateGravity(double)"/>.
         /// </summary>
-        public IGlobalForce<IBody<Polygon>> CreateGravityForBodies(double acceleration)
+        public ForceSet CreateGravity(double acceleration)
         {
             Checks.AssertIsPositive(acceleration, nameof(acceleration));
 
-            return new Gravity<IBody<Polygon>>(acceleration);
+            var gravityForParticles = new GenericGravity<IParticle>(acceleration);
+            var gravityForBodies = new GenericGravity<IBody<Polygon>>(acceleration);
+
+            return new ForceSet(gravityForParticles, gravityForBodies);
+        }
+
+        /// <summary>
+        /// See <see cref="IForceFactory.CreateBlast(Point, double, double, double)"/>.
+        /// </summary>
+        public ForceSet CreateBlast(
+            Point position,
+            double force,
+            double blastRadius,
+            double expansionSpeed)
+        {
+            Checks.AssertIsPositive(blastRadius, nameof(blastRadius));
+            Checks.AssertIsStrictPositive(expansionSpeed, nameof(expansionSpeed));
+
+            // TODO: make blast generic, add "apply strategies" for each type.
+            var blastForParticles = new GenericDummyForce<IParticle>();
+            var blastForBodies = new BodyBlast<Polygon>(
+                this._polygonSupportFunctions,
+                position,
+                force,
+                blastRadius,
+                expansionSpeed);
+
+            return new ForceSet(blastForParticles, blastForBodies);
         }
     }
 }

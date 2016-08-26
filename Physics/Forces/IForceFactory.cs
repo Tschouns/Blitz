@@ -6,8 +6,8 @@
 
 namespace Physics.Forces
 {
-    using Geometry.Elements;
     using Elements;
+    using Geometry.Elements;
 
     /// <summary>
     /// Creates forces.
@@ -15,13 +15,17 @@ namespace Physics.Forces
     public interface IForceFactory
     {
         /// <summary>
-        /// Creates a <see cref="IGlobalForce"/> which simulates "gravity" for particles.
+        /// Creates "gravity".
         /// </summary>
-        IGlobalForce<IParticle> CreateGravityForParticles(double acceleration);
+        ForceSet CreateGravity(double acceleration);
 
         /// <summary>
-        /// Creates a <see cref="IGlobalForce"/> which simulates "gravity" for bodies.
+        /// Creates a blast which pushes away surrounding objects.
         /// </summary>
-        IGlobalForce<IBody<Polygon>> CreateGravityForBodies(double acceleration);
+        ForceSet CreateBlast(
+            Point position,
+            double force,
+            double blastRadius,
+            double expansionSpeed);
     }
 }

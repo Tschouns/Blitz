@@ -9,13 +9,13 @@ namespace Physics.Forces
     using Physics.Elements;
 
     /// <summary>
-    /// Represents a "global force" which is applied to all <see cref="TPhysicalObject"/> within
-    /// a "space", such as gravity, air resistance, wind, buoyant force,...
+    /// Represents a force which can be applied to <see cref="TPhysicalObject"/>s within
+    /// a "space", such as gravity, air resistance, wind, buoyant force, blasts,...
     /// </summary>
     /// <typeparam name="TPhysicalObject">
     /// Type of "physical object" this force can be applied to
     /// </typeparam>
-    public interface IGlobalForce<TPhysicalObject>
+    public interface IForce<TPhysicalObject>
         where TPhysicalObject : class, IPhysicalObject
     {
         /// <summary>

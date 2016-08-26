@@ -6,17 +6,18 @@
 
 namespace Physics.Services.Forces
 {
-    using System;
     using Base.RuntimeChecks;
     using Geometry.Algorithms;
     using Geometry.Elements;
+    using Geometry.Extensions;
     using Physics.Elements;
     using Physics.Forces;
-    using Geometry.Extensions;
+
     /// <summary>
-    /// Simulates a blast, which pushes surrounding objects away.
+    /// Simulates a blast, which pushes surrounding objects away. It can be applied
+    /// to any <see cref="IBody{TShapeFigure}"/>.
     /// </summary>
-    public class Blast<TShapeFigure> : IGlobalForce<IBody<TShapeFigure>>
+    public class BodyBlast<TShapeFigure> : IForce<IBody<TShapeFigure>>
         where TShapeFigure : class, IFigure
     {
         /// <summary>
@@ -63,7 +64,7 @@ namespace Physics.Services.Forces
         /// <summary>
         /// Initializes a new instance of the <see cref="Blast"/> class.
         /// </summary>
-        public Blast(
+        public BodyBlast(
             ISupportFunctions<TShapeFigure> supportFunctions,
             Point position,
             double force,

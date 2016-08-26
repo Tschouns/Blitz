@@ -6,7 +6,6 @@
 
 namespace Physics.Services.Elements
 {
-    using System;
     using System.Collections.Generic;
     using Base.RuntimeChecks;
     using Geometry.Elements;
@@ -21,12 +20,12 @@ namespace Physics.Services.Elements
         /// <summary>
         /// Holds the forces which are applied to particles in the space.
         /// </summary>
-        private readonly IList<IGlobalForce<IParticle>> _particleForces;
+        private readonly IList<IForce<IParticle>> _particleForces;
 
         /// <summary>
         /// Holds the forces which are applied to bodies in the space.
         /// </summary>
-        private readonly IList<IGlobalForce<IBody<Polygon>>> _bodyForces;
+        private readonly IList<IForce<IBody<Polygon>>> _bodyForces;
 
         /// <summary>
         /// Holds all particles in the space.
@@ -43,16 +42,16 @@ namespace Physics.Services.Elements
         /// </summary>
         public PhysicalSpace()
         {
-            this._particleForces = new List<IGlobalForce<IParticle>>();
-            this._bodyForces = new List<IGlobalForce<IBody<Polygon>>>();
+            this._particleForces = new List<IForce<IParticle>>();
+            this._bodyForces = new List<IForce<IBody<Polygon>>>();
             this._particles = new List<IParticle>();
             this._bodies = new List<IBody<Polygon>>();
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalSpace.AddForceForParticles(IGlobalForce{IParticle})"/>.
+        /// See <see cref="IPhysicalSpace.AddForceForParticles(IForce{IParticle})"/>.
         /// </summary>
-        public void AddForceForParticles(IGlobalForce<IParticle> force)
+        public void AddForceForParticles(IForce<IParticle> force)
         {
             Checks.AssertNotNull(force, nameof(force));
 
@@ -60,9 +59,9 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalSpace.AddForceForBodies(IGlobalForce{IBody{Polygon}})"/>.
+        /// See <see cref="IPhysicalSpace.AddForceForBodies(IForce{IBody{Polygon}})"/>.
         /// </summary>
-        public void AddForceForBodies(IGlobalForce<IBody<Polygon>> force)
+        public void AddForceForBodies(IForce<IBody<Polygon>> force)
         {
             Checks.AssertNotNull(force, nameof(force));
 
