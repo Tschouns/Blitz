@@ -63,3 +63,8 @@
 ===Animation===
 - Sprite batch animation
 - Rigged character animation
+
+===Demo "Game"===
+- Create project
+- "World"
+- Use physics to toss the cars around
