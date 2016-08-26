@@ -136,8 +136,8 @@ namespace Blitz
             eventArgs.DrawingHandler.DrawDot(GeometryConstants.Origin.AddVector(this._displayOffset));
 
             // Draw polygons.
-            var dotsForPolygon1WithOffset = this._dotsForPolygon1.Select(aX => aX.AddVector(this._displayOffset)).ToList();
-            var dotsForPolygon2WithOffset = this._dotsForPolygon2.Select(aX => aX.AddVector(this._displayOffset)).ToList();
+            var dotsForPolygon1WithOffset = this._dotsForPolygon1.Select(x => x.AddVector(this._displayOffset)).ToList();
+            var dotsForPolygon2WithOffset = this._dotsForPolygon2.Select(x => x.AddVector(this._displayOffset)).ToList();
 
             eventArgs.DrawingHandler.DrawPolygon(dotsForPolygon1WithOffset, Brushes.Aqua);
             eventArgs.DrawingHandler.DrawPolygon(dotsForPolygon2WithOffset, Brushes.Cornsilk);
@@ -145,12 +145,12 @@ namespace Blitz
             // Draw magic pol<gon.
             if (this._doPolygonsIntersectResult?.MagicPolygonNullable != null)
             {
-                var firstMagicTriangleWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Take(3).Select(aX => aX.AddVector(this._displayOffset)).ToList();
+                var firstMagicTriangleWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Take(3).Select(x => x.AddVector(this._displayOffset)).ToList();
                 eventArgs.DrawingHandler.DrawPolygon(firstMagicTriangleWithOffset);
 
                 if (this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Count() > 3)
                 {
-                    var secondMagicTriangleWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Skip(1).Select(aX => aX.AddVector(this._displayOffset)).ToList();
+                    var secondMagicTriangleWithOffset = this._doPolygonsIntersectResult.MagicPolygonNullable.Corners.Skip(1).Select(x => x.AddVector(this._displayOffset)).ToList();
                     eventArgs.DrawingHandler.DrawPolygon(secondMagicTriangleWithOffset);
                 }
             }

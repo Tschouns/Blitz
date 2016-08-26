@@ -81,7 +81,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             Polygon polygon,
             ICameraTransformation transform)
         {
-            var transformedCorners = polygon.Corners.Select(aX => transform.WorldToViewport(aX)).ToList();
+            var transformedCorners = polygon.Corners.Select(x => transform.WorldToViewport(x)).ToList();
 
             return transformedCorners;
         }

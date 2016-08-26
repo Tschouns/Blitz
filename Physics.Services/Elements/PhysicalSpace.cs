@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Elements
 {
+    using System;
     using System.Collections.Generic;
     using Base.RuntimeChecks;
     using Geometry.Elements;
@@ -18,32 +19,54 @@ namespace Physics.Services.Elements
     public class PhysicalSpace : IPhysicalSpace
     {
         /// <summary>
-        /// Holds the global forces in the space.
+        /// Holds the forces which are applied to particles in the space.
         /// </summary>
-        private readonly IList<IGlobalForce> _globalForces;
+        private readonly IList<IGlobalForce<IParticle>> _particleForces;
 
         /// <summary>
-        /// Holds all "physical" objects in the space.
+        /// Holds the forces which are applied to bodies in the space.
         /// </summary>
-        private readonly IList<IPhysicalObject> _physicalObjects;
+        private readonly IList<IGlobalForce<IBody<Polygon>>> _bodyForces;
+
+        /// <summary>
+        /// Holds all particles in the space.
+        /// </summary>
+        private readonly IList<IParticle> _particles;
+
+        /// <summary>
+        /// Holds all bodies in the space.
+        /// </summary>
+        private readonly IList<IBody<Polygon>> _bodies;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalSpace"/> class.
         /// </summary>
         public PhysicalSpace()
         {
-            this._globalForces = new List<IGlobalForce>();
-            this._physicalObjects = new List<IPhysicalObject>();
+            this._particleForces = new List<IGlobalForce<IParticle>>();
+            this._bodyForces = new List<IGlobalForce<IBody<Polygon>>>();
+            this._particles = new List<IParticle>();
+            this._bodies = new List<IBody<Polygon>>();
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalSpace.AddGlobalForce"/>.
+        /// See <see cref="IPhysicalSpace.AddForceForParticles(IGlobalForce{IParticle})"/>.
         /// </summary>
-        public void AddGlobalForce(IGlobalForce globalForce)
+        public void AddForceForParticles(IGlobalForce<IParticle> force)
         {
-            Checks.AssertNotNull(globalForce, nameof(globalForce));
+            Checks.AssertNotNull(force, nameof(force));
 
-            this._globalForces.Add(globalForce);
+            this._particleForces.Add(force);
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalSpace.AddForceForBodies(IGlobalForce{IBody{Polygon}})"/>.
+        /// </summary>
+        public void AddForceForBodies(IGlobalForce<IBody<Polygon>> force)
+        {
+            Checks.AssertNotNull(force, nameof(force));
+
+            this._bodyForces.Add(force);
         }
 
         /// <summary>
@@ -53,7 +76,7 @@ namespace Physics.Services.Elements
         {
             Checks.AssertNotNull(particle, nameof(particle));
 
-            this._physicalObjects.Add(particle);
+            this._particles.Add(particle);
         }
 
         /// <summary>
@@ -63,7 +86,7 @@ namespace Physics.Services.Elements
         {
             Checks.AssertNotNull(body, nameof(body));
 
-            this._physicalObjects.Add(body);
+            this._bodies.Add(body);
         }
 
         /// <summary>
@@ -73,15 +96,26 @@ namespace Physics.Services.Elements
         {
             Checks.AssertIsPositive(time, nameof(time));
 
-            foreach (var physicalObject in this._physicalObjects)
+            foreach (var particle in this._particles)
             {
-                foreach (var globalForce in this._globalForces)
+                foreach (var force in this._particleForces)
                 {
-                    globalForce.ApplyToObject(physicalObject);
+                    force.ApplyToObject(particle);
                 }
 
-                physicalObject.Step(time);
-                physicalObject.ResetAppliedForce();
+                particle.Step(time);
+                particle.ResetAppliedForce();
+            }
+
+            foreach (var body in this._bodies)
+            {
+                foreach (var force in this._bodyForces)
+                {
+                    force.ApplyToObject(body);
+                }
+
+                body.Step(time);
+                body.ResetAppliedForce();
             }
         }
     }

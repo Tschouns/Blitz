@@ -4,10 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.Services.Algorithms.Gjk
+namespace Geometry.Services.Algorithms.SupportFunctions
 {
+    using System;
     using Base.RuntimeChecks;
-    using Geometry.Algorithms.Gjk;
+    using Geometry.Algorithms;
     using Geometry.Elements;
     using Geometry.Extensions;
 
@@ -29,6 +30,18 @@ namespace Geometry.Services.Algorithms.Gjk
             var supportPoint = figure.Center.AddVector(supportPointOffsetFromCenter);
 
             return supportPoint;
+        }
+
+        /// <summary>
+        /// See <see cref="ISupportFunctions{TFigure}.GetFigurePointClosestToPosition(TFigure, Point)"/>.
+        /// </summary>
+        public Point GetFigurePointClosestToPosition(Circle figure, Point position)
+        {
+            Checks.AssertNotNull(figure, nameof(figure));
+
+            var directionFromCircleCenterToPosition = position.GetOffsetFrom(figure.Center);
+
+            return this.GetSupportPoint(figure, directionFromCircleCenterToPosition);
         }
     }
 }

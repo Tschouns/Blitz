@@ -6,7 +6,10 @@
 
 namespace Physics.Services.Forces
 {
+    using System;
     using Base.RuntimeChecks;
+    using Geometry.Elements;
+    using Physics.Elements;
     using Physics.Forces;
 
     /// <summary>
@@ -15,13 +18,23 @@ namespace Physics.Services.Forces
     public class ForceFactory : IForceFactory
     {
         /// <summary>
-        /// See <see cref="IForceFactory.CreateGravity"/>.
+        /// See <see cref="IForceFactory.CreateGravityForParticles(double)"/>.
         /// </summary>
-        public IGlobalForce CreateGravity(double acceleration)
+        public IGlobalForce<IParticle> CreateGravityForParticles(double acceleration)
         {
             Checks.AssertIsPositive(acceleration, nameof(acceleration));
 
-            return new Gravity(acceleration);
+            return new Gravity<IParticle>(acceleration);
+        }
+
+        /// <summary>
+        /// See <see cref="IForceFactory.CreateGravityForBodies(double)"/>.
+        /// </summary>
+        public IGlobalForce<IBody<Polygon>> CreateGravityForBodies(double acceleration)
+        {
+            Checks.AssertIsPositive(acceleration, nameof(acceleration));
+
+            return new Gravity<IBody<Polygon>>(acceleration);
         }
     }
 }

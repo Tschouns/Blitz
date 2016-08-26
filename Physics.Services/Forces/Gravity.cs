@@ -14,7 +14,11 @@ namespace Physics.Services.Forces
     /// <summary>
     /// Simulates gravity.
     /// </summary>
-    public class Gravity : IGlobalForce
+    /// <typeparam name="TPhysicalObject">
+    /// Type of "physical object" this force can be applied to
+    /// </typeparam>
+    public class Gravity<TPhysicalObject> : IGlobalForce<TPhysicalObject>
+        where TPhysicalObject : class, IPhysicalObject
     {
         /// <summary>
         /// Stores the actual force vector.
@@ -32,9 +36,9 @@ namespace Physics.Services.Forces
         }
 
         /// <summary>
-        /// See <see cref="IGlobalForce.ApplyToObject"/>.
+        /// See <see cref="IGlobalForce.ApplyToObject(TPhysicalObject)"/>.
         /// </summary>
-        public void ApplyToObject(IPhysicalObject physicalObject)
+        public void ApplyToObject(TPhysicalObject physicalObject)
         {
             Checks.AssertNotNull(physicalObject, nameof(physicalObject));
 

@@ -46,9 +46,9 @@ namespace Base.StartUp
             foreach (var assembly in assemblies)
             {               
                 var types = assembly.DefinedTypes;
-                var classes = types.Where(aX => aX.IsClass).ToList();
-                var pluginInterfaceClasses = classes.Where(aX => typeof(IProjectInitializationPlugin).IsAssignableFrom(aX)).ToList();
-                var pluginAttributeDesignatedClasse = pluginInterfaceClasses.Where(aX => aX.GetCustomAttribute<ProjectInitializationPluginAttribute>() != null).ToList();
+                var classes = types.Where(x => x.IsClass).ToList();
+                var pluginInterfaceClasses = classes.Where(x => typeof(IProjectInitializationPlugin).IsAssignableFrom(x)).ToList();
+                var pluginAttributeDesignatedClasse = pluginInterfaceClasses.Where(x => x.GetCustomAttribute<ProjectInitializationPluginAttribute>() != null).ToList();
 
                 projectInitializationPluginTypes.AddElements(pluginAttributeDesignatedClasse);
             }

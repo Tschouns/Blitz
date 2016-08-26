@@ -41,9 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\Gjk\CircleSupportFunctions.cs" />
+    <Compile Include="Algorithms\SupportFunctions\CircleSupportFunctions.cs" />
     <Compile Include="Algorithms\Gjk\GjkAlgorithm.cs" />
-    <Compile Include="Algorithms\Gjk\PolygonSupportFunctions.cs" />
+    <Compile Include="Algorithms\SupportFunctions\PolygonSupportFunctions.cs" />
     <Compile Include="Helpers\LineCalculationHelper.cs" />
     <Compile Include="Helpers\LineIntersectionHelper.cs" />
     <Compile Include="Helpers\PointTransformationHelper.cs" />

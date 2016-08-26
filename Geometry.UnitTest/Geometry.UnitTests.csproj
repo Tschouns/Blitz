@@ -54,10 +54,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Algorithms\Gjk\CircleSupportFunctionsTests.cs" />
+    <Compile Include="Algorithms\SupportFunctions\CircleSupportFunctionsTests.cs" />
     <Compile Include="Algorithms\Gjk\GjkAlgorithmTests.cs" />
     <Compile Include="Helpers\PolygonCalculationHelperTests.cs" />
-    <Compile Include="Algorithms\Gjk\PolygonSupportFunctionsTests.cs" />
+    <Compile Include="Algorithms\SupportFunctions\PolygonSupportFunctionsTests.cs" />
     <Compile Include="Helpers\PolygonTransformationHelperTests.cs" />
     <Compile Include="Helpers\TriangleCalculationHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

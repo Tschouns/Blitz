@@ -104,5 +104,15 @@ namespace Geometry.Extensions
         {
             return (vector.X * vector.X) + (vector.Y * vector.Y);
         }
+
+        /// <summary>
+        /// Determines whether the specified direction are within 90 degree (left or right) of this vector.
+        /// </summary>
+        public static bool IsDirectionWithin90Degrees(this Vector2 direction1, Vector2 direction2)
+        {
+            var dotProduct = direction1.Dot(direction2);
+
+            return dotProduct >= 0;
+        }
     }
 }

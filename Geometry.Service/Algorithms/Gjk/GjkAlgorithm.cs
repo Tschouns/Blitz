@@ -11,6 +11,7 @@ namespace Geometry.Services.Algorithms.Gjk
     using Base.RuntimeChecks;
     using Elements;
     using Extensions;
+    using Geometry.Algorithms;
     using Geometry.Algorithms.Gjk;
     using Geometry.Helpers;
 

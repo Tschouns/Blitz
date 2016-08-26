@@ -6,10 +6,11 @@
 
 namespace Geometry.UnitTest.Algorithms.Gjk
 {
-    using Geometry.Elements;
-    using Geometry.Services.Algorithms.Gjk;
-    using Geometry.Services.Helpers;
+    using Elements;
+    using Services.Algorithms.Gjk;
+    using Services.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Services.Algorithms.SupportFunctions;
 
     /// <summary>
     /// Contains unit tests for <see cref="GjkAlgorithm"/>.
@@ -38,16 +39,18 @@ namespace Geometry.UnitTest.Algorithms.Gjk
         [TestInitialize]
         public void Setup()
         {
+            var lineCalculationHelper = new LineCalculationHelper();
+
             this._polygonPolygonTestCandidate = new GjkAlgorithm<Polygon, Polygon>(
-                new PolygonSupportFunctions(),
-                new PolygonSupportFunctions(),
-                new LineCalculationHelper(),
+                new PolygonSupportFunctions(lineCalculationHelper),
+                new PolygonSupportFunctions(lineCalculationHelper),
+                lineCalculationHelper,
                 new TriangleCalculationHelper());
 
             this._polygonCircleTestCandidate = new GjkAlgorithm<Polygon, Circle>(
-                new PolygonSupportFunctions(),
+                new PolygonSupportFunctions(lineCalculationHelper),
                 new CircleSupportFunctions(),
-                new LineCalculationHelper(),
+                lineCalculationHelper,
                 new TriangleCalculationHelper());
         }
 

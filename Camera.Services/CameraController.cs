@@ -61,7 +61,7 @@ namespace Camera.Services
         public void Update(double timeElapsed)
         {
             // Remove expired effects.
-            var expiredEffects = this._cameraEffects.Where(aX => aX.HasExpired).ToList();
+            var expiredEffects = this._cameraEffects.Where(x => x.HasExpired).ToList();
             foreach(var expiredEffect in expiredEffects)
             {
                 this._cameraEffects.Remove(expiredEffect);

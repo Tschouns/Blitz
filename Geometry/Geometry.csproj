@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Algorithms\Gjk\FigureIntersectionResult.cs" />
     <Compile Include="Algorithms\Gjk\IGjkAlgorithm.cs" />
-    <Compile Include="Algorithms\Gjk\ISupportFunctions.cs" />
+    <Compile Include="Algorithms\ISupportFunctions.cs" />
     <Compile Include="Elements\Circle.cs" />
     <Compile Include="Elements\IFigure.cs" />
     <Compile Include="Elements\Polygon.cs" />

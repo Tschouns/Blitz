@@ -250,7 +250,7 @@ namespace BlitzDx
             foreach (var polygon in this._polygonsInTheWorld)
             {
                 drawingContext.DrawPolygon(
-                    polygon.Corners.Select(aX => transform.WorldToViewport(aX)).ToList(),
+                    polygon.Corners.Select(x => transform.WorldToViewport(x)).ToList(),
                     Color.Red,
                     2);
             }

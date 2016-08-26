@@ -182,7 +182,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             }
 
             // Remove cars.
-            var carsOutOfRange = this._humbleCars.Where(aX => Math.Abs(aX.Position.X) > 200).ToList();
+            var carsOutOfRange = this._humbleCars.Where(car => Math.Abs(car.Position.X) > 200).ToList();
             foreach (var carToRemove in carsOutOfRange)
             {
                 this._humbleCars.Remove(carToRemove);
@@ -206,7 +206,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
                     continue;
                 }
 
-                var undestroyedCars = this._humbleCars.Where(aX => !aX.IsDestroyed).ToList();
+                var undestroyedCars = this._humbleCars.Where(car => !car.IsDestroyed).ToList();
                 foreach (var car in undestroyedCars)
                 {
                     var result = this._gjk.DoFiguresIntersect(explosion.Circle, car.Polygon);
@@ -326,7 +326,7 @@ namespace BlitzDx.PrototypeRenderLoopDemo
             var car = this._humbleCars.Last();
             var followEffect = this._cameraEffectCreator.CreatePositionFollowEffect(
                 car,
-                aX => aX.Position,
+                x => x.Position,
                 () => !this._humbleCars.Contains(car));
 
             this._cameraController.AddEffect(followEffect);

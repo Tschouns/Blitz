@@ -15,9 +15,14 @@ namespace Physics.Elements
     public interface IPhysicalSpace
     {
         /// <summary>
-        /// Adds a "global force" to the "physical space".
+        /// Adds a force, which is applied to particles within the "physical space".
         /// </summary>
-        void AddGlobalForce(IGlobalForce globalForce);
+        void AddForceForParticles(IGlobalForce<IParticle> force);
+        
+        /// <summary>
+        /// Adds a force, which is applied to bodies within the "physical space".
+        /// </summary>
+        void AddForceForBodies(IGlobalForce<IBody<Polygon>> force);
 
         /// <summary>
         /// Adds a particle to the "physical space".

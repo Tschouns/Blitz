@@ -4,11 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.UnitTest.Algorithms.Gjk
+namespace Geometry.UnitTest.Algorithms.SupportFunctions
 {
     using Geometry.Elements;
-    using Geometry.Services.Algorithms.Gjk;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Services.Algorithms.SupportFunctions;
+    using Services.Helpers;
 
     /// <summary>
     /// Contains unit tests for <see cref="PolygonSupportFunctions"/>.
@@ -27,7 +28,8 @@ namespace Geometry.UnitTest.Algorithms.Gjk
         [TestInitialize]
         public void Setup()
         {
-            this.testCandidate = new PolygonSupportFunctions();
+            var lineCalculationHelper = new LineCalculationHelper();
+            this.testCandidate = new PolygonSupportFunctions(lineCalculationHelper);
         }
 
         /// <summary>

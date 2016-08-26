@@ -4,13 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.Algorithms.Gjk
+namespace Geometry.Algorithms
 {
     using Elements;
 
     /// <summary>
-    /// Represents a "support function" used in the <c>Gilbert-Johnson-Keerthi</c> algorithm to determine
-    /// the point of a specified figure which is furthest along a specified direction vector.
+    /// Represents a "support function" used in the <c>Gilbert-Johnson-Keerthi</c> and other algorithms to
+    /// determine certain properties of geometric figures.
     /// </summary>
     /// <typeparam name="TFigure">
     /// Type of the geometric figure the support function is for
@@ -22,5 +22,10 @@ namespace Geometry.Algorithms.Gjk
         /// Gets the point of the specified figure which is farthest along the specified direction vector.
         /// </summary>
         Point GetSupportPoint(TFigure figure, Vector2 direction);
+
+        /// <summary>
+        /// Gets the point in a specified figure which is closest to the specified position.
+        /// </summary>
+        Point GetFigurePointClosestToPosition(TFigure figure, Point position);
     }
 }

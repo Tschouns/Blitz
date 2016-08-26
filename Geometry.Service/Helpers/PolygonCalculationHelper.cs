@@ -100,7 +100,7 @@ namespace Geometry.Services.Helpers
             foreach (var currentSegment in segments)
             {
                 // If any of the segments intersect with the current segment the polygon considered a "non-simple" polygon.
-                if (segments.Any(aX => this.DoSegmentsIntersect(aX, currentSegment)))
+                if (segments.Any(x => this.DoSegmentsIntersect(x, currentSegment)))
                 {
                     return true;
                 }

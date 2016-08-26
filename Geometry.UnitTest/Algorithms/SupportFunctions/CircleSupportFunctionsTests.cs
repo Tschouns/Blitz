@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Geometry.UnitTest.Algorithms.Gjk
+namespace Geometry.UnitTest.Algorithms.SupportFunctions
 {
     using System;
     using Geometry.Elements;
-    using Geometry.Services.Algorithms.Gjk;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Services.Algorithms.SupportFunctions;
 
     /// <summary>
     /// Contains unit tests for <see cref="CircleSupportFunctions"/>.

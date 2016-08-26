@@ -7,9 +7,11 @@
 namespace Geometry.Services
 {
     using Algorithms.Gjk;
+    using Algorithms.SupportFunctions;
     using Base.InversionOfControl;
     using Base.StartUp;
     using Elements;
+    using Geometry.Algorithms;
     using Geometry.Algorithms.Gjk;
     using Geometry.Helpers;
     using Helpers;
