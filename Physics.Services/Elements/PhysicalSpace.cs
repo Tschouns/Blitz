@@ -99,6 +99,17 @@ namespace Physics.Services.Elements
             RemoveDepletedForces(this._particleForces);
             RemoveDepletedForces(this._bodyForces);
 
+            // Update remaining forces.
+            foreach(var force in this._particleForces)
+            {
+                force.Step(time);
+            }
+
+            foreach (var force in this._bodyForces)
+            {
+                force.Step(time);
+            }
+
             // Update particles.
             foreach (var particle in this._particles)
             {

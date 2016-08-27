@@ -118,10 +118,17 @@ namespace Physics.Services.Forces
                 physicalObject.Shape.Current,
                 this._position);
 
-            var forceVector = pointClosestToBlastCenter.GetOffsetFrom(this._position).Norm().Multiply(this._currentForce);
-            var forceApplicationOffset = pointClosestToBlastCenter.GetOffsetFrom(physicalObject.CurrentState.Position);
+            // Is the object within reach of the blast?
+            var offset = pointClosestToBlastCenter.GetOffsetFrom(this._position);
+            if (offset.Magnitude() > this._currentBlastRadius)
+            {
+                return;
+            }
 
-            physicalObject.ApplyForceAtOffset(forceVector, forceApplicationOffset);
+            var forceVector = offset.Norm().Multiply(this._currentForce);
+            ////var forceApplicationOffset = pointClosestToBlastCenter.GetOffsetFrom(physicalObject.CurrentState.Position);
+
+            physicalObject.ApplyForceAtPointInSpace(forceVector, pointClosestToBlastCenter);
         }
     }
 }

@@ -20,6 +20,16 @@ namespace BlitzCarShooter.HumbleWorld
     public class World
     {
         /// <summary>
+        /// Used to create stuff.
+        /// </summary>
+        private readonly IPhysicsFactory _physicsFactory;
+
+        /// <summary>
+        /// Used to simulate physics.
+        /// </summary>
+        private readonly IPhysicalWorld _physicalWorld;
+
+        /// <summary>
         /// Stores all the buildings of this fairly humble game world.
         /// </summary>
         private readonly IList<Building> _humbleBuildings = new List<Building>();
@@ -35,18 +45,14 @@ namespace BlitzCarShooter.HumbleWorld
         private readonly IList<Explosion> _explosions = new List<Explosion>();
 
         /// <summary>
-        /// Used to simulate physics.
-        /// </summary>
-        private readonly IPhysicalWorld _physicalWorld;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="World"/> class.
         /// </summary>
         public World(IPhysicsFactory physicsFactory)
         {
             Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
 
-            this._physicalWorld = physicsFactory.CreatePhysicalWorld();
+            this._physicsFactory = physicsFactory;
+            this._physicalWorld = this._physicsFactory.CreatePhysicalWorld();
             this.PopulateWorld();
         }
 
@@ -96,11 +102,15 @@ namespace BlitzCarShooter.HumbleWorld
         /// <summary>
         /// Spawns an explosion.
         /// </summary>
-        public void SpawnExplosion(Point position, double explosionSize)
+        public void SpawnExplosion(Point position, double explosionRadius, double explosionForce)
         {
-            var explosion = new Explosion(position, explosionSize);
+            var explosion = new Explosion(position, explosionRadius);
 
             this._explosions.Add(explosion);
+
+            var blast = this._physicsFactory.Forces.CreateBlast(position, explosionForce, explosionRadius, 150);
+
+            this._physicalWorld.AddForce(blast);
         }
 
         /// <summary>

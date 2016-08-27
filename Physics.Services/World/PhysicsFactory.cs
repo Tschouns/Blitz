@@ -6,6 +6,7 @@
 
 namespace Physics.Services.World
 {
+    using System;
     using Base.RuntimeChecks;
     using Physics.Elements;
     using Physics.Forces;
@@ -39,6 +40,11 @@ namespace Physics.Services.World
             this._elementFactory = elementFactory;
             this._forceFactory = forceFactory;
         }
+
+        /// <summary>
+        /// See <see cref="IPhysicsFactory.Forces"/>.
+        /// </summary>
+        public IForceFactory Forces => this._forceFactory;
 
         /// <summary>
         /// See <see cref="IPhysicsFactory.CreatePhysicalWorld"/>.

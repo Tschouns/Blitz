@@ -170,7 +170,7 @@ namespace BlitzCarShooter
             if (this._actionShoot.IsActive)
             {
                 var position = this._cameraController.Camera.State.Position;
-                this.SpawnExplosion(position, 50);
+                this.SpawnExplosion(position, 50, 100000);
             }
 
             // Update world.
@@ -188,7 +188,7 @@ namespace BlitzCarShooter
                     if (result.DoFiguresIntersect)
                     {
                         car.Destroy();
-                        SpawnExplosion(car.Position, 30);
+                        ////SpawnExplosion(car.Position, 30, 10000);
                     }
                 }
             }
@@ -228,13 +228,13 @@ namespace BlitzCarShooter
         /// <summary>
         /// Spawns an explosion.
         /// </summary>
-        private void SpawnExplosion(Point position, double explosionSize)
+        private void SpawnExplosion(Point position, double explosionRadius, double explosionForce)
         {
-            this._humbleWorld.SpawnExplosion(position, explosionSize);
+            this._humbleWorld.SpawnExplosion(position, explosionRadius, explosionForce);
 
             // Make camera rattle.
             var cameraRattleEffect = this._cameraEffectCreator.CreatePositionBlowOscillationEffect(
-                new Vector2(explosionSize / 3, explosionSize / 4),
+                new Vector2(explosionRadius / 3, explosionRadius / 4),
                 1,
                 8);
 
