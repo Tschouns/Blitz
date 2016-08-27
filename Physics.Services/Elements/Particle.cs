@@ -39,6 +39,11 @@ namespace Physics.Services.Elements
         private Vector2 _appliedVelocity;
 
         /// <summary>
+        /// Stores the velocity calculated based on previous calculated velocity and acceleration. Does not include "applied velocity".
+        /// </summary>
+        private Vector2 _calculatedVelocity;
+
+        /// <summary>
         /// Stores the current state of this particle.
         /// </summary>
         private ParticleState _state;
@@ -61,6 +66,7 @@ namespace Physics.Services.Elements
             this._appliedAcceleration = new Vector2();
             this._appliedVelocity = new Vector2();
 
+            this._calculatedVelocity = new Vector2();
             this._state = initalState;
         }
 
@@ -126,11 +132,12 @@ namespace Physics.Services.Elements
                     this.Mass)
                 .AddVector(this._appliedAcceleration);
 
-            this._state.Velocity = this._helper.CalculateVelocity(
-                    this._state.Velocity,
+            this._calculatedVelocity = this._helper.CalculateVelocity(
+                    this._calculatedVelocity,
                     acceleration,
-                    time)
-                .AddVector(this._appliedVelocity);
+                    time);
+
+            this._state.Velocity = this._calculatedVelocity.AddVector(this._appliedVelocity);
 
             this._state.Position = this._helper.CalculatePosition(
                 this._state.Position,

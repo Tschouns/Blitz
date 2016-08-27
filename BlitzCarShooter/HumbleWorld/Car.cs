@@ -12,22 +12,12 @@ namespace BlitzCarShooter.HumbleWorld
     using Physics.Elements;
     using Point = Geometry.Elements.Point;
     using Rectangle = Geometry.Elements.Rectangle;
-
+    using Physics.World;
     /// <summary>
     /// A humble little car, which can only drive straight from left to right, or from right to left.
     /// </summary>
     public class Car
     {
-        /// <summary>
-        /// The lenght of the car.
-        /// </summary>
-        private readonly double _length = 7.0;
-
-        /// <summary>
-        /// The width of the car (not the rectangle representing it).
-        /// </summary>
-        private readonly double _width = 4.0;
-
         /// <summary>
         /// The moving speed of the car.
         /// </summary>
@@ -38,38 +28,44 @@ namespace BlitzCarShooter.HumbleWorld
         /// </summary>
         private readonly bool _isMovingFromRightToLeft;
 
-        /////// <summary>
-        /////// The "physical" car body.
-        /////// </summary>
-        ////private readonly bool _carBody;
+        /// <summary>
+        /// The "physical" car body.
+        /// </summary>
+        private readonly IBody<Polygon> _carBody;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Car"/> class.
         /// </summary>
         public Car(
-            //IBody<Polygon> carBody,
+            IPhysicalWorld physicalWorld,
             Color color,
             Point startingPosition,
             bool isMovingFromRightToLeft)
         {
-            //Checks.AssertNotNull(carBody, nameof(carBody));
+            Checks.AssertNotNull(physicalWorld, nameof(physicalWorld));
+
+            double length = 7.0f;
+            double width = 4.0;
+            var carShape = new Rectangle(length, width);
+
+            this._carBody = physicalWorld.SpawnRigidBody(
+                1000,
+                carShape,
+                startingPosition);
 
             this.Color = color;
-            this.Position = startingPosition;
             this._isMovingFromRightToLeft = isMovingFromRightToLeft;
-
-            this.SetRectangle();
         }
 
         /// <summary>
         /// Gets the current position of the car.
         /// </summary>
-        public Point Position { get; private set; }
+        public Point Position => this._carBody.CurrentState.Position;
 
         /// <summary>
         /// Gets the polygon representing the car in its current position.
         /// </summary>
-        public Polygon Polygon { get; private set; }
+        public Polygon Polygon => this._carBody.Shape.Current;
 
         /// <summary>
         /// Gets the color of the building.
@@ -84,7 +80,7 @@ namespace BlitzCarShooter.HumbleWorld
         /// <summary>
         /// Updates the car.
         /// </summary>
-        public void Update(double elapsedTime)
+        public void Update()
         {
             if (this.IsDestroyed)
             {
@@ -92,19 +88,13 @@ namespace BlitzCarShooter.HumbleWorld
             }
 
             // Move the car.
-            var movingDistance = this._movingSpeed * elapsedTime;
-
+            var speed = this._movingSpeed;
             if (this._isMovingFromRightToLeft)
             {
-                movingDistance = -movingDistance;
+                speed = -speed;
             }
 
-            this.Position = new Point(
-                this.Position.X + movingDistance,
-                this.Position.Y);
-
-            // Set the rectangle.
-            this.SetRectangle();
+            this._carBody.ApplyVelocity(new Vector2(speed, 0));
         }
 
         /// <summary>
@@ -114,21 +104,6 @@ namespace BlitzCarShooter.HumbleWorld
         {
             this.IsDestroyed = true;
             this.Color = Color.DarkRed;
-        }
-
-        /// <summary>
-        /// Sets the rectangle, as the car's representation.
-        /// </summary>
-        private void SetRectangle()
-        {
-            var rectanglePosition = new Point(
-                this.Position.X - (this._length / 2),
-                this.Position.Y - (this._width / 2));
-
-            this.Polygon = new Rectangle(
-                rectanglePosition,
-                this._length,
-                this._width);
         }
     }
 }

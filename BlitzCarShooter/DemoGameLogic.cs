@@ -23,7 +23,7 @@ namespace BlitzCarShooter
     using RenderLoop.Callback;
     using RenderLoop.Loop;
     using Point = Geometry.Elements.Point;
-
+    using Physics.World;
     /// <summary>
     /// Represents the "game logic", besides drawing, for this demo. Implements <see cref="IUpdateCallback"/>.
     /// </summary>
@@ -75,19 +75,9 @@ namespace BlitzCarShooter
         private readonly IGjkAlgorithm<Circle, Polygon> _gjk;
 
         /// <summary>
-        /// Stores all the buildings of this fairly humble game world.
+        /// The humble game world.
         /// </summary>
-        private readonly IList<Building> _humbleBuildings = new List<Building>();
-
-        /// <summary>
-        /// Stores all the cars of this fairly humble game world.
-        /// </summary>
-        private readonly IList<Car> _humbleCars = new List<Car>();
-
-        /// <summary>
-        /// Stores all the explosions/craters in the world.
-        /// </summary>
-        private readonly IList<Explosion> _explosions = new List<Explosion>();
+        private readonly World _humbleWorld;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DemoGameLogic"/> class.
@@ -95,11 +85,13 @@ namespace BlitzCarShooter
         public DemoGameLogic(
             IInputFactory inputFactory,
             ICameraFactory cameraFactory,
+            IPhysicsFactory physicsFactory,
             IGjkAlgorithm<Circle, Polygon> gjk,
             Size viewportSize)
         {
             Checks.AssertNotNull(inputFactory, nameof(inputFactory));
             Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
             Checks.AssertNotNull(gjk, nameof(gjk));
 
             this._gjk = gjk;
@@ -138,8 +130,8 @@ namespace BlitzCarShooter
             this._cameraController.AddEffect(positionCameraEffect);
             this._cameraController.AddEffect(scaleCameraEffect);
 
-            // Initialize world.
-            this.PopulateWorld();
+            // Create world.
+            this._humbleWorld = new World(physicsFactory);
         }
 
         /// <summary>
@@ -166,12 +158,12 @@ namespace BlitzCarShooter
             // Spawn cars.
             if (this._actionSpawnCarLeft.IsActive)
             {
-                this.SpawnCarLeft();
+                this._humbleWorld.SpawnCarLeft();
             }
 
             if (this._actionSpawnCarRight.IsActive)
             {
-                this.SpawnCarRight();
+                this._humbleWorld.SpawnCarRight();
             }
 
             // Shoot.
@@ -181,33 +173,16 @@ namespace BlitzCarShooter
                 this.SpawnExplosion(position, 50);
             }
 
-            // Remove cars.
-            var carsOutOfRange = this._humbleCars.Where(car => Math.Abs(car.Position.X) > 200).ToList();
-            foreach (var carToRemove in carsOutOfRange)
+            // Update world.
+            this._humbleWorld.Update(gameTime.Elapsed);
+
+            // Destroy cars by explosions.
+            var activeExplosions = this._humbleWorld.Expolosions.Where(x => !x.IsFinished).ToList();
+            var aliveCars = this._humbleWorld.Cars.Where(x => !x.IsDestroyed).ToList();
+
+            foreach (var explosion in activeExplosions)
             {
-                this._humbleCars.Remove(carToRemove);
-            }
-
-            // Update cars.
-            foreach (var car in this._humbleCars)
-            {
-                car.Update(gameTime.Elapsed);
-            }
-
-            // Update explosions.
-            var currentExplosions = this._explosions.ToList();
-            foreach (var explosion in currentExplosions)
-            {
-                explosion.Update(gameTime.Elapsed);
-
-                // Test against each (undestroyed) car, and destroy them if hit.
-                if (explosion.IsFinished)
-                {
-                    continue;
-                }
-
-                var undestroyedCars = this._humbleCars.Where(car => !car.IsDestroyed).ToList();
-                foreach (var car in undestroyedCars)
+                foreach (var car in aliveCars)
                 {
                     var result = this._gjk.DoFiguresIntersect(explosion.Circle, car.Polygon);
                     if (result.DoFiguresIntersect)
@@ -226,91 +201,9 @@ namespace BlitzCarShooter
 
             return new DemoGameState(
                 this._cameraController.Camera.GetCameraTransformation(),
-                this._humbleBuildings,
-                this._humbleCars,
-                this._explosions);
-        }
-
-        /// <summary>
-        /// Adds some stuff to this "world".
-        /// </summary>
-        private void PopulateWorld()
-        {
-            // Add buildings north of the road.
-            this._humbleBuildings.Add(new Building(
-                new Point(0, 10),
-                10,
-                50,
-                Color.Gray));
-
-            this._humbleBuildings.Add(new Building(
-                new Point(-20, 10),
-                10,
-                50,
-                Color.Gray));
-
-            this._humbleBuildings.Add(new Building(
-                new Point(-40, 10),
-                10,
-                40,
-                Color.Gray));
-
-            this._humbleBuildings.Add(new Building(
-                new Point(80, 10),
-                20,
-                30,
-                Color.Gray));
-
-            this._humbleBuildings.Add(new Building(
-                new Point(110, 10),
-                20,
-                30,
-                Color.Gray));
-
-            // Add buildings south of the road.
-            this._humbleBuildings.Add(new Building(
-                new Point(-70, -30),
-                60,
-                20,
-                Color.Gray));
-
-            this._humbleBuildings.Add(new Building(
-                new Point(0, -30),
-                20,
-                20,
-                Color.Gray));
-
-            this._humbleBuildings.Add(new Building(
-                new Point(25, -30),
-                20,
-                20,
-                Color.Gray));
-        }
-
-        /// <summary>
-        /// Spawns a car on the left, driving to the right.
-        /// </summary>
-        private void SpawnCarLeft()
-        {
-            var car = new Car(
-                Color.GreenYellow,
-                new Point(-200, -5),
-                false);
-
-            this._humbleCars.Add(car);
-        }
-
-        /// <summary>
-        /// Spawns a car on the right, driving to the left.
-        /// </summary>
-        private void SpawnCarRight()
-        {
-            var car = new Car(
-                Color.GreenYellow,
-                new Point(200, 5),
-                true);
-
-            this._humbleCars.Add(car);
+                this._humbleWorld.Buildings,
+                this._humbleWorld.Cars,
+                this._humbleWorld.Expolosions);
         }
 
         /// <summary>
@@ -318,16 +211,16 @@ namespace BlitzCarShooter
         /// </summary>
         private void ActivateFollowCam()
         {
-            if (!this._humbleCars.Any())
+            if (!this._humbleWorld.Cars.Any())
             {
                 return;
             }
 
-            var car = this._humbleCars.Last();
+            var car = this._humbleWorld.Cars.Last();
             var followEffect = this._cameraEffectCreator.CreatePositionFollowEffect(
                 car,
                 x => x.Position,
-                () => !this._humbleCars.Contains(car));
+                () => !this._humbleWorld.Cars.Contains(car) || car.IsDestroyed);
 
             this._cameraController.AddEffect(followEffect);
         }
@@ -337,7 +230,7 @@ namespace BlitzCarShooter
         /// </summary>
         private void SpawnExplosion(Point position, double explosionSize)
         {
-            var explosion = new Explosion(position, explosionSize);
+            this._humbleWorld.SpawnExplosion(position, explosionSize);
 
             // Make camera rattle.
             var cameraRattleEffect = this._cameraEffectCreator.CreatePositionBlowOscillationEffect(
@@ -346,8 +239,6 @@ namespace BlitzCarShooter
                 8);
 
             this._cameraController.AddEffect(cameraRattleEffect);
-
-            this._explosions.Add(explosion);
         }
     }
 }

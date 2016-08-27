@@ -13,6 +13,7 @@ namespace BlitzCarShooter
     using Geometry.Algorithms.Gjk;
     using Geometry.Elements;
     using Input;
+    using Physics.World;
     using RenderLoop.Loop;
 
     /// <summary>
@@ -29,6 +30,11 @@ namespace BlitzCarShooter
         /// Needed by the <see cref="DemoGameLogic"/>.
         /// </summary>
         private readonly ICameraFactory _cameraFactory;
+
+        /// <summary>
+        /// Needed by the <see cref="DemoGameLogic"/>.
+        /// </summary>
+        private readonly IPhysicsFactory _physicsFactory;
 
         /// <summary>
         /// Needed by the <see cref="DemoGameLogic"/>.
@@ -52,6 +58,7 @@ namespace BlitzCarShooter
             : this(
                   Ioc.Container.Resolve<IInputFactory>(),
                   Ioc.Container.Resolve<ICameraFactory>(),
+                  Ioc.Container.Resolve<IPhysicsFactory>(),
                   Ioc.Container.Resolve<IGjkAlgorithm<Circle, Polygon>>(),
                   Ioc.Container.Resolve<IDisplayFactory>(),
                   Ioc.Container.Resolve<ILoopFactory>())
@@ -64,18 +71,21 @@ namespace BlitzCarShooter
         public DemoGame(
             IInputFactory inputFactory,
             ICameraFactory cameraFactory,
+            IPhysicsFactory physicsFactory,
             IGjkAlgorithm<Circle, Polygon> gjk,
             IDisplayFactory displayFactory,
             ILoopFactory loopFactory)
         {
             Checks.AssertNotNull(inputFactory, nameof(inputFactory));
             Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
             Checks.AssertNotNull(gjk, nameof(gjk));
             Checks.AssertNotNull(displayFactory, nameof(displayFactory));
             Checks.AssertNotNull(loopFactory, nameof(loopFactory));
 
             this._inputFactory = inputFactory;
             this._cameraFactory = cameraFactory;
+            this._physicsFactory = physicsFactory;
             this._gjk = gjk;
             this._displayFactory = displayFactory;
             this._loopFactory = loopFactory;
@@ -97,7 +107,11 @@ namespace BlitzCarShooter
             using (var demoGameDisplayRenderer = new DemoGameDisplayRenderer(this._displayFactory, displayProperties))
             {
                 var loop = this._loopFactory.CreateLoop(
-                    new DemoGameLogic(this._inputFactory, this._cameraFactory, this._gjk, displaySize),
+                    new DemoGameLogic(
+                        this._inputFactory,
+                        this._cameraFactory,
+                        this._physicsFactory,
+                        this._gjk, displaySize),
                     demoGameDisplayRenderer);
 
                 demoGameDisplayRenderer.ShowDisplay();

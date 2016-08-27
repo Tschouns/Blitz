@@ -74,11 +74,11 @@ namespace Camera.Services.CameraEffects
             var sinFactor = Math.Sin(this._time * this._frequencyTimes2Pi);
             var remainingStrengthFactor = (this._totalDuration - this._time) / this._totalDuration;
 
-            Console.Write(sinFactor);
-            Console.Write(" * ");
-            Console.Write(remainingStrengthFactor);
-            Console.Write(" = ");
-            Console.WriteLine(sinFactor * remainingStrengthFactor);
+            ////Console.Write(sinFactor);
+            ////Console.Write(" * ");
+            ////Console.Write(remainingStrengthFactor);
+            ////Console.Write(" = ");
+            ////Console.WriteLine(sinFactor * remainingStrengthFactor);
 
             this.CurrentOscillation = this._startOscillation.Multiply(sinFactor * remainingStrengthFactor);
         }

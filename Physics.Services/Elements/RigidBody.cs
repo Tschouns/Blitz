@@ -59,6 +59,11 @@ namespace Physics.Services.Elements
         private Vector2 _appliedVelocity;
 
         /// <summary>
+        /// Stores the velocity calculated based on previous calculated velocity and acceleration. Does not include "applied velocity".
+        /// </summary>
+        private Vector2 _calculatedVelocity;
+
+        /// <summary>
         /// Stores the current state of this rigid body.
         /// </summary>
         private BodyState _state;
@@ -104,6 +109,7 @@ namespace Physics.Services.Elements
             this._appliedAcceleration = new Vector2();
             this._appliedVelocity = new Vector2();
 
+            this._calculatedVelocity = new Vector2();
             this._state = initialBodyState;
 
             // Update the shape, based on the initial state
@@ -188,11 +194,12 @@ namespace Physics.Services.Elements
                     this.Mass)
                 .AddVector(this._appliedAcceleration);
 
-            this._state.Velocity = this._isaacNewtonHelper.CalculateVelocity(
-                    this._state.Velocity,
+            this._calculatedVelocity = this._isaacNewtonHelper.CalculateVelocity(
+                    this._calculatedVelocity,
                     acceleration,
-                    time)
-                .AddVector(this._appliedVelocity);
+                    time);
+
+            this._state.Velocity = this._calculatedVelocity.AddVector(this._appliedVelocity);
 
             this._state.Position = this._isaacNewtonHelper.CalculatePosition(
                 this._state.Position,
