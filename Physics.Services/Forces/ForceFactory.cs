@@ -10,13 +10,15 @@ namespace Physics.Services.Forces
     using Geometry.Algorithms;
     using Geometry.Elements;
     using Physics.Elements;
-    using Physics.Forces;
     using Geometry.Helpers;
-    using System;
+    using Physics.Forces;
+    using Blast;
+    using FlowResistance;
+    using Gravity;
 
     /// <summary>
-    /// See <see cref="IForceFactory"/>.
-    /// </summary>
+    /// /// See <see cref="IForceFactory"/>.
+    /// /// </summary>
     public class ForceFactory : IForceFactory
     {
         /// <summary>

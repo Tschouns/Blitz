@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Services.Forces
+namespace Physics.Services.Forces.Blast
 {
     using Base.RuntimeChecks;
     using Geometry.Algorithms;

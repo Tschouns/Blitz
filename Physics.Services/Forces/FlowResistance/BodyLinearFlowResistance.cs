@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Services.Forces
+namespace Physics.Services.Forces.FlowResistance
 {
     using Geometry.Elements;
     using Physics.Elements;

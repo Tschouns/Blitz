@@ -49,9 +49,9 @@
     <Compile Include="Elements\Shape\IShapeFactory.cs" />
     <Compile Include="Elements\Shape\RigidPolygonShape.cs" />
     <Compile Include="Elements\Shape\ShapeFactory.cs" />
-    <Compile Include="Forces\BodyLinearFlowResistance.cs" />
-    <Compile Include="Forces\BodyBlast.cs" />
-    <Compile Include="Forces\BodyRotationalFlowResistance.cs" />
+    <Compile Include="Forces\FlowResistance\BodyLinearFlowResistance.cs" />
+    <Compile Include="Forces\Blast\BodyBlast.cs" />
+    <Compile Include="Forces\FlowResistance\BodyRotationalFlowResistance.cs" />
     <Compile Include="Forces\GenericDummyForce.cs" />
     <Compile Include="Helpers\BodyCalculationHelper.cs" />
     <Compile Include="Helpers\IsaacNewtonHelper.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="World\PhysicalWorld.cs" />
     <Compile Include="World\PhysicsFactory.cs" />
     <Compile Include="Forces\ForceFactory.cs" />
-    <Compile Include="Forces\GenericGravity.cs" />
+    <Compile Include="Forces\Gravity\GenericGravity.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

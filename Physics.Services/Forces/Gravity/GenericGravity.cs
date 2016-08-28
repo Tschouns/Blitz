@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Services.Forces
+namespace Physics.Services.Forces.Gravity
 {
     using System;
     using Base.RuntimeChecks;

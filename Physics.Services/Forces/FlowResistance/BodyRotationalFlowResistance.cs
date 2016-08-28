@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Services.Forces
+namespace Physics.Services.Forces.FlowResistance
 {
-    using System;
     using Geometry.Elements;
     using Physics.Forces;
     using Physics.Elements;
     using Base.RuntimeChecks;
     using Geometry.Extensions;
+
     /// <summary>
     /// Simulates flow resistance to rotation. It slows down the rotation of bodies bodies based on their velocity, angular velocity and volume.
     /// </summary>
