@@ -13,6 +13,8 @@
   http://mollyrocket.com/849
 - GJK implementation for 2D:
   http://in2gpu.com/2014/05/12/gjk-algorithm-collision-detection-2d-in-c/
+- Box2D revolute joints:
+  http://www.iforce2d.net/b2dtut/joints-revolute
 
 === WPF 2D graphics (Louis Yang) ===
 https://www.youtube.com/watch?v=wTxktpA5GUM
