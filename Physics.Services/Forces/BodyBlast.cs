@@ -6,7 +6,6 @@
 
 namespace Physics.Services.Forces
 {
-    using System;
     using Base.RuntimeChecks;
     using Geometry.Algorithms;
     using Geometry.Elements;
@@ -114,6 +113,7 @@ namespace Physics.Services.Forces
         {
             Checks.AssertNotNull(physicalObject, nameof(physicalObject));
 
+            // TODO: make this class "more generic", so it could be used for particles as well. Add a strategy to determine the "point to apply the force to".
             var pointClosestToBlastCenter = this._supportFunctions.GetFigureOutlinePointClosestToPosition(
                 physicalObject.Shape.Current,
                 this._position);
@@ -126,7 +126,6 @@ namespace Physics.Services.Forces
             }
 
             var forceVector = offset.Norm().Multiply(this._currentForce);
-            ////var forceApplicationOffset = pointClosestToBlastCenter.GetOffsetFrom(physicalObject.CurrentState.Position);
 
             physicalObject.ApplyForceAtPointInSpace(forceVector, pointClosestToBlastCenter);
         }

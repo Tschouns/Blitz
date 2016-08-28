@@ -40,9 +40,10 @@ namespace Physics.Elements
         void ApplyAcceleration(Vector2 acceleration);
 
         /// <summary>
-        /// Applies the specified velocity to the "physical object".
+        /// Sets the specified velocity of the "physical object". This overrides any applied forces
+        /// or accelerations, as well as the previous velocity.
         /// </summary>
-        void ApplyVelocity(Vector2 velocity);
+        void SetVelocity(Vector2 velocity);
 
         /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.

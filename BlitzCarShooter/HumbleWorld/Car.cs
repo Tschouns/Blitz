@@ -94,7 +94,7 @@ namespace BlitzCarShooter.HumbleWorld
                 speed = -speed;
             }
 
-            this._carBody.ApplyVelocity(new Vector2(speed, 0));
+            this._carBody.SetVelocity(new Vector2(speed, 0));
         }
 
         /// <summary>

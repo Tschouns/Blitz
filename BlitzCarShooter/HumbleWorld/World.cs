@@ -53,6 +53,11 @@ namespace BlitzCarShooter.HumbleWorld
 
             this._physicsFactory = physicsFactory;
             this._physicalWorld = this._physicsFactory.CreatePhysicalWorld();
+
+            // Add air resistance.
+            var airResistance = this._physicsFactory.Forces.CreateFlowRestistance(4);
+            this._physicalWorld.AddForce(airResistance);
+
             this.PopulateWorld();
         }
 
@@ -108,7 +113,7 @@ namespace BlitzCarShooter.HumbleWorld
 
             this._explosions.Add(explosion);
 
-            var blast = this._physicsFactory.Forces.CreateBlast(position, explosionForce, explosionRadius, 150);
+            var blast = this._physicsFactory.Forces.CreateBlast(position, explosionForce, explosionRadius, 500);
 
             this._physicalWorld.AddForce(blast);
         }

@@ -6,7 +6,6 @@
 
 namespace Physics.Forces
 {
-    using Elements;
     using Geometry.Elements;
 
     /// <summary>
@@ -18,6 +17,11 @@ namespace Physics.Forces
         /// Creates "gravity".
         /// </summary>
         ForceSet CreateGravity(double acceleration);
+
+        /// <summary>
+        /// Creates flow resistance.
+        /// </summary>
+        ForceSet CreateFlowRestistance(double density);
 
         /// <summary>
         /// Creates a blast which pushes away surrounding objects.

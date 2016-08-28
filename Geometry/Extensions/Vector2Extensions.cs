@@ -106,7 +106,27 @@ namespace Geometry.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified direction are within 90 degree (left or right) of this vector.
+        /// Gets a perpendicular to this vector. Rotates it 90 degrees left.
+        /// </summary>
+        public static Vector2 Get90DegreesLeft(this Vector2 vector)
+        {
+            return new Vector2(
+                -vector.Y,
+                vector.X);
+        }
+
+        /// <summary>
+        /// Gets a perpendicular to this vector. Rotates it 90 degrees right.
+        /// </summary>
+        public static Vector2 Get90DegreesRight(this Vector2 vector)
+        {
+            return new Vector2(
+                vector.Y,
+                -vector.X);
+        }
+
+        /// <summary>
+        /// Determines whether the specified direction are within 90 degrees (left or right) of this vector.
         /// </summary>
         public static bool IsDirectionWithin90Degrees(this Vector2 direction1, Vector2 direction2)
         {

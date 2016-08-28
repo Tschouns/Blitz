@@ -115,9 +115,9 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.ApplyVelocity(Vector2)"/>.
+        /// See <see cref="IPhysicalObject.SetVelocity(Vector2)"/>.
         /// </summary>
-        public void ApplyVelocity(Vector2 velocity)
+        public void SetVelocity(Vector2 velocity)
         {
             this._appliedVelocity = this._appliedVelocity.AddVector(velocity);
         }

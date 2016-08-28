@@ -6,7 +6,6 @@
 
 namespace Physics.Services.Forces
 {
-    using System;
     using Physics.Elements;
     using Physics.Forces;
 
@@ -25,17 +24,17 @@ namespace Physics.Services.Forces
         public bool IsDepleted => true;
 
         /// <summary>
-        /// See <see cref="IForce.ApplyToObject(TPhysicalObject)"/>.
+        /// See <see cref="IForce{TPhysicalObject}.Step(double)"/>.
         /// </summary>
-        public void ApplyToObject(TPhysicalObject physicalObject)
+        public void Step(double time)
         {
             // Has no effect.
         }
 
         /// <summary>
-        /// See <see cref="IForce{TPhysicalObject}.Step(double)"/>.
+        /// See <see cref="IForce.ApplyToObject(TPhysicalObject)"/>.
         /// </summary>
-        public void Step(double time)
+        public void ApplyToObject(TPhysicalObject physicalObject)
         {
             // Has no effect.
         }

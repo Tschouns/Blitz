@@ -54,14 +54,9 @@ namespace Physics.Services.Elements
         private Vector2 _appliedAcceleration;
 
         /// <summary>
-        /// Stores the currently applied velocity.
+        /// Stores the velocity which shall override the current velocity.
         /// </summary>
-        private Vector2 _appliedVelocity;
-
-        /// <summary>
-        /// Stores the velocity calculated based on previous calculated velocity and acceleration. Does not include "applied velocity".
-        /// </summary>
-        private Vector2 _calculatedVelocity;
+        private Vector2? _overrideVelocity;
 
         /// <summary>
         /// Stores the current state of this rigid body.
@@ -107,9 +102,8 @@ namespace Physics.Services.Elements
             this._appliedForce = new Vector2();
             this._appliedTorque = 0;
             this._appliedAcceleration = new Vector2();
-            this._appliedVelocity = new Vector2();
-
-            this._calculatedVelocity = new Vector2();
+            this._overrideVelocity = null;
+            
             this._state = initialBodyState;
 
             // Update the shape, based on the initial state
@@ -176,11 +170,11 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.ApplyVelocity(Vector2)"/>.
+        /// See <see cref="IPhysicalObject.SetVelocity(Vector2)"/>.
         /// </summary>
-        public void ApplyVelocity(Vector2 velocity)
+        public void SetVelocity(Vector2 velocity)
         {
-            this._appliedVelocity = this._appliedVelocity.AddVector(velocity);
+            this._overrideVelocity = this._overrideVelocity.HasValue ? this._overrideVelocity.Value.AddVector(velocity) : velocity;
         }
 
         /// <summary>
@@ -189,17 +183,24 @@ namespace Physics.Services.Elements
         public void Step(double time)
         {
             // Linear motion
-            var acceleration = this._isaacNewtonHelper.CalculateAcceleration(
-                    this._appliedForce,
-                    this.Mass)
-                .AddVector(this._appliedAcceleration);
+            if (this._overrideVelocity.HasValue)
+            {
+                this._state.Velocity = this._overrideVelocity.Value;
+            }
+            else
+            {
+                var acceleration = this._isaacNewtonHelper.CalculateAcceleration(
+                        this._appliedForce,
+                        this.Mass)
+                    .AddVector(this._appliedAcceleration);
 
-            this._calculatedVelocity = this._isaacNewtonHelper.CalculateVelocity(
-                    this._calculatedVelocity,
-                    acceleration,
-                    time);
+                var calculatedVelocity = this._isaacNewtonHelper.CalculateVelocity(
+                        this._state.Velocity,
+                        acceleration,
+                        time);
 
-            this._state.Velocity = this._calculatedVelocity.AddVector(this._appliedVelocity);
+                this._state.Velocity = calculatedVelocity;
+            }
 
             this._state.Position = this._isaacNewtonHelper.CalculatePosition(
                 this._state.Position,
@@ -230,10 +231,14 @@ namespace Physics.Services.Elements
         /// </summary>
         public void ResetAppliedPhysicalQuantities()
         {
+            // Linear
             this._appliedForce = new Vector2();
-            this._appliedTorque = 0;
             this._appliedAcceleration = new Vector2();
-            this._appliedVelocity = new Vector2();
+
+            this._overrideVelocity = null;
+
+            // Rotational
+            this._appliedTorque = 0;
         }
     }
 }

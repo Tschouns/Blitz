@@ -42,6 +42,14 @@ namespace Physics.Services.Forces
         public bool IsDepleted => false;
 
         /// <summary>
+        /// See <see cref="IGlobalForce.Step"/>.
+        /// </summary>
+        public void Step(double time)
+        {
+            // Gravity doesn't change over time.
+        }
+
+        /// <summary>
         /// See <see cref="IGlobalForce.ApplyToObject(TPhysicalObject)"/>.
         /// </summary>
         public void ApplyToObject(TPhysicalObject physicalObject)
@@ -51,14 +59,6 @@ namespace Physics.Services.Forces
             var force = new Vector2(0, -(this._gravityAcceleration * physicalObject.Mass));
 
             physicalObject.ApplyForce(force);
-        }
-
-        /// <summary>
-        /// See <see cref="IGlobalForce.Step"/>.
-        /// </summary>
-        public void Step(double time)
-        {
-            // Gravity doesn't change over time.
         }
     }
 }

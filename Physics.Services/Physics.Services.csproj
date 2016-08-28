@@ -49,6 +49,7 @@
     <Compile Include="Elements\Shape\IShapeFactory.cs" />
     <Compile Include="Elements\Shape\RigidPolygonShape.cs" />
     <Compile Include="Elements\Shape\ShapeFactory.cs" />
+    <Compile Include="Forces\BodyFlowResistance.cs" />
     <Compile Include="Forces\BodyBlast.cs" />
     <Compile Include="Forces\GenericDummyForce.cs" />
     <Compile Include="Helpers\BodyCalculationHelper.cs" />
