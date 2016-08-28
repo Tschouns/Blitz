@@ -55,8 +55,10 @@ namespace BlitzCarShooter.HumbleWorld
             this._physicalWorld = this._physicsFactory.CreatePhysicalWorld();
 
             // Add air resistance.
-            var airResistance = this._physicsFactory.Forces.CreateFlowRestistance(4);
-            this._physicalWorld.AddForce(airResistance);
+            var airResistanceLinear = this._physicsFactory.Forces.CreateLinearFlowRestistance(3);
+            var airResistanceRotational = this._physicsFactory.Forces.CreateRotaionalFlowRestistance(3);
+            this._physicalWorld.AddForce(airResistanceLinear);
+            this._physicalWorld.AddForce(airResistanceRotational);
 
             this.PopulateWorld();
         }
@@ -130,10 +132,18 @@ namespace BlitzCarShooter.HumbleWorld
                 this._humbleCars.Remove(carToRemove);
             }
 
+            // Make cars explode.
+            ////var carsToExplode = this._humbleCars.Where(car => car.IsDestroyed && car.TimeSinceDestroyed > 5).ToList();
+            ////foreach (var carToExlode in carsToExplode)
+            ////{
+            ////    this._humbleCars.Remove(carToExlode);
+            ////    this.SpawnExplosion(carToExlode.Position, 20, 100000);
+            ////}
+
             // Update cars.
             foreach (var car in this._humbleCars)
             {
-                car.Update();
+                car.Update(elapsedTime);
             }
 
             // Update explosions.

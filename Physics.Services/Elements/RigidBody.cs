@@ -54,6 +54,11 @@ namespace Physics.Services.Elements
         private Vector2 _appliedAcceleration;
 
         /// <summary>
+        /// Stores the currently applied angular acceleration.
+        /// </summary>
+        private double _appliedAngularAcceleration;
+
+        /// <summary>
         /// Stores the velocity which shall override the current velocity.
         /// </summary>
         private Vector2? _overrideVelocity;
@@ -102,6 +107,7 @@ namespace Physics.Services.Elements
             this._appliedForce = new Vector2();
             this._appliedTorque = 0;
             this._appliedAcceleration = new Vector2();
+            this._appliedAngularAcceleration = 0;
             this._overrideVelocity = null;
             
             this._state = initialBodyState;
@@ -178,6 +184,22 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
+        /// See <see cref="IBody{TShapeFigure}.ApplyTorque(double)"/>.
+        /// </summary>
+        public void ApplyTorque(double torque)
+        {
+            this._appliedTorque += torque;
+        }
+
+        /// <summary>
+        /// See <see cref="IBody{TShapeFigure}.ApplyAngularAcceleration(double)"/>.
+        /// </summary>
+        public void ApplyAngularAcceleration(double torque)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// See <see cref="IPhysicalObject.Step"/>.
         /// </summary>
         public void Step(double time)
@@ -194,12 +216,10 @@ namespace Physics.Services.Elements
                         this.Mass)
                     .AddVector(this._appliedAcceleration);
 
-                var calculatedVelocity = this._isaacNewtonHelper.CalculateVelocity(
+                this._state.Velocity = this._isaacNewtonHelper.CalculateVelocity(
                         this._state.Velocity,
                         acceleration,
                         time);
-
-                this._state.Velocity = calculatedVelocity;
             }
 
             this._state.Position = this._isaacNewtonHelper.CalculatePosition(
@@ -209,8 +229,10 @@ namespace Physics.Services.Elements
 
             // Rotation
             var angularAcceleration = this._isaacNewtonHelper.CalculateAngularAcceleration(
-                this._appliedTorque,
-                this.Inertia);
+                    this._appliedTorque,
+                    this.Inertia);
+
+            angularAcceleration += this._appliedAngularAcceleration;
 
             this._state.AngularVelocity = this._isaacNewtonHelper.CalculateAngularVelocity(
                 this._state.AngularVelocity,
@@ -237,8 +259,9 @@ namespace Physics.Services.Elements
 
             this._overrideVelocity = null;
 
-            // Rotational
+            // Angular
             this._appliedTorque = 0;
+            this._appliedAngularAcceleration = 0;
         }
     }
 }

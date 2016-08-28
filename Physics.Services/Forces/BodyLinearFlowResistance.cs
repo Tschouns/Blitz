@@ -15,9 +15,9 @@ namespace Physics.Services.Forces
     using Geometry.Helpers;
     
     /// <summary>
-    /// Simulates flow resistance, which slows down objects based on their velocity and exposed area.
+    /// Simulates flow resistance to linear motion. It slows down bodies based on their velocity and exposed area.
     /// </summary>
-    public class BodyFlowResistance<TShapeFigure> : IForce<IBody<TShapeFigure>>
+    public class BodyLinearFlowResistance<TShapeFigure> : IForce<IBody<TShapeFigure>>
         where TShapeFigure : class, IFigure
     {
         /// <summary>
@@ -38,7 +38,7 @@ namespace Physics.Services.Forces
         /// <summary>
         /// Initializes a new instance of the <see cref="BodyFlowResistance"/> class.
         /// </summary>
-        public BodyFlowResistance(
+        public BodyLinearFlowResistance(
             ILineCalculationHelper lineCalculationHelper,
             ISupportFunctions<TShapeFigure> supportFunctions,
             double density)
@@ -62,7 +62,7 @@ namespace Physics.Services.Forces
         /// </summary>
         public void Step(double time)
         {
-            // Air resistance does not change over time.
+            // Flow resistance does not change over time.
         }
 
         /// <summary>

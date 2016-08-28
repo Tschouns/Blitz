@@ -12,6 +12,7 @@ namespace Physics.Services.Forces
     using Physics.Elements;
     using Physics.Forces;
     using Geometry.Helpers;
+    using System;
 
     /// <summary>
     /// See <see cref="IForceFactory"/>.
@@ -56,17 +57,30 @@ namespace Physics.Services.Forces
         }
 
         /// <summary>
-        /// See <see cref="IForceFactory.CreateFlowRestistance(double)"/>.
+        /// See <see cref="IForceFactory.CreateLinearFlowRestistance(double)"/>.
         /// </summary>
-        public ForceSet CreateFlowRestistance(double density)
+        public ForceSet CreateLinearFlowRestistance(double density)
         {
             Checks.AssertIsPositive(density, nameof(density));
 
             var flowResistanceForParticles = new GenericDummyForce<IParticle>();
-            var flowResistanceForBodies = new BodyFlowResistance<Polygon>(
+            var flowResistanceForBodies = new BodyLinearFlowResistance<Polygon>(
                 this._lineCalculationHelper,
                 this._polygonSupportFunctions,
                 density);
+
+            return new ForceSet(flowResistanceForParticles, flowResistanceForBodies);
+        }
+
+        /// <summary>
+        /// See <see cref="IForceFactory.CreateRotaionalFlowRestistance(double)"/>.
+        /// </summary>
+        public ForceSet CreateRotaionalFlowRestistance(double density)
+        {
+            Checks.AssertIsPositive(density, nameof(density));
+
+            var flowResistanceForParticles = new GenericDummyForce<IParticle>();
+            var flowResistanceForBodies = new BodyRotationalFlowResistance<Polygon>( density);
 
             return new ForceSet(flowResistanceForParticles, flowResistanceForBodies);
         }

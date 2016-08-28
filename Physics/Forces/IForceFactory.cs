@@ -19,9 +19,14 @@ namespace Physics.Forces
         ForceSet CreateGravity(double acceleration);
 
         /// <summary>
-        /// Creates flow resistance.
+        /// Creates flow resistance to linear motion.
         /// </summary>
-        ForceSet CreateFlowRestistance(double density);
+        ForceSet CreateLinearFlowRestistance(double density);
+
+        /// <summary>
+        /// Creates flow resistance to rotation.
+        /// </summary>
+        ForceSet CreateRotaionalFlowRestistance(double density);
 
         /// <summary>
         /// Creates a blast which pushes away surrounding objects.

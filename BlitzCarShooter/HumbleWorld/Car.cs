@@ -13,6 +13,8 @@ namespace BlitzCarShooter.HumbleWorld
     using Point = Geometry.Elements.Point;
     using Rectangle = Geometry.Elements.Rectangle;
     using Physics.World;
+    using System;
+
     /// <summary>
     /// A humble little car, which can only drive straight from left to right, or from right to left.
     /// </summary>
@@ -54,6 +56,7 @@ namespace BlitzCarShooter.HumbleWorld
                 startingPosition);
 
             this.Color = color;
+            this.TimeSinceDestroyed = 0.0;
             this._isMovingFromRightToLeft = isMovingFromRightToLeft;
         }
 
@@ -73,28 +76,45 @@ namespace BlitzCarShooter.HumbleWorld
         public Color Color { get; private set; }
 
         /// <summary>
-        ///Gets a value Indicating whether the car is destroyed.
+        /// Gets a value Indicating whether the car is destroyed.
         /// </summary>
         public bool IsDestroyed { get; private set; }
 
         /// <summary>
+        /// Gets the time since the car was destroyed.
+        /// </summary>
+        public double TimeSinceDestroyed { get; private set; }
+
+        /// <summary>
         /// Updates the car.
         /// </summary>
-        public void Update()
+        public void Update(double elapsedTime)
         {
             if (this.IsDestroyed)
             {
+                this.TimeSinceDestroyed += elapsedTime;
                 return;
             }
 
             // Move the car.
-            var speed = this._movingSpeed;
-            if (this._isMovingFromRightToLeft)
+            if (Math.Abs(this._carBody.CurrentState.Velocity.X) < this._movingSpeed)
             {
-                speed = -speed;
+                var acceleration = 3.0;
+                if (this._isMovingFromRightToLeft)
+                {
+                    acceleration = -acceleration;
+                }
+
+                this._carBody.ApplyAcceleration(new Vector2(acceleration, 0));
             }
 
-            this._carBody.SetVelocity(new Vector2(speed, 0));
+            ////var speed = this._movingSpeed;
+            ////if (this._isMovingFromRightToLeft)
+            ////{
+            ////    speed = -speed;
+            ////}
+
+            ////this._carBody.SetVelocity(new Vector2(speed, 0));
         }
 
         /// <summary>

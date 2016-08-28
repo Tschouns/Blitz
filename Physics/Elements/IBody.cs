@@ -31,5 +31,15 @@ namespace Physics.Elements
         /// Gets the current state of the body.
         /// </summary>
         BodyState CurrentState { get; }
+
+        /// <summary>
+        /// Applies the specified torque to the body.
+        /// </summary>
+        void ApplyTorque(double torque);
+
+        /// <summary>
+        /// Applies the specified angular acceleration to the body.
+        /// </summary>
+        void ApplyAngularAcceleration(double torque);
     }
 }

@@ -34,9 +34,11 @@
 
 ===Input===
 - Abstraction
-  X Input action
+  X Input action (perhaps rename "simple action" or similar)
   X Keyboard buttons
   - Mouse buttons
+  - Input action for "oscillation" (by mouse, joystick or controller whatever...)
+  - Input action for "absolute movement" (typically for mouse cursor)
 
 ===Camera===
   X Projection
@@ -47,6 +49,7 @@
 	- position by drag
 	- position ..., smooth acceleration
 	- position "track shot"
+	- position to cursor (for implementing "zoom to mouse", e.g. using a "scale by mouse wheel" effect)
         - orientation by key input
 	X scale by key (or mouse wheel) input, linear
 	X scale progressive (to resemble camera "movement" in Z axis)
