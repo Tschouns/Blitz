@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constaints\ContraintEvaluationResult.cs" />
+    <Compile Include="Constaints\IContraint.cs" />
     <Compile Include="Elements\ElementFactory.cs" />
     <Compile Include="Elements\Particle.cs" />
     <Compile Include="Elements\PhysicalSpace.cs" />
