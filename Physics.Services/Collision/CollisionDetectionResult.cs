@@ -4,19 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Physics.Services.Constaints
+namespace Physics.Services.Collision
 {
-    using Geometry.Elements;
-    using Physics.Elements;
-
     /// <summary>
-    /// Represents any contraint within the "physical world".
+    /// Represents the result of a collision detection.
     /// </summary>
-    public interface IContraint
+    public class CollisionDetectionResult
     {
-        /// <summary>
-        /// Evaluates the contraint.
-        /// </summary>
-        ContraintEvaluationResult Evaluate();
     }
 }

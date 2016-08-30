@@ -41,8 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collision\CollisionDetectionResult.cs" />
+    <Compile Include="Collision\ICollisionDetector.cs" />
+    <Compile Include="Constaints\ContraintCorrectionForBody.cs" />
+    <Compile Include="Constaints\ContraintCorrectionForParticle.cs" />
     <Compile Include="Constaints\ContraintEvaluationResult.cs" />
     <Compile Include="Constaints\IContraint.cs" />
+    <Compile Include="Constaints\IContraintResolver.cs" />
     <Compile Include="Elements\ElementFactory.cs" />
     <Compile Include="Elements\Particle.cs" />
     <Compile Include="Elements\PhysicalSpace.cs" />
@@ -80,9 +85,7 @@
       <Name>Physics</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Collision\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
