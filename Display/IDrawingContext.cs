@@ -29,5 +29,10 @@ namespace Display
         /// Draws a cicle, defined by the center and its radius.
         /// </summary>
         void DrawCircle(Point center, double radius, System.Drawing.Color color, float strokeWidth);
+
+        /// <summary>
+        /// Draws a bitmap. This is temporary - TODO: replace this signature by something which uses some kind of "handle" for a pre-loaded bitmap...
+        /// </summary>
+        void DrawBitmap(System.Drawing.Bitmap bitmap);
     }
 }

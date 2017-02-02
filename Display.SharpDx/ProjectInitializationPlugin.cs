@@ -21,6 +21,7 @@ namespace Display.SharpDx
         /// </summary>
         public void PerformIocContainerRegistrations()
         {
+            Ioc.Container.RegisterSingleton<IBitmapLoader, BitmapLoader>();
             Ioc.Container.RegisterSingleton<IDisplayFactory, DisplayFactory>();
         }
     }

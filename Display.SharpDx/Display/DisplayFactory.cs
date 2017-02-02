@@ -14,6 +14,18 @@ namespace Display.SharpDx.Display
     /// </summary>
     public class DisplayFactory : IDisplayFactory
     {
+        private readonly IBitmapLoader _bitmapLoader;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DisplayFactory"/> class.
+        /// </summary>
+        public DisplayFactory(IBitmapLoader bitmapLoader)
+        {
+            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
+
+            this._bitmapLoader = bitmapLoader;
+        }
+
         /// <summary>
         /// See <see cref="IDisplayFactory.CreateDisplay"/>.
         /// </summary>
@@ -21,7 +33,10 @@ namespace Display.SharpDx.Display
         {
             Checks.AssertNotNull(drawCallback, nameof(drawCallback));
 
-            return new Display(properties, drawCallback);
+            return new Display(
+                this._bitmapLoader,
+                properties,
+                drawCallback);
         }
     }
 }

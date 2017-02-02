@@ -67,8 +67,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Display\BitmapLoader.cs" />
     <Compile Include="Display\Display.cs" />
     <Compile Include="Display\DisplayFactory.cs" />
+    <Compile Include="Display\IBitmapLoader.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />

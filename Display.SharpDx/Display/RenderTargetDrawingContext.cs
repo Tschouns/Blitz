@@ -11,7 +11,6 @@ namespace Display.SharpDx.Display
     using System.Drawing;
     using Base.RuntimeChecks;
     using Extensions;
-    using Geometry.Elements;
     using SharpDX.Direct2D1;
     using Point = Geometry.Elements.Point;
 
@@ -20,6 +19,8 @@ namespace Display.SharpDx.Display
     /// </summary>
     public class RenderTargetDrawingContext : IDrawingContext
     {
+        private readonly IBitmapLoader _bitmapLoader;
+
         /// <summary>
         /// Stores a reference to the render target.
         /// </summary>
@@ -34,12 +35,15 @@ namespace Display.SharpDx.Display
         /// Initializes a new instance of the <see cref="RenderTargetDrawingContext"/> class.
         /// </summary>
         public RenderTargetDrawingContext(
+            IBitmapLoader bitmapLoader,
             RenderTarget renderTarget,
             double renderTargetHeight)
         {
+            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
             Checks.AssertNotNull(renderTarget, nameof(renderTarget));
             Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
+            this._bitmapLoader = bitmapLoader;
             this._renderTarget = renderTarget;
             this._renderTargetHeight = renderTargetHeight;
         }
@@ -121,6 +125,18 @@ namespace Display.SharpDx.Display
             {
                 this.DrawLine(lastPoint.Value, origin.Value, color, strokeWidth);
             }
+        }
+
+        /// <summary>
+        /// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap)"/>.
+        /// </summary>
+        public void DrawBitmap(System.Drawing.Bitmap bitmap)
+        {
+            Checks.AssertNotNull(bitmap, nameof(bitmap));
+
+            var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
+
+            this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
         }
     }
 }

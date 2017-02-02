@@ -21,34 +21,17 @@ namespace Display.SharpDx.Display
     /// </summary>
     public sealed class Display : IDisplay
     {
+        private readonly IBitmapLoader _bitmapLoader;
+
         /// <summary>
         /// The call-back method allowing the client to draw using the <see cref="IDrawingContext"/>.
         /// </summary>
         private readonly Action<IDrawingContext> _drawCallback;
 
-        /// <summary>
-        /// The form used to display content.
-        /// </summary>
         private RenderForm _renderForm;
-
-        /// <summary>
-        /// The <c>Direct3D</c> device.
-        /// </summary>
         private SharpDX.Direct3D11.Device _device;
-
-        /// <summary>
-        /// The swap chain.
-        /// </summary>
         private SwapChain _swapChain;
-
-        /// <summary>
-        /// The back buffer.
-        /// </summary>
         private Surface _backBuffer;
-
-        /// <summary>
-        /// The render target to draw to.
-        /// </summary>
         private RenderTarget _renderTarget;
 
         /// <summary>
@@ -64,10 +47,15 @@ namespace Display.SharpDx.Display
         /// <summary>
         /// Initializes a new instance of the <see cref="Display"/> class.
         /// </summary>
-        public Display(DisplayProperties properties, Action<IDrawingContext> drawCallback)
+        public Display(
+            IBitmapLoader bitmapLoader,
+            DisplayProperties properties,
+            Action<IDrawingContext> drawCallback)
         {
+            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
             Checks.AssertNotNull(drawCallback, nameof(drawCallback));
 
+            this._bitmapLoader = bitmapLoader;
             this.Properties = properties;
             this._drawCallback = drawCallback;
 
@@ -185,9 +173,9 @@ namespace Display.SharpDx.Display
             }
 
             // Add event handler for ALT+Enter.
-            this._renderForm.KeyDown += (o, e) =>
+            this._renderForm.KeyDown += (sender, eventArgs) =>
             {
-                if (e.Alt && e.KeyCode == Keys.Enter)
+                if (eventArgs.Alt && eventArgs.KeyCode == Keys.Enter)
                 {
                     this._swapChain.IsFullScreen = !this._swapChain.IsFullScreen;
                 }
@@ -227,6 +215,7 @@ namespace Display.SharpDx.Display
         private void InitializeDrawingContext()
         {
             this._drawingContext = new RenderTargetDrawingContext(
+                this._bitmapLoader,
                 this._renderTarget,
                 this._renderForm.ClientSize.Height);
         }

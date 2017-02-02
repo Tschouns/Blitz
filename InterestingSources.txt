@@ -22,6 +22,14 @@ https://www.youtube.com/watch?v=wTxktpA5GUM
 === High performance WPF 3D chart ===
 http://www.codeproject.com/Articles/42174/High-performance-WPF-D-Chart
 
+=== SharpDx / Direct2D /Sprites ===
+https://www.youtube.com/playlist?list=PLizgKJ9dhxgwwSFCCLI8bqOrpEFCRcS9U
+Direct2D  Tutorials: https://www.youtube.com/playlist?list=PLKK11Ligqitij8r6hd6tfqqesh3T_xWJA
+- Loading Bitmaps from System.Drawing.Bitmaps:
+  http://stackoverflow.com/questions/5160510/loading-creating-an-image-into-sharpdx-in-a-net-program
+- Drawing Bitmaps:
+  http://stackoverflow.com/questions/28373511/sharpdx-bitmaps
+
 === 2D transformations ===
 https://www.youtube.com/watch?v=HpXQaz7OMqQ
 http://www.tutorialspoint.com/computer_graphics/2d_transformation.htm
