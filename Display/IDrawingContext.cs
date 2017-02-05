@@ -7,6 +7,7 @@
 namespace Display
 {
     using System.Collections.Generic;
+    using System.Numerics;
     using Geometry.Elements;
 
     /// <summary>
@@ -34,5 +35,10 @@ namespace Display
         /// Draws a bitmap. This is temporary - TODO: replace this signature by something which uses some kind of "handle" for a pre-loaded bitmap...
         /// </summary>
         void DrawBitmap(System.Drawing.Bitmap bitmap);
+
+        /// <summary>
+        /// Draws a bitmap. This is temporary - TODO: replace this signature by something which uses some kind of "handle" for a pre-loaded bitmap...
+        /// </summary>
+        void DrawBitmap(System.Drawing.Bitmap bitmap, Matrix3x2 transformation);
     }
 }

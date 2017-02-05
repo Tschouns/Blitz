@@ -82,6 +82,14 @@ namespace Camera.Services
         }
 
         /// <summary>
+        /// See <see cref="ICameraTransformation.WorldToViewportMatrix3x2"/>.
+        /// </summary>
+        public Matrix3x2 WorldToViewportMatrix3x2()
+        {
+            return this._worldToViewportTransformationMatrix;
+        }
+
+        /// <summary>
         /// Does the actual transformation of a specified position, appying the specified transformation
         /// matrix.
         /// </summary>

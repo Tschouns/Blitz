@@ -14,7 +14,6 @@ namespace BlitzCarShooter
     using Camera;
     using Display;
     using Geometry.Elements;
-    using Geometry.Extensions;
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
 
@@ -133,6 +132,14 @@ namespace BlitzCarShooter
             // Draw the cars.
             foreach (var car in this._currentGameState.Cars)
             {
+                var hackTransformationMatrix = this._currentGameState.CameraTransformation.WorldToViewportMatrix3x2();
+                hackTransformationMatrix.M31 = hackTransformationMatrix.M31 + (float)car.Position.X;
+                hackTransformationMatrix.M32 = hackTransformationMatrix.M32 + (float)car.Position.Y;
+
+                drawingContext.DrawBitmap(
+                    Images.Car,
+                    this._currentGameState.CameraTransformation.WorldToViewportMatrix3x2());
+
                 drawingContext.DrawPolygon(
                     TransformPolygonForDrawing(car.Polygon, transformation),
                     car.Color,

@@ -29,6 +29,10 @@ Direct2D  Tutorials: https://www.youtube.com/playlist?list=PLKK11Ligqitij8r6hd6t
   http://stackoverflow.com/questions/5160510/loading-creating-an-image-into-sharpdx-in-a-net-program
 - Drawing Bitmaps:
   http://stackoverflow.com/questions/28373511/sharpdx-bitmaps
+- APPLYING DIRECT2D BUILT-IN EFFECTS TO BITMAPS WITH SHARPDX
+  https://english.r2d2rigo.es/2014/08/19/applying-direct2d-built-in-effects-to-bitmaps-with-sharpdx/
+- Video Tutorial "Direct2D Tutorial 8: Loading an Image"
+  https://www.youtube.com/watch?v=RKZvT4U71rg
 
 === 2D transformations ===
 https://www.youtube.com/watch?v=HpXQaz7OMqQ

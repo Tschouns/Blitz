@@ -6,6 +6,7 @@
 
 namespace Camera
 {
+    using System.Numerics;
     using Geometry.Elements;
 
     /// <summary>
@@ -33,5 +34,10 @@ namespace Camera
         ///  Transforms (or scales) the specified distance from world viewport.
         /// </summary>
         double ViewportToWorld(double viewportDistance);
+
+        /// <summary>
+        /// Gets a 3x2 matrix which represents the transformation from world to viewport coordinates.
+        /// </summary>
+        Matrix3x2 WorldToViewportMatrix3x2();
     }
 }
