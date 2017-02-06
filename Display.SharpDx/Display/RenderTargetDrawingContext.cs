@@ -13,16 +13,12 @@ namespace Display.SharpDx.Display
     using Extensions;
     using SharpDX.Direct2D1;
     using Point = Geometry.Elements.Point;
-    using SharpDX.Mathematics.Interop;
-    using System.Numerics;
 
     /// <summary>
     /// Implements <see cref="IDrawingContext"/>, as a wrapper of <see cref="RenderTarget"/>.
     /// </summary>
     public class RenderTargetDrawingContext : IDrawingContext
     {
-        private readonly IBitmapLoader _bitmapLoader;
-
         /// <summary>
         /// Stores a reference to the render target.
         /// </summary>
@@ -37,15 +33,12 @@ namespace Display.SharpDx.Display
         /// Initializes a new instance of the <see cref="RenderTargetDrawingContext"/> class.
         /// </summary>
         public RenderTargetDrawingContext(
-            IBitmapLoader bitmapLoader,
             RenderTarget renderTarget,
             double renderTargetHeight)
         {
-            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
             Checks.AssertNotNull(renderTarget, nameof(renderTarget));
             Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
-            this._bitmapLoader = bitmapLoader;
             this._renderTarget = renderTarget;
             this._renderTargetHeight = renderTargetHeight;
         }
@@ -129,34 +122,34 @@ namespace Display.SharpDx.Display
             }
         }
 
-        /// <summary>
-        /// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap)"/>.
-        /// </summary>
-        public void DrawBitmap(System.Drawing.Bitmap bitmap)
-        {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
+        /////// <summary>
+        /////// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap)"/>.
+        /////// </summary>
+        ////public void DrawBitmap(System.Drawing.Bitmap bitmap)
+        ////{
+        ////    Checks.AssertNotNull(bitmap, nameof(bitmap));
 
-            var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
+        ////    var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
 
-            this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
-        }
+        ////    this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
+        ////}
 
-        /// <summary>
-        /// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap, Matrix3x2)"/>.
-        /// </summary>
-        public void DrawBitmap(System.Drawing.Bitmap bitmap, Matrix3x2 transformation)
-        {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
+        /////// <summary>
+        /////// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap, Matrix3x2)"/>.
+        /////// </summary>
+        ////public void DrawBitmap(System.Drawing.Bitmap bitmap, Matrix3x2 transformation)
+        ////{
+        ////    Checks.AssertNotNull(bitmap, nameof(bitmap));
 
-            var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
+        ////    var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
 
-            var transformationBackup = this._renderTarget.Transform;
+        ////    var transformationBackup = this._renderTarget.Transform;
 
-            this._renderTarget.Transform = transformation.ToSharpDxRawMatric3x2();
-            this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
+        ////    this._renderTarget.Transform = transformation.ToSharpDxRawMatric3x2();
+        ////    this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
 
-            // Restore old transformation.
-            this._renderTarget.Transform = transformationBackup;
-        }
+        ////    // Restore old transformation.
+        ////    this._renderTarget.Transform = transformationBackup;
+        ////}
     }
 }

@@ -28,6 +28,11 @@ namespace BlitzCarShooter
         private readonly IDisplay _display;
 
         /// <summary>
+        /// A sprite representing a car.
+        /// </summary>
+        private readonly ISprite _carSprite;
+
+        /// <summary>
         /// Stores the current game state, to enable <see cref="DrawToDisplay(IDrawingContext)"/> to access it.
         /// </summary>
         private DemoGameState _currentGameState;
@@ -43,6 +48,9 @@ namespace BlitzCarShooter
             Checks.AssertNotNull(displayProperties, nameof(displayProperties));
 
             this._display = displayFactory.CreateDisplay(displayProperties, this.DrawToDisplay);
+
+            // Load sprites
+            this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(Images.Car);
         }
 
         /// <summary>
@@ -136,9 +144,7 @@ namespace BlitzCarShooter
                 hackTransformationMatrix.M31 = hackTransformationMatrix.M31 + (float)car.Position.X;
                 hackTransformationMatrix.M32 = hackTransformationMatrix.M32 + (float)car.Position.Y;
 
-                drawingContext.DrawBitmap(
-                    Images.Car,
-                    this._currentGameState.CameraTransformation.WorldToViewportMatrix3x2());
+                this._carSprite.Draw(this._currentGameState.CameraTransformation.WorldToViewportMatrix3x2());
 
                 drawingContext.DrawPolygon(
                     TransformPolygonForDrawing(car.Polygon, transformation),

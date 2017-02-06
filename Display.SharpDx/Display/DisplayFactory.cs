@@ -8,6 +8,7 @@ namespace Display.SharpDx.Display
 {
     using System;
     using Base.RuntimeChecks;
+    using Sprites;
 
     /// <summary>
     /// See <see cref="IDisplayFactory"/>.

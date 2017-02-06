@@ -68,16 +68,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Display\BitmapLoader.cs" />
+    <Compile Include="Sprites\BitmapLoader.cs" />
     <Compile Include="Display\Display.cs" />
     <Compile Include="Display\DisplayFactory.cs" />
-    <Compile Include="Display\IBitmapLoader.cs" />
+    <Compile Include="Sprites\IBitmapLoader.cs" />
+    <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Extensions\Matrix3x2Extensions.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Display\RenderTargetDrawingContext.cs" />
+    <Compile Include="Sprites\SpriteManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Base\Base.csproj">

@@ -9,6 +9,7 @@ namespace Display.SharpDx
     using Base.InversionOfControl;
     using Base.StartUp;
     using Display;
+    using Sprites;
 
     /// <summary>
     /// Initializes this project, see <see cref="IProjectInitializationPlugin"/>.

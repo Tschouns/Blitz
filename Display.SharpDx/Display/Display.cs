@@ -15,14 +15,13 @@ namespace Display.SharpDx.Display
     using SharpDX.Direct3D11;
     using SharpDX.DXGI;
     using SharpDX.Windows;
+    using Sprites;
 
     /// <summary>
     /// Implementation of <see cref="IDisplay"/>, based on <see cref="SharpDX"/>.
     /// </summary>
     public sealed class Display : IDisplay
     {
-        private readonly IBitmapLoader _bitmapLoader;
-
         /// <summary>
         /// The call-back method allowing the client to draw using the <see cref="IDrawingContext"/>.
         /// </summary>
@@ -33,6 +32,7 @@ namespace Display.SharpDx.Display
         private SwapChain _swapChain;
         private Surface _backBuffer;
         private RenderTarget _renderTarget;
+        private SpriteManager _spriteManager;
 
         /// <summary>
         /// The <see cref="IDrawingContext"/> used to "draw". Essentially a wrapper of <see cref="RenderTarget"/>.
@@ -55,7 +55,6 @@ namespace Display.SharpDx.Display
             Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
             Checks.AssertNotNull(drawCallback, nameof(drawCallback));
 
-            this._bitmapLoader = bitmapLoader;
             this.Properties = properties;
             this._drawCallback = drawCallback;
 
@@ -64,7 +63,13 @@ namespace Display.SharpDx.Display
             this.SetupAltEnterHandling();
             this.InitializeRenderTarget();
             this.InitializeDrawingContext();
+            this.InitializeSpriteManager(bitmapLoader);
         }
+
+        /// <summary>
+        /// See <see cref="IDisplay.SpriteManager"/>.
+        /// </summary>
+        public ISpriteManager SpriteManager => this._spriteManager;
 
         /// <summary>
         /// See <see cref="IDisplay.Show"/>.
@@ -112,6 +117,7 @@ namespace Display.SharpDx.Display
             this._swapChain.Dispose();
             this._backBuffer.Dispose();
             this._renderTarget.Dispose();
+            this._spriteManager.Dispose();
         }
 
         /// <summary>
@@ -215,9 +221,20 @@ namespace Display.SharpDx.Display
         private void InitializeDrawingContext()
         {
             this._drawingContext = new RenderTargetDrawingContext(
-                this._bitmapLoader,
                 this._renderTarget,
                 this._renderForm.ClientSize.Height);
+        }
+
+        /// <summary>
+        /// Initializes the <see cref="ISpriteManager"/>.
+        /// </summary>
+        private void InitializeSpriteManager(IBitmapLoader bitmapLoader)
+        {
+            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
+
+            this._spriteManager = new SpriteManager(
+                bitmapLoader,
+                this._renderTarget);
         }
     }
 }

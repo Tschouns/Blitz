@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Display.SharpDx.Display
+namespace Display.SharpDx.Sprites
 {
     using SharpDX.Direct2D1;
 

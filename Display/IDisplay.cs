@@ -19,6 +19,12 @@ namespace Display
         DisplayProperties Properties { get; }
 
         /// <summary>
+        /// Gets the <see cref="ISpriteManager"/>, which allows to load and draw sprites to the display
+        /// while the frame is being drawn.
+        /// </summary>
+        ISpriteManager SpriteManager { get; }
+
+        /// <summary>
         /// Shows the display.
         /// </summary>
         void Show();

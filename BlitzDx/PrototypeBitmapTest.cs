@@ -23,6 +23,11 @@ namespace BlitzDx
         private readonly IDisplay _display;
 
         /// <summary>
+        /// Stores the sample sprite.
+        /// </summary>
+        private readonly ISprite _sampleSprite;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PrototypeBitmapTest"/> class.
         /// </summary>
         public PrototypeBitmapTest()
@@ -43,6 +48,9 @@ namespace BlitzDx
             };
 
             this._display = displayFactory.CreateDisplay(displayProperties, this.Draw);
+
+            // Load bitmap.
+            this._sampleSprite = this._display.SpriteManager.LoadFromDrawingBitmap(Bitmaps.SampleBitmapUno);
         }
 
         /// <summary>
@@ -64,16 +72,24 @@ namespace BlitzDx
         /// </summary>
         public void Dispose()
         {
-            this._display.Dispose();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._display.Dispose();
+            }
+        }
 
         /// <summary>
         /// The draw callback.
         /// </summary>
         private void Draw(IDrawingContext drawingContext)
         {
-            drawingContext.DrawBitmap(Bitmaps.SampleBitmapUno);
+            this._sampleSprite.Draw();
         }
     }
 }
