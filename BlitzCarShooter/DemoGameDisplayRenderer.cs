@@ -54,11 +54,12 @@ namespace BlitzCarShooter
 
             // Load sprites
             var carSpritePositionOrigin = new Point(Images.Car.Size.Width / 2, Images.Car.Size.Height / 2);
-            this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
-                Images.Car,
-                carSpritePositionOrigin,
-                Math.PI,
-                0.1f);
+            ////this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
+            ////    Images.Car,
+            ////    carSpritePositionOrigin,
+            ////    Math.PI,
+            ////    0.1f);
+            this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(Images.Car);
         }
 
         /// <summary>

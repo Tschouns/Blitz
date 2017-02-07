@@ -79,7 +79,7 @@ namespace Camera.Services
 
             return new CameraTransformation(
                 worldToViewportTransformationMatrix,
-                new Transformation(this.State.Orientation, this.State.Scale, this.State.Position.AsVector().Invert()),
+                new Transformation(this.State.Orientation, this.State.Scale, this.State.Position.AsVector().Invert().Multiply(this.State.Scale)),
                 this.State.Scale);
         }
 

@@ -60,6 +60,7 @@ namespace Geometry.Transformation
 
             var newRotation = this.Rotation + transformationToApply.Rotation;
             var newScale = this.Scale * transformationToApply.Scale;
+            //var newTranslation = this.Translation.AddVector(transformationToApply.Translation);
             var newTranslation = this.Translation.Multiply(transformationToApply.Scale).AddVector(transformationToApply.Translation);
 
             return new Transformation(
