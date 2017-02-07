@@ -11,8 +11,8 @@ namespace Display.SharpDx.Sprites
     using System;
     using System.Collections.Generic;
     using System.Numerics;
-    using Geometry.Elements;
-    using System.Drawing;
+    using Geometry.Extensions;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ISpriteManager"/>.
@@ -48,33 +48,34 @@ namespace Display.SharpDx.Sprites
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
 
-            return this.LoadFromDrawingBitmap(bitmap, Matrix3x2.Identity);
+            return this.LoadFromDrawingBitmap(bitmap, new Transformation());
         }
 
         /// <summary>
-        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Geometry.Elements.Point, double, double)"/>.
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, globalGeometry.Elements.Point, double, double)"/>.
         /// </summary>
         public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, global::Geometry.Elements.Point positionOrigin, double initialOrientation, double initialScale)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
             
-            var originOffsetTranslation = Matrix3x2.CreateTranslation(
-                -(float)positionOrigin.X,
-                (float)positionOrigin.Y);
+            var originOffset = new global::Geometry.Elements.Vector2(
+                -positionOrigin.X,
+                positionOrigin.Y);
 
-            var initialOrientationTransformation = Matrix3x2.CreateRotation((float)initialOrientation);
-
-            var initialScaleTransformation = Matrix3x2.CreateScale((float)initialScale);
+            var initialTransformation = new Transformation(
+                initialOrientation,
+                initialScale,
+                originOffset.Multiply(initialScale));
 
             return this.LoadFromDrawingBitmap(
                 bitmap,
-                originOffsetTranslation * initialOrientationTransformation * initialScaleTransformation);
+                initialTransformation);
         }
 
         /// <summary>
-        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Matrix3x2)"/>.
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Transformation)"/>.
         /// </summary>
-        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Matrix3x2 initialTransformation)
+        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Transformation initialTransformation)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
 

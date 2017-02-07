@@ -18,6 +18,14 @@ namespace Geometry.Transformation
         /// <summary>
         /// Initializes a new instance of the <see cref="Transformation"/> class.
         /// </summary>
+        public Transformation()
+            : this(0.0f, 1.0f, new Vector2())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Transformation"/> class.
+        /// </summary>
         public Transformation(
             double rotation,
             double scale,
@@ -46,7 +54,7 @@ namespace Geometry.Transformation
         /// <summary>
         /// Applies another transformation on top of this and creates a new combinded transformation.
         /// </summary>
-        Transformation ApplyTransformationOnTop(Transformation transformationToApply)
+        public Transformation ApplyTransformationOnTop(Transformation transformationToApply)
         {
             Checks.AssertNotNull(transformationToApply, nameof(transformationToApply));
 

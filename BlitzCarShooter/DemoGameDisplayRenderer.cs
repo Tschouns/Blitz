@@ -17,6 +17,8 @@ namespace BlitzCarShooter
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
     using System.Numerics;
+    using Geometry.Transformation;
+    using Geometry.Extensions;
 
     /// <summary>
     /// Implements <see cref="IDrawCallback{TGameState}"/>.
@@ -146,15 +148,19 @@ namespace BlitzCarShooter
             // Draw the cars.
             foreach (var car in this._currentGameState.Cars)
             {
-                var positionVector = new System.Numerics.Vector2((float)car.Position.X, (float)car.Position.Y);
-                var positionTransformation = Matrix3x2.CreateTranslation(positionVector);
+                //var positionVector = new System.Numerics.Vector2((float)car.Position.X, (float)car.Position.Y);
+                //var positionTransformation = Matrix3x2.CreateTranslation(positionVector);
 
-                var rotationTransformation = Matrix3x2.CreateRotation(-(float)car.Orientation);
+                //var rotationTransformation = Matrix3x2.CreateRotation(-(float)car.Orientation);
 
-                this._carSprite.Draw(
-                    rotationTransformation *
-                    positionTransformation *
-                    cameraTransformation.WorldToViewportMatrix3x2());
+                var worldPositionTransformation = new Transformation(
+                    car.Orientation,
+                    1,
+                    car.Position.AsVector());
+
+                var totalTransformation = worldPositionTransformation.ApplyTransformationOnTop(cameraTransformation.WorldToViewportTransformation());
+
+                this._carSprite.Draw(totalTransformation);
 
                 drawingContext.DrawPolygon(
                     TransformPolygonForDrawing(car.Polygon, cameraTransformation),

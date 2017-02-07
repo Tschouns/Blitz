@@ -9,6 +9,7 @@ namespace Camera.Services
     using System;
     using System.Numerics;
     using Geometry.Elements;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ICameraTransformation"/>.
@@ -36,10 +37,16 @@ namespace Camera.Services
         private readonly double _viewportToWorldScale;
 
         /// <summary>
+        /// This is an experiment...
+        /// </summary>
+        private readonly Transformation _worldToViewportTransformation;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CameraTransformation"/> class.
         /// </summary>
         public CameraTransformation(
             Matrix3x2 worldToViewportTransformationMatrix,
+            Transformation worldToViewportTransformation,
             double worldToViewportScale)
         {
             this._worldToViewportTransformationMatrix = worldToViewportTransformationMatrix;
@@ -47,6 +54,8 @@ namespace Camera.Services
 
             this._worldToViewportScale = worldToViewportScale;
             this._viewportToWorldScale = worldToViewportScale == 0 ? 0 : 1 / worldToViewportScale;
+
+            this._worldToViewportTransformation = worldToViewportTransformation;
         }
 
         /// <summary>
@@ -104,6 +113,15 @@ namespace Camera.Services
                 transformedPosition.Y + transformationMatrix.M32);
 
             return transformedPosition;
+        }
+
+        /// <summary>
+        /// See <see cref="ICameraTransformation.WorldToViewportTransformation"/>.
+        /// </summary>
+        /// <returns></returns>
+        public Transformation WorldToViewportTransformation()
+        {
+            return this._worldToViewportTransformation;
         }
     }
 }

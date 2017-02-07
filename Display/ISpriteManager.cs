@@ -6,6 +6,7 @@
 
 namespace Display
 {
+    using Geometry.Transformation;
     using System.Drawing;
     using System.Numerics;
 
@@ -28,7 +29,7 @@ namespace Display
         /// <summary>
         /// Loads a new sprite from a bitmap. Applies the specified initial transformation.
         /// </summary>
-        ISprite LoadFromDrawingBitmap(Bitmap bitmap, Matrix3x2 initialTransformation);
+        ISprite LoadFromDrawingBitmap(Bitmap bitmap, Transformation initialTransformation);
 
         /// <summary>
         /// Unloads all sprites. Unloaded sprites can no longer be drawn.

@@ -11,6 +11,7 @@ namespace Display.SharpDx.Sprites
     using SharpDX.Direct2D1;
     using Base.RuntimeChecks;
     using Extensions;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ISprite"/>.
@@ -18,7 +19,7 @@ namespace Display.SharpDx.Sprites
     public class Sprite : ISprite, IDisposable
     {
         private readonly Bitmap _bitmap;
-        private readonly Matrix3x2 _initialTransformation;
+        private readonly Transformation _initialTransformation;
         private readonly RenderTarget _renderTarget;
         private readonly double _renderTargetHeight;
 
@@ -27,7 +28,7 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public Sprite(
              Bitmap bitmap,
-             Matrix3x2 initialTransformation,
+             Transformation initialTransformation,
              RenderTarget renderTarget,
              double renderTargetHeight)
         {
@@ -46,13 +47,13 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public void Draw()
         {
-            this.Draw(Matrix3x2.Identity);
+            this.Draw(new Transformation(0, 1, new global::Geometry.Elements.Vector2()));
         }
 
         /// <summary>
-        /// See <see cref="ISprite.Draw(Matrix3x2)"/>.
+        /// See <see cref="ISprite.Draw(Transformation)"/>.
         /// </summary>
-        public void Draw(Matrix3x2 transformation)
+        public void Draw(Transformation transformation)
         {
             if (this._bitmap.IsDisposed)
             {
@@ -62,11 +63,16 @@ namespace Display.SharpDx.Sprites
             var backupTransformation = this._renderTarget.Transform;
 
             // Prepare transformation.
-            var totalTransformation = (this._initialTransformation * transformation);
-            totalTransformation.M32 = (float)this._renderTargetHeight - totalTransformation.M32;
+            var totalTransformation = this._initialTransformation.ApplyTransformationOnTop(transformation);
+            var totalTransformationMatrix =
+                Matrix3x2.CreateRotation((float)totalTransformation.Rotation) *
+                Matrix3x2.CreateScale((float)totalTransformation.Scale) *
+                Matrix3x2.CreateTranslation((float)totalTransformation.Translation.X, (float)totalTransformation.Translation.Y);
+
+            totalTransformationMatrix.M32 = (float)this._renderTargetHeight - totalTransformationMatrix.M32;
 
             // Draw.
-            this._renderTarget.Transform = totalTransformation.ToSharpDxRawMatric3x2();
+            this._renderTarget.Transform = totalTransformationMatrix.ToSharpDxRawMatric3x2();
             this._renderTarget.DrawBitmap(this._bitmap, 1.0f, BitmapInterpolationMode.NearestNeighbor);
 
             // Restore old transformation.

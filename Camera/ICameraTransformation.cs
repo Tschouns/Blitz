@@ -8,6 +8,7 @@ namespace Camera
 {
     using System.Numerics;
     using Geometry.Elements;
+    using Geometry.Transformation;
 
     /// <summary>
     /// Represents the transformation for a specific camera state. Transforms positions forth
@@ -39,5 +40,10 @@ namespace Camera
         /// Gets a 3x2 matrix which represents the transformation from world to viewport coordinates.
         /// </summary>
         Matrix3x2 WorldToViewportMatrix3x2();
+
+        /// <summary>
+        /// TODO: WORK IN PROGRESS....
+        /// </summary>
+        Transformation WorldToViewportTransformation();
     }
 }
