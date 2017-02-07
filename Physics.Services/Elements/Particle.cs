@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Elements
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
@@ -113,6 +114,14 @@ namespace Physics.Services.Elements
         public void SetVelocity(Vector2 velocity)
         {
             this._overrideVelocity = this._overrideVelocity.HasValue ? this._overrideVelocity.Value.AddVector(velocity) : velocity;
+        }
+
+        /// <summary>
+        /// See <see cref="IPhysicalObject.SetPosition(Point)"/>.
+        /// </summary>
+        public void SetPosition(Point position)
+        {
+            this._state.Position = position;
         }
 
         /// <summary>

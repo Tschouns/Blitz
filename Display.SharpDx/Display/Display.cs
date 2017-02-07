@@ -234,7 +234,8 @@ namespace Display.SharpDx.Display
 
             this._spriteManager = new SpriteManager(
                 bitmapLoader,
-                this._renderTarget);
+                this._renderTarget,
+                this._renderForm.ClientSize.Height);
         }
     }
 }

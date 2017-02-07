@@ -184,6 +184,14 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
+        /// See <see cref="IPhysicalObject.SetPosition(Point)"/>.
+        /// </summary>
+        public void SetPosition(Point position)
+        {
+            this._state.Position = position;
+        }
+
+        /// <summary>
         /// See <see cref="IBody{TShapeFigure}.ApplyTorque(double)"/>.
         /// </summary>
         public void ApplyTorque(double torque)
@@ -197,6 +205,14 @@ namespace Physics.Services.Elements
         public void ApplyAngularAcceleration(double torque)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// See <see cref="IBody{TShapeFigure}.SetOrientation(double)"/>
+        /// </summary>
+        public void SetOrientation(double orientation)
+        {
+            this._state.Orientation = orientation;
         }
 
         /// <summary>

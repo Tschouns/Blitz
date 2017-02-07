@@ -18,20 +18,27 @@ namespace Display.SharpDx.Sprites
     public class Sprite : ISprite, IDisposable
     {
         private readonly Bitmap _bitmap;
+        private readonly Matrix3x2 _initialTransformation;
         private readonly RenderTarget _renderTarget;
+        private readonly double _renderTargetHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
         /// </summary>
         public Sprite(
              Bitmap bitmap,
-             RenderTarget renderTarget)
+             Matrix3x2 initialTransformation,
+             RenderTarget renderTarget,
+             double renderTargetHeight)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
             Checks.AssertNotNull(renderTarget, nameof(renderTarget));
+            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._bitmap = bitmap;
+            this._initialTransformation = initialTransformation;
             this._renderTarget = renderTarget;
+            this._renderTargetHeight = renderTargetHeight;
         }
 
         /// <summary>
@@ -54,10 +61,15 @@ namespace Display.SharpDx.Sprites
 
             var backupTransformation = this._renderTarget.Transform;
 
-            this._renderTarget.Transform = transformation.ToSharpDxRawMatric3x2();
+            // Prepare transformation.
+            var totalTransformation = (this._initialTransformation * transformation);
+            totalTransformation.M32 = (float)this._renderTargetHeight - totalTransformation.M32;
+
+            // Draw.
+            this._renderTarget.Transform = totalTransformation.ToSharpDxRawMatric3x2();
             this._renderTarget.DrawBitmap(this._bitmap, 1.0f, BitmapInterpolationMode.NearestNeighbor);
 
-            // Restore transformation.
+            // Restore old transformation.
             this._renderTarget.Transform = backupTransformation;
         }
 

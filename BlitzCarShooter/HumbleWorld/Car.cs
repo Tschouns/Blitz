@@ -55,6 +55,12 @@ namespace BlitzCarShooter.HumbleWorld
                 carShape,
                 startingPosition);
 
+            if (isMovingFromRightToLeft)
+            {
+                // Turn the car 180 degree.
+                this._carBody.SetOrientation(Math.PI);
+            }
+
             this.Color = color;
             this.TimeSinceDestroyed = 0.0;
             this._isMovingFromRightToLeft = isMovingFromRightToLeft;
@@ -64,6 +70,11 @@ namespace BlitzCarShooter.HumbleWorld
         /// Gets the current position of the car.
         /// </summary>
         public Point Position => this._carBody.CurrentState.Position;
+
+        /// <summary>
+        /// Gets the current orientation of the car.
+        /// </summary>
+        public double Orientation => this._carBody.CurrentState.Orientation;
 
         /// <summary>
         /// Gets the polygon representing the car in its current position.

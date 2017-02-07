@@ -35,8 +35,10 @@ Direct2D  Tutorials: https://www.youtube.com/playlist?list=PLKK11Ligqitij8r6hd6t
   https://www.youtube.com/watch?v=RKZvT4U71rg
 
 === 2D transformations ===
-https://www.youtube.com/watch?v=HpXQaz7OMqQ
-http://www.tutorialspoint.com/computer_graphics/2d_transformation.htm
+  https://www.youtube.com/watch?v=HpXQaz7OMqQ
+  http://www.tutorialspoint.com/computer_graphics/2d_transformation.htm
+- Hints on combinations of transformations:
+  https://www.cs.uic.edu/~jbell/CourseNotes/ComputerGraphics/2DTransforms.html
 
 - Point Rotation:
   http://stackoverflow.com/questions/786472/rotate-a-point-by-another-point-in-2d

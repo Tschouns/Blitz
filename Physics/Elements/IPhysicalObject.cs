@@ -46,6 +46,12 @@ namespace Physics.Elements
         void SetVelocity(Vector2 velocity);
 
         /// <summary>
+        /// Sets the position of the "physical object".
+        /// </summary>
+        /// <param name="position"></param>
+        void SetPosition(Point position);
+
+        /// <summary>
         /// Steps forward in time, by the specified number (fraction) of seconds.
         /// Computes, based on applied force(s)/torque:
         /// 1) acceleration
