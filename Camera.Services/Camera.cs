@@ -12,6 +12,7 @@ namespace Camera.Services
     using Geometry;
     using Geometry.Elements;
     using Geometry.Extensions;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ICamera"/>.
@@ -69,7 +70,8 @@ namespace Camera.Services
             // TODO: Get rid of these f*****g casts.
             var origin = new System.Numerics.Vector2((float)this._viewportCenter.X, (float)this._viewportCenter.Y) / (float)this.State.Scale;
 
-            var worldToViewportTransformationMatrix = Matrix3x2.Identity *
+            var worldToViewportTransformationMatrix =
+                Matrix3x2.Identity *
                 Matrix3x2.CreateTranslation(new System.Numerics.Vector2((float)-this.State.Position.X, (float)-this.State.Position.Y)) *
                 Matrix3x2.CreateRotation((float)this.State.Orientation) *
                 Matrix3x2.CreateTranslation(origin) *
@@ -77,6 +79,7 @@ namespace Camera.Services
 
             return new CameraTransformation(
                 worldToViewportTransformationMatrix,
+                ////new Transformation(this.State.Orientation, this.State.Scale, this.State.Position.AsVector().Invert().Multiply(this.State.Scale)),
                 this.State.Scale);
         }
 

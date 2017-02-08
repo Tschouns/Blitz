@@ -16,6 +16,9 @@ namespace BlitzCarShooter
     using Geometry.Elements;
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
+    using System.Numerics;
+    using Geometry.Transformation;
+    using Geometry.Extensions;
 
     /// <summary>
     /// Implements <see cref="IDrawCallback{TGameState}"/>.
@@ -50,6 +53,12 @@ namespace BlitzCarShooter
             this._display = displayFactory.CreateDisplay(displayProperties, this.DrawToDisplay);
 
             // Load sprites
+            var carSpritePositionOrigin = new Point(Images.Car.Size.Width / 2, Images.Car.Size.Height / 2);
+            ////this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
+            ////    Images.Car,
+            ////    carSpritePositionOrigin,
+            ////    Math.PI,
+            ////    0.1f);
             this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(Images.Car);
         }
 
@@ -100,13 +109,13 @@ namespace BlitzCarShooter
         {
             Checks.AssertNotNull(drawingContext, nameof(drawingContext));
 
-            var transformation = this._currentGameState.CameraTransformation;
+            var cameraTransformation = this._currentGameState.CameraTransformation;
 
             // Draw the buildings.
             foreach (var building in this._currentGameState.Buildings)
             {
                 drawingContext.DrawPolygon(
-                    TransformPolygonForDrawing(building.Polygon, transformation),
+                    TransformPolygonForDrawing(building.Polygon, cameraTransformation),
                     building.Color,
                     2);
             }
@@ -114,25 +123,9 @@ namespace BlitzCarShooter
             // Draw the explosions.
             foreach (var explosion in this._currentGameState.Explosions)
             {
-                ////var radius = explosion.Circle.Radius;
-                ////var startPosition = new Point(
-                ////    explosion.Circle.Center.X - (radius / 2),
-                ////    explosion.Circle.Center.Y - (radius / 2));
-
-                ////var temporaryHackPolygon = new Polygon(
-                ////    startPosition,
-                ////    new Point(startPosition.X + radius, startPosition.Y),
-                ////    new Point(startPosition.X + radius, startPosition.Y + radius),
-                ////    new Point(startPosition.X, startPosition.Y + radius));
-
-                ////drawingContext.DrawPolygon(
-                ////    TransformPolygonForDrawing(temporaryHackPolygon, transformation),
-                ////    explosion.Color,
-                ////    2);
-
                 drawingContext.DrawCircle(
-                    transformation.WorldToViewport(explosion.Circle.Center),
-                    transformation.WorldToViewport(explosion.Circle.Radius),
+                    cameraTransformation.WorldToViewport(explosion.Circle.Center),
+                    cameraTransformation.WorldToViewport(explosion.Circle.Radius),
                     explosion.Color,
                     2);
             }
@@ -140,14 +133,10 @@ namespace BlitzCarShooter
             // Draw the cars.
             foreach (var car in this._currentGameState.Cars)
             {
-                var hackTransformationMatrix = this._currentGameState.CameraTransformation.WorldToViewportMatrix3x2();
-                hackTransformationMatrix.M31 = hackTransformationMatrix.M31 + (float)car.Position.X;
-                hackTransformationMatrix.M32 = hackTransformationMatrix.M32 + (float)car.Position.Y;
-
-                this._carSprite.Draw(this._currentGameState.CameraTransformation.WorldToViewportMatrix3x2());
+                this._carSprite.Draw(cameraTransformation.WorldToViewportMatrix3x2());
 
                 drawingContext.DrawPolygon(
-                    TransformPolygonForDrawing(car.Polygon, transformation),
+                    TransformPolygonForDrawing(car.Polygon, cameraTransformation),
                     car.Color,
                     2);
             }

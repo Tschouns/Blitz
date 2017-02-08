@@ -31,8 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +54,11 @@
     <Compile Include="Helpers\TriangleCalculationHelper.cs" />
     <Compile Include="ProjectInitializationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transformation\DummyTransformation.cs" />
+    <Compile Include="Transformation\RotationTransformation.cs" />
+    <Compile Include="Transformation\ScaleTransformation.cs" />
+    <Compile Include="Transformation\TransformationFactory.cs" />
+    <Compile Include="Transformation\TranslationTransformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Base\Base.csproj">

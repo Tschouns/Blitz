@@ -116,6 +116,14 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
+        /// See <see cref="IPhysicalObject.SetPosition"/>
+        /// </summary>
+        public void SetPosition(Point position)
+        {
+            this._state.Position = position;
+        }
+
+        /// <summary>
         /// See <see cref="IPhysicalObject.AddForce"/>.
         /// </summary>
         public void Step(double time)

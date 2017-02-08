@@ -6,7 +6,6 @@
 
 namespace Camera.Services
 {
-    using System;
     using System.Numerics;
     using Geometry.Elements;
 

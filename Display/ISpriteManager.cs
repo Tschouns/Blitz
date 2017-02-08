@@ -6,7 +6,9 @@
 
 namespace Display
 {
+    using Geometry.Transformation;
     using System.Drawing;
+    using System.Numerics;
 
     /// <summary>
     /// Manages all the sprites.

@@ -40,6 +40,11 @@ namespace Physics.Elements
         /// <summary>
         /// Applies the specified angular acceleration to the body.
         /// </summary>
-        void ApplyAngularAcceleration(double torque);
+        void ApplyAngularAcceleration(double angularAcceleration);
+
+        /// <summary>
+        /// Sets the orientation of the body.
+        /// </summary>
+        void SetOrientation(double orientation);
     }
 }

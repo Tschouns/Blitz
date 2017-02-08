@@ -8,6 +8,7 @@ namespace Camera
 {
     using System.Numerics;
     using Geometry.Elements;
+    using Geometry.Transformation;
 
     /// <summary>
     /// Represents the transformation for a specific camera state. Transforms positions forth

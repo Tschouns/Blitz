@@ -95,7 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Bitmaps.resx</DependentUpon>
     </Compile>
-    <Compile Include="PrototypeBitmapTest.cs" />
+    <Compile Include="PrototypeBitmapDemo.cs" />
     <Compile Include="PrototypeCameraTransformationDemo.cs" />
     <Compile Include="PrototypeDisplayDemo.cs" />
     <Compile Include="PrototypeDx2DShapesDemo.cs" />
