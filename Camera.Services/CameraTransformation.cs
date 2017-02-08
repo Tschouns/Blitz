@@ -8,6 +8,7 @@ namespace Camera.Services
 {
     using System.Numerics;
     using Geometry.Elements;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ICameraTransformation"/>.

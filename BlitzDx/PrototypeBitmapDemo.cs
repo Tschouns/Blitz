@@ -67,7 +67,6 @@ namespace BlitzDx
             this._display.Dispose();
         }
 
-
         /// <summary>
         /// The draw callback.
         /// </summary>

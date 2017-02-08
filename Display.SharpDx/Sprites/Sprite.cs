@@ -11,6 +11,7 @@ namespace Display.SharpDx.Sprites
     using SharpDX.Direct2D1;
     using Base.RuntimeChecks;
     using Extensions;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ISprite"/>.
@@ -19,19 +20,23 @@ namespace Display.SharpDx.Sprites
     {
         private readonly Bitmap _bitmap;
         private readonly RenderTarget _renderTarget;
+        private readonly double _renderTargetHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
         /// </summary>
         public Sprite(
              Bitmap bitmap,
-             RenderTarget renderTarget)
+             RenderTarget renderTarget,
+             double renderTargetHeight)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
             Checks.AssertNotNull(renderTarget, nameof(renderTarget));
+            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._bitmap = bitmap;
             this._renderTarget = renderTarget;
+            this._renderTargetHeight = renderTargetHeight;
         }
 
         /// <summary>
@@ -54,10 +59,14 @@ namespace Display.SharpDx.Sprites
 
             var backupTransformation = this._renderTarget.Transform;
 
-            this._renderTarget.Transform = transformation.ToSharpDxRawMatric3x2();
+            // Prepare transformation.
+            // TODO implement.....
+
+            // Draw.
+            ////this._renderTarget.Transform = totalTransformationMatrix.ToSharpDxRawMatric3x2();
             this._renderTarget.DrawBitmap(this._bitmap, 1.0f, BitmapInterpolationMode.NearestNeighbor);
 
-            // Restore transformation.
+            // Restore old transformation.
             this._renderTarget.Transform = backupTransformation;
         }
 

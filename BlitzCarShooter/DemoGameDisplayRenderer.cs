@@ -133,8 +133,6 @@ namespace BlitzCarShooter
             // Draw the cars.
             foreach (var car in this._currentGameState.Cars)
             {
-                this._carSprite.Draw(cameraTransformation.WorldToViewportMatrix3x2());
-
                 drawingContext.DrawPolygon(
                     TransformPolygonForDrawing(car.Polygon, cameraTransformation),
                     car.Color,

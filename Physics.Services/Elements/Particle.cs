@@ -6,6 +6,7 @@
 
 namespace Physics.Services.Elements
 {
+    using System;
     using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Extensions;
@@ -116,7 +117,7 @@ namespace Physics.Services.Elements
         }
 
         /// <summary>
-        /// See <see cref="IPhysicalObject.SetPosition"/>
+        /// See <see cref="IPhysicalObject.SetPosition(Point)"/>.
         /// </summary>
         public void SetPosition(Point position)
         {

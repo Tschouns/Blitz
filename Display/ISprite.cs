@@ -6,7 +6,6 @@
 
 namespace Display
 {
-    using Geometry.Transformation;
     using System.Numerics;
 
     /// <summary>
@@ -22,6 +21,6 @@ namespace Display
         /// <summary>
         /// Draws the sprite, applying the specified transformation.
         /// </summary>
-        void Draw(Matrix3x2 transformationMatrix);
+        void Draw(Matrix3x2 transformation);
     }
 }

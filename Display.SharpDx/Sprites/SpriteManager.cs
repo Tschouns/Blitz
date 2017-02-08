@@ -10,6 +10,9 @@ namespace Display.SharpDx.Sprites
     using SharpDX.Direct2D1;
     using System;
     using System.Collections.Generic;
+    using System.Numerics;
+    using Geometry.Extensions;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ISpriteManager"/>.
@@ -18,6 +21,7 @@ namespace Display.SharpDx.Sprites
     {
         private readonly IBitmapLoader _bitmapLoader;
         private readonly RenderTarget _renderTarget;
+        private readonly double _renderTargetHeight;
         private readonly IList<Sprite> _sprites = new List<Sprite>();
 
         /// <summary>
@@ -25,24 +29,27 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public SpriteManager(
             IBitmapLoader bitmapLoader,
-            RenderTarget renderTarget)
+            RenderTarget renderTarget,
+            double renderTargetHeight)
         {
             Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
             Checks.AssertNotNull(renderTarget, nameof(renderTarget));
+            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._bitmapLoader = bitmapLoader;
             this._renderTarget = renderTarget;
+            this._renderTargetHeight = renderTargetHeight;
         }
 
         /// <summary>
-        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap)"/>.
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Transformation)"/>.
         /// </summary>
         public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
 
             var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
-            var sprite = new Sprite(sharpDxBitmap, this._renderTarget);
+            var sprite = new Sprite(sharpDxBitmap, this._renderTarget, this._renderTargetHeight);
 
             this._sprites.Add(sprite);
 
