@@ -44,7 +44,6 @@ namespace Camera.Services
             ITransformation transformation,
             double worldToViewportScale)
         {
-
             this._transformation = transformation;
 
             this._worldToViewportTransformationMatrix = this._transformation.ApplyToPrevious(Matrix3x2.Identity);
@@ -104,9 +103,8 @@ namespace Camera.Services
                 (transformationMatrix.M11 * position.X) + (transformationMatrix.M12 * position.Y),
                 (transformationMatrix.M21 * position.X) + (transformationMatrix.M22 * position.Y));
 
-            transformedPosition = new Point(
-                transformedPosition.X + transformationMatrix.M31,
-                transformedPosition.Y + transformationMatrix.M32);
+            transformedPosition.X += transformationMatrix.M31;
+            transformedPosition.Y += transformationMatrix.M32;
 
             return transformedPosition;
         }

@@ -6,8 +6,6 @@
 
 namespace BlitzCarShooter
 {
-    using System;
-    using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Windows.Input;
@@ -24,6 +22,7 @@ namespace BlitzCarShooter
     using RenderLoop.Loop;
     using Point = Geometry.Elements.Point;
     using Physics.World;
+
     /// <summary>
     /// Represents the "game logic", besides drawing, for this demo. Implements <see cref="IUpdateCallback"/>.
     /// </summary>
@@ -129,6 +128,11 @@ namespace BlitzCarShooter
             this._cameraController = cameraFactory.CreateCameraController(camera);
             this._cameraController.AddEffect(positionCameraEffect);
             this._cameraController.AddEffect(scaleCameraEffect);
+
+            // Hack:
+            var cameraState = camera.State;
+            cameraState.Orientation = 1.57f;
+            camera.State = cameraState;
 
             // Create world.
             this._humbleWorld = new World(physicsFactory);

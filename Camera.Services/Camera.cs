@@ -84,21 +84,25 @@ namespace Camera.Services
             ////    Matrix3x2.CreateTranslation(origin) *
             ////    Matrix3x2.CreateScale((float)this.State.Scale, (float)this.State.Scale);
 
-            var scaleTransformation = this._transformationFactory.CreateScale(
-                this.State.Scale,
-                GeometryConstants.Origin);
-
-            var rotationTransformation = this._transformationFactory.CreateRotationOnTopOf(
+            var rotationTransformation = this._transformationFactory.CreateRotation(
                 this.State.Orientation,
-                this._viewportCenter,
-                scaleTransformation);
+                this.State.Position);
 
-            var translationTransformation = this._transformationFactory.CreateTranslationOnTopOf(
-                this._viewportCenter.AsVector().SubtactVector(this.State.Position.AsVector()),
+            var worldTranslationTransformation = this._transformationFactory.CreateTranslationOnTopOf(
+                this.State.Position.AsVector().Invert(),
                 rotationTransformation);
 
+            var scaleTransformation = this._transformationFactory.CreateScaleOnTopOf(
+                this.State.Scale,
+                this.State.Position,
+                worldTranslationTransformation);
+
+            var viewportCenterOffsetTranslationTransformation = this._transformationFactory.CreateTranslationOnTopOf(
+                this._viewportCenter.AsVector(),
+                scaleTransformation);
+
             return new CameraTransformation(
-                translationTransformation,
+                viewportCenterOffsetTranslationTransformation,
                 this.State.Scale);
         }
 

@@ -41,8 +41,9 @@ namespace Geometry.Services.Transformation
         /// </summary>
         public Matrix3x2 ApplyToPrevious(Matrix3x2 previousTransformationMatrix)
         {
+            // TODO: check whether this is really correct...
             var newTransformationMatrix =
-                this._rotationMatrix +
+                this._rotationMatrix *
                 this._previousTransformation.ApplyToPrevious(previousTransformationMatrix);
 
             return newTransformationMatrix;
