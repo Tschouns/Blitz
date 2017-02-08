@@ -43,6 +43,6 @@ namespace Geometry.Transformation
         /// <summary>
         /// Creates a translation transformation on top of a previous transformation.
         /// </summary>
-        ITransformation CreateTranslation(Vector2 translationVector, ITransformation previousTransformation);
+        ITransformation CreateTranslationOnTopOf(Vector2 translationVector, ITransformation previousTransformation);
     }
 }

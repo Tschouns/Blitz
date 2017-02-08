@@ -7,7 +7,6 @@
 namespace Camera.Services
 {
     using System;
-    using System.Numerics;
     using Base.RuntimeChecks;
     using Geometry;
     using Geometry.Elements;
@@ -19,6 +18,8 @@ namespace Camera.Services
     /// </summary>
     public class Camera : ICamera
     {
+        private readonly ITransformationFactory _transformationFactory;
+
         /// <summary>
         /// The width of the viewport.
         /// </summary>
@@ -37,10 +38,16 @@ namespace Camera.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="Camera"/> class.
         /// </summary>
-        public Camera(int viewportWidth, int viewportHeight)
+        public Camera(
+            ITransformationFactory transformationFactory,
+            int viewportWidth,
+            int viewportHeight)
         {
+            Checks.AssertNotNull(transformationFactory, nameof(transformationFactory));
             Checks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
             Checks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
+
+            this._transformationFactory = transformationFactory;
 
             this._viewportWidth = viewportWidth;
             this._viewportHeight = viewportHeight;
@@ -67,18 +74,31 @@ namespace Camera.Services
         /// </summary>
         public ICameraTransformation GetCameraTransformation()
         {
-            // TODO: Get rid of these f*****g casts.
-            var origin = new System.Numerics.Vector2((float)this._viewportCenter.X, (float)this._viewportCenter.Y) / (float)this.State.Scale;
+            ////// TODO: Get rid of these f*****g casts.
+            ////var origin = new System.Numerics.Vector2((float)this._viewportCenter.X, (float)this._viewportCenter.Y) / (float)this.State.Scale;
 
-            var worldToViewportTransformationMatrix =
-                Matrix3x2.Identity *
-                Matrix3x2.CreateTranslation(new System.Numerics.Vector2((float)-this.State.Position.X, (float)-this.State.Position.Y)) *
-                Matrix3x2.CreateRotation((float)this.State.Orientation) *
-                Matrix3x2.CreateTranslation(origin) *
-                Matrix3x2.CreateScale((float)this.State.Scale, (float)this.State.Scale);
+            ////var worldToViewportTransformationMatrix =
+            ////    Matrix3x2.Identity *
+            ////    Matrix3x2.CreateTranslation(new System.Numerics.Vector2((float)-this.State.Position.X, (float)-this.State.Position.Y)) *
+            ////    Matrix3x2.CreateRotation((float)this.State.Orientation) *
+            ////    Matrix3x2.CreateTranslation(origin) *
+            ////    Matrix3x2.CreateScale((float)this.State.Scale, (float)this.State.Scale);
+
+            var scaleTransformation = this._transformationFactory.CreateScale(
+                this.State.Scale,
+                GeometryConstants.Origin);
+
+            var rotationTransformation = this._transformationFactory.CreateRotationOnTopOf(
+                this.State.Orientation,
+                this._viewportCenter,
+                scaleTransformation);
+
+            var translationTransformation = this._transformationFactory.CreateTranslationOnTopOf(
+                this._viewportCenter.AsVector().SubtactVector(this.State.Position.AsVector()),
+                rotationTransformation);
 
             return new CameraTransformation(
-                worldToViewportTransformationMatrix,
+                translationTransformation,
                 this.State.Scale);
         }
 

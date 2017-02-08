@@ -9,19 +9,26 @@ namespace Camera.Services
     using System;
     using Base.RuntimeChecks;
     using global::Camera.CameraEffects;
+    using Geometry.Transformation;
 
     /// <summary>
     /// See <see cref="ICameraFactory"/>.
     /// </summary>
     public class CameraFactory : ICameraFactory
     {
+        private readonly ITransformationFactory _transformationFactory;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CameraFactory"/> class.
         /// </summary>
-        public CameraFactory(ICameraEffectCreator cameraEffectCreator)
+        public CameraFactory(
+            ITransformationFactory transformationFactory,
+            ICameraEffectCreator cameraEffectCreator)
         {
+            Checks.AssertNotNull(transformationFactory, nameof(transformationFactory));
             Checks.AssertNotNull(cameraEffectCreator, nameof(cameraEffectCreator));
 
+            this._transformationFactory = transformationFactory;
             this.CameraEffectCreator = cameraEffectCreator;
         }
 
@@ -38,7 +45,7 @@ namespace Camera.Services
             Checks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
             Checks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
 
-            return new Camera(viewportWidth, viewportHeight);
+            return new Camera(this._transformationFactory, viewportWidth, viewportHeight);
         }
 
         /// <summary>

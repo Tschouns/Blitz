@@ -15,6 +15,8 @@ namespace Camera.Services
     /// </summary>
     public class CameraTransformation : ICameraTransformation
     {
+        private readonly ITransformation _transformation;
+
         /// <summary>
         /// Used to do the actual transformations from world to viewport coordinates.
         /// </summary>
@@ -39,11 +41,14 @@ namespace Camera.Services
         /// Initializes a new instance of the <see cref="CameraTransformation"/> class.
         /// </summary>
         public CameraTransformation(
-            Matrix3x2 worldToViewportTransformationMatrix,
+            ITransformation transformation,
             double worldToViewportScale)
         {
-            this._worldToViewportTransformationMatrix = worldToViewportTransformationMatrix;
-            this._viewportToWorldTransformationMatrix = -worldToViewportTransformationMatrix;
+
+            this._transformation = transformation;
+
+            this._worldToViewportTransformationMatrix = this._transformation.ApplyToPrevious(Matrix3x2.Identity);
+            this._viewportToWorldTransformationMatrix = -this._worldToViewportTransformationMatrix;
 
             this._worldToViewportScale = worldToViewportScale;
             this._viewportToWorldScale = worldToViewportScale == 0 ? 0 : 1 / worldToViewportScale;

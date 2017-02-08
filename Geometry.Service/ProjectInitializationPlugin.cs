@@ -14,6 +14,7 @@ namespace Geometry.Services
     using Geometry.Algorithms;
     using Geometry.Algorithms.Gjk;
     using Geometry.Helpers;
+    using Geometry.Services.Transformation;
     using Geometry.Transformation;
     using Helpers;
 
@@ -45,7 +46,7 @@ namespace Geometry.Services
             Ioc.Container.RegisterSingleton<ITriangleCalculationHelper, TriangleCalculationHelper>();
 
             // Transformation
-            Ioc.Container.RegisterSingleton<ITransformationFactory, ITransformationFactory>();
+            Ioc.Container.RegisterSingleton<ITransformationFactory, TransformationFactory>();
         }
     }
 }

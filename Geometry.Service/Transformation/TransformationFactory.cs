@@ -6,9 +6,6 @@
 
 namespace Geometry.Services.Transformation
 {
-    using System;
-    using System.Numerics;
-    using Base.RuntimeChecks;
     using Geometry.Elements;
     using Geometry.Transformation;
     using Vector2 = Geometry.Elements.Vector2;
@@ -61,7 +58,7 @@ namespace Geometry.Services.Transformation
         /// <summary>
         /// See <see cref="ITransformationFactory.CreateTranslation"/>.
         /// </summary>
-        public ITransformation CreateTranslation(Vector2 translationVector, ITransformation previousTransformation)
+        public ITransformation CreateTranslationOnTopOf(Vector2 translationVector, ITransformation previousTransformation)
         {
             return new TranslationTransformation(previousTransformation, translationVector);
         }
