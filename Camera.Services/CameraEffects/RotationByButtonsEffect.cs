@@ -68,12 +68,12 @@ namespace Camera.Services.CameraEffects
 
             if (this._rotateCameraClockwiseAction.IsActive)
             {
-                orientationOffset = -rotationAngle;
+                orientationOffset = rotationAngle;
             }
 
             if (this._rotateCameraCounterClockwiseRightAction.IsActive)
             {
-                orientationOffset = rotationAngle;
+                orientationOffset = -rotationAngle;
             }
 
             return new CameraOffset()
