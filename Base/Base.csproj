@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="InversionOfControl\IIocContainer.cs" />
     <Compile Include="InversionOfControl\Ioc.cs" />
