@@ -18,6 +18,7 @@ namespace Geometry.Services.Transformation
     {
         private readonly ITransformation _previousTransformation;
         private readonly Matrix3x2 _rotationMatrix;
+        ////private readonly Point _rotationOrigin;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotationTransformation"/> class.
@@ -31,13 +32,16 @@ namespace Geometry.Services.Transformation
 
             this._previousTransformation = previousTransformation;
 
-            this._rotationMatrix = Matrix3x2.CreateRotation(
-                (float)rotation,
-                new System.Numerics.Vector2(-(float)rotationOrigin.X, -(float)rotationOrigin.Y));
+            this._rotationMatrix = Matrix3x2.CreateRotation((float)rotation);
+            ////this._rotationOrigin = rotationOrigin;
 
-            // Desperate experiment...
-            this._rotationMatrix.M31 = 0.0f;
-            this._rotationMatrix.M32 = 0.0f;
+            ////this._rotationMatrix = Matrix3x2.CreateRotation(
+            ////    (float)rotation,
+            ////    new System.Numerics.Vector2(-(float)rotationOrigin.X, -(float)rotationOrigin.Y));
+
+            ////// Desperate experiment...
+            ////this._rotationMatrix.M31 = 0.0f;
+            ////this._rotationMatrix.M32 = 0.0f;
         }
 
         /// <summary>
@@ -49,6 +53,17 @@ namespace Geometry.Services.Transformation
             var newTransformationMatrix =
                 this._rotationMatrix *
                 this._previousTransformation.ApplyToPrevious(previousTransformationMatrix);
+
+            ////var newTransformationMatrix = this._previousTransformation.ApplyToPrevious(previousTransformationMatrix);
+
+            ////// Move to align with the origin, rotate, and move back.
+            ////newTransformationMatrix.M31 += -(float)this._rotationOrigin.X;
+            ////newTransformationMatrix.M32 += -(float)this._rotationOrigin.Y;
+
+            ////newTransformationMatrix = this._rotationMatrix * newTransformationMatrix;
+
+            ////newTransformationMatrix.M31 += (float)this._rotationOrigin.X;
+            ////newTransformationMatrix.M32 += (float)this._rotationOrigin.Y;
 
             return newTransformationMatrix;
         }
