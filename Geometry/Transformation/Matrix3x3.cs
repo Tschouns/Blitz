@@ -39,6 +39,11 @@ namespace Geometry.Transformation
         }
 
         /// <summary>
+        /// Gets the multiplicative identity matrix.
+        /// </summary>
+        public static Matrix3x3 Identity => new Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
+
+        /// <summary>
         /// Gets or sets the first element of the first row.
         /// </summary>
         public float M11 { get; set; }
