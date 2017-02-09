@@ -18,11 +18,11 @@ namespace BlitzCarShooter
     using HumbleWorld;
     using Input;
     using Input.InputAction;
+    using Physics.World;
     using RenderLoop;
     using RenderLoop.Callback;
     using RenderLoop.Loop;
     using Point = Geometry.Elements.Point;
-    using Physics.World;
 
     /// <summary>
     /// Represents the "game logic", besides drawing, for this demo. Implements <see cref="IUpdateCallback"/>.
@@ -116,7 +116,7 @@ namespace BlitzCarShooter
                 button.Create(Key.D),
                 50);
 
-            var rotateCameraEffect = this._cameraEffectCreator.CreateRotationAbsoluteByButtonsEffect(
+            var rotateCameraEffect = this._cameraEffectCreator.CreateRotationByButtonsEffect(
                 this._inputActionManager,
                 button.Create(Key.E),
                 button.Create(Key.Q),

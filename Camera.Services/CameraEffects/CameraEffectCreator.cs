@@ -153,15 +153,15 @@ namespace Camera.Services.CameraEffects
         }
 
         /// <summary>
-        /// See <see cref="ICameraEffectCreator.CreateRotationAbsoluteByButtonsEffect"/>.
+        /// See <see cref="ICameraEffectCreator.CreateRotationByButtonsEffect"/>.
         /// </summary>
-        public ICameraEffect CreateRotationAbsoluteByButtonsEffect(
+        public ICameraEffect CreateRotationByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton rotateCameraClockwiseAction,
             IButton rotateCameraCounterClockwiseRightAction,
             double rotationSpeed)
         {
-            return new RotationAbsoluteByButtonsEffect(
+            return new RotationByButtonsEffect(
                 inputActionManager,
                 rotateCameraClockwiseAction,
                 rotateCameraCounterClockwiseRightAction,

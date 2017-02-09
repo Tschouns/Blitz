@@ -92,17 +92,17 @@ namespace Camera.Services
                 this.State.Position,
                 worldTranslationTransformation);
 
-            var viewportCenterOffsetTranslationTransformation = this._transformationFactory.CreateTranslationOnTopOf(
-                this._viewportCenter.AsVector(),
-                scaleTransformation);
-
             var rotationTransformation = this._transformationFactory.CreateRotationOnTopOf(
                 -this.State.Orientation,
-                GeometryConstants.Origin,
-                viewportCenterOffsetTranslationTransformation);
+                this.State.Position,
+                scaleTransformation);
+
+            var viewportCenterOffsetTranslationTransformation = this._transformationFactory.CreateTranslationOnTopOf(
+                this._viewportCenter.AsVector(),
+                rotationTransformation);
 
             return new CameraTransformation(
-                rotationTransformation,
+                viewportCenterOffsetTranslationTransformation,
                 this.State.Scale);
         }
 

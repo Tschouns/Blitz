@@ -18,7 +18,7 @@ namespace Camera.Services.CameraEffects
     /// A camera effect which rotates the camera around its center axis, when the user holds the
     /// button for the corresponing direction.
     /// </summary>
-    public class RotationAbsoluteByButtonsEffect : ICameraEffect
+    public class RotationByButtonsEffect : ICameraEffect
     {
         /// <summary>
         /// Action which makes the camera rotate clockwise (means the world "turns" counter-clockwise).
@@ -31,9 +31,9 @@ namespace Camera.Services.CameraEffects
         private readonly IInputAction _rotateCameraCounterClockwiseRightAction;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RotationAbsoluteByButtonsEffect"/> class.
+        /// Initializes a new instance of the <see cref="RotationByButtonsEffect"/> class.
         /// </summary>
-        public RotationAbsoluteByButtonsEffect(
+        public RotationByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton rotateCameraClockwiseAction,
             IButton rotateCameraCounterClockwiseRightAction,

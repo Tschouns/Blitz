@@ -77,7 +77,7 @@ namespace Camera.CameraEffects
         /// holds the button for the corresponing direction.
         /// </summary>
         /// <returns></returns>
-        ICameraEffect CreateRotationAbsoluteByButtonsEffect(
+        ICameraEffect CreateRotationByButtonsEffect(
             IInputActionManager inputActionManager,
             IButton rotateCameraClockwiseAction,
             IButton rotateCameraCounterClockwiseRightAction,

@@ -52,7 +52,7 @@
     <Compile Include="CameraEffects\PositionFollowEffect.cs" />
     <Compile Include="CameraEffects\PositionAbsoluteByButtonsEffect.cs" />
     <Compile Include="CameraEffects\PositionBlowOscillationEffect.cs" />
-    <Compile Include="CameraEffects\RotationAbsoluteByButtonsEffect.cs" />
+    <Compile Include="CameraEffects\RotationByButtonsEffect.cs" />
     <Compile Include="CameraEffects\ScaleExponentialByButtonEffect.cs" />
     <Compile Include="CameraEffects\ScaleLinearByButtonsEffect.cs" />
     <Compile Include="CameraFactory.cs" />
