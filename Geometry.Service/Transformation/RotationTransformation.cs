@@ -33,7 +33,11 @@ namespace Geometry.Services.Transformation
 
             this._rotationMatrix = Matrix3x2.CreateRotation(
                 (float)rotation,
-                new System.Numerics.Vector2((float)rotationOrigin.X, (float)rotationOrigin.Y));
+                new System.Numerics.Vector2(-(float)rotationOrigin.X, -(float)rotationOrigin.Y));
+
+            // Desperate experiment...
+            this._rotationMatrix.M31 = 0.0f;
+            this._rotationMatrix.M32 = 0.0f;
         }
 
         /// <summary>

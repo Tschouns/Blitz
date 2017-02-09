@@ -87,6 +87,11 @@ namespace Camera.Services
             // Dummy...
             var cameraTransformation = this._transformationFactory.CreateScale(1.0f, GeometryConstants.Origin);
 
+            cameraTransformation = this._transformationFactory.CreateRotationOnTopOf(
+                -this.State.Orientation,
+                this.State.Position,
+                cameraTransformation);
+
             cameraTransformation = this._transformationFactory.CreateTranslationOnTopOf(
                 this.State.Position.AsVector().Invert(),
                 cameraTransformation);
@@ -96,14 +101,11 @@ namespace Camera.Services
                 this.State.Position,
                 cameraTransformation);
 
-            cameraTransformation = this._transformationFactory.CreateRotationOnTopOf(
-                -this.State.Orientation,
-                this.State.Position,
-                cameraTransformation);
-
             cameraTransformation = this._transformationFactory.CreateTranslationOnTopOf(
                 this._viewportCenter.AsVector(),
                 cameraTransformation);
+
+
 
             return new CameraTransformation(
                 cameraTransformation,
