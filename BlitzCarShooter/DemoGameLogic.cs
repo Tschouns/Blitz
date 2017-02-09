@@ -6,6 +6,7 @@
 
 namespace BlitzCarShooter
 {
+    using System;
     using System.Drawing;
     using System.Linq;
     using System.Windows.Input;
@@ -115,10 +116,16 @@ namespace BlitzCarShooter
                 button.Create(Key.D),
                 50);
 
-            var scaleCameraEffect = this._cameraEffectCreator.CreateScaleExponentialByButtonsEffect(
+            var rotateCameraEffect = this._cameraEffectCreator.CreateRotationAbsoluteByButtonsEffect(
                 this._inputActionManager,
                 button.Create(Key.E),
                 button.Create(Key.Q),
+                Math.PI/5);
+
+            var scaleCameraEffect = this._cameraEffectCreator.CreateScaleExponentialByButtonsEffect(
+                this._inputActionManager,
+                button.Create(Key.X),
+                button.Create(Key.Y),
                 1,
                 5,
                 1);
@@ -127,12 +134,8 @@ namespace BlitzCarShooter
             var camera = cameraFactory.CreateCamera(viewportSize.Width, viewportSize.Height);
             this._cameraController = cameraFactory.CreateCameraController(camera);
             this._cameraController.AddEffect(positionCameraEffect);
+            this._cameraController.AddEffect(rotateCameraEffect);
             this._cameraController.AddEffect(scaleCameraEffect);
-
-            // Hack:
-            var cameraState = camera.State;
-            cameraState.Orientation = 1.57f;
-            camera.State = cameraState;
 
             // Create world.
             this._humbleWorld = new World(physicsFactory);

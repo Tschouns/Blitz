@@ -71,5 +71,16 @@ namespace Camera.CameraEffects
             Vector2 startOscillation,
             double duration,
             double frequency);
+
+        /// <summary>
+        /// Creates a camera effect which rotates the camera around its center axis, when the user
+        /// holds the button for the corresponing direction.
+        /// </summary>
+        /// <returns></returns>
+        ICameraEffect CreateRotationAbsoluteByButtonsEffect(
+            IInputActionManager inputActionManager,
+            IButton rotateCameraClockwiseAction,
+            IButton rotateCameraCounterClockwiseRightAction,
+            double rotationSpeed);
     }
 }

@@ -151,5 +151,21 @@ namespace Camera.Services.CameraEffects
 
             return new PositionBlowOscillationEffect(blowOscillation);
         }
+
+        /// <summary>
+        /// See <see cref="ICameraEffectCreator.CreateRotationAbsoluteByButtonsEffect"/>.
+        /// </summary>
+        public ICameraEffect CreateRotationAbsoluteByButtonsEffect(
+            IInputActionManager inputActionManager,
+            IButton rotateCameraClockwiseAction,
+            IButton rotateCameraCounterClockwiseRightAction,
+            double rotationSpeed)
+        {
+            return new RotationAbsoluteByButtonsEffect(
+                inputActionManager,
+                rotateCameraClockwiseAction,
+                rotateCameraCounterClockwiseRightAction,
+                rotationSpeed);
+        }
     }
 }
