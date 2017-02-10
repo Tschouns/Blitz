@@ -17,15 +17,15 @@ namespace Geometry.Transformation
         /// Creates a 3x3 matrix from the specified components.
         /// </summary>
         public Matrix3x3(
-            float m11,
-            float m12,
-            float m13,
-            float m21,
-            float m22,
-            float m23,
-            float m31,
-            float m32,
-            float m33)
+            double m11,
+            double m12,
+            double m13,
+            double m21,
+            double m22,
+            double m23,
+            double m31,
+            double m32,
+            double m33)
         {
             this.M11 = m11;
             this.M12 = m12;
@@ -46,47 +46,47 @@ namespace Geometry.Transformation
         /// <summary>
         /// Gets or sets the first element of the first row.
         /// </summary>
-        public float M11 { get; set; }
+        public double M11 { get; set; }
 
         /// <summary>
         /// Gets or sets the second element of the first row.
         /// </summary>
-        public float M12 { get; set; }
+        public double M12 { get; set; }
 
         /// <summary>
         /// Gets or sets the third element of the first row.
         /// </summary>
-        public float M13 { get; set; }
+        public double M13 { get; set; }
 
         /// <summary>
         /// Gets or sets the first element of the second row.
         /// </summary>
-        public float M21 { get; set; }
+        public double M21 { get; set; }
 
         /// <summary>
         /// Gets or sets the second element of the second row.
         /// </summary>
-        public float M22 { get; set; }
+        public double M22 { get; set; }
 
         /// <summary>
         /// Gets or sets the third element of the second row.
         /// </summary>
-        public float M23 { get; set; }
+        public double M23 { get; set; }
 
         /// <summary>
         /// Gets or sets the first element of the third row.
         /// </summary>
-        public float M31 { get; set; }
+        public double M31 { get; set; }
 
         /// <summary>
         /// Gets or sets the second element of the third row.
         /// </summary>
-        public float M32 { get; set; }
+        public double M32 { get; set; }
 
         /// <summary>
         /// Gets or sets the third element of the third row.
         /// </summary>
-        public float M33 { get; set; }
+        public double M33 { get; set; }
 
         /// <summary>
         /// Returns a value that indicates whether the specified matrices are equal.
