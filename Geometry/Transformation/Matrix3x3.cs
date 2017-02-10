@@ -6,7 +6,10 @@
 
 namespace Geometry.Transformation
 {
+    using System;
     using Base.Extensions;
+    using Elements;
+    using Extensions;
 
     /// <summary>
     /// Represents a 3x3 matrix.
@@ -87,6 +90,95 @@ namespace Geometry.Transformation
         /// Gets or sets the third element of the third row.
         /// </summary>
         public double M33 { get; set; }
+
+        /// <summary>
+        /// Creates a rotation matrix using the specified rotation in radians.
+        /// </summary>
+        public static Matrix3x3 CreateRotation(double radians)
+        {
+            var rotationMatrix = Identity;
+
+            var sin = Math.Sin(radians);
+            var cos = Math.Cos(radians);
+
+            rotationMatrix.M11 = cos;
+            rotationMatrix.M12 = -sin;
+
+            rotationMatrix.M21 = sin;
+            rotationMatrix.M22 = cos;
+
+            return rotationMatrix;
+        }
+
+        /// <summary>
+        /// Creates a rotation matrix using the specified rotation in radians and a center point.
+        /// </summary>
+        public static Matrix3x3 CreateRotation(double radians, Point centerPoint)
+        {
+            // Translate to align with the origin, rotate, and translate back.
+            var rotationMatrix =
+                CreateTranslation(centerPoint.AsVector()) *
+                CreateRotation(radians) *
+                CreateTranslation(centerPoint.AsVector().Invert());
+
+            return rotationMatrix;
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix that scales uniformly with the specified scale.
+        /// </summary>
+        public static Matrix3x3 CreateScale(double scale)
+        {
+            return CreateScale(scale, scale);
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix from the specified X and Y components.
+        /// </summary>
+        public static Matrix3x3 CreateScale(double xScale, double yScale)
+        {
+            var scaleMatrix = Identity;
+
+            scaleMatrix.M11 = xScale;
+            scaleMatrix.M22 = yScale;
+
+            return scaleMatrix;
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix that scales uniformly with the specified scale and the specified center point.
+        /// </summary>
+        public static Matrix3x3 CreateScale(double scale, Point centerPoint)
+        {
+            return CreateScale(scale, scale, centerPoint);
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix from the specified X and Y components that scales with the specified center point.
+        /// </summary>
+        public static Matrix3x3 CreateScale(double xScale, double yScale, Point centerPoint)
+        {
+            // Translate to align with the origin, scale, and translate back.
+            var scaleMatrix =
+                CreateTranslation(centerPoint.AsVector()) *
+                CreateScale(xScale, yScale) *
+                CreateTranslation(centerPoint.AsVector().Invert());
+
+            return scaleMatrix;
+        }
+
+        /// <summary>
+        /// Creates a translation matrix from the specified 2-dimensional vector.
+        /// </summary>
+        public static Matrix3x3 CreateTranslation(Vector2 vector)
+        {
+            var translationMatrix = Identity;
+
+            translationMatrix.M13 = vector.X;
+            translationMatrix.M23 = vector.Y;
+
+            return translationMatrix;
+        }
 
         /// <summary>
         /// Returns a value that indicates whether the specified matrices are equal.
