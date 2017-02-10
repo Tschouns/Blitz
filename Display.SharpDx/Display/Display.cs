@@ -16,6 +16,7 @@ namespace Display.SharpDx.Display
     using SharpDX.DXGI;
     using SharpDX.Windows;
     using Sprites;
+    using global::Display.Sprites;
 
     /// <summary>
     /// Implementation of <see cref="IDisplay"/>, based on <see cref="SharpDX"/>.

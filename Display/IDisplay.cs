@@ -7,6 +7,7 @@
 namespace Display
 {
     using System;
+    using Sprites;
 
     /// <summary>
     /// Represents the a display.

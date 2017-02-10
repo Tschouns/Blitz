@@ -47,8 +47,8 @@
     <Compile Include="IDisplay.cs" />
     <Compile Include="IDisplayFactory.cs" />
     <Compile Include="IDrawingContext.cs" />
-    <Compile Include="ISprite.cs" />
-    <Compile Include="ISpriteManager.cs" />
+    <Compile Include="Sprites\ISprite.cs" />
+    <Compile Include="Sprites\ISpriteManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,9 @@ namespace Display.SharpDx.Sprites
     using System.Numerics;
     using Geometry.Extensions;
     using Geometry.Transformation;
+    using global::Display.Sprites;
+    using System.Drawing;
+    using Vector2 = Geometry.Elements.Vector2;
 
     /// <summary>
     /// See <see cref="ISpriteManager"/>.
@@ -48,8 +51,33 @@ namespace Display.SharpDx.Sprites
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
 
+            var initialTransformation = GetTranslationCenterToOrigin(bitmap);
+
+            return this.LoadFromDrawingBitmap(bitmap, initialTransformation);
+        }
+
+        /// <summary>
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, double)"/>.
+        /// </summary>
+        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, double initialScale)
+        {
+            Checks.AssertNotNull(bitmap, nameof(bitmap));
+
+            var scale = Matrix3x3.CreateScale(initialScale);
+            var initialTransformation = scale * GetTranslationCenterToOrigin(bitmap);
+
+            return this.LoadFromDrawingBitmap(bitmap, initialTransformation);
+        }
+
+        /// <summary>
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Matrix3x3)"/>.
+        /// </summary>
+        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Matrix3x3 initialTransformation)
+        {
+            Checks.AssertNotNull(bitmap, nameof(bitmap));
+
             var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
-            var sprite = new Sprite(sharpDxBitmap, this._renderTarget, this._renderTargetHeight);
+            var sprite = new Sprite(sharpDxBitmap, initialTransformation, this._renderTarget, this._renderTargetHeight);
 
             this._sprites.Add(sprite);
 
@@ -84,6 +112,14 @@ namespace Display.SharpDx.Sprites
             {
                 this.Clear();
             }
+        }
+
+        private static Matrix3x3 GetTranslationCenterToOrigin(System.Drawing.Bitmap bitmap)
+        {
+            var originOffset = new Vector2(bitmap.Size.Width / 2, bitmap.Size.Height / 2);
+            var translationCenterToOrigin = Matrix3x3.CreateTranslation(originOffset.Invert());
+
+            return translationCenterToOrigin;
         }
     }
 }

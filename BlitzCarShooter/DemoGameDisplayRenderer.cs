@@ -13,12 +13,10 @@ namespace BlitzCarShooter
     using Base.RuntimeChecks;
     using Camera;
     using Display;
+    using Display.Sprites;
     using Geometry.Elements;
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
-    using System.Numerics;
-    using Geometry.Transformation;
-    using Geometry.Extensions;
 
     /// <summary>
     /// Implements <see cref="IDrawCallback{TGameState}"/>.
