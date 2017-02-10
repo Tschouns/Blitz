@@ -16,6 +16,7 @@ namespace Display.SharpDx.Sprites
     using global::Display.Sprites;
     using System.Drawing;
     using Vector2 = Geometry.Elements.Vector2;
+    using Geometry.Elements;
 
     /// <summary>
     /// See <see cref="ISpriteManager"/>.
@@ -45,12 +46,13 @@ namespace Display.SharpDx.Sprites
         }
 
         /// <summary>
-        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Transformation)"/>.
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap)"/>.
         /// </summary>
         public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
 
+            // By default the sprite is transformed so that its origin is in the center.
             var initialTransformation = GetTranslationCenterToOrigin(bitmap);
 
             return this.LoadFromDrawingBitmap(bitmap, initialTransformation);
@@ -64,7 +66,25 @@ namespace Display.SharpDx.Sprites
             Checks.AssertNotNull(bitmap, nameof(bitmap));
 
             var scale = Matrix3x3.CreateScale(initialScale);
+
+            // By default the sprite is transformed so that its origin is in the center. The scale is applied on top of that.
             var initialTransformation = scale * GetTranslationCenterToOrigin(bitmap);
+
+            return this.LoadFromDrawingBitmap(bitmap, initialTransformation);
+        }
+
+        /// <summary>
+        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Vector2, double, double)"/>.
+        /// </summary>
+        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Vector2 initialTranslation, double initialRotation, double initialScale)
+        {
+            Checks.AssertNotNull(bitmap, nameof(bitmap));
+
+            // First translate, then rotate, then scale.
+            var initialTransformation =
+                Matrix3x3.CreateScale(initialScale) *
+                Matrix3x3.CreateRotation(initialRotation) *
+                Matrix3x3.CreateTranslation(initialTranslation);
 
             return this.LoadFromDrawingBitmap(bitmap, initialTransformation);
         }

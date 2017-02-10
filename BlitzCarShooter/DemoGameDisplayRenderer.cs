@@ -17,6 +17,8 @@ namespace BlitzCarShooter
     using Geometry.Elements;
     using RenderLoop.Callback;
     using Point = Geometry.Elements.Point;
+    using Geometry.Extensions;
+    using Geometry.Transformation;
 
     /// <summary>
     /// Implements <see cref="IDrawCallback{TGameState}"/>.
@@ -52,11 +54,12 @@ namespace BlitzCarShooter
 
             // Load sprites
             var carSpritePositionOrigin = new Point(Images.Car.Size.Width / 2, Images.Car.Size.Height / 2);
-            ////this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
-            ////    Images.Car,
-            ////    carSpritePositionOrigin,
-            ////    Math.PI,
-            ////    0.1f);
+            this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
+                Images.Car,
+                carSpritePositionOrigin.AsVector().Invert(),
+                Math.PI,
+                0.1f);
+
             this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(Images.Car);
         }
 
@@ -135,6 +138,13 @@ namespace BlitzCarShooter
                     TransformPolygonForDrawing(car.Polygon, cameraTransformation),
                     car.Color,
                     2);
+
+                // First rotate, and then translate the sprite.
+                var transformation =
+                    Matrix3x3.CreateTranslation(car.Position.AsVector()) *
+                    Matrix3x3.CreateRotation(car.Orientation);
+
+                this._carSprite.Draw(transformation);
             }
 
             // Draw the cross.

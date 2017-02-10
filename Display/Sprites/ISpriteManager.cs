@@ -6,6 +6,7 @@
 
 namespace Display.Sprites
 {
+    using Geometry.Elements;
     using Geometry.Transformation;
     using System.Drawing;
 
@@ -30,6 +31,14 @@ namespace Display.Sprites
         /// By default the sprite is transformed so that its origin is in the center.
         /// </remarks>
         ISprite LoadFromDrawingBitmap(Bitmap bitmap, double initialScale);
+
+        /// <summary>
+        /// Loads a new sprite from a bitmap. Applies an inital translation, rotation and scale; in that order.
+        /// </summary>
+        /// <remarks>
+        /// No other transformation is applied before the specified initial transformations.
+        /// </remarks>
+        ISprite LoadFromDrawingBitmap(Bitmap bitmap, Vector2 initialTranslation, double initialRotation, double initialScale);
 
         /// <summary>
         /// Loads a new sprite from a bitmap. Applies an inital transformation, e.g. to transform the bitmap from
