@@ -7,6 +7,7 @@
 namespace Geometry.Transformation
 {
     using System;
+    using System.Text;
     using Base.Extensions;
     using Elements;
     using Extensions;
@@ -292,6 +293,14 @@ namespace Geometry.Transformation
                 hashM11 ^ hashM12 ^ hashM13 ^
                 hashM21 ^ hashM22 ^ hashM23 ^
                 hashM31 ^ hashM32 ^ hashM33;
+        }
+
+        /// <summary>
+        /// See <see cref="object.ToString"/>.
+        /// </summary>
+        public override string ToString()
+        {
+            return $"{this.M11}, {this.M12}, {this.M13} | {this.M21}, {this.M22}, {this.M23} | {this.M31}, {this.M32}, {this.M33}";
         }
     }
 }

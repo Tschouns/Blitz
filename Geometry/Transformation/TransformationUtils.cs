@@ -6,6 +6,7 @@
 
 namespace Geometry.Transformation
 {
+    using System.Numerics;
     using Geometry.Elements;
 
     /// <summary>
@@ -43,6 +44,19 @@ namespace Geometry.Transformation
                 y / w);
 
             return transformedPoint;
+        }
+
+        /// <summary>
+        /// Gets a matrix 3x2, which can be used for transformation of cartesian, from a specified
+        /// 3x3 matrix representing a homogenous transformation.
+        /// </summary>
+        public static Matrix3x2 GetCartesianTransformationMatrix(Matrix3x3 homogenousTransformation)
+        {
+            var cartesianTransformationMatrix = Matrix3x2.Identity;
+
+            // TODO: Do some stuff...
+
+            return cartesianTransformationMatrix;
         }
     }
 }
