@@ -121,35 +121,5 @@ namespace Display.SharpDx.Display
                 this.DrawLine(lastPoint.Value, origin.Value, color, strokeWidth);
             }
         }
-
-        /////// <summary>
-        /////// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap)"/>.
-        /////// </summary>
-        ////public void DrawBitmap(System.Drawing.Bitmap bitmap)
-        ////{
-        ////    Checks.AssertNotNull(bitmap, nameof(bitmap));
-
-        ////    var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
-
-        ////    this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
-        ////}
-
-        /////// <summary>
-        /////// See <see cref="IDrawingContext.DrawBitmap(System.Drawing.Bitmap, Matrix3x2)"/>.
-        /////// </summary>
-        ////public void DrawBitmap(System.Drawing.Bitmap bitmap, Matrix3x2 transformation)
-        ////{
-        ////    Checks.AssertNotNull(bitmap, nameof(bitmap));
-
-        ////    var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
-
-        ////    var transformationBackup = this._renderTarget.Transform;
-
-        ////    this._renderTarget.Transform = transformation.ToSharpDxRawMatric3x2();
-        ////    this._renderTarget.DrawBitmap(sharpDxBitmap, 1f, BitmapInterpolationMode.NearestNeighbor);
-
-        ////    // Restore old transformation.
-        ////    this._renderTarget.Transform = transformationBackup;
-        ////}
     }
 }
