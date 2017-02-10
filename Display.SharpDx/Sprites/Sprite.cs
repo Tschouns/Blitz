@@ -22,7 +22,7 @@ namespace Display.SharpDx.Sprites
         private readonly Bitmap _bitmap;
         private readonly Matrix3x3 _initialTransformation;
         private readonly RenderTarget _renderTarget;
-        private readonly double _renderTargetHeight;
+        private readonly float _renderTargetHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
@@ -40,7 +40,7 @@ namespace Display.SharpDx.Sprites
             this._bitmap = bitmap;
             this._initialTransformation = initialTransformation;
             this._renderTarget = renderTarget;
-            this._renderTargetHeight = renderTargetHeight;
+            this._renderTargetHeight = (float)renderTargetHeight;
         }
 
         /// <summary>
@@ -66,6 +66,10 @@ namespace Display.SharpDx.Sprites
             // Prepare transformation.
             var finalTransformation = transformation * this._initialTransformation;
             var finalTransformation3x2 = TransformationUtils.GetCartesianTransformationMatrix(finalTransformation);
+
+            // Flip about the Y-axis.
+            finalTransformation3x2.M32 = this._renderTargetHeight - finalTransformation3x2.M32;
+
             this._renderTarget.Transform = finalTransformation3x2.ToSharpDxRawMatric3x2();
 
             // Draw.

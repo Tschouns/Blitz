@@ -42,10 +42,6 @@ namespace Camera.Services
             Matrix3x3 worldToViewportTransformationMatrix,
             double worldToViewportScale)
         {
-            ////this._transformation = transformation;
-
-            ////this._worldToViewportTransformationMatrix = this._transformation.ApplyToPrevious(Matrix3x2.Identity);
-
             this._worldToViewportTransformationMatrix = worldToViewportTransformationMatrix;
 
             //TODO: Add unary negation!!!!
@@ -54,6 +50,11 @@ namespace Camera.Services
             this._worldToViewportScale = worldToViewportScale;
             this._viewportToWorldScale = worldToViewportScale == 0 ? 0 : 1 / worldToViewportScale;
         }
+
+        /// <summary>
+        /// See <see cref="ICameraTransformation.WorldToViewportMatrix3x3"/>.
+        /// </summary>
+        public Matrix3x3 WorldToViewportMatrix3x3 => this._worldToViewportTransformationMatrix;
 
         /// <summary>
         /// See <see cref="ICameraTransformation.WorldToViewport(Point)"/>.
@@ -86,29 +87,5 @@ namespace Camera.Services
         {
             return viewportDistance * this._viewportToWorldScale;
         }
-
-        /// <summary>
-        /// See <see cref="ICameraTransformation.WorldToViewportMatrix3x3"/>.
-        /// </summary>
-        public Matrix3x3 WorldToViewportMatrix3x3()
-        {
-            return this._worldToViewportTransformationMatrix;
-        }
-
-        /////// <summary>
-        /////// Does the actual transformation of a specified position, appying the specified transformation
-        /////// matrix.
-        /////// </summary>
-        ////private static Point TransformPosition(Point position, Matrix3x3 transformationMatrix)
-        ////{
-        ////    ////var transformedPosition = new Point(
-        ////    ////    (transformationMatrix.M11 * position.X) + (transformationMatrix.M12 * position.Y),
-        ////    ////    (transformationMatrix.M21 * position.X) + (transformationMatrix.M22 * position.Y));
-
-        ////    ////transformedPosition.X += transformationMatrix.M31;
-        ////    ////transformedPosition.Y += transformationMatrix.M32;
-
-        ////    return transformedPosition;
-        ////}
     }
 }

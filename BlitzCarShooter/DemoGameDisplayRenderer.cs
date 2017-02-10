@@ -59,8 +59,6 @@ namespace BlitzCarShooter
                 carSpritePositionOrigin.AsVector().Invert(),
                 Math.PI,
                 0.1f);
-
-            this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(Images.Car);
         }
 
         /// <summary>
@@ -144,7 +142,8 @@ namespace BlitzCarShooter
                     Matrix3x3.CreateTranslation(car.Position.AsVector()) *
                     Matrix3x3.CreateRotation(car.Orientation);
 
-                this._carSprite.Draw(transformation);
+                // Apply camera transformation on top, and draw.
+                this._carSprite.Draw(cameraTransformation.WorldToViewportMatrix3x3 * transformation);
             }
 
             // Draw the cross.

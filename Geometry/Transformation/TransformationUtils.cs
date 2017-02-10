@@ -52,9 +52,12 @@ namespace Geometry.Transformation
         /// </summary>
         public static Matrix3x2 GetCartesianTransformationMatrix(Matrix3x3 homogenousTransformation)
         {
-            var cartesianTransformationMatrix = Matrix3x2.Identity;
-
-            // TODO: Do some stuff...
+            var h = homogenousTransformation;
+            var cartesianTransformationMatrix = new Matrix3x2(
+                (float)h.M11, (float)h.M12,
+                (float)h.M21, (float)h.M22,
+                (float)(h.M13 / h.M33),     // X translation - divide by W
+                (float)(h.M23 / h.M33));    // Y translation - divide by W
 
             return cartesianTransformationMatrix;
         }

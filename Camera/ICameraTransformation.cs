@@ -17,6 +17,11 @@ namespace Camera
     public interface ICameraTransformation
     {
         /// <summary>
+        /// Gets a 3x3 matrix which represents the transformation from world to viewport coordinates.
+        /// </summary>
+        Matrix3x3 WorldToViewportMatrix3x3 { get; }
+
+        /// <summary>
         /// Transforms the specified position from world coordinates into viewport coordinates.
         /// </summary>
         Point WorldToViewport(Point worldPosition);
@@ -35,10 +40,5 @@ namespace Camera
         ///  Transforms (or scales) the specified distance from world viewport.
         /// </summary>
         double ViewportToWorld(double viewportDistance);
-
-        /// <summary>
-        /// Gets a 3x3 matrix which represents the transformation from world to viewport coordinates.
-        /// </summary>
-        Matrix3x3 WorldToViewportMatrix3x3();
     }
 }
