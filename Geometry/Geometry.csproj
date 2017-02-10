@@ -67,6 +67,7 @@
     <Compile Include="Transformation\ITransformation.cs" />
     <Compile Include="Transformation\ITransformationFactory.cs" />
     <Compile Include="Transformation\Matrix3x3.cs" />
+    <Compile Include="Transformation\TransformationUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Base\Base.csproj">

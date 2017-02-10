@@ -15,17 +15,15 @@ namespace Camera.Services
     /// </summary>
     public class CameraTransformation : ICameraTransformation
     {
-        private readonly ITransformation _transformation;
-
         /// <summary>
         /// Used to do the actual transformations from world to viewport coordinates.
         /// </summary>
-        private readonly Matrix3x2 _worldToViewportTransformationMatrix;
+        private readonly Matrix3x3 _worldToViewportTransformationMatrix;
 
         /// <summary>
         /// Used to do the actual transformations from viewport to world coordinates.
         /// </summary>
-        private readonly Matrix3x2 _viewportToWorldTransformationMatrix;
+        private readonly Matrix3x3 _viewportToWorldTransformationMatrix;
 
         /// <summary>
         /// Used to simply scale distances form world to viewport.
@@ -41,13 +39,17 @@ namespace Camera.Services
         /// Initializes a new instance of the <see cref="CameraTransformation"/> class.
         /// </summary>
         public CameraTransformation(
-            ITransformation transformation,
+            Matrix3x3 worldToViewportTransformationMatrix,
             double worldToViewportScale)
         {
-            this._transformation = transformation;
+            ////this._transformation = transformation;
 
-            this._worldToViewportTransformationMatrix = this._transformation.ApplyToPrevious(Matrix3x2.Identity);
-            this._viewportToWorldTransformationMatrix = -this._worldToViewportTransformationMatrix;
+            ////this._worldToViewportTransformationMatrix = this._transformation.ApplyToPrevious(Matrix3x2.Identity);
+
+            this._worldToViewportTransformationMatrix = worldToViewportTransformationMatrix;
+
+            //TODO: Add unary negation!!!!
+            this._viewportToWorldTransformationMatrix = this._worldToViewportTransformationMatrix;
 
             this._worldToViewportScale = worldToViewportScale;
             this._viewportToWorldScale = worldToViewportScale == 0 ? 0 : 1 / worldToViewportScale;
@@ -58,7 +60,7 @@ namespace Camera.Services
         /// </summary>
         public Point WorldToViewport(Point worldPosition)
         {
-            return TransformPosition(worldPosition, this._worldToViewportTransformationMatrix);
+            return TransformationUtils.TransformPoint(worldPosition, this._worldToViewportTransformationMatrix);
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace Camera.Services
         /// </summary>
         public Point ViewportToWorld(Point viewportPosition)
         {
-            return TransformPosition(viewportPosition, this._viewportToWorldTransformationMatrix);
+            return TransformationUtils.TransformPoint(viewportPosition, this._viewportToWorldTransformationMatrix);
         }
 
         /// <summary>
@@ -86,27 +88,27 @@ namespace Camera.Services
         }
 
         /// <summary>
-        /// See <see cref="ICameraTransformation.WorldToViewportMatrix3x2"/>.
+        /// See <see cref="ICameraTransformation.WorldToViewportMatrix3x3"/>.
         /// </summary>
-        public Matrix3x2 WorldToViewportMatrix3x2()
+        public Matrix3x3 WorldToViewportMatrix3x3()
         {
             return this._worldToViewportTransformationMatrix;
         }
 
-        /// <summary>
-        /// Does the actual transformation of a specified position, appying the specified transformation
-        /// matrix.
-        /// </summary>
-        private static Point TransformPosition(Point position, Matrix3x2 transformationMatrix)
-        {
-            var transformedPosition = new Point(
-                (transformationMatrix.M11 * position.X) + (transformationMatrix.M12 * position.Y),
-                (transformationMatrix.M21 * position.X) + (transformationMatrix.M22 * position.Y));
+        /////// <summary>
+        /////// Does the actual transformation of a specified position, appying the specified transformation
+        /////// matrix.
+        /////// </summary>
+        ////private static Point TransformPosition(Point position, Matrix3x3 transformationMatrix)
+        ////{
+        ////    ////var transformedPosition = new Point(
+        ////    ////    (transformationMatrix.M11 * position.X) + (transformationMatrix.M12 * position.Y),
+        ////    ////    (transformationMatrix.M21 * position.X) + (transformationMatrix.M22 * position.Y));
 
-            transformedPosition.X += transformationMatrix.M31;
-            transformedPosition.Y += transformationMatrix.M32;
+        ////    ////transformedPosition.X += transformationMatrix.M31;
+        ////    ////transformedPosition.Y += transformationMatrix.M32;
 
-            return transformedPosition;
-        }
+        ////    return transformedPosition;
+        ////}
     }
 }

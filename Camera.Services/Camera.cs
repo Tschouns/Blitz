@@ -74,49 +74,15 @@ namespace Camera.Services
         /// </summary>
         public ICameraTransformation GetCameraTransformation()
         {
-            ////// TODO: Get rid of these f*****g casts.
-            ////var origin = new System.Numerics.Vector2((float)this._viewportCenter.X, (float)this._viewportCenter.Y) / (float)this.State.Scale;
-
-            ////var worldToViewportTransformationMatrix =
-            ////    Matrix3x2.Identity *
-            ////    Matrix3x2.CreateTranslation(new System.Numerics.Vector2((float)-this.State.Position.X, (float)-this.State.Position.Y)) *
-            ////    Matrix3x2.CreateRotation((float)this.State.Orientation) *
-            ////    Matrix3x2.CreateTranslation(origin) *
-            ////    Matrix3x2.CreateScale((float)this.State.Scale, (float)this.State.Scale);
-
-            // Dummy...
-            var cameraTransformation = this._transformationFactory.CreateScale(1.0f, GeometryConstants.Origin);
-
-            cameraTransformation = this._transformationFactory.CreateTranslationOnTopOf(
-                this.State.Position.AsVector().Invert(),
-                cameraTransformation);
-
-            cameraTransformation = this._transformationFactory.CreateScaleOnTopOf(
-                this.State.Scale,
-                this.State.Position,
-                cameraTransformation);
-
-            cameraTransformation = this._transformationFactory.CreateTranslationOnTopOf(
-                this._viewportCenter.AsVector(),
-                cameraTransformation);
-
-            //Hack
-            cameraTransformation = this._transformationFactory.CreateTranslationOnTopOf(
-                this._viewportCenter.AsVector().Invert(),
-                cameraTransformation);
-
-            cameraTransformation = this._transformationFactory.CreateRotationOnTopOf(
-                -this.State.Orientation,
-                this._viewportCenter,
-                cameraTransformation);
-
-            //Hack
-            cameraTransformation = this._transformationFactory.CreateTranslationOnTopOf(
-                this._viewportCenter.AsVector(),
-                cameraTransformation);
+            // Translate to in-world position, then scale, then translate to align with screen center, then rotate about the screen center.
+            var transformationMatrix =
+                Matrix3x3.CreateRotation(-this.State.Orientation, this._viewportCenter) *
+                Matrix3x3.CreateTranslation(this._viewportCenter.AsVector()) *
+                Matrix3x3.CreateTranslation(this.State.Position.AsVector().Invert()) *
+                Matrix3x3.CreateScale(this.State.Scale, this.State.Position);
 
             return new CameraTransformation(
-                cameraTransformation,
+                transformationMatrix,
                 this.State.Scale);
         }
 

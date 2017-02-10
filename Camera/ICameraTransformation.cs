@@ -37,8 +37,8 @@ namespace Camera
         double ViewportToWorld(double viewportDistance);
 
         /// <summary>
-        /// Gets a 3x2 matrix which represents the transformation from world to viewport coordinates.
+        /// Gets a 3x3 matrix which represents the transformation from world to viewport coordinates.
         /// </summary>
-        Matrix3x2 WorldToViewportMatrix3x2();
+        Matrix3x3 WorldToViewportMatrix3x3();
     }
 }
