@@ -10,13 +10,10 @@ namespace Display.SharpDx.Sprites
     using SharpDX.Direct2D1;
     using System;
     using System.Collections.Generic;
-    using System.Numerics;
     using Geometry.Extensions;
     using Geometry.Transformation;
     using global::Display.Sprites;
-    using System.Drawing;
     using Vector2 = Geometry.Elements.Vector2;
-    using Geometry.Elements;
 
     /// <summary>
     /// See <see cref="ISpriteManager"/>.

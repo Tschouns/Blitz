@@ -58,7 +58,7 @@ namespace BlitzCarShooter
                 Images.Car,
                 carSpritePositionOrigin.AsVector().Invert(),
                 Math.PI,
-                0.1f);
+                0.1);
         }
 
         /// <summary>

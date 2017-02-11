@@ -7,7 +7,6 @@
 namespace Display
 {
     using System.Collections.Generic;
-    using System.Numerics;
     using Geometry.Elements;
 
     /// <summary>

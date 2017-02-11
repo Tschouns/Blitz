@@ -56,8 +56,12 @@ namespace Geometry.Transformation
             var cartesianTransformationMatrix = new Matrix3x2(
                 (float)h.M11, (float)h.M12,
                 (float)h.M21, (float)h.M22,
-                (float)(h.M13 / h.M33),     // X translation - divide by W
-                (float)(h.M23 / h.M33));    // Y translation - divide by W
+                (float)(h.M13), (float)(h.M23));
+
+            if (h.M33 != 1)
+            {
+                throw new System.Exception("Hoppla");
+            }
 
             return cartesianTransformationMatrix;
         }
