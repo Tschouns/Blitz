@@ -79,8 +79,8 @@ namespace Camera.CameraEffects
         /// <returns></returns>
         ICameraEffect CreateRotationByButtonsEffect(
             IInputActionManager inputActionManager,
-            IButton rotateCameraClockwiseAction,
-            IButton rotateCameraCounterClockwiseRightAction,
+            IButton rotateCameraLeftAction,
+            IButton rotateCameraRightRightAction,
             double rotationSpeed);
     }
 }

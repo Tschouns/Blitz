@@ -6,9 +6,10 @@
 
 namespace Display.Sprites
 {
+    using System.Drawing;
     using Geometry.Elements;
     using Geometry.Transformation;
-    using System.Drawing;
+    using Point = Geometry.Elements.Point;
 
     /// <summary>
     /// Manages all the sprites.
@@ -33,21 +34,13 @@ namespace Display.Sprites
         ISprite LoadFromDrawingBitmap(Bitmap bitmap, double initialScale);
 
         /// <summary>
-        /// Loads a new sprite from a bitmap. Applies an inital translation, rotation and scale; in that order.
+        /// Loads a new sprite from a bitmap. Specifies the origin of the sprite, an initial rotation
+        /// about the specified origin, and an initial scale.
         /// </summary>
         /// <remarks>
         /// No other transformation is applied before the specified initial transformations.
         /// </remarks>
-        ISprite LoadFromDrawingBitmap(Bitmap bitmap, Vector2 initialTranslation, double initialRotation, double initialScale);
-
-        /// <summary>
-        /// Loads a new sprite from a bitmap. Applies an inital transformation, e.g. to transform the bitmap from
-        /// its original resolution to the in-world size of the object it represents.
-        /// </summary>
-        /// <remarks>
-        /// No other transformation is applied before the specified initial transformation.
-        /// </remarks>
-        ISprite LoadFromDrawingBitmap(Bitmap bitmap, Matrix3x3 initialTransformation);
+        ISprite LoadFromDrawingBitmap(Bitmap bitmap, Point origin, double initialRotation, double initialScale);
 
         /// <summary>
         /// Unloads all sprites. Unloaded sprites can no longer be drawn.

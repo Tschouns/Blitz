@@ -22,5 +22,10 @@ namespace Display.Sprites
         /// Draws the sprite, applying the specified transformation.
         /// </summary>
         void Draw(Matrix3x3 transformation);
+
+        /// <summary>
+        /// Draw a rectangle along the outline of the sprite.
+        /// </summary>
+        void DrawRectangle(Matrix3x3 transformation);
     }
 }

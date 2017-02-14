@@ -118,8 +118,8 @@ namespace BlitzCarShooter
 
             var rotateCameraEffect = this._cameraEffectCreator.CreateRotationByButtonsEffect(
                 this._inputActionManager,
-                button.Create(Key.E),
                 button.Create(Key.Q),
+                button.Create(Key.E),
                 Math.PI/5);
 
             var scaleCameraEffect = this._cameraEffectCreator.CreateScaleExponentialByButtonsEffect(

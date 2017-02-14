@@ -21,30 +21,30 @@ namespace Camera.Services.CameraEffects
     public class RotationByButtonsEffect : ICameraEffect
     {
         /// <summary>
-        /// Action which makes the camera rotate clockwise (means the world "turns" counter-clockwise).
+        /// Action which makes the camera rotate left
         /// </summary>
-        private readonly IInputAction _rotateCameraClockwiseAction;
+        private readonly IInputAction _rotateCameraLeftAction;
 
         /// <summary>
-        /// Action which makes the camera rotate counter-clockwise (means the world "turns" clockwise).
+        /// Action which makes the camera rotate right
         /// </summary>
-        private readonly IInputAction _rotateCameraCounterClockwiseRightAction;
+        private readonly IInputAction _rotateCameraRightAction;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotationByButtonsEffect"/> class.
         /// </summary>
         public RotationByButtonsEffect(
             IInputActionManager inputActionManager,
-            IButton rotateCameraClockwiseAction,
-            IButton rotateCameraCounterClockwiseRightAction,
+            IButton rotateCameraLeftAction,
+            IButton rotateCameraRightAction,
             double rotationSpeed)
         {
-            Checks.AssertNotNull(rotateCameraClockwiseAction, nameof(rotateCameraClockwiseAction));
-            Checks.AssertNotNull(rotateCameraCounterClockwiseRightAction, nameof(rotateCameraCounterClockwiseRightAction));
+            Checks.AssertNotNull(rotateCameraLeftAction, nameof(rotateCameraLeftAction));
+            Checks.AssertNotNull(rotateCameraRightAction, nameof(rotateCameraRightAction));
             Checks.AssertIsPositive(rotationSpeed, nameof(rotationSpeed));
 
-            this._rotateCameraClockwiseAction = inputActionManager.RegisterButtonHoldAction(rotateCameraClockwiseAction);
-            this._rotateCameraCounterClockwiseRightAction = inputActionManager.RegisterButtonHoldAction(rotateCameraCounterClockwiseRightAction);
+            this._rotateCameraLeftAction = inputActionManager.RegisterButtonHoldAction(rotateCameraLeftAction);
+            this._rotateCameraRightAction = inputActionManager.RegisterButtonHoldAction(rotateCameraRightAction);
             this.RotationSpeed = rotationSpeed;
         }
 
@@ -66,13 +66,15 @@ namespace Camera.Services.CameraEffects
             var rotationAngle = this.RotationSpeed * timeElapsed;
             var orientationOffset = 0.0d;
 
-            if (this._rotateCameraClockwiseAction.IsActive)
+            if (this._rotateCameraLeftAction.IsActive)
             {
+                // Means we turn the world clockwise...
                 orientationOffset = rotationAngle;
             }
 
-            if (this._rotateCameraCounterClockwiseRightAction.IsActive)
+            if (this._rotateCameraRightAction.IsActive)
             {
+                // Means we turn the world clockwise...
                 orientationOffset = -rotationAngle;
             }
 

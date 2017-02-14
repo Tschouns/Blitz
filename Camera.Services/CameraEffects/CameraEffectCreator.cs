@@ -157,14 +157,14 @@ namespace Camera.Services.CameraEffects
         /// </summary>
         public ICameraEffect CreateRotationByButtonsEffect(
             IInputActionManager inputActionManager,
-            IButton rotateCameraClockwiseAction,
-            IButton rotateCameraCounterClockwiseRightAction,
+            IButton rotateCameraLeftAction,
+            IButton rotateCameraRightAction,
             double rotationSpeed)
         {
             return new RotationByButtonsEffect(
                 inputActionManager,
-                rotateCameraClockwiseAction,
-                rotateCameraCounterClockwiseRightAction,
+                rotateCameraLeftAction,
+                rotateCameraRightAction,
                 rotationSpeed);
         }
     }

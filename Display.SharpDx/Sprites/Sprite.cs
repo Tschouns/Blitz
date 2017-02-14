@@ -7,12 +7,18 @@
 namespace Display.SharpDx.Sprites
 {
     using System;
+    using System.Drawing;
     using System.Numerics;
     using SharpDX.Direct2D1;
     using Base.RuntimeChecks;
-    using Extensions;
+    using Geometry.Elements;
     using Geometry.Transformation;
+    using Extensions;
+    using SharpDX.Mathematics.Interop;
     using global::Display.Sprites;
+    using Point = global::Geometry.Elements.Point;
+    using Rectangle = global::Geometry.Elements.Rectangle;
+    using Bitmap = global::SharpDX.Direct2D1.Bitmap;
 
     /// <summary>
     /// See <see cref="ISprite"/>.
@@ -20,6 +26,7 @@ namespace Display.SharpDx.Sprites
     public class Sprite : ISprite, IDisposable
     {
         private readonly Bitmap _bitmap;
+        private readonly Rectangle _rectangle;
         private readonly Matrix3x3 _initialTransformation;
         private readonly RenderTarget _renderTarget;
         private readonly float _renderTargetHeight;
@@ -41,6 +48,12 @@ namespace Display.SharpDx.Sprites
             this._initialTransformation = initialTransformation;
             this._renderTarget = renderTarget;
             this._renderTargetHeight = (float)renderTargetHeight;
+
+            // Flip the Y-component...
+            this._rectangle = new Rectangle(
+                new Point(0, -bitmap.Size.Height),
+                bitmap.Size.Width,
+                bitmap.Size.Height);
         }
 
         /// <summary>
@@ -63,20 +76,34 @@ namespace Display.SharpDx.Sprites
 
             var backupTransformation = this._renderTarget.Transform;
 
-            // Prepare transformation.
-            var finalTransformation = transformation * this._initialTransformation;
-            var finalTransformation3x2 = TransformationUtils.GetCartesianTransformationMatrix(finalTransformation);
-
-            // Flip about the Y-axis.
-            finalTransformation3x2.M32 = this._renderTargetHeight - finalTransformation3x2.M32;
-
-            this._renderTarget.Transform = finalTransformation3x2.ToSharpDxRawMatric3x2();
+            // Set transformation.
+            this._renderTarget.Transform = PrepareTransformationMatrix(transformation);
 
             // Draw.
             this._renderTarget.DrawBitmap(this._bitmap, 1.0f, BitmapInterpolationMode.NearestNeighbor);
 
             // Restore old transformation.
             this._renderTarget.Transform = backupTransformation;
+        }
+
+        public void DrawRectangle(Matrix3x3 transformation)
+        {
+            var finalTransformation = transformation * this._initialTransformation;
+
+            var a = TransformationUtils.TransformPoint(this._rectangle.A, finalTransformation).ToSharpDxVector2Flipped(this._renderTargetHeight);
+            var b = TransformationUtils.TransformPoint(this._rectangle.B, finalTransformation).ToSharpDxVector2Flipped(this._renderTargetHeight);
+            var c = TransformationUtils.TransformPoint(this._rectangle.C, finalTransformation).ToSharpDxVector2Flipped(this._renderTargetHeight);
+            var d = TransformationUtils.TransformPoint(this._rectangle.D, finalTransformation).ToSharpDxVector2Flipped(this._renderTargetHeight);
+
+            using (var brush = new SolidColorBrush(this._renderTarget, Color.CornflowerBlue.ToSharpDxColor()))
+            {
+                var strokeWidth = 1;
+
+                this._renderTarget.DrawLine(a, b, brush, strokeWidth);
+                this._renderTarget.DrawLine(b, c, brush, strokeWidth);
+                this._renderTarget.DrawLine(c, d, brush, strokeWidth);
+                this._renderTarget.DrawLine(d, a, brush, strokeWidth);
+            }
         }
 
         /// <summary>
@@ -94,6 +121,18 @@ namespace Display.SharpDx.Sprites
             {
                 this._bitmap.Dispose();
             }
+        }
+
+        private RawMatrix3x2 PrepareTransformationMatrix(Matrix3x3 transformation)
+        {
+            // Apply on top of the "initial transformation".
+            var finalTransformation = transformation * this._initialTransformation;
+            var finalTransformation3x2 = TransformationUtils.GetCartesianTransformationMatrix(finalTransformation);
+
+            // Flip positions on the Y-axis.
+            finalTransformation3x2.M32 = this._renderTargetHeight - finalTransformation3x2.M32;
+
+            return finalTransformation3x2.ToSharpDxRawMatric3x2();
         }
     }
 }

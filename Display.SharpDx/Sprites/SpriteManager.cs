@@ -14,6 +14,7 @@ namespace Display.SharpDx.Sprites
     using Geometry.Transformation;
     using global::Display.Sprites;
     using Vector2 = Geometry.Elements.Vector2;
+    using Point = Geometry.Elements.Point;
 
     /// <summary>
     /// See <see cref="ISpriteManager"/>.
@@ -73,32 +74,21 @@ namespace Display.SharpDx.Sprites
         /// <summary>
         /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Vector2, double, double)"/>.
         /// </summary>
-        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Vector2 initialTranslation, double initialRotation, double initialScale)
+        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Point origin, double initialRotation, double initialScale)
         {
             Checks.AssertNotNull(bitmap, nameof(bitmap));
+
+            // Also here we flip the Y-component... we pretend the origin is in the lower left of the image.
+            var originOffset = origin.AsVector().Invert();
+            originOffset.Y = -originOffset.Y;
 
             // First translate, then rotate, then scale.
             var initialTransformation =
                 Matrix3x3.CreateScale(initialScale) *
                 Matrix3x3.CreateRotation(initialRotation) *
-                Matrix3x3.CreateTranslation(initialTranslation);
+                Matrix3x3.CreateTranslation(originOffset);
 
             return this.LoadFromDrawingBitmap(bitmap, initialTransformation);
-        }
-
-        /// <summary>
-        /// See <see cref="ISpriteManager.LoadFromDrawingBitmap(System.Drawing.Bitmap, Matrix3x3)"/>.
-        /// </summary>
-        public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Matrix3x3 initialTransformation)
-        {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
-
-            var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
-            var sprite = new Sprite(sharpDxBitmap, initialTransformation, this._renderTarget, this._renderTargetHeight);
-
-            this._sprites.Add(sprite);
-
-            return sprite;
         }
 
         /// <summary>
@@ -133,10 +123,26 @@ namespace Display.SharpDx.Sprites
 
         private static Matrix3x3 GetTranslationCenterToOrigin(System.Drawing.Bitmap bitmap)
         {
-            var originOffset = new Vector2(bitmap.Size.Width / 2, bitmap.Size.Height / 2);
+            // Also here we flip the Y-component... we pretend the origin is in the lower left of the image.
+            var originOffset = new Vector2(bitmap.Size.Width / 2, -bitmap.Size.Height / 2);
             var translationCenterToOrigin = Matrix3x3.CreateTranslation(originOffset.Invert());
 
             return translationCenterToOrigin;
+        }
+
+        /// <summary>
+        /// Loads a bitmap...
+        /// </summary>
+        private ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Matrix3x3 initialTransformation)
+        {
+            Checks.AssertNotNull(bitmap, nameof(bitmap));
+
+            var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
+            var sprite = new Sprite(sharpDxBitmap, initialTransformation, this._renderTarget, this._renderTargetHeight);
+
+            this._sprites.Add(sprite);
+
+            return sprite;
         }
     }
 }
