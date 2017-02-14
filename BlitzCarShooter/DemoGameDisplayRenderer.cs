@@ -36,6 +36,11 @@ namespace BlitzCarShooter
         private readonly ISprite _carSprite;
 
         /// <summary>
+        /// A sprite representing a destroyed car.
+        /// </summary>
+        private readonly ISprite _carDestroyedSprite;
+
+        /// <summary>
         /// Stores the current game state, to enable <see cref="DrawToDisplay(IDrawingContext)"/> to access it.
         /// </summary>
         private DemoGameState _currentGameState;
@@ -54,11 +59,18 @@ namespace BlitzCarShooter
 
             // Load sprites
             var carSpritePositionOrigin = new Point(Images.Car.Size.Width / 2, Images.Car.Size.Height / 2);
+
             this._carSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
                 Images.Car,
                 carSpritePositionOrigin,
                 Math.PI,
-                0.1);
+                0.02);
+
+            this._carDestroyedSprite = this._display.SpriteManager.LoadFromDrawingBitmap(
+                Images.CarDestroyed,
+                carSpritePositionOrigin,
+                Math.PI,
+                0.02);
         }
 
         /// <summary>
@@ -132,10 +144,10 @@ namespace BlitzCarShooter
             // Draw the cars.
             foreach (var car in this._currentGameState.Cars)
             {
-                drawingContext.DrawPolygon(
-                    TransformPolygonForDrawing(car.Polygon, cameraTransformation),
-                    car.Color,
-                    2);
+                //drawingContext.DrawPolygon(
+                //    TransformPolygonForDrawing(car.Polygon, cameraTransformation),
+                //    car.Color,
+                //    2);
 
                 // First rotate, and then translate the sprite.
                 var transformation =
@@ -144,8 +156,14 @@ namespace BlitzCarShooter
 
                 // Apply camera transformation on top, and draw.
                 var finalTransformation = cameraTransformation.WorldToViewportMatrix3x3 * transformation;
-                this._carSprite.Draw(finalTransformation);
-                this._carSprite.DrawRectangle(finalTransformation);
+                if (car.IsDestroyed)
+                {
+                    this._carDestroyedSprite.Draw(finalTransformation);
+                }
+                else
+                {
+                    this._carSprite.Draw(finalTransformation);
+                }
             }
 
             // Draw the cross.
