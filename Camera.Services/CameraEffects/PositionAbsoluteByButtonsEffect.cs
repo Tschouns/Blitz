@@ -13,6 +13,7 @@ namespace Camera.Services.CameraEffects
     using Input;
     using Input.Button;
     using Input.InputAction;
+    using Geometry.Transformation;
 
     /// <summary>
     /// A camera effect which moves the camera position along the axes, when the user
@@ -80,31 +81,35 @@ namespace Camera.Services.CameraEffects
         public CameraOffset GetCameraOffset(CameraState cameraState, double timeElapsed)
         {
             var movingDistance = this.MovingSpeed * timeElapsed;
-            var positionOffset = new Vector2();
+            var relativePositionOffset = new Vector2();
 
             if (this._moveCameraUpAction.IsActive)
             {
-                positionOffset.Y += movingDistance;
+                relativePositionOffset.Y += movingDistance;
             }
 
             if (this._moveCameraDownAction.IsActive)
             {
-                positionOffset.Y -= movingDistance;
+                relativePositionOffset.Y -= movingDistance;
             }
 
             if (this._moveCameraLeftAction.IsActive)
             {
-                positionOffset.X -= movingDistance;
+                relativePositionOffset.X -= movingDistance;
             }
 
             if (this._moveCameraRightAction.IsActive)
             {
-                positionOffset.X += movingDistance;
+                relativePositionOffset.X += movingDistance;
             }
+
+            // Now we account for the camera's current orientation, and rotate the offset vector accordingly...
+            var rotation = Matrix3x3.CreateRotation(cameraState.Orientation);
+            var absolutePositionOffset = TransformationUtils.TransformVector(relativePositionOffset, rotation);
 
             return new CameraOffset()
             {
-                PositionOffset = positionOffset
+                PositionOffset = absolutePositionOffset
             };
         }
     }

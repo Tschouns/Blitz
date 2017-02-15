@@ -8,6 +8,8 @@ namespace Geometry.Transformation
 {
     using System.Numerics;
     using Geometry.Elements;
+    using Extensions;
+    using Vector2 = Geometry.Elements.Vector2;
 
     /// <summary>
     /// Provides methods to transform points.
@@ -19,31 +21,41 @@ namespace Geometry.Transformation
         /// </summary>
         public static Point TransformPoint(Point point, Matrix3x3 transform)
         {
-            // We use the first column of a matrix 3x3 to store our point, in homogenous coordinates.
-            var pointMatrix = Matrix3x3.Identity;
+            var transformedVector = TransformVector(point.AsVector(), transform);
 
-            pointMatrix.M11 = point.X;
-            pointMatrix.M21 = point.Y;
-            pointMatrix.M31 = 1;
+            return new Point(transformedVector.X, transformedVector.Y);
+        }
+
+        /// <summary>
+        /// Transforms the specified vector using the specified transformation matrix.
+        /// </summary>
+        public static Vector2 TransformVector(Vector2 point, Matrix3x3 transform)
+        {
+            // We use the first column of a matrix 3x3 to store our vector, in homogenous coordinates.
+            var vectorMatrix = Matrix3x3.Identity;
+
+            vectorMatrix.M11 = point.X;
+            vectorMatrix.M21 = point.Y;
+            vectorMatrix.M31 = 1;
 
             // Apply the transformation.
-            var transformedPointMatrix = transform * pointMatrix;
+            var transformedVectorMatrix = transform * vectorMatrix;
 
-            var x = transformedPointMatrix.M11;
-            var y = transformedPointMatrix.M21;
-            var w = transformedPointMatrix.M31;
+            var x = transformedVectorMatrix.M11;
+            var y = transformedVectorMatrix.M21;
+            var w = transformedVectorMatrix.M31;
 
             if (w == 0)
             {
-                return GeometryConstants.Origin;
+                return GeometryConstants.Origin.AsVector();
             }
 
             // Get back cartesian coordinates, by dividing by w.
-            var transformedPoint = new Point(
+            var transformedVector = new Vector2(
                 x / w,
                 y / w);
 
-            return transformedPoint;
+            return transformedVector;
         }
 
         /// <summary>
