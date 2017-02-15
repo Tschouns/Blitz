@@ -127,7 +127,7 @@ namespace BlitzCarShooter
                 button.Create(Key.X),
                 button.Create(Key.Y),
                 1,
-                5,
+                10,
                 1);
 
             // Setup camera.
