@@ -27,7 +27,7 @@ namespace Geometry.Services.Transformation
             double scale,
             Point scaleOrigin)
         {
-            Checks.AssertNotNull(previousTransformation, nameof(previousTransformation));
+            ArgumentChecks.AssertNotNull(previousTransformation, nameof(previousTransformation));
 
             this._previousTransformation = previousTransformation;
             this._scaleMatrix = Matrix3x2.CreateScale(

@@ -62,7 +62,7 @@ namespace Blitz
         /// </summary>
         public ClickyGjkDemoControl(IGjkAlgorithm<Polygon, Polygon> gjk)
         {
-            Checks.AssertNotNullIfNotDesignMode(gjk, nameof(gjk), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(gjk, nameof(gjk), this);
 
             this._gjk = gjk;
 
@@ -84,7 +84,7 @@ namespace Blitz
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             var position = eventArgs.GetPosition(this);
             var dot = new Point(position.X, position.Y).SubtactVector(this._displayOffset);
@@ -130,7 +130,7 @@ namespace Blitz
         /// </summary>
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             // Draw origin.
             eventArgs.DrawingHandler.DrawDot(GeometryConstants.Origin.AddVector(this._displayOffset));

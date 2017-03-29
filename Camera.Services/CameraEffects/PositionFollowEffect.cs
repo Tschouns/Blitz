@@ -45,9 +45,9 @@ namespace Camera.Services.CameraEffects
             Func<TFollowed, Point> retrieveCurrentFollowedObjectPositionFunc,
             Func<bool> determineIsExpiredFunc)
         {
-            Checks.AssertNotNull(followedObject, nameof(followedObject));
-            Checks.AssertNotNull(retrieveCurrentFollowedObjectPositionFunc, nameof(retrieveCurrentFollowedObjectPositionFunc));
-            Checks.AssertNotNull(determineIsExpiredFunc, nameof(determineIsExpiredFunc));
+            ArgumentChecks.AssertNotNull(followedObject, nameof(followedObject));
+            ArgumentChecks.AssertNotNull(retrieveCurrentFollowedObjectPositionFunc, nameof(retrieveCurrentFollowedObjectPositionFunc));
+            ArgumentChecks.AssertNotNull(determineIsExpiredFunc, nameof(determineIsExpiredFunc));
 
             this._followedObject = followedObject;
             this._retrieveCurrentFollowedObjectPositionFunc = retrieveCurrentFollowedObjectPositionFunc;

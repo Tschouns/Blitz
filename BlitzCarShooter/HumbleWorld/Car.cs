@@ -44,7 +44,7 @@ namespace BlitzCarShooter.HumbleWorld
             Point startingPosition,
             bool isMovingFromRightToLeft)
         {
-            Checks.AssertNotNull(physicalWorld, nameof(physicalWorld));
+            ArgumentChecks.AssertNotNull(physicalWorld, nameof(physicalWorld));
 
             double length = 7.0f;
             double width = 4.0;

@@ -26,7 +26,7 @@ namespace Input.Services.InputAction
         /// </summary>
         public IInputAction RegisterButtonHoldAction(IButton button)
         {
-            Checks.AssertNotNull(button, nameof(button));
+            ArgumentChecks.AssertNotNull(button, nameof(button));
 
             var inputAction = new ButtonHoldInputAction(button);
             this._inputActions.Add(inputAction);
@@ -39,7 +39,7 @@ namespace Input.Services.InputAction
         /// </summary>
         public IInputAction RegisterButtonHitAction(IButton button)
         {
-            Checks.AssertNotNull(button, nameof(button));
+            ArgumentChecks.AssertNotNull(button, nameof(button));
 
             var inputAction = new ButtonHitInputAction(button);
             this._inputActions.Add(inputAction);
@@ -52,7 +52,7 @@ namespace Input.Services.InputAction
         /// </summary>
         public void Update(double realTimeElapsed)
         {
-            Checks.AssertIsPositive(realTimeElapsed, nameof(realTimeElapsed));
+            ArgumentChecks.AssertIsPositive(realTimeElapsed, nameof(realTimeElapsed));
 
             foreach(var inputAction in this._inputActions)
             {

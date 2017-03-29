@@ -24,8 +24,8 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public Bitmap LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, RenderTarget renderTarget)
         {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
-            Checks.AssertNotNull(renderTarget, nameof(renderTarget));
+            ArgumentChecks.AssertNotNull(bitmap, nameof(bitmap));
+            ArgumentChecks.AssertNotNull(renderTarget, nameof(renderTarget));
 
             var sourceArea = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
             var bitmapProperties = new BitmapProperties(new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied));

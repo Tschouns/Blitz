@@ -38,8 +38,8 @@ namespace Physics.Services.Forces
             ILineCalculationHelper lineCalculationHelper,
             ISupportFunctions<Polygon> polygonSupportFunctions)
         {
-            Checks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
-            Checks.AssertNotNull(polygonSupportFunctions, nameof(polygonSupportFunctions));
+            ArgumentChecks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
+            ArgumentChecks.AssertNotNull(polygonSupportFunctions, nameof(polygonSupportFunctions));
 
             this._lineCalculationHelper = lineCalculationHelper;
             this._polygonSupportFunctions = polygonSupportFunctions;
@@ -50,7 +50,7 @@ namespace Physics.Services.Forces
         /// </summary>
         public ForceSet CreateGravity(double acceleration)
         {
-            Checks.AssertIsPositive(acceleration, nameof(acceleration));
+            ArgumentChecks.AssertIsPositive(acceleration, nameof(acceleration));
 
             var gravityForParticles = new GenericGravity<IParticle>(acceleration);
             var gravityForBodies = new GenericGravity<IBody<Polygon>>(acceleration);
@@ -63,7 +63,7 @@ namespace Physics.Services.Forces
         /// </summary>
         public ForceSet CreateLinearFlowRestistance(double density)
         {
-            Checks.AssertIsPositive(density, nameof(density));
+            ArgumentChecks.AssertIsPositive(density, nameof(density));
 
             var flowResistanceForParticles = new GenericDummyForce<IParticle>();
             var flowResistanceForBodies = new BodyLinearFlowResistance<Polygon>(
@@ -79,7 +79,7 @@ namespace Physics.Services.Forces
         /// </summary>
         public ForceSet CreateRotaionalFlowRestistance(double density)
         {
-            Checks.AssertIsPositive(density, nameof(density));
+            ArgumentChecks.AssertIsPositive(density, nameof(density));
 
             var flowResistanceForParticles = new GenericDummyForce<IParticle>();
             var flowResistanceForBodies = new BodyRotationalFlowResistance<Polygon>( density);
@@ -96,8 +96,8 @@ namespace Physics.Services.Forces
             double blastRadius,
             double expansionSpeed)
         {
-            Checks.AssertIsPositive(blastRadius, nameof(blastRadius));
-            Checks.AssertIsStrictPositive(expansionSpeed, nameof(expansionSpeed));
+            ArgumentChecks.AssertIsPositive(blastRadius, nameof(blastRadius));
+            ArgumentChecks.AssertIsStrictPositive(expansionSpeed, nameof(expansionSpeed));
 
             // TODO: make blast generic, add "apply strategies" for each type.
             var blastForParticles = new GenericDummyForce<IParticle>();

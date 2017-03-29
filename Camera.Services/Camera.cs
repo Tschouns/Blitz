@@ -43,9 +43,9 @@ namespace Camera.Services
             int viewportWidth,
             int viewportHeight)
         {
-            Checks.AssertNotNull(transformationFactory, nameof(transformationFactory));
-            Checks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
-            Checks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
+            ArgumentChecks.AssertNotNull(transformationFactory, nameof(transformationFactory));
+            ArgumentChecks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
+            ArgumentChecks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
 
             this._transformationFactory = transformationFactory;
 

@@ -13,7 +13,7 @@ namespace Base.RuntimeChecks
     /// <summary>
     /// Checks method arguments, and throws exceptions.
     /// </summary>
-    public static class Checks
+    public static class ArgumentChecks
     {
         /// <summary>
         /// Asserts that the specified floating point number is positive, including 0.

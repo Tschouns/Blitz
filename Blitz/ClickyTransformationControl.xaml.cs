@@ -67,8 +67,8 @@ namespace Blitz
             IPointTransformationHelper pointTransformationHelper,
             ILineIntersectionHelper lineIntersectionHelper)
         {
-            Checks.AssertNotNullIfNotDesignMode(pointTransformationHelper, nameof(pointTransformationHelper), this);
-            Checks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(pointTransformationHelper, nameof(pointTransformationHelper), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
 
             this._pointTransformationHelper = pointTransformationHelper;
             this._lineIntersectionHelper = lineIntersectionHelper;
@@ -153,7 +153,7 @@ namespace Blitz
         /// </summary>
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             eventArgs.DrawingHandler.DrawPolygon(this._rectangleProjection);
         }

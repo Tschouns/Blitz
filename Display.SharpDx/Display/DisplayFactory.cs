@@ -22,7 +22,7 @@ namespace Display.SharpDx.Display
         /// </summary>
         public DisplayFactory(IBitmapLoader bitmapLoader)
         {
-            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
+            ArgumentChecks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
 
             this._bitmapLoader = bitmapLoader;
         }
@@ -32,7 +32,7 @@ namespace Display.SharpDx.Display
         /// </summary>
         public IDisplay CreateDisplay(DisplayProperties properties, Action<IDrawingContext> drawCallback)
         {
-            Checks.AssertNotNull(drawCallback, nameof(drawCallback));
+            ArgumentChecks.AssertNotNull(drawCallback, nameof(drawCallback));
 
             return new Display(
                 this._bitmapLoader,

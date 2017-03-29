@@ -60,8 +60,8 @@ namespace BlitzDx
             IDisplayFactory displayFactory,
             IPhysicsFactory physicsFactory)
         {
-            Checks.AssertNotNull(displayFactory, nameof(displayFactory));
-            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
+            ArgumentChecks.AssertNotNull(displayFactory, nameof(displayFactory));
+            ArgumentChecks.AssertNotNull(physicsFactory, nameof(physicsFactory));
 
             // Setup display.
             this._displayProperties = new DisplayProperties()
@@ -157,7 +157,7 @@ namespace BlitzDx
         /// </summary>
         private void Draw(IDrawingContext drawingContext)
         {
-            Checks.AssertNotNull(drawingContext, nameof(drawingContext));
+            ArgumentChecks.AssertNotNull(drawingContext, nameof(drawingContext));
 
             // Draw the cross.
             var width = this._displayProperties.Resolution.Width;

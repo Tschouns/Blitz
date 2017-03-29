@@ -51,8 +51,8 @@ namespace Physics.Services.Elements
             double mass,
             ParticleState initalState)
         {
-            Checks.AssertNotNull(helper, nameof(helper));
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertNotNull(helper, nameof(helper));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
 
             this._helper = helper;
             this.Mass = mass;

@@ -37,8 +37,8 @@ namespace RenderLoop.Services.Loop
             IUpdateCallback<TGameState> updateCallback,
             IDrawCallback<TGameState> drawCallback)
         {
-            Checks.AssertNotNull(updateCallback, nameof(updateCallback));
-            Checks.AssertNotNull(drawCallback, nameof(drawCallback));
+            ArgumentChecks.AssertNotNull(updateCallback, nameof(updateCallback));
+            ArgumentChecks.AssertNotNull(drawCallback, nameof(drawCallback));
 
             this._updateCallback = updateCallback;
             this._drawCallback = drawCallback;

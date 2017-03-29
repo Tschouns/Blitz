@@ -76,12 +76,12 @@ namespace BlitzCarShooter
             IDisplayFactory displayFactory,
             ILoopFactory loopFactory)
         {
-            Checks.AssertNotNull(inputFactory, nameof(inputFactory));
-            Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
-            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
-            Checks.AssertNotNull(gjk, nameof(gjk));
-            Checks.AssertNotNull(displayFactory, nameof(displayFactory));
-            Checks.AssertNotNull(loopFactory, nameof(loopFactory));
+            ArgumentChecks.AssertNotNull(inputFactory, nameof(inputFactory));
+            ArgumentChecks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            ArgumentChecks.AssertNotNull(physicsFactory, nameof(physicsFactory));
+            ArgumentChecks.AssertNotNull(gjk, nameof(gjk));
+            ArgumentChecks.AssertNotNull(displayFactory, nameof(displayFactory));
+            ArgumentChecks.AssertNotNull(loopFactory, nameof(loopFactory));
 
             this._inputFactory = inputFactory;
             this._cameraFactory = cameraFactory;

@@ -49,7 +49,7 @@ namespace BlitzCarShooter.HumbleWorld
         /// </summary>
         public World(IPhysicsFactory physicsFactory)
         {
-            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
+            ArgumentChecks.AssertNotNull(physicsFactory, nameof(physicsFactory));
 
             this._physicsFactory = physicsFactory;
             this._physicalWorld = this._physicsFactory.CreatePhysicalWorld();

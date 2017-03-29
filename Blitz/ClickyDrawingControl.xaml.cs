@@ -62,7 +62,7 @@ namespace Blitz
         /// </summary>
         public ClickyDrawingControl(ILineIntersectionHelper lineIntersectionHelper)
         {
-            Checks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(lineIntersectionHelper, nameof(lineIntersectionHelper), this);
 
             this._lineIntersectionHelper = lineIntersectionHelper;
 
@@ -85,7 +85,7 @@ namespace Blitz
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             var position = eventArgs.GetPosition(this);
 
@@ -127,7 +127,7 @@ namespace Blitz
         /// </summary>
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             foreach (var rectangle in this._rectangles)
             {

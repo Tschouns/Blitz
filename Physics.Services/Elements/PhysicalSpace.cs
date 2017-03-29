@@ -53,7 +53,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void AddForceForParticles(IForce<IParticle> force)
         {
-            Checks.AssertNotNull(force, nameof(force));
+            ArgumentChecks.AssertNotNull(force, nameof(force));
 
             this._particleForces.Add(force);
         }
@@ -63,7 +63,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void AddForceForBodies(IForce<IBody<Polygon>> force)
         {
-            Checks.AssertNotNull(force, nameof(force));
+            ArgumentChecks.AssertNotNull(force, nameof(force));
 
             this._bodyForces.Add(force);
         }
@@ -73,7 +73,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void AddParticle(IParticle particle)
         {
-            Checks.AssertNotNull(particle, nameof(particle));
+            ArgumentChecks.AssertNotNull(particle, nameof(particle));
 
             this._particles.Add(particle);
         }
@@ -83,7 +83,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void AddBody(IBody<Polygon> body)
         {
-            Checks.AssertNotNull(body, nameof(body));
+            ArgumentChecks.AssertNotNull(body, nameof(body));
 
             this._bodies.Add(body);
         }
@@ -93,7 +93,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public void Step(double time)
         {
-            Checks.AssertIsPositive(time, nameof(time));
+            ArgumentChecks.AssertIsPositive(time, nameof(time));
 
             // Remove depleted forces.
             RemoveDepletedForces(this._particleForces);
@@ -144,7 +144,7 @@ namespace Physics.Services.Elements
         private static void RemoveDepletedForces<TPhysicalObject>(IList<IForce<TPhysicalObject>> forces)
             where TPhysicalObject : class, IPhysicalObject
         {
-            Checks.AssertNotNull(forces, nameof(forces));
+            ArgumentChecks.AssertNotNull(forces, nameof(forces));
 
             var depletedForces = forces.Where(x => x.IsDepleted).ToList();
             foreach (var force in depletedForces)

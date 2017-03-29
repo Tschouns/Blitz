@@ -50,7 +50,7 @@ namespace Blitz
         /// </summary>
         public void DrawLineSegment(Line line)
         {
-            Checks.AssertNotNull(line, nameof(line));
+            ArgumentChecks.AssertNotNull(line, nameof(line));
 
             this.DrawLineSegment(line, Brushes.Black);
         }
@@ -60,8 +60,8 @@ namespace Blitz
         /// </summary>
         public void DrawLineSegment(Line line, Brush brush)
         {
-            Checks.AssertNotNull(line, nameof(line));
-            Checks.AssertNotNull(brush, nameof(brush));
+            ArgumentChecks.AssertNotNull(line, nameof(line));
+            ArgumentChecks.AssertNotNull(brush, nameof(brush));
 
             this._drawingContext.DrawLine(
                 new Pen(brush, 2),

@@ -28,7 +28,7 @@ namespace RenderLoop.Services.Loop
             double initialGameTimeFactor,
             Action stopLoopAction)
         {
-            Checks.AssertNotNull(stopLoopAction, nameof(stopLoopAction));
+            ArgumentChecks.AssertNotNull(stopLoopAction, nameof(stopLoopAction));
 
             this.GameTimeFactor = initialGameTimeFactor;
             this._stopLoopAction = stopLoopAction;

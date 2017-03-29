@@ -29,7 +29,7 @@ namespace Physics.Services.Forces.FlowResistance
         public BodyRotationalFlowResistance(
             double density)
         {
-            Checks.AssertIsPositive(density, nameof(density));
+            ArgumentChecks.AssertIsPositive(density, nameof(density));
             
             this._density = density;
         }
@@ -52,7 +52,7 @@ namespace Physics.Services.Forces.FlowResistance
         /// </summary>
         public void ApplyToObject(IBody<TShapeFigure> physicalObject)
         {
-            Checks.AssertNotNull(physicalObject, nameof(physicalObject));
+            ArgumentChecks.AssertNotNull(physicalObject, nameof(physicalObject));
 
             // Determine torque.
             var angularVelocity = physicalObject.CurrentState.AngularVelocity;

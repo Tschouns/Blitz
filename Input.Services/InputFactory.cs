@@ -21,7 +21,7 @@ namespace Input.Services
         /// </summary>
         public InputFactory(IKeyboardButtonCreator keyboardButtonCreator)
         {
-            Checks.AssertNotNull(keyboardButtonCreator, nameof(keyboardButtonCreator));
+            ArgumentChecks.AssertNotNull(keyboardButtonCreator, nameof(keyboardButtonCreator));
 
             this.KeyboardButtonCreator = keyboardButtonCreator;
         }

@@ -28,7 +28,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public PolygonCalculationHelper(ILineIntersectionHelper lineIntersectionHelper)
         {
-            Checks.AssertNotNull(lineIntersectionHelper, nameof(lineIntersectionHelper));
+            ArgumentChecks.AssertNotNull(lineIntersectionHelper, nameof(lineIntersectionHelper));
 
             this._lineIntersectionHelper = lineIntersectionHelper;
         }
@@ -38,7 +38,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public double CalculateArea(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var area = Math.Abs(this.CalculateAreaPossibleNegative(polygon));
 
@@ -50,7 +50,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Point DetermineCentroid(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var numberOfCorners = polygon.Corners.Count();
             var corners = polygon.Corners.ToList();
@@ -94,7 +94,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public bool IsNonsimplePolygon(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var segments = this.GetSegments(polygon);
             foreach (var currentSegment in segments)
@@ -117,7 +117,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public double CalculateAreaPossibleNegative(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var numberOfCorners = polygon.Corners.Count();
             var corners = polygon.Corners.ToList();
@@ -144,8 +144,8 @@ namespace Geometry.Services.Helpers
         /// </summary>
         private bool DoSegmentsIntersect(Line segment1, Line segment2)
         {
-            Checks.AssertNotNull(segment1, nameof(segment1));
-            Checks.AssertNotNull(segment2, nameof(segment2));
+            ArgumentChecks.AssertNotNull(segment1, nameof(segment1));
+            ArgumentChecks.AssertNotNull(segment2, nameof(segment2));
 
             var intersection = this._lineIntersectionHelper.GetLineSegmentIntersection(segment1, segment2);
 
@@ -166,7 +166,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         private IEnumerable<Line> GetSegments(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             IList<Line> segments = new List<Line>();
 

@@ -38,10 +38,10 @@ namespace Physics.Services.Elements.Shape
             double volume,
             Polygon originalPolygon)
         {
-            Checks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
-            Checks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
-            Checks.AssertIsStrictPositive(volume, nameof(volume));
-            Checks.AssertNotNull(originalPolygon, nameof(originalPolygon));
+            ArgumentChecks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
+            ArgumentChecks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
+            ArgumentChecks.AssertIsStrictPositive(volume, nameof(volume));
+            ArgumentChecks.AssertNotNull(originalPolygon, nameof(originalPolygon));
 
             this._polygonTransformationHelper = polygonTransformationHelper;
             this._bodyCalculationHelper = bodyCalculationHelper;
@@ -70,7 +70,7 @@ namespace Physics.Services.Elements.Shape
         /// </summary>
         public double CalculateInertia(double mass)
         {
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
 
             var inertia = this._bodyCalculationHelper.CalculateMomentOfInertiaAboutOrigin(
                 this.Original,

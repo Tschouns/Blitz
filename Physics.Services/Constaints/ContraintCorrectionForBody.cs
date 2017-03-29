@@ -24,7 +24,7 @@ namespace Physics.Services.Constaints
             Vector2 correctionVelocity,
             double angularCorrectionVelocity)
         {
-            Checks.AssertNotNull(body, nameof(body));
+            ArgumentChecks.AssertNotNull(body, nameof(body));
 
             this.Body = body;
             this.CorrectionVelocity = correctionVelocity;

@@ -44,7 +44,7 @@ namespace Camera.Services.CameraEffects
             double duration,
             double frequency)
         {
-            Checks.AssertIsPositive(frequency, nameof(frequency));
+            ArgumentChecks.AssertIsPositive(frequency, nameof(frequency));
 
             this._startOscillation = startOscillation;
             this._totalDuration = duration;

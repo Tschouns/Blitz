@@ -36,8 +36,8 @@ namespace Display.SharpDx.Display
             RenderTarget renderTarget,
             double renderTargetHeight)
         {
-            Checks.AssertNotNull(renderTarget, nameof(renderTarget));
-            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
+            ArgumentChecks.AssertNotNull(renderTarget, nameof(renderTarget));
+            ArgumentChecks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._renderTarget = renderTarget;
             this._renderTargetHeight = renderTargetHeight;
@@ -48,7 +48,7 @@ namespace Display.SharpDx.Display
         /// </summary>
         public void DrawLine(Point point1, Point point2, System.Drawing.Color color, float strokeWidth)
         {
-            Checks.AssertIsStrictPositive(strokeWidth, nameof(strokeWidth));
+            ArgumentChecks.AssertIsStrictPositive(strokeWidth, nameof(strokeWidth));
 
             if (this._renderTarget.IsDisposed)
             {
@@ -70,8 +70,8 @@ namespace Display.SharpDx.Display
         /// </summary>
         public void DrawPolygon(IEnumerable<Point> points, System.Drawing.Color color, float strokeWidth)
         {
-            Checks.AssertNotNull(points, nameof(points));
-            Checks.AssertIsStrictPositive(strokeWidth, nameof(strokeWidth));
+            ArgumentChecks.AssertNotNull(points, nameof(points));
+            ArgumentChecks.AssertIsStrictPositive(strokeWidth, nameof(strokeWidth));
 
             if (this._renderTarget.IsDisposed)
             {

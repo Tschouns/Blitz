@@ -97,7 +97,7 @@ namespace Base.StartUp
                 }
                 catch (BadImageFormatException ex)
                 {
-                    Checks.AssertNotNull(ex, nameof(ex));
+                    ArgumentChecks.AssertNotNull(ex, nameof(ex));
 
                     // The file apparently isn't a .NET assembly - do nothing.
                 }

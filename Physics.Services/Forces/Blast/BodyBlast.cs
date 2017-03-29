@@ -71,9 +71,9 @@ namespace Physics.Services.Forces.Blast
             double blastRadius,
             double expansionSpeed)
         {
-            Checks.AssertNotNull(supportFunctions, nameof(supportFunctions));
-            Checks.AssertIsPositive(blastRadius, nameof(blastRadius));
-            Checks.AssertIsStrictPositive(expansionSpeed, nameof(expansionSpeed));
+            ArgumentChecks.AssertNotNull(supportFunctions, nameof(supportFunctions));
+            ArgumentChecks.AssertIsPositive(blastRadius, nameof(blastRadius));
+            ArgumentChecks.AssertIsStrictPositive(expansionSpeed, nameof(expansionSpeed));
 
             this._supportFunctions = supportFunctions;
 
@@ -111,7 +111,7 @@ namespace Physics.Services.Forces.Blast
         /// </summary>
         public void ApplyToObject(IBody<TShapeFigure> physicalObject)
         {
-            Checks.AssertNotNull(physicalObject, nameof(physicalObject));
+            ArgumentChecks.AssertNotNull(physicalObject, nameof(physicalObject));
 
             // TODO: make this class "more generic", so it could be used for particles as well. Add a strategy to determine the "point to apply the force to".
             var pointClosestToBlastCenter = this._supportFunctions.GetFigureOutlinePointClosestToPosition(

@@ -28,7 +28,7 @@ namespace Geometry.Services.Transformation
             double rotation,
             Point rotationOrigin)
         {
-            Checks.AssertNotNull(previousTransformation, nameof(previousTransformation));
+            ArgumentChecks.AssertNotNull(previousTransformation, nameof(previousTransformation));
 
             this._previousTransformation = previousTransformation;
 

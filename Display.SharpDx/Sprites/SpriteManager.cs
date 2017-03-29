@@ -34,9 +34,9 @@ namespace Display.SharpDx.Sprites
             RenderTarget renderTarget,
             double renderTargetHeight)
         {
-            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
-            Checks.AssertNotNull(renderTarget, nameof(renderTarget));
-            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
+            ArgumentChecks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
+            ArgumentChecks.AssertNotNull(renderTarget, nameof(renderTarget));
+            ArgumentChecks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._bitmapLoader = bitmapLoader;
             this._renderTarget = renderTarget;
@@ -48,7 +48,7 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap)
         {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
+            ArgumentChecks.AssertNotNull(bitmap, nameof(bitmap));
 
             // By default the sprite is transformed so that its origin is in the center.
             var initialTransformation = GetTranslationCenterToOrigin(bitmap);
@@ -61,7 +61,7 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, double initialScale)
         {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
+            ArgumentChecks.AssertNotNull(bitmap, nameof(bitmap));
 
             var scale = Matrix3x3.CreateScale(initialScale);
 
@@ -76,7 +76,7 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         public ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Point origin, double initialRotation, double initialScale)
         {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
+            ArgumentChecks.AssertNotNull(bitmap, nameof(bitmap));
 
             // Also here we flip the Y-component... we pretend the origin is in the lower left of the image.
             var originOffset = origin.AsVector().Invert();
@@ -135,7 +135,7 @@ namespace Display.SharpDx.Sprites
         /// </summary>
         private ISprite LoadFromDrawingBitmap(System.Drawing.Bitmap bitmap, Matrix3x3 initialTransformation)
         {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
+            ArgumentChecks.AssertNotNull(bitmap, nameof(bitmap));
 
             var sharpDxBitmap = this._bitmapLoader.LoadFromDrawingBitmap(bitmap, this._renderTarget);
             var sprite = new Sprite(sharpDxBitmap, initialTransformation, this._renderTarget, this._renderTargetHeight);

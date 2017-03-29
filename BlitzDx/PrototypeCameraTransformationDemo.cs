@@ -90,9 +90,9 @@ namespace BlitzDx
             IDisplayFactory displayFactory,
             ICameraFactory cameraFactory)
         {
-            Checks.AssertNotNull(inputFactory, nameof(inputFactory));
-            Checks.AssertNotNull(displayFactory, nameof(displayFactory));
-            Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            ArgumentChecks.AssertNotNull(inputFactory, nameof(inputFactory));
+            ArgumentChecks.AssertNotNull(displayFactory, nameof(displayFactory));
+            ArgumentChecks.AssertNotNull(cameraFactory, nameof(cameraFactory));
 
             // Setup display.
             var displayProperties = new DisplayProperties()
@@ -231,7 +231,7 @@ namespace BlitzDx
         /// </summary>
         private void Draw(IDrawingContext drawingContext)
         {
-            Checks.AssertNotNull(drawingContext, nameof(drawingContext));
+            ArgumentChecks.AssertNotNull(drawingContext, nameof(drawingContext));
 
             // Get transformation.
             var transform = this._cameraController.Camera.GetCameraTransformation();

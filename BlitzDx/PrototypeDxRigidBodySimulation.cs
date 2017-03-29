@@ -78,7 +78,7 @@ namespace BlitzDx
         /// </summary>
         public PrototypeDxRigidBodySimulation(IPhysicsFactory physicsFactory)
         {
-            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
+            ArgumentChecks.AssertNotNull(physicsFactory, nameof(physicsFactory));
 
             this._renderForm = new RenderForm("Rigid body torque");
             this._renderForm.ClientSize = new Size(1280, 720);

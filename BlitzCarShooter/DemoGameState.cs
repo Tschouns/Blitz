@@ -25,10 +25,10 @@ namespace BlitzCarShooter
             IEnumerable<Car> cars,
             IEnumerable<Explosion> explosions)
         {
-            Checks.AssertNotNull(cameraTransformation, nameof(cameraTransformation));
-            Checks.AssertNotNull(buildings, nameof(buildings));
-            Checks.AssertNotNull(cars, nameof(cars));
-            Checks.AssertNotNull(explosions, nameof(explosions));
+            ArgumentChecks.AssertNotNull(cameraTransformation, nameof(cameraTransformation));
+            ArgumentChecks.AssertNotNull(buildings, nameof(buildings));
+            ArgumentChecks.AssertNotNull(cars, nameof(cars));
+            ArgumentChecks.AssertNotNull(explosions, nameof(explosions));
 
             this.CameraTransformation = cameraTransformation;
             this.Buildings = buildings;

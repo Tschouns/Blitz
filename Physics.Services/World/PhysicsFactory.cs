@@ -34,8 +34,8 @@ namespace Physics.Services.World
             IElementFactory elementFactory,
             IForceFactory forceFactory)
         {
-            Checks.AssertNotNull(elementFactory, nameof(elementFactory));
-            Checks.AssertNotNull(forceFactory, nameof(forceFactory));
+            ArgumentChecks.AssertNotNull(elementFactory, nameof(elementFactory));
+            ArgumentChecks.AssertNotNull(forceFactory, nameof(forceFactory));
 
             this._elementFactory = elementFactory;
             this._forceFactory = forceFactory;

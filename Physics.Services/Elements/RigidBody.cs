@@ -89,10 +89,10 @@ namespace Physics.Services.Elements
             IRigidShape<TShapeFigure> shape,
             BodyState initialBodyState)
         {
-            Checks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
-            Checks.AssertNotNull(isaacNewtonHelper, nameof(isaacNewtonHelper));
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
-            Checks.AssertNotNull(shape, nameof(shape));
+            ArgumentChecks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
+            ArgumentChecks.AssertNotNull(isaacNewtonHelper, nameof(isaacNewtonHelper));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertNotNull(shape, nameof(shape));
 
             // Helpers
             this._bodyCalculationHelper = bodyCalculationHelper;

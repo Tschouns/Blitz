@@ -53,7 +53,7 @@
     <Compile Include="InversionOfControl\Ioc.cs" />
     <Compile Include="InversionOfControl\UnityContainerWrapper.cs" />
     <Compile Include="Results\NullableResult.cs" />
-    <Compile Include="RuntimeChecks\Checks.cs" />
+    <Compile Include="RuntimeChecks\ArgumentChecks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartUp\IProjectInitializationPlugin.cs" />
     <Compile Include="StartUp\ProjectInitializationPluginAttribute.cs" />

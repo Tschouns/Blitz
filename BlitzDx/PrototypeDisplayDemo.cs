@@ -42,7 +42,7 @@ namespace BlitzDx
         /// </summary>
         public PrototypeDisplayDemo(IDisplayFactory displayFactory)
         {
-            Checks.AssertNotNull(displayFactory, nameof(displayFactory));
+            ArgumentChecks.AssertNotNull(displayFactory, nameof(displayFactory));
 
             this._displayProperties = new DisplayProperties()
             {
@@ -81,7 +81,7 @@ namespace BlitzDx
         /// </summary>
         private void Draw(IDrawingContext drawingContext)
         {
-            Checks.AssertNotNull(drawingContext, nameof(drawingContext));
+            ArgumentChecks.AssertNotNull(drawingContext, nameof(drawingContext));
 
             var width = this._displayProperties.Resolution.Width;
             var height = this._displayProperties.Resolution.Height;

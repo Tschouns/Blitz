@@ -19,8 +19,8 @@ namespace Base.Extensions
         /// </summary>
         public static void AddElements<T>(this IList<T> list, IEnumerable<T> elements)
         {
-            Checks.AssertNotNull(list, nameof(list));
-            Checks.AssertNotNull(elements, nameof(elements));
+            ArgumentChecks.AssertNotNull(list, nameof(list));
+            ArgumentChecks.AssertNotNull(elements, nameof(elements));
 
             foreach (var element in elements)
             {

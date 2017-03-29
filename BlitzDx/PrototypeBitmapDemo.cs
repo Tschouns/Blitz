@@ -35,7 +35,7 @@ namespace BlitzDx
         /// </summary>
         public PrototypeBitmapDemo(IDisplayFactory displayFactory)
         {
-            Checks.AssertNotNull(displayFactory, nameof(displayFactory));
+            ArgumentChecks.AssertNotNull(displayFactory, nameof(displayFactory));
 
             var displayProperties = new DisplayProperties()
             {

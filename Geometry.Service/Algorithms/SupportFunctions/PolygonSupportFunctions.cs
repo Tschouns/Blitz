@@ -28,7 +28,7 @@ namespace Geometry.Services.Algorithms.SupportFunctions
         /// </summary>
         public PolygonSupportFunctions(ILineCalculationHelper lineCalculationHelper)
         {
-            Checks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
+            ArgumentChecks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
 
             this._lineCalculationHelper = lineCalculationHelper;
         }
@@ -38,7 +38,7 @@ namespace Geometry.Services.Algorithms.SupportFunctions
         /// </summary>
         public Point GetSupportPoint(Polygon figure, Vector2 direction)
         {
-            Checks.AssertNotNull(figure, nameof(figure));
+            ArgumentChecks.AssertNotNull(figure, nameof(figure));
 
             var point = new Point(0, 0);
             var maxDot = double.MinValue;
@@ -61,7 +61,7 @@ namespace Geometry.Services.Algorithms.SupportFunctions
         /// </summary>
         public Point GetFigureOutlinePointClosestToPosition(Polygon figure, Point position)
         {
-            Checks.AssertNotNull(figure, nameof(figure));
+            ArgumentChecks.AssertNotNull(figure, nameof(figure));
 
             var cornersOrderedByDistance = figure.Corners
                 .OrderBy(x => x.GetOffsetFrom(position).SquaredMagnitude())

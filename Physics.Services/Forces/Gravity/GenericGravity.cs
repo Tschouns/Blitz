@@ -31,7 +31,7 @@ namespace Physics.Services.Forces.Gravity
         /// </summary>
         public GenericGravity(double acceleration)
         {
-            Checks.AssertIsPositive(acceleration, nameof(acceleration));
+            ArgumentChecks.AssertIsPositive(acceleration, nameof(acceleration));
 
             this._gravityAcceleration = acceleration;
         }
@@ -54,7 +54,7 @@ namespace Physics.Services.Forces.Gravity
         /// </summary>
         public void ApplyToObject(TPhysicalObject physicalObject)
         {
-            Checks.AssertNotNull(physicalObject, nameof(physicalObject));
+            ArgumentChecks.AssertNotNull(physicalObject, nameof(physicalObject));
 
             var force = new Vector2(0, -(this._gravityAcceleration * physicalObject.Mass));
 

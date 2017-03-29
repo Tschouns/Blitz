@@ -52,8 +52,8 @@ namespace BlitzCarShooter
             IDisplayFactory displayFactory,
             DisplayProperties displayProperties)
         {
-            Checks.AssertNotNull(displayFactory, nameof(displayFactory));
-            Checks.AssertNotNull(displayProperties, nameof(displayProperties));
+            ArgumentChecks.AssertNotNull(displayFactory, nameof(displayFactory));
+            ArgumentChecks.AssertNotNull(displayProperties, nameof(displayProperties));
 
             this._display = displayFactory.CreateDisplay(displayProperties, this.DrawToDisplay);
 
@@ -94,7 +94,7 @@ namespace BlitzCarShooter
         /// </summary>
         public bool Draw(DemoGameState gameState)
         {
-            Checks.AssertNotNull(gameState, nameof(gameState));
+            ArgumentChecks.AssertNotNull(gameState, nameof(gameState));
 
             this._currentGameState = gameState;
             return this._display.DrawFrame();
@@ -118,7 +118,7 @@ namespace BlitzCarShooter
         /// </summary>
         private void DrawToDisplay(IDrawingContext drawingContext)
         {
-            Checks.AssertNotNull(drawingContext, nameof(drawingContext));
+            ArgumentChecks.AssertNotNull(drawingContext, nameof(drawingContext));
 
             var cameraTransformation = this._currentGameState.CameraTransformation;
 

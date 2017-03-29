@@ -24,8 +24,8 @@ namespace Physics.Services.Constaints
             IEnumerable<IParticle> correctionsForParticles,
             IEnumerable<IBody<Polygon>> correctionsForPolygonBodies)
         {
-            Checks.AssertNotNull(correctionsForParticles, nameof(correctionsForParticles));
-            Checks.AssertNotNull(correctionsForPolygonBodies, nameof(correctionsForPolygonBodies));
+            ArgumentChecks.AssertNotNull(correctionsForParticles, nameof(correctionsForParticles));
+            ArgumentChecks.AssertNotNull(correctionsForPolygonBodies, nameof(correctionsForPolygonBodies));
 
             this.IsSatisfied = isSatisfied;
             this.CorrectionsForParticles = correctionsForParticles;

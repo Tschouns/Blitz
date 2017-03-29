@@ -56,7 +56,7 @@ namespace Blitz
         /// </summary>
         public ClickyRigidBodyTorqueSimulationControl(IPhysicsFactory physicsFactory)
         {
-            Checks.AssertNotNullIfNotDesignMode(physicsFactory, nameof(physicsFactory), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(physicsFactory, nameof(physicsFactory), this);
 
             this._physicsFactory = physicsFactory;
 
@@ -110,7 +110,7 @@ namespace Blitz
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             var mousePosition = eventArgs.GetPosition(this._canvas);
 
@@ -151,7 +151,7 @@ namespace Blitz
         /// </summary>
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             foreach (var body in this._rigidBodies)
             {

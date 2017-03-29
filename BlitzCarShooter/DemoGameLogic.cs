@@ -89,10 +89,10 @@ namespace BlitzCarShooter
             IGjkAlgorithm<Circle, Polygon> gjk,
             Size viewportSize)
         {
-            Checks.AssertNotNull(inputFactory, nameof(inputFactory));
-            Checks.AssertNotNull(cameraFactory, nameof(cameraFactory));
-            Checks.AssertNotNull(physicsFactory, nameof(physicsFactory));
-            Checks.AssertNotNull(gjk, nameof(gjk));
+            ArgumentChecks.AssertNotNull(inputFactory, nameof(inputFactory));
+            ArgumentChecks.AssertNotNull(cameraFactory, nameof(cameraFactory));
+            ArgumentChecks.AssertNotNull(physicsFactory, nameof(physicsFactory));
+            ArgumentChecks.AssertNotNull(gjk, nameof(gjk));
 
             this._gjk = gjk;
 
@@ -149,9 +149,9 @@ namespace BlitzCarShooter
             TimeInfo gameTime,
             ILoopCommand loopCommand)
         {
-            Checks.AssertNotNull(realTime, nameof(realTime));
-            Checks.AssertNotNull(gameTime, nameof(gameTime));
-            Checks.AssertNotNull(loopCommand, nameof(loopCommand));
+            ArgumentChecks.AssertNotNull(realTime, nameof(realTime));
+            ArgumentChecks.AssertNotNull(gameTime, nameof(gameTime));
+            ArgumentChecks.AssertNotNull(loopCommand, nameof(loopCommand));
 
             this._inputActionManager.Update(realTime.Elapsed);
             this._cameraController.Update(realTime.Elapsed);

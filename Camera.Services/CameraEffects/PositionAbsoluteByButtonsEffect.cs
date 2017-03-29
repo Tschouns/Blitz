@@ -52,11 +52,11 @@ namespace Camera.Services.CameraEffects
             IButton moveCameraRight,
             double movingSpeed)
         {
-            Checks.AssertNotNull(moveCameraUp, nameof(moveCameraUp));
-            Checks.AssertNotNull(moveCameraDown, nameof(moveCameraDown));
-            Checks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
-            Checks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
-            Checks.AssertIsPositive(movingSpeed, nameof(movingSpeed));
+            ArgumentChecks.AssertNotNull(moveCameraUp, nameof(moveCameraUp));
+            ArgumentChecks.AssertNotNull(moveCameraDown, nameof(moveCameraDown));
+            ArgumentChecks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
+            ArgumentChecks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
+            ArgumentChecks.AssertIsPositive(movingSpeed, nameof(movingSpeed));
 
             this._moveCameraUpAction = inputActionManager.RegisterButtonHoldAction(moveCameraUp);
             this._moveCameraDownAction = inputActionManager.RegisterButtonHoldAction(moveCameraDown);

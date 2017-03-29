@@ -34,8 +34,8 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Point? GetLineIntersection(Line lineA, Line lineB)
         {
-            Checks.AssertNotNull(lineA, nameof(lineA));
-            Checks.AssertNotNull(lineB, nameof(lineB));
+            ArgumentChecks.AssertNotNull(lineA, nameof(lineA));
+            ArgumentChecks.AssertNotNull(lineB, nameof(lineB));
 
             double denominator = CalculateDenominatorOfUaOrUb(
                 lineA.Point1,
@@ -69,8 +69,8 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Point? GetLineSegmentIntersection(Line lineSegmentA, Line lineSegmentB)
         {
-            Checks.AssertNotNull(lineSegmentA, nameof(lineSegmentA));
-            Checks.AssertNotNull(lineSegmentB, nameof(lineSegmentB));
+            ArgumentChecks.AssertNotNull(lineSegmentA, nameof(lineSegmentA));
+            ArgumentChecks.AssertNotNull(lineSegmentB, nameof(lineSegmentB));
 
             double denominator = CalculateDenominatorOfUaOrUb(
                 lineSegmentA.Point1,

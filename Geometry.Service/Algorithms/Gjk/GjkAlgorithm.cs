@@ -57,10 +57,10 @@ namespace Geometry.Services.Algorithms.Gjk
             ILineCalculationHelper lineCalculationHelper,
             ITriangleCalculationHelper triangleCalculationHelper)
         {
-            Checks.AssertNotNull(figure1SupportFunctions, nameof(figure1SupportFunctions));
-            Checks.AssertNotNull(figure2SupportFunctions, nameof(figure2SupportFunctions));
-            Checks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
-            Checks.AssertNotNull(triangleCalculationHelper, nameof(triangleCalculationHelper));
+            ArgumentChecks.AssertNotNull(figure1SupportFunctions, nameof(figure1SupportFunctions));
+            ArgumentChecks.AssertNotNull(figure2SupportFunctions, nameof(figure2SupportFunctions));
+            ArgumentChecks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
+            ArgumentChecks.AssertNotNull(triangleCalculationHelper, nameof(triangleCalculationHelper));
 
             this._figure1SupportFunctions = figure1SupportFunctions;
             this._figure2SupportFunctions = figure2SupportFunctions;
@@ -73,8 +73,8 @@ namespace Geometry.Services.Algorithms.Gjk
         /// </summary>
         public FigureIntersectionResult DoFiguresIntersect(TFigure1 figure1, TFigure2 figure2)
         {
-            Checks.AssertNotNull(figure1, nameof(figure1));
-            Checks.AssertNotNull(figure2, nameof(figure2));
+            ArgumentChecks.AssertNotNull(figure1, nameof(figure1));
+            ArgumentChecks.AssertNotNull(figure2, nameof(figure2));
 
             var figureIntersectionResult = this.Gfk2DInternal(figure1, figure2);
 
@@ -86,8 +86,8 @@ namespace Geometry.Services.Algorithms.Gjk
         /// </summary>
         private FigureIntersectionResult Gfk2DInternal(TFigure1 figure1, TFigure2 figure2)
         {
-            Checks.AssertNotNull(figure1, nameof(figure1));
-            Checks.AssertNotNull(figure2, nameof(figure2));
+            ArgumentChecks.AssertNotNull(figure1, nameof(figure1));
+            ArgumentChecks.AssertNotNull(figure2, nameof(figure2));
 
             // We only need a simplex 2, i.e. a triangle, in 2D.
             IList<Point> simplexPoints = new List<Point>(3);

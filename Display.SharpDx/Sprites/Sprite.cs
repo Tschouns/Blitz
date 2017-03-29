@@ -40,9 +40,9 @@ namespace Display.SharpDx.Sprites
              RenderTarget renderTarget,
              double renderTargetHeight)
         {
-            Checks.AssertNotNull(bitmap, nameof(bitmap));
-            Checks.AssertNotNull(renderTarget, nameof(renderTarget));
-            Checks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
+            ArgumentChecks.AssertNotNull(bitmap, nameof(bitmap));
+            ArgumentChecks.AssertNotNull(renderTarget, nameof(renderTarget));
+            ArgumentChecks.AssertIsStrictPositive(renderTargetHeight, nameof(renderTargetHeight));
 
             this._bitmap = bitmap;
             this._initialTransformation = initialTransformation;

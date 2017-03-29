@@ -25,8 +25,8 @@ namespace Camera.Services
             ITransformationFactory transformationFactory,
             ICameraEffectCreator cameraEffectCreator)
         {
-            Checks.AssertNotNull(transformationFactory, nameof(transformationFactory));
-            Checks.AssertNotNull(cameraEffectCreator, nameof(cameraEffectCreator));
+            ArgumentChecks.AssertNotNull(transformationFactory, nameof(transformationFactory));
+            ArgumentChecks.AssertNotNull(cameraEffectCreator, nameof(cameraEffectCreator));
 
             this._transformationFactory = transformationFactory;
             this.CameraEffectCreator = cameraEffectCreator;
@@ -42,8 +42,8 @@ namespace Camera.Services
         /// </summary>
         public ICamera CreateCamera(int viewportWidth, int viewportHeight)
         {
-            Checks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
-            Checks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
+            ArgumentChecks.AssertIsStrictPositive(viewportWidth, nameof(viewportWidth));
+            ArgumentChecks.AssertIsStrictPositive(viewportHeight, nameof(viewportHeight));
 
             return new Camera(this._transformationFactory, viewportWidth, viewportHeight);
         }
@@ -53,7 +53,7 @@ namespace Camera.Services
         /// </summary>
         public ICameraController CreateCameraController(ICamera camera)
         {
-            Checks.AssertNotNull(camera, nameof(camera));
+            ArgumentChecks.AssertNotNull(camera, nameof(camera));
 
             return new CameraController(camera);
         }

@@ -34,7 +34,7 @@ namespace Geometry.Elements
         /// </summary>
         public Polygon(IEnumerable<Point> corners)
         {
-            Checks.AssertNotNull(corners, nameof(corners));
+            ArgumentChecks.AssertNotNull(corners, nameof(corners));
 
             if (corners.Count() < 3)
             {

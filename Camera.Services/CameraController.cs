@@ -30,7 +30,7 @@ namespace Camera.Services
         /// </summary>
         public CameraController(ICamera camera)
         {
-            Checks.AssertNotNull(camera, nameof(camera));
+            ArgumentChecks.AssertNotNull(camera, nameof(camera));
 
             this.Camera = camera;
         }
@@ -45,7 +45,7 @@ namespace Camera.Services
         /// </summary>
         public void AddEffect(ICameraEffect cameraEffect)
         {
-            Checks.AssertNotNull(cameraEffect, nameof(cameraEffect));
+            ArgumentChecks.AssertNotNull(cameraEffect, nameof(cameraEffect));
 
             if (this._cameraEffects.Contains(cameraEffect))
             {

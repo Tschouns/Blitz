@@ -39,9 +39,9 @@ namespace Camera.Services.CameraEffects
             IButton rotateCameraRightAction,
             double rotationSpeed)
         {
-            Checks.AssertNotNull(rotateCameraLeftAction, nameof(rotateCameraLeftAction));
-            Checks.AssertNotNull(rotateCameraRightAction, nameof(rotateCameraRightAction));
-            Checks.AssertIsPositive(rotationSpeed, nameof(rotationSpeed));
+            ArgumentChecks.AssertNotNull(rotateCameraLeftAction, nameof(rotateCameraLeftAction));
+            ArgumentChecks.AssertNotNull(rotateCameraRightAction, nameof(rotateCameraRightAction));
+            ArgumentChecks.AssertIsPositive(rotationSpeed, nameof(rotationSpeed));
 
             this._rotateCameraLeftAction = inputActionManager.RegisterButtonHoldAction(rotateCameraLeftAction);
             this._rotateCameraRightAction = inputActionManager.RegisterButtonHoldAction(rotateCameraRightAction);

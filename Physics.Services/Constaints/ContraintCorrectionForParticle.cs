@@ -22,7 +22,7 @@ namespace Physics.Services.Constaints
             IParticle particle,
             Vector2 correctionVelocity)
         {
-            Checks.AssertNotNull(particle, nameof(particle));
+            ArgumentChecks.AssertNotNull(particle, nameof(particle));
 
             this.Particle = particle;
             this.CorrectionVelocity = correctionVelocity;

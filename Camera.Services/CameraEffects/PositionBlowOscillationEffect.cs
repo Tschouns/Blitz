@@ -27,7 +27,7 @@ namespace Camera.Services.CameraEffects
         /// </summary>
         public PositionBlowOscillationEffect(IBlowOscillation blowOscillation)
         {
-            Checks.AssertNotNull(blowOscillation, nameof(blowOscillation));
+            ArgumentChecks.AssertNotNull(blowOscillation, nameof(blowOscillation));
 
             this._blowOscillation = blowOscillation;
         }

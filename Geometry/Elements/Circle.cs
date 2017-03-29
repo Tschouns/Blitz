@@ -18,7 +18,7 @@ namespace Geometry.Elements
         /// </summary>
         public Circle(Point center, double radius)
         {
-            Checks.AssertNotNull(radius, nameof(radius));
+            ArgumentChecks.AssertNotNull(radius, nameof(radius));
 
             this.Center = center;
             this.Radius = radius;

@@ -53,8 +53,8 @@ namespace Display.SharpDx.Display
             DisplayProperties properties,
             Action<IDrawingContext> drawCallback)
         {
-            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
-            Checks.AssertNotNull(drawCallback, nameof(drawCallback));
+            ArgumentChecks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
+            ArgumentChecks.AssertNotNull(drawCallback, nameof(drawCallback));
 
             this.Properties = properties;
             this._drawCallback = drawCallback;
@@ -231,7 +231,7 @@ namespace Display.SharpDx.Display
         /// </summary>
         private void InitializeSpriteManager(IBitmapLoader bitmapLoader)
         {
-            Checks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
+            ArgumentChecks.AssertNotNull(bitmapLoader, nameof(bitmapLoader));
 
             this._spriteManager = new SpriteManager(
                 bitmapLoader,

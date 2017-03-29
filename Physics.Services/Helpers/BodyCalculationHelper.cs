@@ -29,7 +29,7 @@ namespace Physics.Services.Helpers
         /// </summary>
         public BodyCalculationHelper(IPolygonTransformationHelper polygonTransformationHelper)
         {
-            Checks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
+            ArgumentChecks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
 
             this.polygonTransformationHelper = polygonTransformationHelper;
         }
@@ -39,7 +39,7 @@ namespace Physics.Services.Helpers
         /// </summary>
         public double CalculateMomentOfInertia(Polygon polygon, Point axis, double mass)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             // We translate the polygon, so that the axis is aligned with the origin (in order to make the formula work).
             var originOffset = GeometryConstants.Origin.GetOffsetFrom(axis);
@@ -57,7 +57,7 @@ namespace Physics.Services.Helpers
         /// </summary>
         public double CalculateMomentOfInertiaAboutOrigin(Polygon polygon, double mass)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var numberOfCorners = polygon.Corners.Count();
             var corners = polygon.Corners.ToList();

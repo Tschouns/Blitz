@@ -34,8 +34,8 @@ namespace Geometry.Services.Helpers
             IPointTransformationHelper pointTransformationHelper,
             IPolygonCalculationHelper polygonCalculationHelper)
         {
-            Checks.AssertNotNull(pointTransformationHelper, nameof(pointTransformationHelper));
-            Checks.AssertNotNull(polygonCalculationHelper, nameof(polygonCalculationHelper));
+            ArgumentChecks.AssertNotNull(pointTransformationHelper, nameof(pointTransformationHelper));
+            ArgumentChecks.AssertNotNull(polygonCalculationHelper, nameof(polygonCalculationHelper));
 
             this._pointTransformationHelper = pointTransformationHelper;
             this._polygonCalculationHelper = polygonCalculationHelper;
@@ -46,7 +46,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Polygon TranslatePolygon(Vector2 offset, Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var newPolygonCorners = this._pointTransformationHelper.TranslatePoints(
                 offset,
@@ -60,7 +60,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Polygon RotatePolygon(Point origin, double angle, Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var newPolygonCorners = this._pointTransformationHelper.RotatePoints(
                 origin,
@@ -75,7 +75,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Polygon CenterOnOrigin(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var centroid = this._polygonCalculationHelper.DetermineCentroid(polygon);
 

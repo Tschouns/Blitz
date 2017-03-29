@@ -22,7 +22,7 @@ namespace Geometry.Services.Algorithms.SupportFunctions
         /// </summary>
         public Point GetSupportPoint(Circle figure, Vector2 direction)
         {
-            Checks.AssertNotNull(figure, nameof(figure));
+            ArgumentChecks.AssertNotNull(figure, nameof(figure));
 
             var normalizedDirection = direction.Norm();
             var supportPointOffsetFromCenter = normalizedDirection.Multiply(figure.Radius);
@@ -37,7 +37,7 @@ namespace Geometry.Services.Algorithms.SupportFunctions
         /// </summary>
         public Point GetFigureOutlinePointClosestToPosition(Circle figure, Point position)
         {
-            Checks.AssertNotNull(figure, nameof(figure));
+            ArgumentChecks.AssertNotNull(figure, nameof(figure));
 
             var directionFromCircleCenterToPosition = position.GetOffsetFrom(figure.Center);
 

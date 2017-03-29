@@ -30,7 +30,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public Point GetIntersectionWithPerpendicularThroughPoint(Line line, Point point)
         {
-            Checks.AssertNotNull(line, nameof(line));
+            ArgumentChecks.AssertNotNull(line, nameof(line));
 
             //// k = ((y2 - y1) * (x3 - x1) - (x2 - x1) * (y3 - y1)) / ((y2 - y1) ^ 2 + (x2 - x1) ^ 2)
             //// x4 = x3 - k * (y2 - y1)

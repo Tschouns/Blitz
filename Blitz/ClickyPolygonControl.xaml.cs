@@ -44,7 +44,7 @@ namespace Blitz
         /// </summary>
         public ClickyPolygonControl(IPolygonCalculationHelper polygonCalculationHelper)
         {
-            Checks.AssertNotNullIfNotDesignMode(polygonCalculationHelper, nameof(polygonCalculationHelper), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(polygonCalculationHelper, nameof(polygonCalculationHelper), this);
 
             this.InitializeComponent();
 
@@ -74,7 +74,7 @@ namespace Blitz
         /// </summary>
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             if (eventArgs.LeftButton == MouseButtonState.Pressed)
             {
@@ -102,7 +102,7 @@ namespace Blitz
         /// </summary>
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             if (this._polygonCorners.Count < 3)
             {

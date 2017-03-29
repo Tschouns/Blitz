@@ -43,9 +43,9 @@ namespace Physics.Services.Forces.FlowResistance
             ISupportFunctions<TShapeFigure> supportFunctions,
             double density)
         {
-            Checks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
-            Checks.AssertNotNull(supportFunctions, nameof(supportFunctions));
-            Checks.AssertIsPositive(density, nameof(density));
+            ArgumentChecks.AssertNotNull(lineCalculationHelper, nameof(lineCalculationHelper));
+            ArgumentChecks.AssertNotNull(supportFunctions, nameof(supportFunctions));
+            ArgumentChecks.AssertIsPositive(density, nameof(density));
 
             this._lineCalculationHelper = lineCalculationHelper;
             this._supportFunctions = supportFunctions;
@@ -70,7 +70,7 @@ namespace Physics.Services.Forces.FlowResistance
         /// </summary>
         public void ApplyToObject(IBody<TShapeFigure> physicalObject)
         {
-            Checks.AssertNotNull(physicalObject, nameof(physicalObject));
+            ArgumentChecks.AssertNotNull(physicalObject, nameof(physicalObject));
 
             var velocity = physicalObject.CurrentState.Velocity;
             if (velocity.SquaredMagnitude() == 0)

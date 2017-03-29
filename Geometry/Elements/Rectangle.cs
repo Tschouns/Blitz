@@ -34,8 +34,8 @@ namespace Geometry.Elements
                   new Point(a.X + width, a.Y + height),
                   new Point(a.X, a.Y + height))
         {
-            Checks.AssertIsPositive(width, nameof(width));
-            Checks.AssertIsPositive(height, nameof(height));
+            ArgumentChecks.AssertIsPositive(width, nameof(width));
+            ArgumentChecks.AssertIsPositive(height, nameof(height));
 
             this.Width = width;
             this.Height = height;

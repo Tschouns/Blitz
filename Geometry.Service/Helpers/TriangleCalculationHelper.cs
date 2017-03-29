@@ -22,7 +22,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public bool IsPointWithinTriangle(Triangle triangle, Point point)
         {
-            Checks.AssertNotNull(triangle, nameof(triangle));
+            ArgumentChecks.AssertNotNull(triangle, nameof(triangle));
 
             var barycentricCoordinates = this.CalculateBarycentricCoordinatesOfPoint(triangle, point);
 
@@ -37,7 +37,7 @@ namespace Geometry.Services.Helpers
         /// </summary>
         public BarycentricCoordinates CalculateBarycentricCoordinatesOfPoint(Triangle triangle, Point point)
         {
-            Checks.AssertNotNull(triangle, nameof(triangle));
+            ArgumentChecks.AssertNotNull(triangle, nameof(triangle));
 
             // Compute barycentric coordinates(u, v, w) for point p with respect to triangle (a, b, c).
             var vector0 = triangle.B.GetOffsetFrom(triangle.A);

@@ -32,7 +32,7 @@ namespace Input.Services.InputAction
         /// </summary>
         public ButtonHitInputAction(IButton button)
         {
-            Checks.AssertNotNull(button, nameof(button));
+            ArgumentChecks.AssertNotNull(button, nameof(button));
 
             this._button = button;
         }

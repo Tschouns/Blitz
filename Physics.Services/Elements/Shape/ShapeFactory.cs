@@ -41,9 +41,9 @@ namespace Physics.Services.Elements.Shape
             IPolygonCalculationHelper polygonCalculationHelper,
             IBodyCalculationHelper bodyCalculationHelper)
         {
-            Checks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
-            Checks.AssertNotNull(polygonCalculationHelper, nameof(polygonCalculationHelper));
-            Checks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
+            ArgumentChecks.AssertNotNull(polygonTransformationHelper, nameof(polygonTransformationHelper));
+            ArgumentChecks.AssertNotNull(polygonCalculationHelper, nameof(polygonCalculationHelper));
+            ArgumentChecks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
 
             this._polygonTransformationHelper = polygonTransformationHelper;
             this._polygonCalculationHelper = polygonCalculationHelper;
@@ -55,7 +55,7 @@ namespace Physics.Services.Elements.Shape
         /// </summary>
         public IRigidShape<Polygon> CreateOriginalPolygonShape(Polygon polygon)
         {
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var areaRepresentingTheVolume = this._polygonCalculationHelper.CalculateArea(polygon);
             var originCenteredPolygon = this._polygonTransformationHelper.CenterOnOrigin(polygon);

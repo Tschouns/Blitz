@@ -39,8 +39,8 @@ namespace Physics.Services.World
             IElementFactory elementFactory,
             IForceFactory forceFactory)
         {
-            Checks.AssertNotNull(elementFactory, nameof(elementFactory));
-            Checks.AssertNotNull(forceFactory, nameof(forceFactory));
+            ArgumentChecks.AssertNotNull(elementFactory, nameof(elementFactory));
+            ArgumentChecks.AssertNotNull(forceFactory, nameof(forceFactory));
 
             this._elementFactory = elementFactory;
             this._forceFactory = forceFactory;
@@ -58,7 +58,7 @@ namespace Physics.Services.World
         /// </summary>
         public void AddForce(ForceSet force)
         {
-            Checks.AssertNotNull(force, nameof(force));
+            ArgumentChecks.AssertNotNull(force, nameof(force));
 
             this._physicalSpace.AddForceForParticles(force.ForParticles);
             this._physicalSpace.AddForceForBodies(force.ForBodies);
@@ -69,7 +69,7 @@ namespace Physics.Services.World
         /// </summary>
         public IParticle SpawnParticle(double mass, Point position)
         {
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
 
             var particle = this._elementFactory.CreateParticle(mass, position);
             this._physicalSpace.AddParticle(particle);
@@ -82,8 +82,8 @@ namespace Physics.Services.World
         /// </summary>
         public IBody<Polygon> SpawnRigidBody(double mass, Polygon polygon, Point position)
         {
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
-            Checks.AssertNotNull(polygon, nameof(polygon));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertNotNull(polygon, nameof(polygon));
 
             var rigidBody = this._elementFactory.CreateRigidBody(mass, polygon, position);
             this._physicalSpace.AddBody(rigidBody);
@@ -96,7 +96,7 @@ namespace Physics.Services.World
         /// </summary>
         public void Step(double time)
         {
-            Checks.AssertIsPositive(time, nameof(time));
+            ArgumentChecks.AssertIsPositive(time, nameof(time));
 
             this._physicalSpace.Step(time);
         }

@@ -19,7 +19,7 @@ namespace Physics.Services.Helpers
         /// </summary>
         public Vector2 CalculateAcceleration(Vector2 appliedForce, double mass)
         {
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
 
             return new Vector2(
                 appliedForce.X / mass,
@@ -51,7 +51,7 @@ namespace Physics.Services.Helpers
         /// </summary>
         public double CalculateAngularAcceleration(double torque, double inertia)
         {
-            Checks.AssertIsStrictPositive(inertia, nameof(inertia));
+            ArgumentChecks.AssertIsStrictPositive(inertia, nameof(inertia));
 
             return torque / inertia;
         }

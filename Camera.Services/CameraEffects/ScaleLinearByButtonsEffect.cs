@@ -56,12 +56,12 @@ namespace Camera.Services.CameraEffects
             double scaleUpperLimit,
             double scaleSpeed)
         {
-            Checks.AssertNotNull(helper, nameof(helper));
-            Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
-            Checks.AssertNotNull(increaseScale, nameof(increaseScale));
-            Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
-            Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
-            Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
+            ArgumentChecks.AssertNotNull(helper, nameof(helper));
+            ArgumentChecks.AssertNotNull(inputActionManager, nameof(inputActionManager));
+            ArgumentChecks.AssertNotNull(increaseScale, nameof(increaseScale));
+            ArgumentChecks.AssertNotNull(decreaseScale, nameof(decreaseScale));
+            ArgumentChecks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
+            ArgumentChecks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
 
             this._helper = helper;
             this._increaseScaleAction = inputActionManager.RegisterButtonHoldAction(increaseScale);

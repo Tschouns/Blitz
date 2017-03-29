@@ -22,8 +22,8 @@ namespace Physics.Forces
             IForce<IParticle> forParticles,
             IForce<IBody<Polygon>> forBodies)
         {
-            Checks.AssertNotNull(forParticles, nameof(forParticles));
-            Checks.AssertNotNull(forBodies, nameof(forBodies));
+            ArgumentChecks.AssertNotNull(forParticles, nameof(forParticles));
+            ArgumentChecks.AssertNotNull(forBodies, nameof(forBodies));
 
             this.ForParticles = forParticles;
             this.ForBodies = forBodies;

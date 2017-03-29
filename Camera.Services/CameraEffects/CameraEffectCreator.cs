@@ -32,7 +32,7 @@ namespace Camera.Services.CameraEffects
         /// </summary>
         public CameraEffectCreator(ICameraEffectHelper cameraEffectHelper)
         {
-            Checks.AssertNotNull(cameraEffectHelper, nameof(cameraEffectHelper));
+            ArgumentChecks.AssertNotNull(cameraEffectHelper, nameof(cameraEffectHelper));
 
             this._cameraEffectHelper = cameraEffectHelper;
         }
@@ -48,11 +48,11 @@ namespace Camera.Services.CameraEffects
             IButton moveCameraRight,
             double movingSpeed)
         {
-            Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
-            Checks.AssertNotNull(moveCameraUp, nameof(moveCameraUp));
-            Checks.AssertNotNull(moveCameraDown, nameof(moveCameraDown));
-            Checks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
-            Checks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
+            ArgumentChecks.AssertNotNull(inputActionManager, nameof(inputActionManager));
+            ArgumentChecks.AssertNotNull(moveCameraUp, nameof(moveCameraUp));
+            ArgumentChecks.AssertNotNull(moveCameraDown, nameof(moveCameraDown));
+            ArgumentChecks.AssertNotNull(moveCameraLeft, nameof(moveCameraLeft));
+            ArgumentChecks.AssertNotNull(moveCameraRight, nameof(moveCameraRight));
 
             return new PositionAbsoluteByButtonsEffect(
                 inputActionManager,
@@ -72,9 +72,9 @@ namespace Camera.Services.CameraEffects
             Func<bool> determineIsExpiredFunc)
             where TFollowed : class
         {
-            Checks.AssertNotNull(followedObject, nameof(followedObject));
-            Checks.AssertNotNull(retrieveCurrentFollowedObjectPositionFunc, nameof(retrieveCurrentFollowedObjectPositionFunc));
-            Checks.AssertNotNull(determineIsExpiredFunc, nameof(determineIsExpiredFunc));
+            ArgumentChecks.AssertNotNull(followedObject, nameof(followedObject));
+            ArgumentChecks.AssertNotNull(retrieveCurrentFollowedObjectPositionFunc, nameof(retrieveCurrentFollowedObjectPositionFunc));
+            ArgumentChecks.AssertNotNull(determineIsExpiredFunc, nameof(determineIsExpiredFunc));
 
             return new PositionFollowEffect<TFollowed>(
                 followedObject,
@@ -93,11 +93,11 @@ namespace Camera.Services.CameraEffects
             double scaleUpperLimit,
             double scaleSpeed)
         {
-            Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
-            Checks.AssertNotNull(increaseScale, nameof(increaseScale));
-            Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
-            Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
-            Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
+            ArgumentChecks.AssertNotNull(inputActionManager, nameof(inputActionManager));
+            ArgumentChecks.AssertNotNull(increaseScale, nameof(increaseScale));
+            ArgumentChecks.AssertNotNull(decreaseScale, nameof(decreaseScale));
+            ArgumentChecks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
+            ArgumentChecks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
 
             return new ScaleLinearByButtonsEffect(
                 this._cameraEffectHelper,
@@ -120,11 +120,11 @@ namespace Camera.Services.CameraEffects
             double scaleUpperLimit,
             double normScaleSpeed)
         {
-            Checks.AssertNotNull(inputActionManager, nameof(inputActionManager));
-            Checks.AssertNotNull(increaseScale, nameof(increaseScale));
-            Checks.AssertNotNull(decreaseScale, nameof(decreaseScale));
-            Checks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
-            Checks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
+            ArgumentChecks.AssertNotNull(inputActionManager, nameof(inputActionManager));
+            ArgumentChecks.AssertNotNull(increaseScale, nameof(increaseScale));
+            ArgumentChecks.AssertNotNull(decreaseScale, nameof(decreaseScale));
+            ArgumentChecks.AssertIsStrictPositive(scaleLowerLimit, nameof(scaleLowerLimit));
+            ArgumentChecks.AssertIsStrictPositive(scaleUpperLimit, nameof(scaleUpperLimit));
             
             return new ScaleExponentialByButtonEffect(
                 this._cameraEffectHelper,

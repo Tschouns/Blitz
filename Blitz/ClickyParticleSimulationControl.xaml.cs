@@ -57,7 +57,7 @@ namespace Blitz
         /// </summary>
         public ClickyParticleSimulationControl(IPhysicsFactory physicsFactory)
         {
-            Checks.AssertNotNullIfNotDesignMode(physicsFactory, nameof(physicsFactory), this);
+            ArgumentChecks.AssertNotNullIfNotDesignMode(physicsFactory, nameof(physicsFactory), this);
 
             this._physicsFactory = physicsFactory;
 
@@ -130,7 +130,7 @@ namespace Blitz
         /// </summary>
         private void RenderigCanvas_Rendering(object sender, RenderingEventArgs eventArgs)
         {
-            Checks.AssertNotNull(eventArgs, nameof(eventArgs));
+            ArgumentChecks.AssertNotNull(eventArgs, nameof(eventArgs));
 
             foreach (var particle in this._particles)
             {

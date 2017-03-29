@@ -41,9 +41,9 @@ namespace Physics.Services.Elements
             IBodyCalculationHelper bodyCalculationHelper,
             IIsaacNewtonHelper isaacNewtonHelper)
         {
-            Checks.AssertNotNull(shapeFactory, nameof(shapeFactory));
-            Checks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
-            Checks.AssertNotNull(isaacNewtonHelper, nameof(isaacNewtonHelper));
+            ArgumentChecks.AssertNotNull(shapeFactory, nameof(shapeFactory));
+            ArgumentChecks.AssertNotNull(bodyCalculationHelper, nameof(bodyCalculationHelper));
+            ArgumentChecks.AssertNotNull(isaacNewtonHelper, nameof(isaacNewtonHelper));
 
             this._shapeFactory = shapeFactory;
             this._bodyCalculationHelper = bodyCalculationHelper;
@@ -63,7 +63,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public IParticle CreateParticle(double mass, Point position)
         {
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
 
             var particle = new Particle(
                 this._isaacNewtonHelper,
@@ -81,7 +81,7 @@ namespace Physics.Services.Elements
         /// </summary>
         public IBody<Polygon> CreateRigidBody(double mass, Polygon polygon, Point position)
         {
-            Checks.AssertIsStrictPositive(mass, nameof(mass));
+            ArgumentChecks.AssertIsStrictPositive(mass, nameof(mass));
 
             var shape = this._shapeFactory.CreateOriginalPolygonShape(polygon);
             var initialState = new BodyState

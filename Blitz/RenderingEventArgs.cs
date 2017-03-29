@@ -19,7 +19,7 @@ namespace Blitz
         /// </summary>
         public RenderingEventArgs(IDrawingHandler drawingHandler)
         {
-            Checks.AssertNotNull(drawingHandler, nameof(drawingHandler));
+            ArgumentChecks.AssertNotNull(drawingHandler, nameof(drawingHandler));
 
             this.DrawingHandler = drawingHandler;
         }

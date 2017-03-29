@@ -35,8 +35,8 @@ namespace Base.InversionOfControl
         /// </summary>
         public void RegisterSingleton(Type interfaceType, Type implementationType)
         {
-            Checks.AssertNotNull(interfaceType, nameof(interfaceType));
-            Checks.AssertNotNull(implementationType, nameof(implementationType));
+            ArgumentChecks.AssertNotNull(interfaceType, nameof(interfaceType));
+            ArgumentChecks.AssertNotNull(implementationType, nameof(implementationType));
 
             this._iocContainer.RegisterType(interfaceType, implementationType, new PerThreadLifetimeManager());
         }
